@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
+@use "primeicons/primeicons.css";
+
+*{
+  font-family: "Inter";
+}
+
+body{
+  margin: 0;
+  background-color: white;
+  min-height: 100vh;
+}
+
+.inter-font{
+  font-family: "Inter";
+}
+
+.playfair-font{
+  font-family: "Playfair";
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./app/themes/fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
+@font-face {
+  font-family: 'Playfair';
+  src: url('./app/themes/fonts/PlayfairDisplay-VariableFont_wght.ttf');
+}

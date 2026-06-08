@@ -1,0 +1,25 @@
+<div id="container-basic-template">
+  <section id="header" class="shadow-xs bg-white flex w-full fixed z-2 h-[6%] px-8 text-sm">
+    <div id="logo-green-forest" class="h-full w-1/9 hover:cursor-pointer logo mr-auto" routerLink=""></div>
+    <div id="buttons-header" class="my-auto flex items-center gap-4 pl-6 border-l border-solid border-(--p-surface-300)">
+      <div id="selector-session" class="hover:cursor-pointer">
+        Iniciar Sesión
+        <i class="pi pi-angle-down"></i>
+        <div id="options-log-in" class="fixed top-[50px] z-10 bg-white -ml-[90px] invisible p-2 rounded-xl shadow-sm">
+          @for(login of this.generalService.portals(); track $index){
+          @if(login.link.loginRequired){
+          <div id="option" [routerLink]="login.link.route" class="flex text-center items-center p-2 rounded-md text-pr-600 hover:cursor-pointer hover:bg-(--p-primary-50)">
+            <span class="flex items-center rounded-sm p-2 mr-3 bg-(--p-primary-100)"><i [class]="login.icon"></i></span>
+            <span class="font-semibold"> {{login.title}} </span>
+          </div>
+          }
+          }
+        </div>
+      </div>
+      <a routerLink="#" pButton size="small">Registrarse</a>
+    </div>
+  </section>
+  <section id="content">
+    <router-outlet></router-outlet>
+  </section>
+</div>
