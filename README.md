@@ -1,2 +1,2 @@
 # proyecto01
-Aplicacion
+Aplicacion Interactive Core
