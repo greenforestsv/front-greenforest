@@ -4,28 +4,27 @@
     <div class="glass glass-down left-0 rounded-full -ml-3xl"></div>
     <div id="hero" class="flex flex-col mr-auto w-full h-[86vh]">
       <div class="container-caption my-auto w-2/3 pl-8">
-        <div id="new-era-green-forest" class="flex items-center relative w-fit z-1 bg-white mb-4 px-4 py-2 rounded-2xl shadow-sm">
+        <div
+          id="new-era-green-forest"
+          class="flex items-center relative w-fit z-1 bg-white mb-4 px-4 py-2 rounded-2xl shadow-sm"
+        >
           <div class="animate-pulse mr-2 w-2 h-2 rounded-full"></div>
-          <span class="font-semibold text-sm text-pr-500">La nueva forma de conectar talento y empresas</span>
+          <span class="font-semibold text-sm text-pr-500"
+            >La nueva forma de conectar talento y empresas</span
+          >
         </div>
         <div id="container-phrase" class="flex flex-col text-6xl">
-          <span class="playfair-font font-black">
-            Mejores decisiones.
-          </span>
-          <span class="playfair-font font-black">
-            Mejor talento.
-          </span>
-          <span class="playfair-font font-black">
-            Mejores Resultados.
-          </span>
+          <span class="playfair-font font-black"> Mejores decisiones. </span>
+          <span class="playfair-font font-black"> Mejor talento. </span>
+          <span class="playfair-font font-black"> Mejores Resultados. </span>
           <span class="complement-info flex font-light max-w-3/4 text-xl my-6 text-sf-500">
-            Conecta con el talento a través de nuestra bolsa de empleo y gestiona todo el ciclo de vida del empleado en
-            una sola plataforma. Somos el ecosistema integral de recursos humanos para reclutamiento, evaluación,
-            gestión de talento y analítica avanzada.
+            Conecta con el talento a través de nuestra bolsa de empleo y gestiona todo el ciclo de
+            vida del empleado en una sola plataforma. Somos el ecosistema integral de recursos
+            humanos para reclutamiento, evaluación, gestión de talento y analítica avanzada.
           </span>
           <div id="CTA-Early" class="CTA flex gap-4">
             <a routerLink="#" pButton size="large">Solución empresarial</a>
-            <a routerLink="/bolsa-empleo" pButton size="large" severity="secondary">Explorar empleos</a>
+            <a routerLink="/empleos" pButton size="large" severity="secondary">Explorar empleos</a>
           </div>
         </div>
       </div>
@@ -34,62 +33,97 @@
   <!-- EMPRESAS DEL SITIO -->
   <div id="companies" class="flex flex-col w-full h-full bg-white z-1">
     <!-- EMPRESAS -->
-    <div class="flex w-3/4 mx-auto ">
-      @if (this.analytics.companies.list!.length > 0 && this.analytics.companies.list!.length < 6 ){ @for(company of this.analytics.companies.list; track $index){
-        <div id="company" class="mx-auto max-w-[150px]">
-        <img loading="lazy" [src]="company.image" [alt]="company.name">
-    </div>
-    }
-    }@else {
-    <p-carousel [value]="this.analytics.companies.list ?? []" [numVisible]="4" , [numScroll]="1" [responsiveOptions]="responsiveOptions"
-      [circular]="true" autoplayInterval="6000">
-      <ng-template let-company #item>
-        <div id="company" class="mx-auto max-w-[150px]">
-          <img loading="lazy" [src]="company.image" [alt]="company.name">
-        </div>
-      </ng-template>
-    </p-carousel>
-    }
-  </div>
-</div>
-<div id="ecosystem" class="bg-white pt-20 pb-10 z-1">
-  <div id="ecosystem-green-forest" class="flex flex-col">
-    <span class="text-pr-500 text-center">ECOSISTEMA COMPLETO</span>
-    <div id="ecosystem-items" class="flex flex-col mt-6 text-center">
-      <span class="font-bold text-4xl">Un bosque de oportunidades,</span>
-      <span class="font-bold text-4xl">tres pilares fundamentales</span>
-      <span class="font-light max-w-3/4 mx-auto text-xl mt-4 text-sf-500">Green Forest unifica la atracción, contratación y gestión del talento
-        en una experiencia fluida tanto para empresas como para candidatos</span>
-    </div>
-
-    @if(this.generalService.portals()){
-    <div id="pilars" class="mx-auto grid grid-cols-3 w-3/4 gap-6 mt-6">
-      @for(pilar of this.generalService.portals(); track $index){
-      <app-card [title]="pilar.title" [description]="pilar.description" [icon]="pilar.icon"
-        [style]="pilar.style" [itemsAdvantage]="pilar.itemsAdvantage" [link]="pilar.link"></app-card>
+    <div class="flex w-3/4 mx-auto">
+      @if (this.analytics.companies.list!.length > 0 && this.analytics.companies.list!.length < 6) {
+        @for (company of this.analytics.companies.list; track $index) {
+          <div id="company" class="mx-auto max-w-[150px]">
+            <img loading="lazy" [src]="company.image" [alt]="company.name" />
+          </div>
+        }
+      } @else {
+        <p-carousel
+          [value]="this.analytics.companies.list ?? []"
+          [numVisible]="4"
+          ,
+          [numScroll]="1"
+          [responsiveOptions]="responsiveOptions"
+          [circular]="true"
+          autoplayInterval="6000"
+        >
+          <ng-template let-company #item>
+            <div id="company" class="mx-auto max-w-[150px]">
+              <img loading="lazy" [src]="company.image" [alt]="company.name" />
+            </div>
+          </ng-template>
+        </p-carousel>
       }
     </div>
-    }
   </div>
-</div>
+  <div id="ecosystem" class="bg-white pt-20 pb-10 z-1">
+    <div id="ecosystem-green-forest" class="flex flex-col">
+      <span class="text-pr-500 text-center">ECOSISTEMA COMPLETO</span>
+      <div id="ecosystem-items" class="flex flex-col mt-6 text-center">
+        <span class="font-bold text-4xl">Un bosque de oportunidades,</span>
+        <span class="font-bold text-4xl">tres pilares fundamentales</span>
+        <span class="font-light max-w-3/4 mx-auto text-xl mt-4 text-sf-500"
+          >Green Forest unifica la atracción, contratación y gestión del talento en una experiencia
+          fluida tanto para empresas como para candidatos</span
+        >
+      </div>
+
+      @if (this.generalService.portals()) {
+        <div id="pilars" class="mx-auto grid grid-cols-3 w-3/4 gap-6 mt-6">
+          @for (pilar of this.generalService.portals(); track $index) {
+            <app-card
+              [title]="pilar.title"
+              [description]="pilar.description"
+              [icon]="pilar.icon"
+              [style]="pilar.style"
+              [itemsAdvantage]="pilar.itemsAdvantage"
+              [link]="pilar.link"
+            ></app-card>
+          }
+        </div>
+      }
+    </div>
+  </div>
 
   <div id="presence" class="z-1 bg-white pt-20 pb-10">
     <div id="presence-green-forest" class="flex flex-col text-center">
       <span class="text-pr-500">PRESENCIA REGIONAL</span>
-      <div id="presence-items" class="flex flex-col mt-6 ">
+      <div id="presence-items" class="flex flex-col mt-6">
         <span class="font-bold text-4xl">Conectando el mejor talento en toda Latinoamérica</span>
-        <span class="font-light max-w-3/4 mx-auto text-xl mt-4 text-sf-500">No importa dónde operes. Nuestra infraestructura está diseñada para escalar contigo, con soporte local y cumplimiento normativo regional.</span>
+        <span class="font-light max-w-3/4 mx-auto text-xl mt-4 text-sf-500"
+          >No importa dónde operes. Nuestra infraestructura está diseñada para escalar contigo, con
+          soporte local y cumplimiento normativo regional.</span
+        >
       </div>
       <div id="flash" class="mx-auto grid grid-cols-5 w-3/4 mt-6">
-        <app-flash-data [legend]="this.analytics.countries.legend" [qty]="this.analytics.countries.qty"
-        [icon]="this.analytics.countries.icon"></app-flash-data>
-        <app-flash-data [legend]="this.analytics.companies.legend" [qty]="this.analytics.companies.qty"
-        [icon]="this.analytics.companies.icon"></app-flash-data>
-        <app-flash-data [legend]="this.analytics.users.legend" [qty]="this.analytics.users.qty"
-        [icon]="this.analytics.users.icon"></app-flash-data>
-        <app-flash-data [legend]="this.analytics.jobs.legend" [qty]="this.analytics.jobs.qty"
-        [icon]="this.analytics.jobs.icon"></app-flash-data>
-        <app-flash-data legend="Soporte local" qtyStrgin="24/7" icon="pi pi-wrench"></app-flash-data>
+        <app-flash-data
+          [legend]="this.analytics.countries.legend"
+          [qty]="this.analytics.countries.qty"
+          [icon]="this.analytics.countries.icon"
+        ></app-flash-data>
+        <app-flash-data
+          [legend]="this.analytics.companies.legend"
+          [qty]="this.analytics.companies.qty"
+          [icon]="this.analytics.companies.icon"
+        ></app-flash-data>
+        <app-flash-data
+          [legend]="this.analytics.users.legend"
+          [qty]="this.analytics.users.qty"
+          [icon]="this.analytics.users.icon"
+        ></app-flash-data>
+        <app-flash-data
+          [legend]="this.analytics.jobs.legend"
+          [qty]="this.analytics.jobs.qty"
+          [icon]="this.analytics.jobs.icon"
+        ></app-flash-data>
+        <app-flash-data
+          legend="Soporte local"
+          qtyStrgin="24/7"
+          icon="pi pi-wrench"
+        ></app-flash-data>
       </div>
     </div>
   </div>

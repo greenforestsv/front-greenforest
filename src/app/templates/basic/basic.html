@@ -1,4 +1,4 @@
-<div id="container-basic-template">
+<div id="container-basic-template" class="flex flex-col min-h-screen">
   <header id="header" class="shadow-xs bg-white flex w-full fixed z-2 h-[6%] px-8 text-sm">
     <div
       id="logo-green-forest"
@@ -35,7 +35,7 @@
       <a routerLink="#" pButton size="small">Registrarse</a>
     </div>
   </header>
-  <section id="content">
+  <section id="content" class="flex-grow pt-[6vh]">
     <router-outlet></router-outlet>
   </section>
   <app-footer></app-footer>

@@ -1,0 +1,57 @@
+<p-card header="Buscar Empleos Disponibles" class="shadow-sm border border-[var(--p-surface-200)]">
+  <div class="flex flex-col gap-6">
+    <div class="flex gap-4 w-full">
+      <input
+        type="text"
+        pInputText
+        placeholder="Puesto, palabras clave o empresa..."
+        class="flex-grow"
+        [(ngModel)]="searchQuery"
+      />
+      <button pButton label="Buscar" icon="pi pi-search" (click)="buscar()"></button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-2">
+        <label class="font-semibold text-sm text-gray-600">Área profesional</label>
+        <p-select
+          [options]="areas"
+          [(ngModel)]="selectedArea"
+          optionLabel="name"
+          placeholder="Selecciona Área"
+          class="w-full"
+        >
+        </p-select>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="font-semibold text-sm text-gray-600">Ubicación</label>
+        <p-select
+          [options]="locations"
+          [(ngModel)]="selectedLocation"
+          optionLabel="name"
+          placeholder="Selecciona Ubicación"
+          class="w-full"
+        >
+        </p-select>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="font-semibold text-sm text-gray-600">
+          Salario: ${{ salaryRange()[0] | number }} - ${{ salaryRange()[1] | number }}
+        </label>
+        <div class="py-2">
+          <p-slider
+            [(ngModel)]="salaryRange"
+            [range]="true"
+            [min]="0"
+            [max]="10000"
+            [step]="500"
+            class="w-full"
+          >
+          </p-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>
