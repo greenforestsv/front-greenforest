@@ -8,7 +8,7 @@ import { JobCardComponent } from '../../../components/job-card/job-card';
   imports: [SearchCardComponent, JobCardComponent],
   templateUrl: './empleos.html',
 })
-export class EmpleosComponent {
+export class Empleos {
   empleos = signal([
     {
       id: 1,
