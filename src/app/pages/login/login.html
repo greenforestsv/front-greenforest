@@ -1,0 +1,33 @@
+<div
+  class="bg-white dark:bg-surface-900 rounded-2xl shadow-lg border border-surface-200 dark:border-surface-700 p-8"
+>
+  <div class="text-center mb-8">
+    <h1 class="text-3xl font-bold">Bienvenido</h1>
+    <p class="text-surface-500 mt-2">Inicia sesión</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-5">
+    <input pInputText formControlName="email" placeholder="correo" class="w-full" />
+
+    <p-password
+      formControlName="password"
+      [toggleMask]="true"
+      [feedback]="false"
+      class="w-full"
+      placeholder="contraseña"
+    >
+    </p-password>
+
+    <div class="flex justify-end">
+      <a routerLink="/recuperar" class="text-sm text-primary hover:underline">
+        ¿Olvidaste tu contraseña?
+      </a>
+    </div>
+
+    <p-button label="Entrar" class="w-full" type="submit"></p-button>
+  </form>
+
+  <div class="text-center mt-6">
+    <a routerLink="/registro" class="text-primary font-semibold hover:underline"> Crear cuenta </a>
+  </div>
+</div>
