@@ -21,8 +21,6 @@ export const AppTheme = definePreset(Aura, {
         },
       },
     },
-    footer: '#081A14',
-
     // Nueva paleta
     brand: {
       deep: '#0d2818',
