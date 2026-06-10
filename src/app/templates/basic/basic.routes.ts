@@ -8,8 +8,11 @@ const routes: Routes = [
   },
   {
     path: 'empleos',
-    loadComponent: () =>
-      import('../../caption/pages/empleos/empleos').then((m) => m.EmpleosComponent),
+    loadComponent: () => import('../../caption/pages/empleos/empleos').then((m) => m.Empleos),
+  },
+  {
+    path: 'empresas',
+    loadComponent: () => import('../../caption/pages/empresas/empresas').then((m) => m.Empresas),
   },
 ];
 
