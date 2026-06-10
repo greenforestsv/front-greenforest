@@ -11,8 +11,9 @@ const routes: Routes = [
     loadComponent: () => import('../../caption/pages/empleos/empleos').then((m) => m.Empleos),
   },
   {
-    path: 'empresas',
-    loadComponent: () => import('../../caption/pages/empresas/empresas').then((m) => m.Empresas),
+    path: 'quienes-somos',
+    loadComponent: () =>
+      import('../../caption/pages/quienes-somos/quienes-somos').then((m) => m.QuieneSomos),
   },
 ];
 
