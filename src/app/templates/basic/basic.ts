@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { generalService } from '../../shared/services/general';
@@ -16,5 +16,16 @@ export class Basic {
 
   constructor() {
     this.generalService.loadDataPortals();
+  }
+
+  // Menú ista de botones de inicio de sesión
+  menuOpen = signal(false);
+
+  toggleMenu() {
+    this.menuOpen.update((v) => !v);
+  }
+
+  closeMenu() {
+    this.menuOpen.set(false);
   }
 }
