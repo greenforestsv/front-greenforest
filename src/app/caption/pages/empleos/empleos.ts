@@ -1,12 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { SearchCardComponent } from '../../../components/search-card/search-card';
 import { JobCardComponent } from '../../../components/job-card/job-card';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-empleos',
   standalone: true,
-  imports: [SearchCardComponent, JobCardComponent],
+  imports: [SearchCardComponent, JobCardComponent, ButtonModule],
   templateUrl: './empleos.html',
+  styleUrl: './empleos.css',
 })
 export class Empleos {
   empleos = signal([
@@ -21,6 +23,7 @@ export class Empleos {
         'Buscamos un desarrollador experto para liderar la migración de microfrontends usando arquitecturas reactivas modernas.',
       tags: ['Angular 22', 'Tailwind', 'TypeScript'],
       fecha: 'Hace 2 días',
+      active: true,
     },
     {
       id: 2,
@@ -33,6 +36,42 @@ export class Empleos {
         'Únete a nuestro equipo creativo para diseñar soluciones complejas SaaS aplicadas a la industria Fintech.',
       tags: ['Figma', 'SaaS', 'Design Systems'],
       fecha: 'Hace 5 días',
+    },
+    {
+      id: 3,
+      puesto: 'Gerente de Marketing',
+      empresa: 'Saasify Global',
+      ubicacion: 'Remoto',
+      modalidad: 'Tiempo Completo',
+      salario: 1800,
+      descripcion:
+        'Encargado de planificar y optimizar estrategias de adquisición de clientes B2B mediante canales digitales.',
+      tags: ['SEO', 'Google Ads', 'Data Analytics'],
+      fecha: 'Ayer',
+    },
+    {
+      id: 3,
+      puesto: 'Gerente de Marketing',
+      empresa: 'Saasify Global',
+      ubicacion: 'Remoto',
+      modalidad: 'Tiempo Completo',
+      salario: 1800,
+      descripcion:
+        'Encargado de planificar y optimizar estrategias de adquisición de clientes B2B mediante canales digitales.',
+      tags: ['SEO', 'Google Ads', 'Data Analytics'],
+      fecha: 'Ayer',
+    },
+    {
+      id: 3,
+      puesto: 'Gerente de Marketing',
+      empresa: 'Saasify Global',
+      ubicacion: 'Remoto',
+      modalidad: 'Tiempo Completo',
+      salario: 1800,
+      descripcion:
+        'Encargado de planificar y optimizar estrategias de adquisición de clientes B2B mediante canales digitales.',
+      tags: ['SEO', 'Google Ads', 'Data Analytics'],
+      fecha: 'Ayer',
     },
     {
       id: 3,
