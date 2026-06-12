@@ -1,11 +1,11 @@
-<div class="flex flex-col items-center justify-center min-h-[80vh] text-center font-sans p-8">
-  <i class="pi pi-exclamation-triangle text-5xl text-yellow-500 mb-6"></i>
-
-  <h1 class="text-5xl font-bold m-0 mb-4 text-gray-800">404</h1>
-
-  <p class="text-xl text-gray-600 m-0 mb-8 max-w-[400px]">
+<div
+  class="flex flex-col items-center justify-center h-screen text-center font-sans p-8 bg-(--p-forest-primary)"
+>
+  <h1 class="text-7xl text-(--p-neutral-white) playfair-font">404</h1>
+  <div id="logo-green-forest" class="hover:cursor-pointer logo" routerLink="/"></div>
+  <p class="text-lg text-(--p-neutral-white) m-0 mb-8 max-w-[400px]">
     Lo sentimos, la página que estás buscando no existe.
   </p>
 
-  <button pButton label="Volver al Inicio" icon="pi pi-home" routerLink="/"></button>
+  <button pButton label="Volver al Inicio" routerLink="/" severity="secondary"></button>
 </div>

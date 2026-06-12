@@ -7,5 +7,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [ButtonModule, RouterLink],
   templateUrl: './not-found.html',
+  styleUrl: './not-found.css',
 })
 export class NotFoundComponent {}
