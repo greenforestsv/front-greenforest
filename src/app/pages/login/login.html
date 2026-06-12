@@ -1,33 +1,37 @@
-<div
-  class="bg-white dark:bg-surface-900 rounded-2xl shadow-lg border border-surface-200 dark:border-surface-700 p-8"
->
+<div class="card-demo">
+  <div id="logo-green-forest" class="hover:cursor-pointer logo mx-auto" routerLink="/"></div>
   <div class="text-center mb-8">
-    <h1 class="text-3xl font-bold">Bienvenido</h1>
-    <p class="text-surface-500 mt-2">Inicia sesión</p>
+    <p class="text-(--p-forest-primary) mt-2 playfair-font text-3xl font-light">Inicia sesión</p>
   </div>
 
-  <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-5">
-    <input pInputText formControlName="email" placeholder="correo" class="w-full" />
-
-    <p-password
-      formControlName="password"
-      [toggleMask]="true"
-      [feedback]="false"
-      class="w-full"
-      placeholder="contraseña"
-    >
-    </p-password>
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-7">
+    <p-floatlabel>
+      <input pInputText id="correo" autocomplete="off" [fluid]="true" />
+      <label for="correo">Correo</label>
+    </p-floatlabel>
+    <p-floatlabel class="w-full">
+      <p-password
+        inputId="password"
+        formControlName="password"
+        [toggleMask]="true"
+        [feedback]="false"
+        class="w-full"
+        [fluid]="true"
+      />
+      <label for="password">Contraseña</label>
+    </p-floatlabel>
 
     <div class="flex justify-end">
-      <a routerLink="/recuperar" class="text-sm text-primary hover:underline">
-        ¿Olvidaste tu contraseña?
-      </a>
+      <p-button label="¿Olvidaste tu contraseña?" routerLink="/" link />
     </div>
 
-    <p-button label="Entrar" class="w-full" type="submit"></p-button>
+    <p-button label="Iniciar Sesión" type="submit" [fluid]="true" />
   </form>
 
-  <div class="text-center mt-6">
-    <a routerLink="/registro" class="text-primary font-semibold hover:underline"> Crear cuenta </a>
+  <div class="text-center">
+    <p>
+      ¿No tenés una cuenta?
+      <p-button label="Crear cuenta" routerLink="/" link />
+    </p>
   </div>
 </div>
