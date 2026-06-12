@@ -1,22 +1,41 @@
 <!-- HERO -->
-<div class="hero bg-(--p-brand-deep)" id="overview">
-  <p class="hero-eyebrow text-(--p-brand-lite)">
-    Green Forest — Plataforma de Inteligencia de Talento
-  </p>
-  <h1 class="text-(--p-neutral-white)">
-    <em class="text-(--p-brand-lite) italic">Quienes</em><br />
-    somos
-  </h1>
-  <p class="hero-sub">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua.
-  </p>
+<div class="hero flex items-center" id="overview">
+  <div class="flex flex-col gap-6">
+    <div
+      id="new-era-green-forest"
+      class="flex items-center relative w-fit z-1 bg-white mb-4 px-4 py-2 rounded-2xl shadow-sm"
+    >
+      <div class="animate-pulse mr-2 w-2 h-2 rounded-full"></div>
+      <span class="font-semibold text-sm text-pr-500"
+        >Una plataforma para empresas y para personas</span
+      >
+    </div>
+
+    <h1 class="text-6xl">
+      Propuesta de<br />
+      <em class="text-(--p-forest-lite) italic">valor dual</em>
+    </h1>
+    <p class="hero-sub">
+      Somos el ecosistema integral de recursos humanos para reclutamiento, evaluación, gestión de
+      talento y analítica avanzada.
+    </p>
+    <div class="flex gap-4">
+      <p-button
+        size="large"
+        label="Registro de Empresas"
+        variant="outlined"
+        routerLink="/quienes-somos"
+      />
+      <p-button size="large" label="Registro de Candidatos" routerLink="/empleos" />
+    </div>
+  </div>
 </div>
 
 <!-- MISIÓN Y VISIÓN -->
 <div class="content-section">
+  <div class="content-section-label">Misión y Visión</div>
   <div class="mission-vision-grid">
-    <div class="mv-card bg-(--p-brand-primary)">
+    <div class="mv-card bg-(--p-forest-primary)">
       <p class="mv-label">Misión</p>
       <p class="mv-text">
         Transformar la forma en que empresas y profesionales se conectan en Centroamérica,
@@ -24,7 +43,7 @@
         evaluaciones objetivas y privacidad con control.
       </p>
     </div>
-    <div class="mv-card bg-(--p-brand-deep)">
+    <div class="mv-card bg-(--p-forest-deep)">
       <p class="mv-label">Visión</p>
       <p class="mv-text">
         Ser la plataforma líder en Latinoamérica que transforma la gestión del talento a través de
@@ -39,8 +58,8 @@
 <div class="content-section">
   <div class="content-section-label">Cómo funciona</div>
   <div class="content-two-col">
-    <div class="content-col bg-(--p-brand-primary)">
-      <p class="col-eyebrow text-(--p-brand-pale)">Soy empleado / profesional</p>
+    <div class="content-col bg-(--p-forest-primary)">
+      <p class="col-eyebrow text-(--p-forest-pale)">Soy empleado / profesional</p>
       <p class="col-title text-(--p-neutral-white)">Construí tu historial. Controlá tu carrera.</p>
       <ul class="col-list">
         <li>
@@ -61,8 +80,8 @@
         <li><strong>Gratis:</strong> Siempre. Sin planes, sin límites de uso básico.</li>
       </ul>
     </div>
-    <div class="content-col bg-(--p-brand-deep)">
-      <p class="col-eyebrow text-(--p-gold-default)">Soy empresa / empleador</p>
+    <div class="content-col bg-(--p-forest-deep)">
+      <p class="col-eyebrow text-(--p-gold-primary)">Soy empresa / empleador</p>
       <p class="col-title text-(--p-neutral-white)">Contratá con certeza. Gestioná con datos.</p>
       <ul class="col-list">
         <li>
@@ -136,64 +155,4 @@
 </div>
 
 <!-- PLANES -->
-<div class="content-section">
-  <div class="content-section-label">Planes empresariales</div>
-  <div class="plans-mini-grid">
-    <div class="plan-mini">
-      <div class="plan-mini-header bg-(--p-brand-mid)">
-        <p class="plan-mini-type">Empleado</p>
-        <p class="text-(--p-neutral-white)">Free</p>
-        <p class="plan-mini-price">Siempre gratis</p>
-      </div>
-      <ul class="plan-mini-list">
-        <li>Perfil profesional completo</li>
-        <li>Historial laboral verificado</li>
-        <li>Búsqueda de empleo</li>
-        <li>Ver reputación de empresas</li>
-        <li>Control de privacidad</li>
-      </ul>
-    </div>
-    <div class="plan-mini">
-      <div class="plan-mini-header bg-(--p-brand-primary)">
-        <p class="plan-mini-type">Empresa</p>
-        <p class="text-(--p-neutral-white)">Básico</p>
-        <p class="plan-mini-price">Plan mensual</p>
-      </div>
-      <ul class="plan-mini-list">
-        <li>Perfil verificado de empresa</li>
-        <li>Publicar vacantes</li>
-        <li>Gestión de aplicaciones</li>
-        <li>Búsqueda básica de talento</li>
-        <li>Hasta 5 vacantes activas</li>
-      </ul>
-    </div>
-    <div class="plan-mini">
-      <div class="plan-mini-header bg-(--p-brand-deep)">
-        <p class="plan-mini-type">Empresa</p>
-        <p class="text-(--p-neutral-white)">Pro</p>
-        <p class="plan-mini-price">Plan mensual premium</p>
-      </div>
-      <ul class="plan-mini-list">
-        <li>Todo lo del plan Básico</li>
-        <li>Módulo HR SaaS completo</li>
-        <li>Planilla y reportes</li>
-        <li>Alertas de ascenso</li>
-        <li>Vacantes ilimitadas</li>
-      </ul>
-    </div>
-    <div class="plan-mini">
-      <div class="plan-mini-header bg-(--p-neutral-black)">
-        <p class="plan-mini-type">Empresa</p>
-        <p class="text-(--p-neutral-white)">Enterprise</p>
-        <p class="plan-mini-price">Contrato anual</p>
-      </div>
-      <ul class="plan-mini-list">
-        <li>Todo lo del plan Pro</li>
-        <li>API e integraciones</li>
-        <li>Analítica avanzada</li>
-        <li>Soporte dedicado</li>
-        <li>Dashboard ejecutivo</li>
-      </ul>
-    </div>
-  </div>
-</div>
+<pricing-planes></pricing-planes>

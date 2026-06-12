@@ -1,75 +1,33 @@
 /* ─── HERO ─── */
+
 .hero {
-  /* background: var(--gf-deep); */
   padding: 80px 60px 72px;
   position: relative;
   overflow: hidden;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  right: -80px;
-  top: -80px;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(82, 183, 136, 0.07) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-eyebrow {
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  /* color: var(--gf-light); */
-  margin-bottom: 20px;
+  height: 94vh;
 }
 .hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(42px, 6vw, 72px);
+  font-family: 'Playfair', serif;
   font-weight: 300;
-  /* color: var(--white); */
   line-height: 1;
   letter-spacing: -1px;
   position: relative;
   z-index: 1;
 }
 .hero h1 em {
-  font-family: 'Cormorant Garamond', serif;
-  /* color: var(--gf-light);
-  font-style: italic; */
+  font-family: 'Playfair', serif;
 }
 .hero-sub {
-  font-size: 15px;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 18px;
   max-width: 540px;
   position: relative;
   z-index: 1;
 }
-.hero-meta {
-  display: flex;
-  gap: 32px;
-  margin-top: 44px;
-  position: relative;
-  z-index: 1;
-  flex-wrap: wrap;
-}
-.hero-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.hero-stat-val {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: var(--gf-light);
-}
-.hero-stat-lbl {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.3);
+
+.my-badge {
+  background-color: #fff;
+  color: var(--p-forest-lite);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.08);
 }
 
 /* ─── CONTENIDO DE PÁGINAS ─── */
@@ -114,7 +72,7 @@
   margin-bottom: 10px;
 }
 .col-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair', serif;
   font-size: 22px;
   font-weight: 300;
   line-height: 1.2;
@@ -138,7 +96,7 @@
   content: '→';
   position: absolute;
   left: 0;
-  color: /* var(--p-brand-light) */ #52b788;
+  color: #52b788;
   font-size: 11px;
 }
 
@@ -166,7 +124,7 @@
   margin-bottom: 10px;
 }
 .mv-text {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair', serif;
   font-size: 18px;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.85);
@@ -236,7 +194,7 @@
   margin-bottom: 4px;
 }
 .plan-mini-name {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair', serif;
   font-size: 22px;
   font-weight: 300;
   line-height: 1;
@@ -265,7 +223,76 @@
   content: '—';
   position: absolute;
   left: 0;
-  color: /* var(--p-brand-light) */ #52b788;
+  color: #52b788;
   font-size: 10px;
   top: 2px;
+}
+
+/* BOTONES */
+
+.ui-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+}
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  border: 1.5px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+}
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  text-decoration: none;
 }
