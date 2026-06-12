@@ -1,6 +1,6 @@
 #element {
   .icon {
-    background-color: var(--p-primary-200);
+    background-color: var(--p-forest-pale);
     filter: brightness(1.1);
     transition: all 300ms ease-in-out;
 
@@ -12,7 +12,6 @@
 
   #data {
     .title {
-      font-size: calc(var(--p-font-size-xl) * .6);
       margin-bottom: var(--p-spacing-min);
     }
   }
