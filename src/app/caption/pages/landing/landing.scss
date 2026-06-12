@@ -5,27 +5,10 @@ span {
 
 #landing-container {
   #hero-green-forest {
-    background-image: radial-gradient(var(--p-primary-200) 1px, transparent 1px);
-    background-size: 24px 24px;
-
-    .glass {
-      filter: blur(100px);
-      opacity: 0.25;
-      mix-blend-mode: multiply;
-      position: absolute;
-      width: 48rem;
-      height: 48rem;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .glass-up {
-      background-color: var(--p-primary-200);
-    }
-
-    .glass-down {
-      background-color: rgb(203, 225, 253);
-    }
+    background-color: white;
+    background-position: center;
+    background-size: cover;
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0), white), url('/bosque.png');
 
     #hero {
       .container-caption {
@@ -41,7 +24,11 @@ span {
               color: var(--p-primary-500);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
-              background-image: linear-gradient(to right, var(--p-primary-500), var(--p-primary-300));
+              background-image: linear-gradient(
+                to right,
+                var(--p-primary-500),
+                var(--p-primary-300)
+              );
             }
           }
 
@@ -57,11 +44,17 @@ span {
   }
 }
 
-
-.text-pr-500{
+.text-pr-500 {
   color: var(--p-primary-500);
 }
 
-.text-sf-500{
-  color: var(--p-surface-500);
+.hero-sub {
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin-top: 18px;
+  max-width: 540px;
+  position: relative;
+  z-index: 1;
+  line-height: 1.2;
+  margin-bottom: 10px;
 }

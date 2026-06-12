@@ -2,8 +2,8 @@
   <div id="hero-green-forest">
     <div class="glass glass-up top-0 right-0 rounded-full"></div>
     <div class="glass glass-down left-0 rounded-full -ml-3xl"></div>
-    <div id="hero" class="flex flex-col mr-auto w-full h-[86vh]">
-      <div class="container-caption my-auto w-2/3 pl-8">
+    <div id="hero" class="flex flex-col mr-auto w-full h-[94vh]">
+      <div class="container-caption my-auto w-2/3 pl-24">
         <div
           id="new-era-green-forest"
           class="flex items-center relative w-fit z-1 bg-white mb-4 px-4 py-2 rounded-2xl shadow-sm"
@@ -14,30 +14,37 @@
           >
         </div>
         <div id="container-phrase" class="flex flex-col text-6xl">
-          <span class="playfair-font font-black"> Mejores decisiones. </span>
-          <span class="playfair-font font-black"> Mejor talento. </span>
-          <span class="playfair-font font-black"> Mejores Resultados. </span>
-          <span class="complement-info flex font-light max-w-3/4 text-xl my-6 text-sf-500">
+          <h1 class="playfair-font font-light">
+            Mejores decisiones.<br />
+            Mejor talento.<br />
+            <em class="text-(--p-forest-lite) italic playfair-font">Mejores Resultados.</em>
+          </h1>
+          <p class="hero-sub">
             Conecta con el talento a través de nuestra bolsa de empleo y gestiona todo el ciclo de
             vida del empleado en una sola plataforma. Somos el ecosistema integral de recursos
             humanos para reclutamiento, evaluación, gestión de talento y analítica avanzada.
-          </span>
+          </p>
           <div id="CTA-Early" class="CTA flex gap-4">
-            <a routerLink="/quienes-somos" pButton size="large">Solución empresarial</a>
-            <a routerLink="/empleos" pButton size="large" severity="secondary">Explorar empleos</a>
+            <p-button
+              size="large"
+              label="Solución empresarial"
+              variant="outlined"
+              routerLink="/quienes-somos"
+            />
+            <p-button size="large" label="Explorar empleos" routerLink="/empleos" />
           </div>
         </div>
       </div>
     </div>
   </div>
   <!-- EMPRESAS DEL SITIO -->
-  <div id="companies" class="flex flex-col w-full h-full bg-white z-1">
+  <div id="companies" class="flex flex-col w-full h-full bg-white z-1 pt-20">
     <!-- EMPRESAS -->
     <div class="flex w-3/4 mx-auto">
       @if (this.analytics.companies.list!.length > 0 && this.analytics.companies.list!.length < 6) {
         @for (company of this.analytics.companies.list; track $index) {
           <div id="company" class="mx-auto max-w-[150px]">
-            <img loading="lazy" [src]="company.image" [alt]="company.name" />
+            <img loading="lazy" [src]="company.image" [alt]="company.name" class="opacity-55" />
           </div>
         }
       } @else {
@@ -52,7 +59,7 @@
         >
           <ng-template let-company #item>
             <div id="company" class="mx-auto max-w-[150px]">
-              <img loading="lazy" [src]="company.image" [alt]="company.name" />
+              <img loading="lazy" [src]="company.image" [alt]="company.name" class="opacity-55" />
             </div>
           </ng-template>
         </p-carousel>
@@ -63,12 +70,16 @@
     <div id="ecosystem-green-forest" class="flex flex-col">
       <span class="text-pr-500 text-center">ECOSISTEMA COMPLETO</span>
       <div id="ecosystem-items" class="flex flex-col mt-6 text-center">
-        <span class="font-bold text-4xl">Un bosque de oportunidades,</span>
-        <span class="font-bold text-4xl">tres pilares fundamentales</span>
-        <span class="font-light max-w-3/4 mx-auto text-xl mt-4 text-sf-500"
-          >Green Forest unifica la atracción, contratación y gestión del talento en una experiencia
-          fluida tanto para empresas como para candidatos</span
-        >
+        <h2 class="text-4xl playfair-font">
+          Un bosque de oportunidades,<br /><em class="italic playfair-font text-(--p-forest-lite)"
+            >tres pilares fundamentales</em
+          >
+        </h2>
+
+        <p class="font-light max-w-3/4 mx-auto mb-4 mt-4">
+          Green Forest unifica la atracción, contratación y gestión del talento en una experiencia
+          fluida tanto para empresas como para candidatos
+        </p>
       </div>
 
       @if (this.generalService.portals()) {
@@ -92,11 +103,14 @@
     <div id="presence-green-forest" class="flex flex-col text-center">
       <span class="text-pr-500">PRESENCIA REGIONAL</span>
       <div id="presence-items" class="flex flex-col mt-6">
-        <span class="font-bold text-4xl">Conectando el mejor talento en toda Latinoamérica</span>
-        <span class="font-light max-w-3/4 mx-auto text-xl mt-4 text-sf-500"
-          >No importa dónde operes. Nuestra infraestructura está diseñada para escalar contigo, con
-          soporte local y cumplimiento normativo regional.</span
-        >
+        <h2 class="playfair-font text-4xl">
+          Conectando el mejor talento<br />
+          <em class="italic playfair-font text-(--p-forest-lite)">en toda Latinoamérica</em>
+        </h2>
+        <p class="font-light max-w-3/4 mx-auto mb-4 mt-4">
+          No importa dónde operés. Nuestra infraestructura está diseñada para escalar contigo, con
+          soporte local y cumplimiento normativo regional.
+        </p>
       </div>
       <div id="flash" class="mx-auto grid grid-cols-5 w-3/4 mt-6">
         <app-flash-data
