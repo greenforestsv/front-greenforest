@@ -5,21 +5,13 @@ import { SelectModule } from 'primeng/select';
 import { SliderModule } from 'primeng/slider';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'search-card',
   standalone: true,
-  imports: [
-    FormsModule,
-    InputTextModule,
-    SelectModule,
-    SliderModule,
-    ButtonModule,
-    CardModule,
-    DecimalPipe,
-  ],
+  imports: [FormsModule, InputTextModule, SelectModule, SliderModule, ButtonModule, CardModule],
   templateUrl: './search-card.html',
+  styleUrl: './search-card.css',
 })
 export class SearchCardComponent {
   searchQuery = model('');

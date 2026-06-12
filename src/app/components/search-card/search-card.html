@@ -1,57 +1,34 @@
-<p-card header="Buscar Empleos Disponibles" class="shadow-sm border border-[var(--p-surface-200)]">
+<p-card class="shadow-sm border border-(--p-surface-200)">
   <div class="flex flex-col gap-6">
+    <h1 class="text-3xl inter-font text-(--p-forest-primary)">
+      Vacantes <em class="italic playfair-font text-(--p-forest-mid)">verificadas</em>
+    </h1>
     <div class="flex gap-4 w-full">
       <input
         type="text"
         pInputText
-        placeholder="Puesto, palabras clave o empresa..."
-        class="flex-grow"
+        placeholder="Puesto, palabras clave o empresa"
+        class="grow"
         [(ngModel)]="searchQuery"
+        size="small"
       />
-      <button pButton label="Buscar" icon="pi pi-search" (click)="buscar()"></button>
+      <p-button label="Buscar" (click)="buscar()" />
     </div>
+    <!-- FILTROS -->
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="flex flex-col gap-2">
-        <label class="font-semibold text-sm text-gray-600">Área profesional</label>
-        <p-select
-          [options]="areas"
-          [(ngModel)]="selectedArea"
-          optionLabel="name"
-          placeholder="Selecciona Área"
-          class="w-full"
-        >
-        </p-select>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label class="font-semibold text-sm text-gray-600">Ubicación</label>
-        <p-select
-          [options]="locations"
-          [(ngModel)]="selectedLocation"
-          optionLabel="name"
-          placeholder="Selecciona Ubicación"
-          class="w-full"
-        >
-        </p-select>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label class="font-semibold text-sm text-gray-600">
-          Salario: ${{ salaryRange()[0] | number }} - ${{ salaryRange()[1] | number }}
-        </label>
-        <div class="py-2">
-          <p-slider
-            [(ngModel)]="salaryRange"
-            [range]="true"
-            [min]="0"
-            [max]="10000"
-            [step]="500"
-            class="w-full"
-          >
-          </p-slider>
-        </div>
-      </div>
+    <div class="filters-demo">
+      <div class="filter-chip active-chip">Todas las áreas</div>
+      <div class="filter-chip">Tecnología</div>
+      <div class="filter-chip">Administración</div>
+      <div class="filter-chip">Ventas</div>
+      <div class="filter-chip">Recursos Humanos</div>
+      <div class="filter-chip">Operaciones</div>
+      <div class="filter-chip">Finanzas</div>
+    </div>
+    <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap">
+      <div class="filter-select">Salario ▾</div>
+      <div class="filter-select">Ubicación ▾</div>
+      <div class="filter-select">Tipo de contrato ▾</div>
     </div>
   </div>
 </p-card>
