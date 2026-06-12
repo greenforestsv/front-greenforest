@@ -1,45 +1,19 @@
 <div id="container-basic-template" class="flex flex-col min-h-screen">
-  <header id="header" class="shadow-xs bg-white flex w-full fixed z-2 h-[6%] px-8 text-sm">
+  <header id="header" class="shadow-xs bg-white flex w-full fixed z-2 h-[9%] px-8 text-sm">
     <div
       id="logo-green-forest"
-      class="h-full w-1/9 hover:cursor-pointer logo mr-auto"
+      class="h-full w-1/9 hover:cursor-pointer logo mr-auto mt-2"
       routerLink=""
     ></div>
+    <div class="my-auto flex items-center">
+      <p-button label="Portal de Empresas" variant="outlined" routerLink="/login" />
+    </div>
     <div
       id="buttons-header"
-      class="my-auto flex items-center gap-4 pl-6 border-l border-solid border-(--p-surface-300)"
+      class="my-auto flex items-center gap-4 ml-4 pl-4 border-l border-solid border-(--p-surface-300)"
     >
-      <div id="selector-session" class="relative cursor-pointer" (click)="toggleMenu()">
-        Iniciar Sesión
-        <i class="pi pi-angle-down"></i>
-
-        @if (menuOpen()) {
-          <div
-            id="options-log-in"
-            class="absolute top-full left-0 mt-2 bg-white p-2 rounded-xl shadow-lg z-50 min-w-[200px]"
-            (mouseleave)="closeMenu()"
-          >
-            @for (login of generalService.portals(); track $index) {
-              @if (login.link.loginRequired) {
-                <a
-                  routerLink="/login"
-                  class="flex items-center p-2 rounded-md hover:bg-(--p-primary-50) cursor-pointer"
-                  (click)="closeMenu()"
-                >
-                  <span class="p-2 mr-3 bg-(--p-primary-100) rounded-sm">
-                    <i [class]="login.icon"></i>
-                  </span>
-
-                  <span class="font-semibold">
-                    {{ login.title }}
-                  </span>
-                </a>
-              }
-            }
-          </div>
-        }
-      </div>
-      <a routerLink="/registro" pButton size="small">Registrarse</a>
+      <p-button label="Portal de Candidatos" variant="outlined" routerLink="/login" />
+      <p-button label="Registrate" routerLink="/registro" />
     </div>
   </header>
   <section id="content" class="flex-grow pt-[6vh]">
