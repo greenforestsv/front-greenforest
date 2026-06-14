@@ -5,7 +5,6 @@ import { Component, signal } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './mision-vision.html',
-  styleUrl: './mision-vision.css',
 })
 export class MisionVision {
   misionVision = signal([

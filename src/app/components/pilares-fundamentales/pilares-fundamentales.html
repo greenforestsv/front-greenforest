@@ -1,0 +1,32 @@
+<section id="ecosystem" class="pb-10 z-1 pt-20">
+  <div id="ecosystem-green-forest" class="flex flex-col">
+    <h3 class="text-pr-500 text-center inter-font">ECOSISTEMA COMPLETO</h3>
+    <div id="ecosystem-items" class="flex flex-col mt-6 text-center">
+      <h2 class="text-4xl">
+        Un bosque de oportunidades,<br /><em class="italic text-(--p-forest-lite)"
+          >tres pilares fundamentales</em
+        >
+      </h2>
+
+      <p class="font-light max-w-3/4 mx-auto mb-4 mt-4">
+        Green Forest unifica la atracción, contratación y gestión del talento en una experiencia
+        fluida tanto para empresas como para candidatos
+      </p>
+    </div>
+
+    @if (this.generalService.portals()) {
+      <div id="pilars" class="mx-auto grid grid-cols-3 w-3/4 gap-6 mt-6">
+        @for (pilar of this.generalService.portals(); track $index) {
+          <app-card
+            [title]="pilar.title"
+            [description]="pilar.description"
+            [icon]="pilar.icon"
+            [style]="pilar.style"
+            [itemsAdvantage]="pilar.itemsAdvantage"
+            [link]="pilar.link"
+          ></app-card>
+        }
+      </div>
+    }
+  </div>
+</section>

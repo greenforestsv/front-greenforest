@@ -1,19 +1,25 @@
-<section class="py-16 px-6 w-full background">
+<section class="pt-6 pb-16 px-6 w-full background">
   <div class="max-w-7xl mx-auto">
     <div class="flex rounded-l-md rounded-r-md bg-white border border-gray-100">
       <!-- MISIÓN -->
-      <div class="p-8 border-r border-gray-300">
-        <h2 class="text-(--p-forest-mid) pb-4 text-2xl text-center">
+      <div class="p-8 border-r border-gray-300 flex flex-col items-center gap-4">
+        <div class="size-16 rounded-full bg-(--p-forest-mid) flex justify-center items-center">
+          <i class="pi pi-eye" style="color: #fff; font-size: 1.5rem; font-weight: 300"></i>
+        </div>
+        <h2 class="text-(--p-forest-mid) text-3xl text-center">
           {{ misionVision()[0].titulo }}
         </h2>
-        <p class="text-gray-700 leading-relaxed mb-6">{{ misionVision()[0].descripcion }}</p>
+        <p class="text-gray-700 leading-relaxed">{{ misionVision()[0].descripcion }}</p>
       </div>
       <!-- VISIÓN -->
-      <div class="p-8">
-        <h2 class="text-(--p-forest-mid) pb-4 text-2xl text-center">
+      <div class="p-8 flex flex-col items-center gap-4">
+        <div class="size-16 rounded-full bg-(--p-forest-mid) flex justify-center items-center">
+          <i class="pi pi-flag" style="color: #fff; font-size: 1.5rem; font-weight: 300"></i>
+        </div>
+        <h2 class="text-(--p-forest-mid) text-3xl text-center">
           {{ misionVision()[1].titulo }}
         </h2>
-        <p class="text-gray-700 leading-relaxed mb-6">{{ misionVision()[1].descripcion }}</p>
+        <p class="text-gray-700 leading-relaxed">{{ misionVision()[1].descripcion }}</p>
       </div>
     </div>
   </div>
