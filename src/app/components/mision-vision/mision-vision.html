@@ -1,0 +1,20 @@
+<section class="py-16 px-6 w-full background">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex rounded-l-md rounded-r-md bg-white border border-gray-100">
+      <!-- MISIÓN -->
+      <div class="p-8 border-r border-gray-300">
+        <h2 class="text-(--p-forest-mid) pb-4 text-2xl text-center">
+          {{ misionVision()[0].titulo }}
+        </h2>
+        <p class="text-gray-700 leading-relaxed mb-6">{{ misionVision()[0].descripcion }}</p>
+      </div>
+      <!-- VISIÓN -->
+      <div class="p-8">
+        <h2 class="text-(--p-forest-mid) pb-4 text-2xl text-center">
+          {{ misionVision()[1].titulo }}
+        </h2>
+        <p class="text-gray-700 leading-relaxed mb-6">{{ misionVision()[1].descripcion }}</p>
+      </div>
+    </div>
+  </div>
+</section>

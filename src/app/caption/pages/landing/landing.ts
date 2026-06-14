@@ -8,10 +8,19 @@ import { ButtonModule } from 'primeng/button';
 import { Analytics } from '../../interfaces/interface';
 import { RouterLink } from '@angular/router';
 import { TestimoniosComponent } from '../../../components/testimonios/testimonios';
+import { MisionVision } from '../../../components/mision-vision/mision-vision';
 
 @Component({
   selector: 'app-landing',
-  imports: [Card, FlashData, CarouselModule, ButtonModule, RouterLink, TestimoniosComponent],
+  imports: [
+    Card,
+    FlashData,
+    CarouselModule,
+    ButtonModule,
+    RouterLink,
+    TestimoniosComponent,
+    MisionVision,
+  ],
   templateUrl: './landing.html',
   styleUrl: './landing.scss',
 })
