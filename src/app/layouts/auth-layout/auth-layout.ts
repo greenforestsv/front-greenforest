@@ -6,10 +6,8 @@ import { RouterOutlet } from '@angular/router';
   selector: 'auth-layout',
   imports: [RouterOutlet],
   template: `
-    <div class="min-h-screen flex items-center justify-center bg-surface-50">
-      <div class="w-full max-w-md">
-        <router-outlet />
-      </div>
+    <div class="min-h-screen w-full">
+      <router-outlet />
     </div>
   `,
 })
