@@ -6,7 +6,7 @@
     var(--p-primary-600),
     var(--p-primary-500)
   );
-  transform: translateY(-10px);
+  /*  transform: translateY(-10px); */
   color: white;
 
   .icon-float {
@@ -16,7 +16,8 @@
   }
 
   &:hover {
-    transform: translateY(0);
+    /* transform: translateY(0); */
+    transform: translateY(-5px);
 
     .icon-float {
       i {
@@ -25,8 +26,8 @@
     }
   }
 
-  #icon {
-    border: solid 1px var(--p-primary-200);
+  .icon {
+    /* border: solid 1px var(--p-primary-200); */
     backdrop-filter: brightness(1.15);
 
     i {
@@ -51,6 +52,7 @@
 }
 
 .secondary {
+  height: 100%;
   background-color: white;
   .icon-float {
     i {
@@ -68,9 +70,9 @@
     }
   }
 
-  #icon {
+  .icon {
     background-color: var(--p-primary-50);
-    border: solid 1px var(--p-primary-100);
+    /* border: solid 1px var(--p-primary-100); */
 
     i {
       color: var(--p-primary-600);

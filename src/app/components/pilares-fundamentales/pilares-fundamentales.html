@@ -1,7 +1,7 @@
-<section id="ecosystem" class="pb-10 z-1 pt-20">
-  <div id="ecosystem-green-forest" class="flex flex-col">
-    <h3 class="text-pr-500 text-center inter-font">ECOSISTEMA COMPLETO</h3>
-    <div id="ecosystem-items" class="flex flex-col mt-6 text-center">
+<section class="pb-10 z-1 pt-20 max-w-[1180px] mx-auto">
+  <div class="flex flex-col">
+    <span class="text-pr-500 text-center">ECOSISTEMA COMPLETO</span>
+    <div class="flex flex-col mt-6 text-center">
       <h2 class="text-4xl">
         Un bosque de oportunidades,<br /><em class="italic text-(--p-forest-lite)"
           >tres pilares fundamentales</em
@@ -15,7 +15,7 @@
     </div>
 
     @if (this.generalService.portals()) {
-      <div id="pilars" class="mx-auto grid grid-cols-3 gap-6 mt-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
         @for (pilar of this.generalService.portals(); track $index) {
           <app-card
             [title]="pilar.title"
