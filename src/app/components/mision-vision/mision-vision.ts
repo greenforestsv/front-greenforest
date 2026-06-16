@@ -10,13 +10,15 @@ export class MisionVision {
   misionVision = signal([
     {
       titulo: 'Nuestra Misión',
+      icono: 'pi-bullseye',
       descripcion:
-        'Transformar la forma en que empresas y profesionales se conectan en Centroamérica, construyendo una capa de confianza sobre el mercado laboral a través de datos verificados, evaluaciones objetivas y privacidad con control.',
+        'Conectar talento con oportunidades y empoderar a las organizaciones para tomar mejores decisiones con tecnología ética, datos confiables y compromiso humano.',
     },
     {
       titulo: 'Nuestra Visión',
+      icono: 'pi-eye',
       descripcion:
-        'Ser la plataforma líder en Latinoamérica que transforma la gestión del talento a través de inteligencia artificial, evaluaciones objetivas y un historial laboral confiable — donde el talento crece y las historias perduran.',
+        'Ser la plataforma líder en Latinoamérica que transforma la gestión del talento mediante inteligencia artificial, evaluaciones objetivas y un historial laboral confiable.',
     },
   ]);
 
