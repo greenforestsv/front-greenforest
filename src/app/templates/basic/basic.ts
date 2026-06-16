@@ -1,5 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { generalService } from '../../shared/services/general';
 import { ButtonModule } from 'primeng/button';
@@ -8,7 +7,7 @@ import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-basic',
-  imports: [RouterLink, RouterOutlet, ButtonModule, FooterComponent, Header],
+  imports: [RouterOutlet, ButtonModule, FooterComponent, Header],
   templateUrl: './basic.html',
   styleUrl: './basic.scss',
 })
@@ -17,15 +16,5 @@ export class Basic {
 
   constructor() {
     this.generalService.loadDataPortals();
-  }
-
-  menuOpen = signal(false);
-
-  toggleMenu() {
-    this.menuOpen.update((v) => !v);
-  }
-
-  closeMenu() {
-    this.menuOpen.set(false);
   }
 }
