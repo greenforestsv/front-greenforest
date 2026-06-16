@@ -1,35 +1,6 @@
 <div id="landing-container" class="flex flex-col h-full">
   <app-hero></app-hero>
-  <!-- EMPRESAS DEL SITIO -->
-  <div id="companies" class="flex flex-col w-full h-full bg-white z-1 pt-20">
-    <!-- EMPRESAS -->
-    <div class="flex w-3/4 mx-auto">
-      @if (this.analytics.companies.list!.length > 0 && this.analytics.companies.list!.length < 6) {
-        @for (company of this.analytics.companies.list; track $index) {
-          <div id="company" class="mx-auto max-w-[150px]">
-            <img loading="lazy" [src]="company.image" [alt]="company.name" class="opacity-55" />
-          </div>
-        }
-      } @else {
-        <p-carousel
-          [value]="this.analytics.companies.list ?? []"
-          [numVisible]="4"
-          ,
-          [numScroll]="1"
-          [responsiveOptions]="responsiveOptions"
-          [circular]="true"
-          autoplayInterval="6000"
-        >
-          <ng-template let-company #item>
-            <div id="company" class="mx-auto max-w-[150px]">
-              <img loading="lazy" [src]="company.image" [alt]="company.name" class="opacity-55" />
-            </div>
-          </ng-template>
-        </p-carousel>
-      }
-    </div>
-  </div>
-
+  <app-empresas></app-empresas>
   <div id="presence" class="z-1 bg-white pt-20 pb-10">
     <div id="presence-green-forest" class="flex flex-col text-center">
       <span class="text-pr-500">PRESENCIA REGIONAL</span>
