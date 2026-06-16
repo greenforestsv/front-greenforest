@@ -1,23 +1,7 @@
-<div id="container-basic-template" class="flex flex-col min-h-screen">
-  <header id="header" class="shadow-xs bg-white flex w-full fixed z-2 h-[9%] px-8 text-sm">
-    <div
-      id="logo-green-forest"
-      class="h-full w-1/9 hover:cursor-pointer logo mr-auto mt-2"
-      routerLink=""
-    ></div>
-    <div class="my-auto flex items-center">
-      <p-button label="Portal de Empresas" variant="outlined" routerLink="/login" />
-    </div>
-    <div
-      id="buttons-header"
-      class="my-auto flex items-center gap-4 ml-4 pl-4 border-l border-solid border-(--p-surface-300)"
-    >
-      <p-button label="Portal de Candidatos" variant="outlined" routerLink="/login" />
-      <p-button label="Registrate" routerLink="/registro" />
-    </div>
-  </header>
-  <section id="content" class="flex-grow pt-[6vh]">
+<div class="flex flex-col min-h-screen max-w-[1180px] mx-auto">
+  <app-header></app-header>
+  <main id="content" class="grow">
     <router-outlet></router-outlet>
-  </section>
+  </main>
   <app-footer></app-footer>
 </div>

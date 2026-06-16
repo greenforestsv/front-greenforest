@@ -4,10 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { generalService } from '../../shared/services/general';
 import { ButtonModule } from 'primeng/button';
 import { FooterComponent } from '../../components/footer/footer';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-basic',
-  imports: [RouterLink, RouterOutlet, ButtonModule, FooterComponent],
+  imports: [RouterLink, RouterOutlet, ButtonModule, FooterComponent, Header],
   templateUrl: './basic.html',
   styleUrl: './basic.scss',
 })
@@ -18,7 +19,6 @@ export class Basic {
     this.generalService.loadDataPortals();
   }
 
-  // Menú ista de botones de inicio de sesión
   menuOpen = signal(false);
 
   toggleMenu() {

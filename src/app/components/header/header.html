@@ -1,0 +1,72 @@
+<header class="sticky top-0 z-50 bg-white backdrop-blur rounded-3xl shadow-sm">
+  <div class="mx-auto px-6">
+    <div class="flex h-18 items-center justify-between">
+      <!-- Logo -->
+      <div class="h-full flex items-center">
+        <div
+          class="logo h-[50px] w-[150px] flex items-center justify-center shrink-0 cursor-pointer"
+          routerLink="/"
+        ></div>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-3">
+        <p-button
+          label="Portal de Empresas"
+          routerLink="/login"
+          variant="outlined"
+          routerLinkActive="bg-(--p-forest-lite) text-white"
+        />
+        <p-button
+          label="Portal de Candidatos"
+          routerLink="/login"
+          variant="outlined"
+          routerLinkActive="bg-(--p-forest-lite) text-white"
+        />
+        <p-button label="Registrate" routerLink="/registro" />
+      </nav>
+
+      <!-- Mobile Button -->
+      <p-button
+        (onClick)="menuOpen = !menuOpen"
+        [icon]="menuOpen ? 'pi pi-times' : 'pi pi-bars'"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        class="md:hidden"
+        ariaLabel="Abrir menú"
+      />
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (menuOpen) {
+      <nav class="md:hidden py-4 border-t border-gray-100">
+        <div class="flex flex-col gap-2">
+          <a
+            routerLink="/login"
+            (click)="menuOpen = false"
+            class="px-4 py-3 rounded-lg hover:bg-gray-100"
+          >
+            Portal de Empresas
+          </a>
+
+          <a
+            routerLink="/login"
+            (click)="menuOpen = false"
+            class="px-4 py-3 rounded-lg hover:bg-gray-100"
+          >
+            Portal de Candidatos
+          </a>
+
+          <a
+            routerLink="/registrate"
+            (click)="menuOpen = false"
+            class="px-4 py-3 rounded-lg hover:bg-gray-100"
+          >
+            Registrate
+          </a>
+        </div>
+      </nav>
+    }
+  </div>
+</header>
