@@ -1,11 +1,36 @@
+export const forest = {
+  mist: '#D8F3DC',
+  pale: '#a8c5a3',
+  lite: '#2e7d53',
+  mid: '#1e4b38',
+  primary: '#0f2e23',
+  deep: '#0D2818',
+};
+
+export const gold = {
+  primary: '#C9A84C',
+  lite: '#E8D5A3',
+};
+
+export const neutral = {
+  cream: '#F5F0E8',
+  white: '#fff',
+  black: '#0a1a10',
+  ink: '#1a1a1a',
+};
+
 export const primary = {
   50: '#eaf8f3',
-  100: '#f2f5f2',
-  200: '#a8c5a3',
-  300: '#2e7d53',
-  400: '#1e4b38',
-  500: '#0F2E23'
-}
+  100: forest.mist,
+  200: forest.mist,
+  300: forest.pale,
+  400: forest.lite,
+  500: forest.mid,
+  600: forest.primary,
+  700: forest.deep,
+  800: '#122e22',
+  900: '#0d2219',
+};
 
 export const surface = {
   0: '#ffffff',
@@ -19,7 +44,7 @@ export const surface = {
   700: '#4d4d4d',
   800: '#353535',
   900: '#222222',
-}
+};
 
 export const darkSurface = {
   0: '#06130c',
@@ -33,4 +58,4 @@ export const darkSurface = {
   700: '#c5ecd5',
   800: '#ecf9f1',
   900: '#f1f9fb',
-}
+};
