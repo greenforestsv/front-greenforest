@@ -4,10 +4,10 @@ import { CaptionService } from '../../services/caption-service';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { Analytics } from '../../interfaces/interface';
-import { RouterLink } from '@angular/router';
 import { TestimoniosComponent } from '../../../components/testimonios/testimonios';
 import { MisionVision } from '../../../components/mision-vision/mision-vision';
 import { PilaresFundamentales } from '../../../components/pilares-fundamentales/pilares-fundamentales';
+import { Hero } from '../../../components/hero/hero';
 
 @Component({
   selector: 'app-landing',
@@ -15,7 +15,7 @@ import { PilaresFundamentales } from '../../../components/pilares-fundamentales/
     FlashData,
     CarouselModule,
     ButtonModule,
-    RouterLink,
+    Hero,
     TestimoniosComponent,
     MisionVision,
     PilaresFundamentales,
