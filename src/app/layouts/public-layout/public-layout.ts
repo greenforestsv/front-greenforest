@@ -2,16 +2,15 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { generalService } from '../../shared/services/general';
 import { ButtonModule } from 'primeng/button';
-import { FooterComponent } from '../../components/footer/footer';
 import { Header } from '../../components/header/header';
+import { FooterComponent } from '../../components/footer/footer';
 
 @Component({
-  selector: 'app-basic',
+  selector: 'public-layout',
   imports: [RouterOutlet, ButtonModule, FooterComponent, Header],
-  templateUrl: './basic.html',
-  styleUrl: './basic.scss',
+  templateUrl: './public-layout.html',
 })
-export class Basic {
+export class PublicLayout {
   generalService: generalService = inject(generalService);
 
   constructor() {

@@ -1,12 +1,9 @@
 import { Routes } from '@angular/router';
 import { AUTH_ROUTES } from './layouts/auth-layout/auth.routes';
+import { PUBLIC_ROUTES } from './layouts/public-layout/public-layout.routes';
 
 export const routes: Routes = [
-  {
-    path: '',
-    loadComponent: () => import('./templates/basic/basic').then((m) => m.Basic),
-    loadChildren: () => import('./templates/basic/basic.routes').then((m) => m.BasicRouter),
-  },
+  ...PUBLIC_ROUTES,
   ...AUTH_ROUTES,
   {
     path: '**',
