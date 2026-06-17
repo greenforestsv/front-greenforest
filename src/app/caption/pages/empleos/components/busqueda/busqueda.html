@@ -1,0 +1,102 @@
+<section class="search-options bg-white rounded-3xl p-6 shadow-sm">
+  <!-- Search bars -->
+  <div class="flex flex-col md:flex-row gap-4 w-full">
+    <p-iconfield class="flex-1">
+      <p-inputicon class="pi pi-search" />
+      <input
+        pInputText
+        pSize="large"
+        id="buscar"
+        [(ngModel)]="busqueda"
+        autocomplete="off"
+        fluid="true"
+        placeholder="Ej. Desarrollador, Analista, Diseñador"
+      />
+    </p-iconfield>
+    <p-iconfield class="flex-1">
+      <p-inputicon class="pi pi-map-marker" />
+      <input
+        pInputText
+        pSize="large"
+        id="buscar"
+        [(ngModel)]="ubicacion"
+        autocomplete="off"
+        fluid="true"
+        placeholder="Ubicación"
+      />
+    </p-iconfield>
+    <p-button label="Buscar vacantes" size="large" class="shrink-0" />
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters flex flex-wrap gap-4 mt-4">
+    <div class="w-full md:w-56">
+      <p-select
+        [(ngModel)]="selectedCity"
+        inputId="area"
+        [options]="cities"
+        optionLabel="name"
+        class="w-full"
+        [showClear]="true"
+        placeholder="Área"
+      />
+    </div>
+
+    <div class="w-full md:w-56">
+      <p-select
+        [(ngModel)]="selectedCity"
+        inputId="area"
+        [options]="cities"
+        optionLabel="name"
+        class="w-full"
+        [showClear]="true"
+        placeholder="Salario"
+      />
+    </div>
+    <div class="w-full md:w-56">
+      <p-select
+        [(ngModel)]="selectedCity"
+        inputId="area"
+        [options]="cities"
+        optionLabel="name"
+        class="w-full"
+        [showClear]="true"
+        placeholder="Modalidad"
+      />
+    </div>
+    <div class="w-full md:w-56">
+      <p-select
+        [(ngModel)]="selectedCity"
+        inputId="area"
+        [options]="cities"
+        optionLabel="name"
+        class="w-full"
+        [showClear]="true"
+        placeholder="Experiencia"
+      />
+    </div>
+    <div class="w-full md:w-56">
+      <p-select
+        [(ngModel)]="selectedCity"
+        inputId="area"
+        [options]="cities"
+        optionLabel="name"
+        class="w-full"
+        [showClear]="true"
+        placeholder="Jornada"
+      />
+    </div>
+    <div class="w-full md:w-56">
+      <p-select
+        [(ngModel)]="selectedCity"
+        inputId="area"
+        [options]="cities"
+        optionLabel="name"
+        class="w-full"
+        [showClear]="true"
+        placeholder="Tipo de contrato"
+      />
+    </div>
+    <p-button label="Limpiar filtros" severity="secondary" />
+  </div>
+</section>

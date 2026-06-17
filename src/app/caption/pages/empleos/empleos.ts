@@ -1,12 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { SearchCardComponent } from '../../../components/search-card/search-card';
-import { JobCardComponent } from '../../../components/job-card/job-card';
 import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
+import { Hero } from './components/hero/hero';
+import { Busqueda } from './components/busqueda/busqueda';
 
 @Component({
   selector: 'app-empleos',
   standalone: true,
-  imports: [SearchCardComponent, JobCardComponent, ButtonModule],
+  imports: [ButtonModule, AvatarModule, Hero, Busqueda],
   templateUrl: './empleos.html',
   styleUrl: './empleos.css',
 })
