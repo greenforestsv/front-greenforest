@@ -39,7 +39,14 @@ em {
   font-family: 'Playfair', serif;
 }
 
-.p-button-outlined {
-  /*   #94b2a0  */
-  border: 1px solid var(--p-forest-pale) !important;
+button.p-button-outlined {
+  border: 1px solid var(--p-forest-primary);
+}
+
+button.p-button {
+  border-radius: 0.75rem;
+}
+
+input.p-inputtext {
+  border-radius: 0.75rem;
 }
