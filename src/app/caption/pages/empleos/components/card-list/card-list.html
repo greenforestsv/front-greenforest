@@ -1,0 +1,47 @@
+<div class="pr-1 overflow-y-auto max-h-[600px]">
+  <div class="flex justify-between items-center p-4 rounded-3xl bg-white shadow-sm">
+    <h2 class="inter-font text-sm"><strong>12 vacantes disponibles </strong></h2>
+    <p-button
+      label="Crear alerta"
+      icon="pi pi-bell"
+      size="small"
+      variant="outlined"
+      [style]="{ borderColor: 'var(--p-forest-mid)' }"
+    />
+  </div>
+  <div class="bg-white shadow-sm flex flex-col gap-3 my-2 overflow-y-auto p-4 rounded-3xl">
+    @for (empleo of empleos(); track empleo.id; let i = $index) {
+      <div
+        class="card border rounded-3xl p-4 pr-13 relative hover:shadow-md transition-all duration-200 hover:border-(--p-forest-lite) cursor-pointer"
+        [class.border-(--p-forest-lite)]="i === 0"
+        [class.shadow-sm]="i === 0"
+        [class.border-1]="i === 0"
+        [class.border-gray-300]="i !== 0"
+      >
+        <p-button
+          icon="pi pi-ellipsis-v"
+          aria-label="Opciones"
+          [text]="true"
+          class="absolute top-4 right-2"
+          size="small"
+        />
+        <div class="flex gap-4 items-center">
+          <p-avatar label="G" class="mr-2" size="xlarge" />
+          <div>
+            <h3 class="text-lg">Desarrollador Angular Senior</h3>
+            <h4 class="inter-font text-sm mb-2 text-(--p-forest-mid)">Green Forest</h4>
+            <div class="flex flex-col gap-1 text-sm font-light">
+              <span>
+                <i class="pi pi-map-marker" style="font-size: 0.8rem"></i> San Salvador, El Salvador
+              </span>
+              <div class="flex gap-6">
+                <span>$1,500 - $2,000</span>
+                <span><i class="pi pi-desktop" style="font-size: 0.8rem"></i> Remoto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
