@@ -7,7 +7,14 @@ export const AUTH_ROUTES: Routes = [
     children: [
       {
         path: 'login',
-        loadComponent: () => import('../../pages/login/login').then((m) => m.Login),
+        loadComponent: () => import('../../pages/auth/login/login').then((m) => m.Login),
+      },
+      {
+        path: 'registro-candidato',
+        loadComponent: () =>
+          import('../../pages/auth/registro-candidato/registro-candidato').then(
+            (m) => m.RegistroCandidato,
+          ),
       },
     ],
   },

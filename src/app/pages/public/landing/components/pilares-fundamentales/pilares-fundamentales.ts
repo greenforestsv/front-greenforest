@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Card } from '../../caption/components/card/card';
-import { generalService } from '../../shared/services/general';
+import { Card } from '../card/card';
+import { generalService } from '../../../../../shared/services/general';
 
 @Component({
   selector: 'pilares-fundamentales',
   imports: [Card],
   templateUrl: './pilares-fundamentales.html',
-  styleUrl: '../../caption/pages/landing/landing.scss',
+  styleUrl: '../../landing.scss',
 })
 export class PilaresFundamentales {
   generalService: generalService = inject(generalService);

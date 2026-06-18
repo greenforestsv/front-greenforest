@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { generalService } from '../../shared/services/general';
 import { ButtonModule } from 'primeng/button';
-import { Header } from '../../components/header/header';
-import { FooterComponent } from '../../components/footer/footer';
+import { Header } from '../../shared/components/header/header';
+import { FooterComponent } from '../../shared/components/footer/footer';
 
 @Component({
   selector: 'public-layout',

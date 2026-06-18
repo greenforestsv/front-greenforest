@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
-import { Analytics } from '../../caption/interfaces/interface';
-import { CaptionService } from '../../caption/services/caption-service';
+import { Analytics } from '../../../../../caption/interfaces/interface';
+import { CaptionService } from '../../../../../caption/services/caption-service';
 
 @Component({
   selector: 'app-empresas',

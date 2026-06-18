@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { Analytics } from '../../caption/interfaces/interface';
-import { CaptionService } from '../../caption/services/caption-service';
+import { Analytics } from '../../../../../caption/interfaces/interface';
+import { CaptionService } from '../../../../../caption/services/caption-service';
 
 @Component({
   selector: 'app-estadisticas',
