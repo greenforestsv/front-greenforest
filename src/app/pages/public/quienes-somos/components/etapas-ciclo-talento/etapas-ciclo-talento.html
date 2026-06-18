@@ -1,0 +1,35 @@
+<section class="py-16 mx-auto font-sans max-w-[1180px]">
+  <div class="text-center mb-12">
+    <span
+      class="text-xs bg-white py-2 px-3 rounded-full text-(--p-forest-mid) font-bold w-fit shadow-md before:content-[''] before:inline-block before:size-2 before:rounded-full before:bg-(--p-forest-mid) before:mr-2"
+      >Cómo generamos valor para ambos</span
+    >
+    <h2 class="mt-6 text-5xl text-gray-950 mb-3">Valor en cada etapa del ciclo de talento</h2>
+  </div>
+
+  <p-table
+    id="tabla-etapas"
+    [value]="etapas"
+    showGridlines
+    [tableStyle]="{ 'font-size': '0.75rem', 'min-width': '50rem' }"
+  >
+    <ng-template #header>
+      <tr>
+        <th style="background: var(--p-forest-mist)">Etapa</th>
+        <th style="background: var(--p-forest-mist)">Descubrir</th>
+        <th style="background: var(--p-forest-mist)">Evaluar</th>
+        <th style="background: var(--p-forest-mist)">Contratar/Postular</th>
+        <th style="background: var(--p-forest-mist)">Crecer</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-etapa>
+      <tr>
+        <td class="font-bold">{{ etapa.etapa }}</td>
+        <td>{{ etapa.descubrir }}</td>
+        <td>{{ etapa.evaluar }}</td>
+        <td>{{ etapa.contratarPostular }}</td>
+        <td>{{ etapa.crecer }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

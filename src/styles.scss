@@ -62,3 +62,9 @@ ul li {
 .p-avatar.p-avatar-xl {
   border-radius: 1rem;
 }
+
+#tabla-etapas .p-datatable,
+#tabla-etapas .p-datatable-table-container {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
