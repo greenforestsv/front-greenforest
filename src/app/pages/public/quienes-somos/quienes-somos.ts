@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PricingPlanes } from '../../../components/pricing-planes/pricing-planes';
+import { PricingPlanes } from './components/pricing-planes/pricing-planes';
 import { ButtonModule } from 'primeng/button';
 
 @Component({

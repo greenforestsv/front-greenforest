@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { RouterLink } from '@angular/router';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
@@ -9,7 +8,7 @@ import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-candidato',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -20,10 +19,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     FloatLabelModule,
   ],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  templateUrl: './login-candidato.html',
+  styleUrl: './login-candidato.css',
 })
-export class Login {
+export class LoginCandidato {
   value: string | undefined;
 
   private fb = inject(FormBuilder);
