@@ -7,7 +7,7 @@
 
 body {
   margin: 0;
-  background-color: #f2f5f2;
+  background-color: var(--p-forest-cream);
   min-height: 100vh;
 }
 
@@ -67,4 +67,8 @@ ul li {
 #tabla-etapas .p-datatable-table-container {
   border-radius: 1.5rem;
   overflow: hidden;
+}
+
+#logout-btn-dark .p-button:hover {
+  background-color: rgba(239, 68, 68, 0.3);
 }

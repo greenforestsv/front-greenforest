@@ -1,4 +1,5 @@
 export const forest = {
+  cream: '#f2f5f2',
   mist: '#D8F3DC',
   pale: '#a8c5a3',
   lite: '#2e7d53',

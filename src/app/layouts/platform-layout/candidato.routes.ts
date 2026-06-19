@@ -4,7 +4,7 @@ export const CANDIDATO_ROUTES: Routes = [
   {
     path: 'candidato',
 
-    loadComponent: () => import('./candidato-layout').then((m) => m.CandidatoLayout),
+    loadComponent: () => import('./platform-layout').then((m) => m.PlatformLayout),
     children: [
       {
         path: '',
