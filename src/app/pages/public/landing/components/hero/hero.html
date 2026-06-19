@@ -1,21 +1,17 @@
-<section class="flex mt-32 mb-24 gap-12 max-w-[1180px] mx-auto">
+<section class="flex flex-col lg:flex-row mt-32 mb-24 gap-12 max-w-[1180px] mx-auto px-4 lg:px-0">
   <div class="flex flex-col gap-4 justify-center">
-    <span
-      class="text-xs bg-white py-2 px-3 rounded-full text-(--p-forest-mid) font-bold w-fit shadow-md before:content-[''] before:inline-block before:size-2 before:rounded-full before:bg-(--p-forest-mid) before:mr-2"
-    >
-      La nueva forma de conectar talento y empresas
-    </span>
-    <h1 class="font-medium text-7xl">
+    <span class="badge"> La nueva forma de conectar talento y empresas </span>
+    <h1 class="font-medium text-4xl md:text-5xl lg:text-7xl">
       Mejores decisiones.<br />
       Mejor talento.<br />
       <em class="text-(--p-forest-lite) italic">Mejores Resultados.</em>
     </h1>
-    <p class="">
+    <p class="text-sm md:text-base">
       Conecta con el talento a través de nuestra bolsa de empleo y gestiona todo el ciclo de vida
       del empleado en una sola plataforma. Somos el ecosistema integral de recursos humanos para
       reclutamiento, evaluación, gestión de talento y analítica avanzada.
     </p>
-    <div class="flex gap-4">
+    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
       <p-button size="large" label="Explorar empleos" routerLink="/empleos" />
       <p-button
         size="large"
@@ -28,7 +24,7 @@
     </div>
   </div>
   <div>
-    <div class="hero-image relative flex flex-col justify-end">
+    <div class="hero-image relative flex flex-col justify-end lg:min-w-[540px]">
       <div
         class="text-(--p-forest-mid) bg-white absolute top-8 left-8 p-3 rounded-2xl text-xs font-bold flex gap-2 items-center"
       >
@@ -42,20 +38,20 @@
         Evaluaciones objetivas
       </div>
       <div
-        class="text-(--p-forest-mid) bg-white absolute bottom-45 right-6 p-3 rounded-2xl text-xs font-bold flex gap-2 items-center"
+        class="text-(--p-forest-mid) bg-white absolute bottom-110 sm:bottom-45 right-6 p-3 rounded-2xl text-xs font-bold flex gap-2 items-center"
       >
         <i class="pi pi-shield" style="font-size: 1.1rem"></i>
         Historial verificable
       </div>
-      <div class="bg-gray-50 rounded-3xl p-6 relative bottom-8 left-8 w-sm shadow-sm">
+      <div class="bg-gray-50 rounded-3xl p-6 absolute bottom-8 left-1 lg:left-8 w-sm shadow-sm">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-2xl font-bold">Resumen de talento</h3>
+          <h3 class="text-xl sm:text-2xl font-bold">Resumen de talento</h3>
           <span
             class="text-xs bg-(--p-forest-mist) py-1 px-2 rounded-full text-(--p-forest-mid) font-bold"
             >Datos en vivo</span
           >
         </div>
-        <div class="w-full flex gap-2">
+        <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
           <div class="flex flex-col rounded-2xl border p-2 border-gray-300 bg-white w-full">
             <span class="text-xs">Candidatos</span>
             <span class="font-bold text-lg">25,600</span>
