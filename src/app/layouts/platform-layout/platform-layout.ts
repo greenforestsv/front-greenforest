@@ -23,12 +23,18 @@ export class PlatformLayout {
     },
     {
       id: 2,
+      icono: 'pi-id-card',
+      nombre: 'Mi CV',
+      ruta: '/candidato/curriculum',
+    },
+    {
+      id: 3,
       icono: 'pi-send',
       nombre: 'Mis postulaciones',
       ruta: '/candidato/postulaciones',
     },
     {
-      id: 3,
+      id: 4,
       icono: 'pi-heart',
       nombre: 'Mis favoritos',
       ruta: '/candidato/favoritos',

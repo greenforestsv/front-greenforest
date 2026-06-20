@@ -16,6 +16,11 @@ export const CANDIDATO_ROUTES: Routes = [
         loadComponent: () =>
           import('../../pages/candidato/dashboard/dashboard').then((m) => m.Dashboard),
       },
+      {
+        path: 'curriculum',
+        loadComponent: () =>
+          import('../../pages/candidato/curriculum/curriculum').then((m) => m.Curriculum),
+      },
     ],
   },
 ];
