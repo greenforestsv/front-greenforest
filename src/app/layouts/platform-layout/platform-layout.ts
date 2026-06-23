@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { AvatarModule } from 'primeng/avatar';
+import { AuthService } from '../../auth/services/auth';
 
 @Component({
   standalone: true,
@@ -43,9 +44,15 @@ export class PlatformLayout {
   ]);
 
   usuario = signal({
-    nombre: 'Juan Pérez',
+    nombre: 'Mary Jane',
     imagenAvatar: '',
   });
 
-  logout() {}
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login-candidato']);
+  }
 }
