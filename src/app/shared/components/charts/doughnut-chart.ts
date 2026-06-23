@@ -1,14 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import {
-  Component,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  ChangeDetectorRef,
-  input,
-  effect,
-  computed,
-} from '@angular/core';
+import { Component, inject, PLATFORM_ID, input, computed } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 export interface ChartItem {
@@ -22,70 +13,58 @@ export interface ChartItem {
   standalone: true,
   imports: [ChartModule],
   template: `
-    @if (data) {
+    @if (chartConfig(); as config) {
       <div class="relative">
-        <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
-        <span class="font-bold absolute top-1/2 right-[52.5%] text-lg lg:text-xl"
-          >Total {{ total() }}</span
-        >
+        <p-chart type="doughnut" [data]="config.data" [options]="config.options"></p-chart>
+        <span class="font-bold absolute top-1/2 right-[52.5%] text-lg lg:text-xl">
+          Total {{ total() }}
+        </span>
       </div>
     }
   `,
 })
-export class DoughnutChart implements OnInit {
+export class DoughnutChart {
+  private platformId = inject(PLATFORM_ID);
+
+  // 1. Inputs reactivos
   chartData = input.required<ChartItem[]>();
-  tituloTooltip = input<string>();
+  tituloTooltip = input<string>('');
 
-  total = computed(() => {
-    return this.chartData().reduce((acc, item) => acc + item.value, 0);
-  });
+  // 2. Estado derivado simple
+  total = computed(() => this.chartData().reduce((acc, item) => acc + item.value, 0));
 
-  data: any;
-  options: any;
+  // 3. El secreto: Todo el gráfico es una única señal computada reactiva
+  chartConfig = computed(() => {
+    // Si estamos en el servidor (SSR), evitamos procesar Chart.js para que no rompa
+    if (!isPlatformBrowser(this.platformId)) return null;
 
-  platformId = inject(PLATFORM_ID);
-  cd = inject(ChangeDetectorRef);
+    const items = this.chartData();
+    const tooltipText = this.tituloTooltip();
 
-  constructor() {
-    // Cada vez que cambie el valor del input, recalculamos el gráfico automáticamente
-    effect(() => {
-      const items = this.chartData();
-      const tooltip = this.tituloTooltip();
+    if (!items || items.length === 0) return null;
 
-      if (items && items.length > 0) {
-        const labels = items.map((item) => item.label);
-        const values = items.map((item) => item.value);
-        const colors = items.map((item) => item.color);
+    const labels = items.map((item) => item.label);
+    const values = items.map((item) => item.value);
+    const colors = items.map((item) => item.color);
 
-        this.initChart(values, labels, colors, tooltip);
-      }
-    });
-  }
-
-  ngOnInit() {}
-
-  initChart(numericData: number[], labels: string[], colors: string[], tituloTooltip?: string) {
-    if (isPlatformBrowser(this.platformId)) {
-      const textColor = '#000000';
-
-      this.data = {
+    return {
+      data: {
         labels: labels,
         datasets: [
           {
             borderWidth: 0,
-            data: numericData,
+            data: values,
             backgroundColor: colors,
           },
         ],
-      };
-
-      this.options = {
+      },
+      options: {
         cutout: '60%',
         plugins: {
           legend: {
             position: 'right',
             labels: {
-              color: textColor,
+              color: '#000000',
               usePointStyle: true,
               font: { weight: '500' },
             },
@@ -94,10 +73,8 @@ export class DoughnutChart implements OnInit {
             usePointStyle: true,
             borderWidth: 0,
             callbacks: {
-              label: function (context: any) {
-                return ` ${context.label}: ${context.raw} ${tituloTooltip || ''}`;
-              },
-              labelColor: function (context: any) {
+              label: (context: any) => ` ${context.label}: ${context.raw} ${tooltipText}`,
+              labelColor: (context: any) => {
                 const backgroundColor = context.dataset.backgroundColor[context.dataIndex];
                 return {
                   borderColor: backgroundColor,
@@ -109,9 +86,7 @@ export class DoughnutChart implements OnInit {
           },
         },
         maintainAspectRatio: false,
-      };
-
-      this.cd.markForCheck();
-    }
-  }
+      },
+    };
+  });
 }
