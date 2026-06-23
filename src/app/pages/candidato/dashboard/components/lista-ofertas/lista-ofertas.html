@@ -1,0 +1,35 @@
+<div class="flex flex-col overflow-y-auto border-t border-gray-300">
+  @for (empleo of empleos(); track empleo.id; let i = $index) {
+    <div
+      class="card border-b-1 p-4 pr-13 relative hover:bg-green-50 transition-all duration-200 cursor-pointer border-gray-300"
+    >
+      <p-button
+        icon="pi pi-ellipsis-v"
+        aria-label="Opciones"
+        [text]="true"
+        class="absolute top-4 right-2"
+        size="small"
+      />
+      <div class="flex gap-4 items-center">
+        <div class="shrink-0">
+          <p-avatar label="G" class="mr-2" size="xlarge" shape="circle" />
+        </div>
+        <div>
+          <h3 class="text-lg inter-font">Desarrollador Angular Senior</h3>
+          <h4 class="inter-font text-sm mb-2 text-(--p-forest-mid) flex items-center gap-1">
+            Analiza <i class="pi pi-verified"></i>
+          </h4>
+          <div class="flex flex-col gap-1 text-sm font-light">
+            <span>
+              <i class="pi pi-map-marker" style="font-size: 0.8rem"></i> San Salvador, El Salvador
+            </span>
+            <div class="flex flex-col md:flex-row gap-6">
+              <span>$1,500 - $2,000</span>
+              <span><i class="pi pi-desktop" style="font-size: 0.8rem"></i> Remoto</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
