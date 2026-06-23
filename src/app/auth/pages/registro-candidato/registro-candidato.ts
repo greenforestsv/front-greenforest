@@ -6,9 +6,10 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
-
+/* TODO: pegar con backend */
+/* TODO: validar contraseña */
 @Component({
-  selector: 'app-login-candidato',
+  selector: 'app-registro-candidato',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -19,10 +20,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     FloatLabelModule,
   ],
-  templateUrl: './login-candidato.html',
-  styleUrl: './login-candidato.css',
+  templateUrl: './registro-candidato.html',
+  styleUrl: './registro-candidato.scss',
 })
-export class LoginCandidato {
+export class RegistroCandidato {
   value: string | undefined;
 
   private fb = inject(FormBuilder);
@@ -30,6 +31,7 @@ export class LoginCandidato {
   readonly loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
+    confirmPassword: ['', Validators.required],
   });
 
   login(): void {

@@ -8,7 +8,7 @@ import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-registro-candidato',
+  selector: 'app-login-empresarial',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -19,10 +19,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     FloatLabelModule,
   ],
-  templateUrl: './registro-candidato.html',
-  styleUrl: './registro-candidato.css',
+  templateUrl: './login-empresarial.html',
+  styleUrl: './login-empresarial.scss',
 })
-export class RegistroCandidato {
+export class LoginEmpresarial {
   value: string | undefined;
 
   private fb = inject(FormBuilder);
