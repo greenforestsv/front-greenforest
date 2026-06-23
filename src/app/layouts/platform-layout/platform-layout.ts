@@ -12,7 +12,8 @@ import { AvatarModule } from 'primeng/avatar';
   styleUrl: './platform-layout.scss',
 })
 export class PlatformLayout {
-  sidebarVisible = signal(false);
+  drawerVisible = signal(false);
+  sidebarVisible = signal(true);
 
   links = signal([
     {
