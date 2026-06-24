@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AUTH_ROUTES } from './auth/routes/auth.routes';
-import { PUBLIC_ROUTES } from './layouts/public-layout/public-layout.routes';
+import { PUBLIC_ROUTES } from './public/routes/public-layout.routes';
 import { CANDIDATO_ROUTES } from './candidato/routes/candidato.routes';
 
 export const routes: Routes = [
@@ -9,6 +9,6 @@ export const routes: Routes = [
   ...CANDIDATO_ROUTES,
   {
     path: '**',
-    loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFoundComponent),
+    loadComponent: () => import('./errors/not-found/not-found').then((m) => m.NotFoundComponent),
   },
 ];

@@ -11,6 +11,6 @@ import { CardDetail } from './components/card-detail/card-detail';
   standalone: true,
   imports: [ButtonModule, AvatarModule, Hero, Busqueda, CardList, CardDetail],
   templateUrl: './empleos.html',
-  styleUrl: './empleos.css',
+  styleUrl: './empleos.scss',
 })
 export class Empleos {}

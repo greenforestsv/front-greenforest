@@ -6,7 +6,7 @@ export const CANDIDATO_ROUTES: Routes = [
     path: 'candidato',
     canMatch: [authGuard],
     loadComponent: () =>
-      import('../../layouts/platform-layout/platform-layout').then((m) => m.PlatformLayout),
+      import('../../shared/layouts/platform-layout/platform-layout').then((m) => m.PlatformLayout),
     children: [
       {
         path: '',
@@ -15,13 +15,11 @@ export const CANDIDATO_ROUTES: Routes = [
       },
       {
         path: 'dashboard',
-        loadComponent: () =>
-          import('../../pages/candidato/dashboard/dashboard').then((m) => m.Dashboard),
+        loadComponent: () => import('../pages/dashboard/dashboard').then((m) => m.Dashboard),
       },
       {
         path: 'curriculum',
-        loadComponent: () =>
-          import('../../pages/candidato/curriculum/curriculum').then((m) => m.Curriculum),
+        loadComponent: () => import('../pages/curriculum/curriculum').then((m) => m.Curriculum),
       },
       {
         path: 'postulaciones',

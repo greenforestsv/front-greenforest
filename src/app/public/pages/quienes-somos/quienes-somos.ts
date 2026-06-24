@@ -9,6 +9,6 @@ import { SeccionCtas } from './components/seccion-ctas/seccion-ctas';
   selector: 'app-quienes-somos',
   imports: [ButtonModule, Hero, ParaEmpresasCandidatos, EtapasCicloTalento, SeccionCtas],
   templateUrl: './quienes-somos.html',
-  styleUrl: './quienes-somos.css',
+  styleUrl: './quienes-somos.scss',
 })
 export class QuieneSomos {}

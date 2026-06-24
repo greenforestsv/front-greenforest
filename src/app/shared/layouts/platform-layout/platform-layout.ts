@@ -3,7 +3,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { AvatarModule } from 'primeng/avatar';
-import { AuthService } from '../../auth/services/auth';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   standalone: true,

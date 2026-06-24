@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { DoughnutChart } from '../../../shared/components/charts/doughnut-chart';
 import { LineChart } from '../../../shared/components/charts/line-chart';
 import { forest } from '../../../themes/palette';
-import { ListaOfertas } from './components/lista-ofertas/lista-ofertas';
+import { ListaOfertas } from '../../components/lista-ofertas/lista-ofertas';
 import { AvatarModule } from 'primeng/avatar';
-import { Entrevistas } from './components/entrevistas/entrevistas';
+import { Entrevistas } from '../../components/entrevistas/entrevistas';
 
 @Component({
   selector: 'app-dashboard',

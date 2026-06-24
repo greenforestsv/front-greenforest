@@ -3,7 +3,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { Curriculum as CV } from './interfaces';
+import { Curriculum as CV } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-curriculum',
