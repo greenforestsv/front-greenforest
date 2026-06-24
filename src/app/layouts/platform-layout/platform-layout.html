@@ -1,127 +1,128 @@
-<div class="min-h-screen">
-  <div class="flex">
-    <!-- Sidebar Desktop -->
-    <aside
-      class="hidden lg:flex min-h-screen flex-col bg-(--p-forest-deep) text-white overflow-hidden transition-all duration-300 ease-in-out"
-      [class.lg:w-72]="sidebarVisible()"
-      [class.lg:w-0]="!sidebarVisible()"
-      [class.p-4]="sidebarVisible()"
-      [class.p-0]="!sidebarVisible()"
-      [class.opacity-100]="sidebarVisible()"
-      [class.opacity-0]="!sidebarVisible()"
-    >
-      <!-- Logo -->
-      <div class="logo"></div>
-      <nav class="flex flex-col gap-2">
-        @for (link of links(); track link.id) {
-          <a
-            [routerLink]="link.ruta"
-            routerLinkActive="bg-(--p-forest-mid)"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-(--p-forest-mid)"
-          >
-            <i [class]="'pi ' + link.icono"></i>
-            {{ link.nombre }}
-          </a>
-        }
-      </nav>
-      <!-- Logout Desktop -->
-      <div class="mt-auto pt-4 border-t border-white/20 w-full">
-        <p-button
-          id="logout-btn-dark"
-          label="Cerrar sesión"
-          icon="pi pi-sign-out"
-          severity="danger"
-          [text]="true"
-          (onClick)="logout()"
-          iconPos="right"
-          variant="text"
-          [style]="{ width: '100%' }"
-        />
-      </div>
-    </aside>
-
-    <!-- Drawer Móvil -->
-    <p-drawer
-      [(visible)]="drawerVisible"
-      position="left"
-      styleClass="w-72"
-      [style]="{
-        'background-color': 'var(--p-forest-deep)',
-        color: 'white',
-      }"
-    >
-      <!-- Logo -->
-      <div class="logo"></div>
-      <div class="flex flex-col gap-2 mt-4">
-        @for (link of links(); track link.id) {
-          <a
-            [routerLink]="link.ruta"
-            routerLinkActive="bg-(--p-forest-mid)"
-            (click)="drawerVisible.set(false)"
-            class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-(--p-forest-mid)"
-          >
-            <i [class]="'pi ' + link.icono"></i>
-            {{ link.nombre }}
-          </a>
-        }
-      </div>
-      <!-- Logout Mobile -->
-      <div class="mt-6 pt-4 border-t border-white/20">
-        <p-button
-          id="logout-btn-dark"
-          label="Cerrar sesión"
-          icon="pi pi-sign-out"
-          severity="danger"
-          [text]="true"
-          (onClick)="drawerVisible.set(false); logout()"
-          iconPos="right"
-          variant="text"
-          [style]="{ width: '100%' }"
-        />
-      </div>
-    </p-drawer>
-
-    <!-- Área derecha -->
-    <div class="flex-1 flex flex-col min-w-0 bg-(--p-forest-cream))">
-      <!-- Header -->
-      <header class="h-16 px-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <p-button
-            icon="pi pi-bars"
-            [text]="true"
-            class="lg:hidden"
-            (onClick)="drawerVisible.set(true)"
-          />
-          <p-button
-            [icon]="sidebarVisible() ? 'pi pi-angle-double-left' : 'pi pi-angle-double-right'"
-            [text]="true"
-            class="hidden lg:flex"
-            (onClick)="sidebarVisible.update((v) => !v)"
-            size="large"
-          />
-        </div>
-        <div class="flex gap-4 items-center">
-          <p-button icon="pi pi-search" [rounded]="true" severity="secondary" />
-          <p-button icon="pi pi-bell" [rounded]="true" severity="secondary" />
-          <p-button severity="secondary" routerLink="/perfil"
-            ><p-avatar
-              [image]="usuario().imagenAvatar || undefined"
-              [label]="usuario().nombre.charAt(0)"
-              class="mr-1"
-              shape="circle"
-            />
-            <span class="hidden sm:flex font-medium text-black">{{
-              usuario().nombre
-            }}</span></p-button
-          >
-        </div>
-      </header>
-
-      <!-- Contenido -->
-      <main class="flex-1 overflow-auto">
-        <router-outlet />
-      </main>
+<div class="flex">
+  <!-- Sidebar Desktop -->
+  <aside
+    class="hidden lg:flex h-screen fixed flex-col bg-(--p-forest-deep) text-white overflow-hidden transition-all duration-300 ease-in-out"
+    [class.lg:w-72]="sidebarVisible()"
+    [class.lg:w-0]="!sidebarVisible()"
+    [class.p-4]="sidebarVisible()"
+    [class.p-0]="!sidebarVisible()"
+    [class.opacity-100]="sidebarVisible()"
+    [class.opacity-0]="!sidebarVisible()"
+  >
+    <!-- Logo -->
+    <div class="logo"></div>
+    <nav class="flex flex-col gap-2">
+      @for (link of links(); track link.id) {
+        <a
+          [routerLink]="link.ruta"
+          routerLinkActive="bg-(--p-forest-mid)"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-(--p-forest-mid)"
+        >
+          <i [class]="'pi ' + link.icono"></i>
+          {{ link.nombre }}
+        </a>
+      }
+    </nav>
+    <!-- Logout Desktop -->
+    <div class="mt-auto pt-4 border-t border-white/20 w-full">
+      <p-button
+        id="logout-btn-dark"
+        label="Cerrar sesión"
+        icon="pi pi-sign-out"
+        severity="danger"
+        [text]="true"
+        (onClick)="logout()"
+        iconPos="right"
+        variant="text"
+        [style]="{ width: '100%' }"
+      />
     </div>
+  </aside>
+
+  <!-- Drawer Móvil -->
+  <p-drawer
+    [(visible)]="drawerVisible"
+    position="left"
+    styleClass="w-72"
+    [style]="{
+      'background-color': 'var(--p-forest-deep)',
+      color: 'white',
+    }"
+  >
+    <!-- Logo -->
+    <div class="logo"></div>
+    <div class="flex flex-col gap-2 mt-4">
+      @for (link of links(); track link.id) {
+        <a
+          [routerLink]="link.ruta"
+          routerLinkActive="bg-(--p-forest-mid)"
+          (click)="drawerVisible.set(false)"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-(--p-forest-mid)"
+        >
+          <i [class]="'pi ' + link.icono"></i>
+          {{ link.nombre }}
+        </a>
+      }
+    </div>
+    <!-- Logout Mobile -->
+    <div class="mt-6 pt-4 border-t border-white/20">
+      <p-button
+        id="logout-btn-dark"
+        label="Cerrar sesión"
+        icon="pi pi-sign-out"
+        severity="danger"
+        [text]="true"
+        (onClick)="drawerVisible.set(false); logout()"
+        iconPos="right"
+        variant="text"
+        [style]="{ width: '100%' }"
+      />
+    </div>
+  </p-drawer>
+
+  <!-- Área derecha -->
+  <div
+    class="flex-1 flex flex-col min-w-0 bg-(--p-forest-cream)"
+    [class.lg:ml-72]="sidebarVisible()"
+  >
+    <!-- Header -->
+    <header class="h-16 px-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <p-button
+          icon="pi pi-bars"
+          [text]="true"
+          class="lg:hidden"
+          (onClick)="drawerVisible.set(true)"
+        />
+        <p-button
+          [icon]="sidebarVisible() ? 'pi pi-angle-double-left' : 'pi pi-angle-double-right'"
+          [text]="true"
+          class="hidden lg:flex"
+          (onClick)="sidebarVisible.update((v) => !v)"
+          size="large"
+        />
+      </div>
+      <div class="flex gap-4 items-center">
+        <p-button icon="pi pi-search" [rounded]="true" severity="secondary" />
+        <p-button icon="pi pi-bell" [rounded]="true" severity="secondary" />
+        <p-button severity="secondary" routerLink="/perfil"
+          ><p-avatar
+            [image]="usuario().imagenAvatar || undefined"
+            [label]="usuario().nombre.charAt(0)"
+            class="mr-1"
+            shape="circle"
+          />
+          <span class="hidden sm:flex font-medium text-black">{{
+            usuario().nombre
+          }}</span></p-button
+        >
+      </div>
+    </header>
+
+    <!-- Contenido -->
+    <main class="flex-1 overflow-auto">
+      <router-outlet />
+    </main>
   </div>
 </div>
