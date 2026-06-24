@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { AUTH_ROUTES } from './layouts/auth-layout/auth.routes';
+import { AUTH_ROUTES } from './auth/routes/auth.routes';
 import { PUBLIC_ROUTES } from './layouts/public-layout/public-layout.routes';
-import { CANDIDATO_ROUTES } from './layouts/platform-layout/candidato.routes';
+import { CANDIDATO_ROUTES } from './candidato/routes/candidato.routes';
 
 export const routes: Routes = [
   ...PUBLIC_ROUTES,

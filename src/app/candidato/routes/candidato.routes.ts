@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '../../auth/guards/auth.guard';
 
 export const CANDIDATO_ROUTES: Routes = [
   {
     path: 'candidato',
-
-    loadComponent: () => import('./platform-layout').then((m) => m.PlatformLayout),
+    canMatch: [authGuard],
+    loadComponent: () =>
+      import('../../layouts/platform-layout/platform-layout').then((m) => m.PlatformLayout),
     children: [
       {
         path: '',
@@ -20,6 +22,15 @@ export const CANDIDATO_ROUTES: Routes = [
         path: 'curriculum',
         loadComponent: () =>
           import('../../pages/candidato/curriculum/curriculum').then((m) => m.Curriculum),
+      },
+      {
+        path: 'postulaciones',
+        loadComponent: () =>
+          import('../pages/postulaciones/postulaciones').then((m) => m.Postulaciones),
+      },
+      {
+        path: 'favoritos',
+        loadComponent: () => import('../pages/favoritos/favoritos').then((m) => m.Favoritos),
       },
     ],
   },
