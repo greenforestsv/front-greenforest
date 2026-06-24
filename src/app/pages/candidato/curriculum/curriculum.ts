@@ -87,5 +87,13 @@ export class Curriculum {
         nivel: 'Avanzado',
       },
     ],
+    pruebas: [
+      {
+        id: 1,
+        nombre: 'Inglés',
+        fecha: 'Enero 2026',
+        score: 'Avanzado',
+      },
+    ],
   });
 }

@@ -32,6 +32,13 @@ export interface InformacionPersonal {
   descripcion: string;
 }
 
+export interface Prueba {
+  id: number;
+  nombre: string;
+  fecha: string; //date
+  score: string;
+}
+
 export interface Curriculum {
   id: number;
   perfil: InformacionPersonal;
@@ -39,4 +46,5 @@ export interface Curriculum {
   educacion: Educacion[];
   habilidades: Habilidad[];
   idiomas: Idioma[];
+  pruebas: Prueba[];
 }
