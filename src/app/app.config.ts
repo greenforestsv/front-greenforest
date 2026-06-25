@@ -5,11 +5,13 @@ import { routes } from './app.routes';
 import { AppTheme } from './themes/app.theme';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { MessageService } from 'primeng/api';
 
 registerLocaleData(localeEs);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    MessageService,
     { provide: LOCALE_ID, useValue: 'es' },
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),

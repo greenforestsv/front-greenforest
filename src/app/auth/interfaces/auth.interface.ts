@@ -1,3 +1,15 @@
+export interface SignupCandidatoDto {
+  email: string;
+  password: string;
+}
+
+export interface SignupCandidatoResponse {
+  name: string;
+  country: string;
+  is_verified: boolean;
+  token: string;
+}
+
 export interface LoginCandidatoDto {
   user?: string;
   email: string;
