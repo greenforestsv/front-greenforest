@@ -83,3 +83,28 @@ ul li {
 #logout-btn-dark .p-button:hover {
   background-color: rgba(239, 68, 68, 0.3);
 }
+
+.white-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.5rem 0.75rem;
+  background-color: white;
+  color: var(--color-mid);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.white-badge::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+  vertical-align: middle;
+}
