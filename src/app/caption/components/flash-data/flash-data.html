@@ -4,11 +4,11 @@
   </div>
   <div id="data" class="flex flex-col text-center">
     @if (qty() > 0) {
-      <span class="title text-xl playfair-font text-(--p-forest-deep)">
+      <span class="title text-xl playfair-font text-deep">
         {{ qty() | kFormatter }}
       </span>
     }
-    <span class="title text-xl playfair-font text-(--p-forest-deep)">
+    <span class="title text-xl playfair-font text-deep">
       {{ qtyStrgin() }}
     </span>
     <span class="description font-light"> {{ legend() }} </span>

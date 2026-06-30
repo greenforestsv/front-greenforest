@@ -6,12 +6,12 @@
       <!-- EDIT BUTTON -->
       <p-button icon="pi pi-pencil" class="absolute top-0 right-0" [rounded]="true" size="small" />
       <!-- AVATAR -->
-      <div class="ring-4 ring-(--p-forest-mist) rounded-full p-1 shrink-0 relative">
+      <div class="ring-4 ring-mist rounded-full p-1 shrink-0 relative">
         <p-avatar
           icon="pi pi-user"
           size="xlarge"
           shape="circle"
-          class="bg-(--p-forest-mid) text-white flex items-center justify-center !w-24 !h-24 text-2xl"
+          class="bg-mid text-white flex items-center justify-center !w-24 !h-24 text-2xl"
         />
         <p-button
           icon="pi pi-plus"
@@ -23,7 +23,7 @@
 
       <div class="text-center md:text-left space-y-2 w-full">
         <h2 class="text-2xl font-bold">{{ cv().perfil.nombre }}</h2>
-        <h3 class="text-xl font-bold text-(--p-forest-lite)">
+        <h3 class="text-xl font-bold text-lite">
           {{ cv().perfil.titulo }}
         </h3>
 
@@ -31,17 +31,17 @@
           class="flex flex-wrap justify-center md:justify-start gap-y-2 gap-x-4 not-italic text-sm font-medium text-gray-500"
         >
           <span class="flex items-center gap-1.5">
-            <i class="pi pi-map-marker text-(--p-forest-lite)"></i>{{ cv().perfil.ubicacion }}
+            <i class="pi pi-map-marker text-lite"></i>{{ cv().perfil.ubicacion }}
           </span>
           <a
             [href]="'mailto:' + cv().perfil.correo"
-            class="flex items-center gap-1.5 text-(--p-forest-lite) hover:text-(--p-forest-mid) transition-colors duration-200"
+            class="flex items-center gap-1.5 text-lite hover:text-mid transition-colors duration-200"
           >
             <i class="pi pi-envelope"></i>{{ cv().perfil.correo }}</a
           >
           <a
             [href]="'tel:' + cv().perfil.telefono"
-            class="flex items-center gap-1.5 text-(--p-forest-lite) hover:text-(--p-forest-mid) transition-colors duration-200"
+            class="flex items-center gap-1.5 text-lite hover:text-mid transition-colors duration-200"
           >
             <i class="pi pi-phone"></i>{{ cv().perfil.telefono }}</a
           >
@@ -67,15 +67,15 @@
         @for (experiencia of cv().experiencias; track experiencia.titulo) {
           <div class="mb-10 ml-6 relative">
             <span
-              class="absolute -left-[31px] top-0 bg-(--p-forest-cream) border-2 border-(--p-forest-lite) rounded-full size-4 flex items-center justify-center shadow-sm"
+              class="absolute -left-[31px] top-0 bg-cream border-2 border-lite rounded-full size-4 flex items-center justify-center shadow-sm"
             >
-              <span class="bg-(--p-forest-lite) rounded-full w-1.5 h-1.5"></span>
+              <span class="bg-lite rounded-full w-1.5 h-1.5"></span>
             </span>
 
             <div class="bg-white p-6 rounded-3xl shadow-sm">
               <div class="mb-2">
                 <span
-                  class="text-xs font-semibold uppercase text-(--p-forest-lite) bg-(--p-forest-mist) px-2.5 py-1 rounded-full w-fit"
+                  class="text-xs font-semibold uppercase text-lite bg-mist px-2.5 py-1 rounded-full w-fit"
                 >
                   {{ experiencia.fecha }}
                 </span>
@@ -84,7 +84,7 @@
               <h3 class="text-lg font-bold">
                 {{ experiencia.titulo }}
               </h3>
-              <p class="font-medium text-(--p-forest-lite) mb-3">
+              <p class="font-medium text-lite mb-3">
                 {{ experiencia.empresa }}
               </p>
               <p class="text-gray-600 text-sm leading-relaxed">
@@ -105,15 +105,15 @@
         @for (educacion of cv().educacion; track educacion.titulo) {
           <div class="mb-10 ml-6 relative">
             <span
-              class="absolute -left-[31px] top-0 bg-(--p-forest-cream) border-2 border-(--p-forest-lite) rounded-full size-4 flex items-center justify-center shadow-sm"
+              class="absolute -left-[31px] top-0 bg-cream border-2 border-lite rounded-full size-4 flex items-center justify-center shadow-sm"
             >
-              <span class="bg-(--p-forest-lite) rounded-full w-1.5 h-1.5"></span>
+              <span class="bg-lite rounded-full w-1.5 h-1.5"></span>
             </span>
 
             <div class="bg-white p-6 rounded-3xl shadow-sm">
               <div class="mb-2">
                 <span
-                  class="text-xs font-semibold uppercase text-(--p-forest-lite) bg-(--p-forest-mist) px-2.5 py-1 rounded-full w-fit"
+                  class="text-xs font-semibold uppercase text-lite bg-mist px-2.5 py-1 rounded-full w-fit"
                 >
                   {{ educacion.fecha }}
                 </span>
@@ -145,9 +145,7 @@
       <div class="flex flex-wrap gap-2.5 pt-2">
         <div class="flex flex-wrap gap-2.5 pt-2">
           @for (idioma of cv().idiomas; track idioma.id) {
-            <span
-              class="text-sm bg-(--p-forest-mist) text-(--p-forest-lite) px-3.5 py-1.5 rounded-full"
-            >
+            <span class="text-sm bg-mist text-lite px-3.5 py-1.5 rounded-full">
               {{ idioma.nombre }} - {{ idioma.nivel }}
             </span>
           }
@@ -162,9 +160,7 @@
 
       <div class="flex flex-wrap gap-2.5 pt-2">
         @for (habilidad of cv().habilidades; track habilidad.id) {
-          <span
-            class="text-sm bg-(--p-forest-mist) text-(--p-forest-lite) px-3.5 py-1.5 rounded-full"
-          >
+          <span class="text-sm bg-mist text-lite px-3.5 py-1.5 rounded-full">
             {{ habilidad.nombre }}
           </span>
         }
@@ -180,7 +176,7 @@
             class="bg-white p-5 rounded-3xl shadow-sm flex flex-col relative border border-gray-300"
           >
             <i
-              class="pi pi-language text-(--p-forest-lite) absolute top-3 right-3 bg-(--p-forest-mist) rounded-full p-1.5"
+              class="pi pi-language text-lite absolute top-3 right-3 bg-mist rounded-full p-1.5"
             ></i>
             <h3 class="font-bold mb-2">
               {{ prueba.nombre }}

@@ -2,7 +2,7 @@
   <div class="px-7 py-6 rounded-3xl bg-white mx-auto w-full max-w-md shadow-sm">
     <div class="hover:cursor-pointer logo mx-auto" routerLink="/"></div>
     <div class="text-center mb-8">
-      <h1 class="text-(--p-forest-primary) mt-2 text-3xl font-light">Inicia sesión</h1>
+      <h1 class="text-primary mt-2 text-3xl font-light">Inicia sesión</h1>
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-7">
@@ -29,11 +29,9 @@
       <p-button label="Iniciar Sesión" type="submit" [fluid]="true" [loading]="loading()" />
     </form>
 
-    <div class="text-center">
-      <p>
-        ¿No tenés una cuenta?
-        <p-button label="Crear cuenta" routerLink="/registro-candidato" link />
-      </p>
-    </div>
+    <p class="text-center mt-2">
+      ¿No tenés una cuenta?
+      <p-button label="Crear cuenta" routerLink="/registro-candidato" link />
+    </p>
   </div>
 </div>

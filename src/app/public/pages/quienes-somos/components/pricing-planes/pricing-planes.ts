@@ -30,7 +30,7 @@ import { ButtonModule } from 'primeng/button';
 
           <div class="w-full h-px bg-surface-200"></div>
           <div class="flex items-center gap-2">
-            <span class="text-3xl text-(--p-forest-mid)  leading-tight"
+            <span class="text-3xl text-mid  leading-tight"
               >$0</span
             >
             <span class="font-medium text-surface-500 dark:text-surface-400 leading-tight"
@@ -71,7 +71,7 @@ import { ButtonModule } from 'primeng/button';
         <div
           class="w-full flex-1 flex rounded-xl flex-col bg-surface-0 bg-white shadow-sm gap-6 overflow-hidden"
         >
-          <div class="flex flex-col gap-2 bg-(--p-forest-primary) text-white p-8">
+          <div class="flex flex-col gap-2 bg-primary text-white p-8">
             <h4 class=" font-medium text-2xl leading-tight">Free</h4>
             <p class="leading-normal text-white/80">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -82,7 +82,7 @@ import { ButtonModule } from 'primeng/button';
             <div class="w-full h-px bg-surface-200"></div>
 
             <div class="flex items-center gap-2">
-              <span class="text-3xl text-(--p-forest-mid)  leading-tight"> $0 </span>
+              <span class="text-3xl text-mid  leading-tight"> $0 </span>
               <span class="font-medium text-surface-500 leading-tight"> siempre gratis </span>
             </div>
 
@@ -132,7 +132,7 @@ import { ButtonModule } from 'primeng/button';
 
           <div class="w-full h-px bg-surface-200"></div>
           <div class="flex items-center gap-2">
-            <span class="text-3xl text-(--p-forest-mid)  leading-tight">$9</span>
+            <span class="text-3xl text-mid  leading-tight">$9</span>
             <span class="font-medium text-surface-500 dark:text-surface-400 leading-tight"
               >por mes</span
             >
@@ -174,7 +174,7 @@ import { ButtonModule } from 'primeng/button';
 
           <div class="w-full h-px bg-surface-200 dark:bg-surface-700"></div>
           <div class="flex items-center gap-2">
-            <span class=" text-3xl text-(--p-forest-mid)  leading-tight">$29</span>
+            <span class=" text-3xl text-mid  leading-tight">$29</span>
             <span class="font-medium text-surface-500 dark:text-surface-400 leading-tight"
               >por mes</span
             >
@@ -229,7 +229,7 @@ import { ButtonModule } from 'primeng/button';
 
           <div class="w-full h-px bg-surface-200 dark:bg-surface-700"></div>
           <div class="flex items-center gap-2">
-            <span class=" text-3xl text-(--p-forest-mid)  leading-tight">$49</span>
+            <span class=" text-3xl text-mid  leading-tight">$49</span>
             <span class="font-medium text-surface-500 dark:text-surface-400 leading-tight"
               >contrato anual</span
             >
