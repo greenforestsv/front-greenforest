@@ -14,7 +14,16 @@
 
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center gap-3">
-          <p-button
+          <app-language-switch />
+          @for (link of headerLinks(); track link.route) {
+            <p-button
+              [label]="link.name | translate"
+              [routerLink]="link.route"
+              variant="text"
+              routerLinkActive="bg-(--p-forest-mist)"
+            />
+          }
+          <!-- <p-button
             label="Portal de Empresas"
             routerLink="/login-empresarial"
             variant="outlined"
@@ -26,7 +35,7 @@
             variant="outlined"
             routerLinkActive="bg-(--p-forest-lite) text-white"
           />
-          <p-button label="Registrate" routerLink="/registro-candidato" />
+          <p-button label="Registrate" routerLink="/registro-candidato" /> -->
         </nav>
 
         <!-- Mobile Button -->
