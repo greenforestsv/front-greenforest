@@ -3,7 +3,7 @@
 >
   @for (item of estadisticas(); track $index) {
     <div class="bg-white shadow-sm text-center rounded-3xl py-6 w-full">
-      <div class="playfair-font text-accent text-4xl md:text-5xl">{{ item.number }}</div>
+      <div class="playfair-font text-accent-500 text-4xl md:text-5xl">{{ item.number }}</div>
       <div class="mt-2 text-sm" [innerHTML]="item.title"></div>
     </div>
   }

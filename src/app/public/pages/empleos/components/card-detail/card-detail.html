@@ -1,4 +1,4 @@
-<div class="bg-white grow rounded-3xl p-8 overflow-y-auto shadow-sm max-h-[600px]">
+<div class="bg-white grow rounded-3xl p-8 overflow-y-auto shadow-sm max-h-[950px]">
   <div class="flex flex-col gap-6">
     <div class="flex justify-between">
       <div class="flex flex-col gap-2">
@@ -17,10 +17,10 @@
         <p class="my-2">Publicado hace 2 días</p>
 
         <div class="flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-full bg-mist text-lite text-[11px]"> Angular 21 </span>
-          <span class="px-3 py-1 rounded-full bg-mist text-lite text-[11px]"> TypeScript </span>
-          <span class="px-3 py-1 rounded-full bg-mist text-lite text-[11px]"> Tailwind CSS </span>
-          <span class="px-3 py-1 rounded-full bg-mist text-lite text-[11px]"> RxJS </span>
+          <span class="accent-badge"> Angular 21 </span>
+          <span class="accent-badge"> TypeScript </span>
+          <span class="accent-badge"> Tailwind CSS </span>
+          <span class="accent-badge"> RxJS </span>
         </div>
 
         <div class="flex gap-2 my-4">
@@ -128,9 +128,17 @@
         <li>Inglés técnico intermedio.</li>
       </ul>
     </div>
-    <div class="flex gap-4 justify-end">
-      <p-button label="Guardar vacante" variant="outlined" size="small" />
-      <p-button label="Aplicar ahora" size="small" />
+    <div class="login-callout p-4 rounded-3xl flex items-center gap-4">
+      <div>
+        <p class="text-sm text-accent-500 font-bold">
+          Iniciá sesión o creá tu cuenta para postularte
+        </p>
+        <p class="text-xs text-gray-500">Unite a Green Forest y accedé a nuevas oportunidades</p>
+      </div>
+      <div class="flex gap-2 justify-end shrink-0">
+        <p-button label="Iniciar sesión" variant="outlined" class="bg-white" />
+        <p-button label="Crear cuenta" class="btn-accent" />
+      </div>
     </div>
   </div>
 </div>

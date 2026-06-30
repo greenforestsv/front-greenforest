@@ -1,5 +1,4 @@
 export const forest = {
-  accent: '#dd6b2f',
   cream: '#f2f5f2',
   mist: '#D8F3DC',
   pale: '#a8c5a3',
@@ -9,6 +8,13 @@ export const forest = {
   deep: '#0D2818',
 };
 //#cedbca
+
+export const accent = {
+  50: '#fbe6d8',
+  100: '#fdf1e9',
+  500: '#dd6b2f',
+  700: '#b8551f',
+};
 
 export const neutral = {
   cream: '#F5F0E8',

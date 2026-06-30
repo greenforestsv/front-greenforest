@@ -1,5 +1,5 @@
 import { definePreset } from '@primeuix/themes';
-import { primary, forest, neutral, surface, darkSurface } from './palette';
+import { primary, forest, neutral, surface, darkSurface, accent } from './palette';
 import Aura from '@primeuix/themes/aura';
 
 export const AppTheme = definePreset(Aura, {
@@ -21,7 +21,7 @@ export const AppTheme = definePreset(Aura, {
         },
       },
     },
-
+    accent,
     forest,
     neutral,
   },
