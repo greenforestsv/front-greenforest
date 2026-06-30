@@ -2,13 +2,12 @@ import { Component, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Link } from '../../interfaces/interfaces';
-import { LanguageSwitch } from '../language-switch/language-switch';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, ButtonModule, LanguageSwitch, TranslatePipe],
+  imports: [RouterLink, RouterLinkActive, ButtonModule, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

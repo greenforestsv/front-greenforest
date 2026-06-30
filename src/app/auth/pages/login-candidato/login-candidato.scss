@@ -1,17 +1,9 @@
 .logo {
-  width: 250px;
-  height: 120px;
+  width: clamp(180px, 40vw, 250px);
+  aspect-ratio: 250 / 120;
 
   background-color: var(--color-mid);
 
-  -webkit-mask: url('/logo.svg') center / contain no-repeat;
-  mask: url('/logo.svg') center / contain no-repeat;
-}
-
-.background {
-  background-image: url('/bosque-1.jpg');
-  background-size: cover;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  height: 100vh;
+  -webkit-mask: url('/logo.svg') center/contain no-repeat;
+  mask: url('/logo.svg') center/contain no-repeat;
 }

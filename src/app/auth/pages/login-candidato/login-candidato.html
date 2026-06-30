@@ -1,37 +1,57 @@
-<div class="background flex items-center">
-  <div class="px-7 py-6 rounded-3xl bg-white mx-auto w-full max-w-md shadow-sm">
-    <div class="hover:cursor-pointer logo mx-auto" routerLink="/"></div>
-    <div class="text-center mb-8">
-      <h1 class="text-primary mt-2 text-3xl font-light">Inicia sesión</h1>
-    </div>
+<div class="relative min-h-screen overflow-hidden">
+  <!-- Imagen de fondo -->
+  <img
+    src="/bosque-1.jpg"
+    alt=""
+    loading="lazy"
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover object-bottom -z-20 select-none"
+  />
 
-    <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-7">
-      <p-floatlabel>
-        <input pInputText id="correo" autocomplete="off" [fluid]="true" formControlName="email" />
-        <label for="correo">Correo</label>
-      </p-floatlabel>
-      <p-floatlabel class="w-full">
-        <p-password
-          inputId="password"
-          formControlName="password"
-          [toggleMask]="true"
-          [feedback]="false"
-          class="w-full"
-          [fluid]="true"
-        />
-        <label for="password">Contraseña</label>
-      </p-floatlabel>
+  <div class="flex min-h-screen items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div class="w-full max-w-md rounded-3xl bg-white px-6 py-7 shadow-xl sm:px-8">
+      <div class="logo mx-auto cursor-pointer" routerLink="/"></div>
 
-      <div class="flex justify-end">
-        <p-button label="¿Olvidaste tu contraseña?" routerLink="/" link />
+      <div class="mb-8 text-center">
+        <h1 class="mt-2 text-3xl font-light text-primary">Inicia sesión</h1>
       </div>
 
-      <p-button label="Iniciar Sesión" type="submit" [fluid]="true" [loading]="loading()" />
-    </form>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-6">
+        <p-floatlabel>
+          <input
+            pInputText
+            id="correo"
+            autocomplete="email"
+            [fluid]="true"
+            formControlName="email"
+          />
+          <label for="correo">Correo</label>
+        </p-floatlabel>
 
-    <p class="text-center mt-2">
-      ¿No tenés una cuenta?
-      <p-button label="Crear cuenta" routerLink="/registro-candidato" link />
-    </p>
+        <p-floatlabel class="w-full mt-8">
+          <p-password
+            inputId="password"
+            formControlName="password"
+            [toggleMask]="true"
+            [feedback]="false"
+            [fluid]="true"
+            class="w-full"
+          />
+          <label for="password">Contraseña</label>
+        </p-floatlabel>
+
+        <div class="flex justify-end">
+          <p-button label="¿Olvidaste tu contraseña?" routerLink="/" link />
+        </div>
+
+        <p-button label="Iniciar Sesión" type="submit" [fluid]="true" [loading]="loading()" />
+      </form>
+
+      <div class="mt-5 text-center text-sm">
+        ¿No tenés una cuenta?
+
+        <p-button label="Crear cuenta" routerLink="/registro-candidato" link />
+      </div>
+    </div>
   </div>
 </div>
