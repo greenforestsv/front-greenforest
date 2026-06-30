@@ -24,4 +24,12 @@ export const AUTH_ROUTES: Routes = [
         (m) => m.RegistroCandidato,
       ),
   },
+  {
+    path: 'olvido-contrasena',
+    canMatch: [guestGuard],
+    loadComponent: () =>
+      import('../../auth/pages/olvido-contrasena/olvido-contrasena').then(
+        (m) => m.OlvidoContrasena,
+      ),
+  },
 ];

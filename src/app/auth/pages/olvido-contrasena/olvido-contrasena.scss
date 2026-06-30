@@ -1,0 +1,9 @@
+.logo {
+  width: clamp(180px, 40vw, 250px);
+  aspect-ratio: 250 / 120;
+
+  background-color: var(--color-mid);
+
+  -webkit-mask: url('/logo.svg') center/contain no-repeat;
+  mask: url('/logo.svg') center/contain no-repeat;
+}

@@ -29,6 +29,11 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
+  resetPassword(): void {
+    /* TODO: */
+    return;
+  }
+
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
 
