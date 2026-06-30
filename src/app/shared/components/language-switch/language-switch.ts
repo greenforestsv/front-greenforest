@@ -6,16 +6,14 @@ import { ButtonModule } from 'primeng/button';
   selector: 'app-language-switch',
   standalone: true,
   imports: [ButtonModule],
-  template: `
-    <p-button [label]="buttonLabel()" variant="text" (onClick)="toggleLanguage()"> </p-button>
-  `,
+  template: ` <p-button [label]="buttonLabel()" (onClick)="toggleLanguage()"> </p-button> `,
 })
 export class LanguageSwitch {
   private translate = inject(TranslateService);
 
   currentLang = signal(this.translate.getCurrentLang() || 'es');
 
-  buttonLabel = computed(() => (this.currentLang() === 'es' ? 'English' : 'Español'));
+  buttonLabel = computed(() => (this.currentLang() === 'es' ? 'en' : 'es'));
 
   toggleLanguage(): void {
     const nextLang = this.currentLang() === 'es' ? 'en' : 'es';

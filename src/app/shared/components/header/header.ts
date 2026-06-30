@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Link } from '../../interfaces/interfaces';
 import { LanguageSwitch } from '../language-switch/language-switch';
 import { TranslatePipe } from '@ngx-translate/core';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -16,8 +17,30 @@ export class Header {
 
   headerLinks = signal<Link[]>([
     {
-      name: 'NAV.HOME',
+      name: 'nav.home',
       route: '/',
     },
+    {
+      name: 'nav.empleos',
+      route: '/empleos',
+    },
+    {
+      name: 'nav.valor',
+      route: '/quienes-somos',
+    },
+    {
+      name: 'nav.empresas',
+      route: '/login-empresarial',
+    },
+    {
+      name: 'nav.candidatos',
+      route: '/login-candidato',
+    },
   ]);
+
+  constructor(private router: Router) {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      this.menuOpen = false;
+    });
+  }
 }

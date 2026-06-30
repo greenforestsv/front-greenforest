@@ -14,29 +14,25 @@
 
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center gap-3">
-          <app-language-switch />
           @for (link of headerLinks(); track link.route) {
             <p-button
               [label]="link.name | translate"
               [routerLink]="link.route"
               variant="text"
-              routerLinkActive="bg-(--p-forest-mist)"
+              routerLinkActive="bg-(--p-button-text-primary-hover-background) rounded-xl"
+              [routerLinkActiveOptions]="{ exact: true }"
             />
           }
-          <!-- <p-button
-            label="Portal de Empresas"
+        </nav>
+
+        <div class="flex gap-2">
+          <!--  <p-button
+            [label]="'nav.empresas' | translate"
             routerLink="/login-empresarial"
             variant="outlined"
-            routerLinkActive="bg-(--p-forest-lite) text-white"
           />
-          <p-button
-            label="Portal de Candidatos"
-            routerLink="/login-candidato"
-            variant="outlined"
-            routerLinkActive="bg-(--p-forest-lite) text-white"
-          />
-          <p-button label="Registrate" routerLink="/registro-candidato" /> -->
-        </nav>
+          <p-button [label]="'nav.candidatos' | translate" routerLink="/login-candidato" /> -->
+        </div>
 
         <!-- Mobile Button -->
         <p-button
@@ -54,29 +50,16 @@
       @if (menuOpen) {
         <nav class="md:hidden py-4 border-t border-gray-100">
           <div class="flex flex-col gap-2">
-            <a
-              routerLink="/login"
-              (click)="menuOpen = false"
-              class="px-4 py-3 rounded-lg hover:bg-gray-100"
-            >
-              Portal de Empresas
-            </a>
-
-            <a
-              routerLink="/login"
-              (click)="menuOpen = false"
-              class="px-4 py-3 rounded-lg hover:bg-gray-100"
-            >
-              Portal de Candidatos
-            </a>
-
-            <a
-              routerLink="/registrate"
-              (click)="menuOpen = false"
-              class="px-4 py-3 rounded-lg hover:bg-gray-100"
-            >
-              Registrate
-            </a>
+            @for (link of headerLinks(); track link.route) {
+              <p-button
+                [label]="link.name | translate"
+                [routerLink]="link.route"
+                variant="text"
+                routerLinkActive="bg-(--p-button-text-primary-hover-background) rounded-xl"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [fluid]="true"
+              />
+            }
           </div>
         </nav>
       }

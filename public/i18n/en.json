@@ -1,5 +1,9 @@
 {
-  "NAV": {
-    "HOME": "Home"
+  "nav": {
+    "home": "Home",
+    "empleos": "Job board",
+    "valor": "Value proposition",
+    "empresas": "Company Portal",
+    "candidatos": "Candidate Portal"
   }
 }

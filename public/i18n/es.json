@@ -1,5 +1,9 @@
 {
-  "NAV": {
-    "HOME": "Inicio"
+  "nav": {
+    "home": "Inicio",
+    "empleos": "Bolsa de empleo",
+    "valor": "Propuesta de valor",
+    "empresas": "Portal de Empresas",
+    "candidatos": "Portal de Candidatos"
   }
 }
