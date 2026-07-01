@@ -16,22 +16,27 @@ export class Header {
 
   headerLinks = signal<Link[]>([
     {
+      id: 1,
       name: 'nav.home',
       route: '/',
     },
     {
+      id: 2,
       name: 'nav.empleos',
       route: '/empleos',
     },
     {
+      id: 3,
       name: 'nav.valor',
       route: '/quienes-somos',
     },
     {
+      id: 4,
       name: 'nav.empresas',
       route: '/login-empresarial',
     },
     {
+      id: 5,
       name: 'nav.candidatos',
       route: '/login-candidato',
     },

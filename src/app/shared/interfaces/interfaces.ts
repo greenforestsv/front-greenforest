@@ -13,6 +13,7 @@ export interface Portals {
 }
 
 export interface Link {
+  id: number;
   name: string;
   route: string;
   icon?: string;

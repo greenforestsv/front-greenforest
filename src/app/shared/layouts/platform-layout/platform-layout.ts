@@ -4,52 +4,52 @@ import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { AvatarModule } from 'primeng/avatar';
 import { AuthService } from '../../../auth/services/auth.service';
+import { GreenForestLogo } from '../../components/green-forest-logo/green-forest-logo';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
+import { SidebarService } from '../../services/platform-sidebar.service';
+import { SidebarUser } from '../../interfaces/sidebar.interfaces';
+import { Link } from '../../interfaces/interfaces';
 
 @Component({
   standalone: true,
   selector: 'platform-layout',
-  imports: [RouterOutlet, ButtonModule, DrawerModule, RouterLinkActive, RouterLink, AvatarModule],
+  imports: [
+    RouterOutlet,
+    ButtonModule,
+    DrawerModule,
+    RouterLinkActive,
+    RouterLink,
+    AvatarModule,
+    GreenForestLogo,
+    IconFieldModule,
+    InputIconModule,
+    InputTextModule,
+    TooltipModule,
+  ],
   templateUrl: './platform-layout.html',
   styleUrl: './platform-layout.scss',
 })
 export class PlatformLayout {
   drawerVisible = signal(false);
   sidebarVisible = signal(true);
-
-  links = signal([
-    {
-      id: 1,
-      icono: 'pi-home',
-      nombre: 'Dashboard',
-      ruta: '/candidato/dashboard',
-    },
-    {
-      id: 2,
-      icono: 'pi-id-card',
-      nombre: 'Mi CV',
-      ruta: '/candidato/curriculum',
-    },
-    {
-      id: 3,
-      icono: 'pi-send',
-      nombre: 'Mis postulaciones',
-      ruta: '/candidato/postulaciones',
-    },
-    {
-      id: 4,
-      icono: 'pi-heart',
-      nombre: 'Mis favoritos',
-      ruta: '/candidato/favoritos',
-    },
-  ]);
-
-  usuario = signal({
-    nombre: 'Mary Jane',
-    imagenAvatar: '',
-  });
+  busqueda: string | undefined;
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private sidebarService = inject(SidebarService);
+
+  usuario = signal<SidebarUser | null>(null);
+  links = signal<Link[] | []>([]);
+
+  ngOnInit() {
+    this.sidebarService.obtenerSidebar(1 /* TODO: uuid */).subscribe((data) => {
+      this.usuario.set(data.user);
+      this.links.set(data.links);
+    });
+  }
 
   logout(): void {
     this.authService.logout();

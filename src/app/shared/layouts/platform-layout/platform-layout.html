@@ -1,42 +1,48 @@
 <div class="flex">
   <!-- Sidebar Desktop -->
   <aside
-    class="hidden lg:flex h-screen fixed flex-col bg-deep text-white overflow-hidden transition-all duration-300 ease-in-out"
-    [class.lg:w-72]="sidebarVisible()"
+    class="hidden lg:flex h-screen fixed overflow-hidden transition-all duration-300 ease-in-out p-4"
+    [class.lg:w-68]="sidebarVisible()"
     [class.lg:w-0]="!sidebarVisible()"
-    [class.p-4]="sidebarVisible()"
-    [class.p-0]="!sidebarVisible()"
     [class.opacity-100]="sidebarVisible()"
     [class.opacity-0]="!sidebarVisible()"
   >
-    <!-- Logo -->
-    <div class="logo"></div>
-    <nav class="flex flex-col gap-2">
-      @for (link of links(); track link.id) {
-        <a
-          [routerLink]="link.ruta"
-          routerLinkActive="bg-mid"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-mid"
-        >
-          <i [class]="'pi ' + link.icono"></i>
-          {{ link.nombre }}
-        </a>
-      }
-    </nav>
-    <!-- Logout Desktop -->
-    <div class="mt-auto pt-4 border-t border-white/20 w-full">
-      <p-button
-        id="logout-btn-dark"
-        label="Cerrar sesión"
-        icon="pi pi-sign-out"
-        severity="danger"
-        [text]="true"
-        (onClick)="logout()"
-        iconPos="right"
-        variant="text"
-        [style]="{ width: '100%' }"
-      />
+    <div
+      class="flex flex-col bg-deep text-white rounded-3xl w-full shadow-sm"
+      [class.p-4]="sidebarVisible()"
+      [class.p-0]="!sidebarVisible()"
+    >
+      <!-- LOGO -->
+      <app-green-forest-logo />
+
+      <!-- LINKS -->
+      <nav class="flex flex-col gap-2">
+        @for (link of links(); track link.id) {
+          <a
+            [routerLink]="link.route"
+            routerLinkActive="bg-mid"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-mid"
+          >
+            <i [class]="'pi ' + link.icon"></i>
+            {{ link.name }}
+          </a>
+        }
+      </nav>
+      <!-- Logout Desktop -->
+      <div class="mt-auto pt-4 border-t border-white/20 w-full">
+        <p-button
+          id="logout-btn-dark"
+          label="Cerrar sesión"
+          icon="pi pi-sign-out"
+          severity="danger"
+          [text]="true"
+          (onClick)="logout()"
+          iconPos="right"
+          variant="text"
+          [style]="{ width: '100%' }"
+        />
+      </div>
     </div>
   </aside>
 
@@ -50,18 +56,18 @@
       color: 'white',
     }"
   >
-    <!-- Logo -->
-    <div class="logo"></div>
+    <!-- LOGO -->
+    <app-green-forest-logo />
     <div class="flex flex-col gap-2 mt-4">
       @for (link of links(); track link.id) {
         <a
-          [routerLink]="link.ruta"
+          [routerLink]="link.route"
           routerLinkActive="bg-mid"
           (click)="drawerVisible.set(false)"
           class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-mid"
         >
-          <i [class]="'pi ' + link.icono"></i>
-          {{ link.nombre }}
+          <i [class]="'pi ' + link.icon"></i>
+          {{ link.name }}
         </a>
       }
     </div>
@@ -82,38 +88,79 @@
   </p-drawer>
 
   <!-- Área derecha -->
-  <div class="flex-1 flex flex-col min-w-0 bg-cream" [class.lg:ml-72]="sidebarVisible()">
+  <div class="flex-1 flex flex-col min-w-0 bg-cream" [class.lg:ml-68]="sidebarVisible()">
     <!-- Header -->
-    <header class="h-16 px-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <p-button
-          icon="pi pi-bars"
-          [text]="true"
-          class="lg:hidden"
-          (onClick)="drawerVisible.set(true)"
-        />
-        <p-button
-          [icon]="sidebarVisible() ? 'pi pi-angle-double-left' : 'pi pi-angle-double-right'"
-          [text]="true"
-          class="hidden lg:flex"
-          (onClick)="sidebarVisible.update((v) => !v)"
-          size="large"
-        />
-      </div>
-      <div class="flex gap-4 items-center">
-        <p-button icon="pi pi-search" [rounded]="true" severity="secondary" />
-        <p-button icon="pi pi-bell" [rounded]="true" severity="secondary" />
-        <p-button severity="secondary" routerLink="/perfil"
-          ><p-avatar
-            [image]="usuario().imagenAvatar || undefined"
-            [label]="usuario().nombre.charAt(0)"
-            class="mr-1"
-            shape="circle"
+    <header class="p-4 lg:pl-0 sticky top-0 z-50">
+      <div class="p-2 flex items-center justify-between bg-white shadow-sm rounded-3xl">
+        <div class="flex items-center gap-3">
+          <p-button
+            icon="pi pi-bars"
+            [text]="true"
+            class="lg:hidden"
+            (onClick)="drawerVisible.set(true)"
           />
-          <span class="hidden sm:flex font-medium text-black">{{
-            usuario().nombre
-          }}</span></p-button
-        >
+          <!-- <p-button
+            [icon]="sidebarVisible() ? 'pi pi-angle-double-left' : 'pi pi-angle-double-right'"
+            [text]="true"
+            class="hidden lg:flex"
+            (onClick)="sidebarVisible.update((v) => !v)"
+            size="large"
+          /> -->
+        </div>
+        <div class="flex gap-4 items-center">
+          <div class="hidden md:flex">
+            <p-iconfield>
+              <p-inputicon class="pi pi-search" />
+              <input
+                type="text"
+                pInputText
+                fluid
+                placeholder="Buscar vacantes, empresas o habilidades"
+              />
+            </p-iconfield>
+          </div>
+          <p-button
+            icon="pi pi-search"
+            [rounded]="true"
+            severity="secondary"
+            class="flex md:hidden"
+            pTooltip="Buscar vacantes, empresas o habilidades"
+            tooltipPosition="top"
+            tooltipStyleClass="text-xs"
+          />
+          <p-button
+            icon="pi pi-bell"
+            [rounded]="true"
+            severity="secondary"
+            pTooltip="Notificaciones"
+            tooltipPosition="top"
+            tooltipStyleClass="text-xs"
+          />
+          <p-button
+            icon="pi pi-question"
+            [rounded]="true"
+            severity="secondary"
+            pTooltip="Ayuda"
+            tooltipPosition="top"
+            tooltipStyleClass="text-xs"
+          />
+          <p-button
+            severity="secondary"
+            routerLink="/perfil"
+            pTooltip="Mi perfil"
+            tooltipPosition="top"
+            tooltipStyleClass="text-xs"
+            ><p-avatar
+              [image]="usuario()?.avatarImage"
+              [label]="usuario()?.name?.charAt(0)"
+              class="mr-1"
+              shape="circle"
+            />
+            <span class="hidden sm:flex font-medium text-black">{{
+              usuario()?.name
+            }}</span></p-button
+          >
+        </div>
       </div>
     </header>
 
