@@ -5,5 +5,19 @@
     "valor": "Value proposition",
     "empresas": "Company Portal",
     "candidatos": "Candidate Portal"
+  },
+  "sidebar": {
+    "candidato": {
+      "dashboard": "Dashboard",
+      "historial": "My history",
+      "postulaciones": "My job applications",
+      "empresas": "Companies",
+      "perfil": "My profile",
+      "vacantes": "Jobs",
+      "solicitudesAcceso": "Access requests",
+      "evaluaciones": "Evaluations",
+      "crecimiento": "My growth",
+      "configuracion": "Configuration"
+    }
   }
 }

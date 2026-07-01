@@ -5,5 +5,19 @@
     "valor": "Propuesta de valor",
     "empresas": "Portal de Empresas",
     "candidatos": "Portal de Candidatos"
+  },
+  "sidebar": {
+    "candidato": {
+      "dashboard": "Dashboard",
+      "historial": "Mi historial",
+      "postulaciones": "Mis postulaciones",
+      "empresas": "Empresas",
+      "perfil": "Mi perfil",
+      "vacantes": "Vacantes",
+      "solicitudesAcceso": "Solicitudes de acceso",
+      "evaluaciones": "Evaluaciones",
+      "crecimiento": "Mi crecimiento",
+      "configuracion": "Configuración"
+    }
   }
 }

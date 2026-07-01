@@ -27,8 +27,9 @@ export const CANDIDATO_ROUTES: Routes = [
           import('../pages/postulaciones/postulaciones').then((m) => m.Postulaciones),
       },
       {
-        path: 'favoritos',
-        loadComponent: () => import('../pages/favoritos/favoritos').then((m) => m.Favoritos),
+        path: 'configuracion',
+        loadComponent: () =>
+          import('../pages/configuracion/configuracion').then((m) => m.Configuracion),
       },
     ],
   },

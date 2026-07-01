@@ -12,6 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SidebarService } from '../../services/platform-sidebar.service';
 import { SidebarUser } from '../../interfaces/sidebar.interfaces';
 import { Link } from '../../interfaces/interfaces';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
@@ -28,6 +29,7 @@ import { Link } from '../../interfaces/interfaces';
     InputIconModule,
     InputTextModule,
     TooltipModule,
+    TranslatePipe,
   ],
   templateUrl: './platform-layout.html',
   styleUrl: './platform-layout.scss',
@@ -47,7 +49,7 @@ export class PlatformLayout {
   ngOnInit() {
     this.sidebarService.obtenerSidebar(1 /* TODO: uuid */).subscribe((data) => {
       this.usuario.set(data.user);
-      this.links.set(data.links);
+      this.links.set(data.links.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
     });
   }
 
