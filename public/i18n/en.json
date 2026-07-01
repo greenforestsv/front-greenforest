@@ -18,6 +18,23 @@
       "evaluaciones": "Evaluations",
       "crecimiento": "My growth",
       "configuracion": "Configuration"
+    },
+    "empresa": {
+      "dashboard": "Dashboard",
+      "vacantes": "Jobs",
+      "candidatos": "Candidates",
+      "entrevistas": "AI interviews",
+      "evaluaciones": "Assessments",
+      "empleados": "Employees",
+      "marcacion": "Time tracking",
+      "turnos": "Shifts",
+      "nomina": "Payroll",
+      "desempeno": "Performance",
+      "solicitudesAcceso": "Access requests",
+      "reportes": "Reports",
+      "perfil": "Profile",
+      "usuarios": "Users",
+      "configuracion": "Configuration"
     }
   }
 }

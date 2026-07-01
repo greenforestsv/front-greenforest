@@ -20,7 +20,6 @@
 }
 
 .thin-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.25);
   border-radius: 9999px;
 }
 
@@ -29,7 +28,7 @@
 }
 
 /* Firefox */
-.thin-scrollbar {
+.thin-scrollbar:hover {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }

@@ -18,6 +18,23 @@
       "evaluaciones": "Evaluaciones",
       "crecimiento": "Mi crecimiento",
       "configuracion": "Configuración"
+    },
+    "empresa": {
+      "dashboard": "Dashboard",
+      "vacantes": "Vacantes",
+      "candidatos": "Candidatos",
+      "entrevistas": "Entrevistas IA",
+      "evaluaciones": "Evaluaciones",
+      "empleados": "Empleados",
+      "marcacion": "Marcación",
+      "turnos": "Turnos",
+      "nomina": "Nómina",
+      "desempeno": "Desempeño",
+      "solicitudesAcceso": "Solicitudes de acceso",
+      "reportes": "Reportes",
+      "perfil": "Perfil",
+      "usuarios": "Usuarios",
+      "configuracion": "Configuración"
     }
   }
 }

@@ -47,8 +47,11 @@ export class PlatformLayout {
   links = signal<Link[] | []>([]);
 
   ngOnInit() {
-    this.sidebarService.obtenerSidebar(1 /* TODO: uuid */).subscribe((data) => {
+    const rol = this.router.url.includes('candidato') ? 1 : 2; /* TODO: uuid */
+
+    this.sidebarService.obtenerSidebar(rol).subscribe((data) => {
       this.usuario.set(data.user);
+      /* FIXME: que venga ordenado del backend */
       this.links.set(data.links.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
     });
   }
