@@ -36,5 +36,11 @@
       "usuarios": "Usuarios",
       "configuracion": "Configuración"
     }
+  },
+  "postulaciones": {
+    "aplicado": "Aplicado",
+    "preseleccion": "Preselección",
+    "entrevista": "Entrevista",
+    "oferta": "Oferta"
   }
 }

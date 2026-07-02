@@ -1,1 +1,113 @@
-<p>postulaciones works!</p>
+<!-- <div class="flex gap-4 h-screen">
+  <div class="bg-white rounded-3xl shadow-sm w-full overflow-y-auto flex flex-col gap-4">
+    <h1>Postulaciones</h1>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+    <div class="p-8 border">Postulacion</div>
+  </div>
+  <div class="bg-white rounded-3xl shadow-sm w-full">
+    <div class="p-8 border">¿Se ajusta tu perfil a la oferta?</div>
+    <div class="flex flex-col divide-y divide-black">
+      <div class="p-8 border-bottom">+ 100 candidatos postulados Oferta en: Francisco Morazán</div>
+      <div class="p-8">Años de experiencia: 1</div>
+      <div class="p-8">
+        <h2>Edad: Todas</h2>
+        AQUÍ
+        <app-horizontal-stacked-bar />
+      </div>
+      <div class="p-8">Nivel de estudios: No especificado en la oferta</div>
+      <div class="p-8">Salario: L 25,000</div>
+    </div>
+  </div>
+</div> -->
+<div class="pipeline p-4 lg:pl-0">
+  <!-- Aplicado -->
+  <section class="rounded-3xl bg-white p-4 shadow-sm">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="font-semibold">{{ 'postulaciones.aplicado' | translate }}</h2>
+      <div class="accent-badge size-6 flex items-center justify-center">
+        {{ aplicados().length }}
+      </div>
+    </div>
+
+    <div class="flex-1 space-y-3 overflow-y-auto">
+      @for (item of postulaciones(); track item.id) {
+        @if (item.status === 'A') {
+          <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+            <h3 class="font-medium">{{ item.name }}</h3>
+            <p class="mt-1 text-gray-500">{{ item.company }}</p>
+          </article>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- Preselección -->
+  <section class="rounded-3xl bg-white p-4 shadow-sm">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="font-semibold">{{ 'postulaciones.preseleccion' | translate }}</h2>
+      <div class="accent-badge size-6 flex items-center justify-center">
+        {{ preseleccion().length }}
+      </div>
+    </div>
+
+    <div class="flex-1 space-y-3 overflow-y-auto">
+      @for (item of postulaciones(); track item.id) {
+        @if (item.status === 'P') {
+          <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+            <h3 class="font-medium">{{ item.name }}</h3>
+            <p class="mt-1 text-gray-500">{{ item.company }}</p>
+          </article>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- Entrevista -->
+  <section class="rounded-3xl bg-white p-4 shadow-sm">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="font-semibold">{{ 'postulaciones.entrevista' | translate }}</h2>
+      <div class="accent-badge size-6 flex items-center justify-center">
+        {{ entrevista().length }}
+      </div>
+    </div>
+
+    <div class="flex-1 space-y-3 overflow-y-auto">
+      @for (item of postulaciones(); track item.id) {
+        @if (item.status === 'E') {
+          <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+            <h3 class="font-medium">{{ item.name }}</h3>
+            <p class="mt-1 text-gray-500">{{ item.company }}</p>
+          </article>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- Oferta -->
+  <section class="rounded-3xl bg-white p-4 shadow-sm">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="font-semibold">{{ 'postulaciones.oferta' | translate }}</h2>
+      <div class="accent-badge size-6 flex items-center justify-center">
+        {{ oferta().length }}
+      </div>
+    </div>
+
+    <div class="flex-1 space-y-3 overflow-y-auto">
+      @for (item of postulaciones(); track item.id) {
+        @if (item.status === 'O') {
+          <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+            <h3 class="font-medium">{{ item.name }}</h3>
+            <p class="mt-1 text-gray-500">{{ item.company }}</p>
+          </article>
+        }
+      }
+    </div>
+  </section>
+</div>

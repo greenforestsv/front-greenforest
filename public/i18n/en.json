@@ -10,7 +10,7 @@
     "candidato": {
       "dashboard": "Dashboard",
       "historial": "My history",
-      "postulaciones": "My job applications",
+      "postulaciones": "Job applications",
       "empresas": "Companies",
       "perfil": "My profile",
       "vacantes": "Jobs",
@@ -36,5 +36,11 @@
       "usuarios": "Users",
       "configuracion": "Configuration"
     }
+  },
+  "postulaciones": {
+    "aplicado": "Applied",
+    "preseleccion": "Preselection",
+    "entrevista": "Interview",
+    "oferta": "Offer"
   }
 }
