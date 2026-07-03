@@ -1,6 +1,14 @@
 export interface SignupCandidatoDto {
+  dni: string;
+  first_name: string;
+  second_name?: string;
+  first_surname: string;
+  second_surname?: string;
+  birth_date: Date;
+  gender: 'M' | 'F' | 'U';
   email: string;
-  password: string;
+  phone: string;
+  address?: string;
 }
 
 export interface SignupCandidatoResponse {
