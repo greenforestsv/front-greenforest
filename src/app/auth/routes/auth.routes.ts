@@ -32,4 +32,9 @@ export const AUTH_ROUTES: Routes = [
         (m) => m.OlvidoContrasena,
       ),
   },
+  {
+    path: 'verify/:id',
+    canMatch: [guestGuard],
+    loadComponent: () => import('../../auth/pages/verify/verify').then((m) => m.Verify),
+  },
 ];

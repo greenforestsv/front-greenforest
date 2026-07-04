@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { jwtDecode } from 'jwt-decode';
@@ -43,6 +43,12 @@ export class AuthService {
 
   signupCandidato(data: SignupCandidatoDto) {
     return this.http.post<SignupCandidatoResponse>(`${this.apiUrl}/aspirant`, data);
+  }
+
+  verifyCandidato(id: string, code: string) {
+    const params = new HttpParams().set('code', code);
+
+    return this.http.get(`${this.apiUrl}/verify/aspirant-code/${id}`, { params });
   }
 
   logout(): void {

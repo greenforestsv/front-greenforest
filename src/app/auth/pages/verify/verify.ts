@@ -1,32 +1,25 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-login-candidato',
+  selector: 'app-verify',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FloatLabelModule,
-    ButtonModule,
-    InputTextModule,
-    PasswordModule,
-    RouterLink,
-  ],
-  templateUrl: './login-candidato.html',
-  styleUrl: './login-candidato.scss',
+  imports: [ButtonModule, ReactiveFormsModule, FloatLabelModule, InputTextModule],
+  templateUrl: './verify.html',
+  styleUrl: './verify.scss',
 })
-export class LoginCandidato {
+export class Verify {
   private messageService = inject(MessageService);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   constructor() {
     const toast = history.state.toast;
@@ -37,35 +30,47 @@ export class LoginCandidato {
     }
   }
 
+  // ID de URL
+  id = this.route.snapshot.paramMap.get('id');
+
   // SIGNALS (estado UI)
   loading = signal(false);
   error = signal<string | null>(null);
 
   // FORM
-  readonly loginForm = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+  readonly verifyForm = this.fb.nonNullable.group({
+    code: ['', Validators.required],
   });
 
-  login(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+  verify(): void {
+    if (this.verifyForm.invalid) {
+      this.verifyForm.markAllAsTouched();
       return;
     }
 
     this.loading.set(true);
     this.error.set(null);
 
-    this.authService.loginCandidato(this.loginForm.getRawValue()).subscribe({
-      next: (res: any) => {
-        localStorage.setItem('token', res.token);
+    const { code } = this.verifyForm.getRawValue();
 
-        this.router.navigate(['/candidato/dashboard']);
+    this.authService.verifyCandidato(this.id!, code).subscribe({
+      next: (res: any) => {
+        this.router.navigate(['/login-candidato'], {
+          state: {
+            toast: {
+              severity: 'success',
+              summary: 'Cuenta verificada',
+              detail:
+                'Tu cuenta fue verificada correctamente. Usá la contraseña que recibiste por correo para iniciar sesión.',
+              sticky: true,
+            },
+          },
+        });
       },
       error: (err: { error: { message: any } }) => {
         this.messageService.add({
           severity: 'error',
-          summary: 'Error al iniciar sesión',
+          summary: 'Error al verificar correo',
           detail: err.error?.message ?? 'Ocurrió un error inesperado',
           life: 5000,
         });

@@ -128,9 +128,16 @@ export class RegistroCandidato {
       })
       .subscribe({
         next: (res: any) => {
-          localStorage.setItem('token', res.token);
-
-          this.router.navigate(['/verify']);
+          this.router.navigate(['/verify', res.id], {
+            state: {
+              toast: {
+                severity: 'success',
+                summary: 'Cuenta creada',
+                detail: 'Usá el código que recibiste por correo para verificar tu cuenta.',
+                sticky: true,
+              },
+            },
+          });
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
