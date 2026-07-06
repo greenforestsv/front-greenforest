@@ -13,6 +13,8 @@ import { SidebarService } from '../../services/platform-sidebar.service';
 import { SidebarUser } from '../../interfaces/sidebar.interfaces';
 import { Link } from '../../interfaces/interfaces';
 import { TranslatePipe } from '@ngx-translate/core';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
   standalone: true,
@@ -30,6 +32,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     InputTextModule,
     TooltipModule,
     TranslatePipe,
+    BadgeModule,
+    OverlayBadgeModule,
   ],
   templateUrl: './platform-layout.html',
   styleUrl: './platform-layout.scss',
@@ -46,8 +50,11 @@ export class PlatformLayout {
   usuario = signal<SidebarUser | null>(null);
   links = signal<Link[] | []>([]);
 
-  ngOnInit() {
-    const rol = this.router.url.includes('candidato') ? 1 : 2; /* TODO: uuid */
+  constructor() {
+    const CANDIDATO = 1;
+    const EMPRESA = 2;
+
+    const rol = this.router.url.includes('candidato') ? CANDIDATO : EMPRESA; /* TODO: uuid */
 
     this.sidebarService.obtenerSidebar(rol).subscribe((data) => {
       this.usuario.set(data.user);
