@@ -29,7 +29,7 @@
       <div class="mt-auto pt-4 border-t border-white/20 w-full">
         <p-button
           id="logout-btn-dark"
-          label="Cerrar sesión"
+          [label]="'sidebar.logout' | translate"
           icon="pi pi-sign-out"
           severity="danger"
           [text]="true"
@@ -71,7 +71,7 @@
     <div class="mt-6 pt-4 border-t border-white/20">
       <p-button
         id="logout-btn-dark"
-        label="Cerrar sesión"
+        [label]="'sidebar.logout' | translate"
         icon="pi pi-sign-out"
         severity="danger"
         [text]="true"
@@ -107,12 +107,7 @@
           <div class="hidden md:flex">
             <p-iconfield>
               <p-inputicon class="pi pi-search" />
-              <input
-                type="text"
-                pInputText
-                fluid
-                placeholder="Buscar vacantes, empresas o habilidades"
-              />
+              <input type="text" pInputText fluid [placeholder]="'sidebar.buscar' | translate" />
             </p-iconfield>
           </div>
           <p-button
@@ -120,31 +115,35 @@
             [rounded]="true"
             severity="secondary"
             class="flex md:hidden"
-            pTooltip="Buscar vacantes, empresas o habilidades"
-            tooltipPosition="top"
+            [pTooltip]="'sidebar.buscar' | translate"
+            tooltipPosition="bottom"
             tooltipStyleClass="text-xs"
           />
-          <p-button
-            icon="pi pi-bell"
-            [rounded]="true"
-            severity="secondary"
-            pTooltip="Notificaciones"
-            tooltipPosition="top"
-            tooltipStyleClass="text-xs"
-          />
+
+          <p-overlay-badge>
+            <p-button
+              icon="pi pi-bell"
+              [rounded]="true"
+              severity="secondary"
+              [pTooltip]="'sidebar.notificaciones' | translate"
+              tooltipPosition="bottom"
+              tooltipStyleClass="text-xs"
+            />
+            <p-badge severity="danger" class="animate-pulse" />
+          </p-overlay-badge>
           <p-button
             icon="pi pi-question"
             [rounded]="true"
             severity="secondary"
-            pTooltip="Ayuda"
-            tooltipPosition="top"
+            [pTooltip]="'sidebar.ayuda' | translate"
+            tooltipPosition="bottom"
             tooltipStyleClass="text-xs"
           />
           <p-button
             severity="secondary"
             routerLink="/perfil"
-            pTooltip="Mi perfil"
-            tooltipPosition="top"
+            [pTooltip]="'sidebar.perfil' | translate"
+            tooltipPosition="bottom"
             tooltipStyleClass="text-xs"
             ><p-avatar
               [image]="usuario()?.avatarImage"
