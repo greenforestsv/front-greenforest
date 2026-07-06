@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { MessageService } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-login-candidato',
@@ -18,6 +19,7 @@ import { MessageService } from 'primeng/api';
     InputTextModule,
     PasswordModule,
     RouterLink,
+    MessageModule,
   ],
   templateUrl: './login-candidato.html',
   styleUrl: './login-candidato.scss',
@@ -47,6 +49,9 @@ export class LoginCandidato {
     password: ['', Validators.required],
   });
 
+  readonly email = this.loginForm.controls.email;
+  readonly password = this.loginForm.controls.password;
+
   login(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
@@ -62,7 +67,11 @@ export class LoginCandidato {
 
         this.router.navigate(['/candidato/dashboard']);
       },
-      error: (err: { error: { message: any } }) => {
+      error: (err: { error: { message: any }; status: number }) => {
+        if (err.status === 401) {
+          this.loginForm.setErrors({ invalidCredentials: true });
+          this.loginForm.markAllAsTouched();
+        }
         this.messageService.add({
           severity: 'error',
           summary: 'Error al iniciar sesión',
