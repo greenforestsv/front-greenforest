@@ -128,6 +128,7 @@ export class RegistroCandidato {
       })
       .subscribe({
         next: (res: any) => {
+          sessionStorage.setItem('verifyId', res.id);
           this.router.navigate(['/verify', res.id], {
             state: {
               toast: {

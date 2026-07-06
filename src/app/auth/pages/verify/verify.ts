@@ -22,6 +22,12 @@ export class Verify {
   private route = inject(ActivatedRoute);
 
   constructor() {
+    const storedId = sessionStorage.getItem('verifyId');
+
+    if (!storedId || storedId !== this.id) {
+      this.router.navigate(['/not-found']);
+    }
+
     const toast = history.state.toast;
 
     if (toast) {
