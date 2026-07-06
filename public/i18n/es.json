@@ -7,6 +7,11 @@
     "candidatos": "Portal de Candidatos"
   },
   "sidebar": {
+    "logout": "Cerrar sesión",
+    "notificaciones": "Notificaciones",
+    "ayuda": "Ayuda",
+    "buscar": "Buscar",
+    "perfil": "Perfil",
     "candidato": {
       "dashboard": "Dashboard",
       "historial": "Mi historial",
@@ -42,5 +47,11 @@
     "preseleccion": "Preselección",
     "entrevista": "Entrevista",
     "oferta": "Oferta"
+  },
+  "configuracion": {
+    "configuracion": "Configuración",
+    "cambiarIdioma": "Cambiar idioma a",
+    "es": "español",
+    "en": "inglés"
   }
 }

@@ -7,6 +7,11 @@
     "candidatos": "Candidate Portal"
   },
   "sidebar": {
+    "logout": "Logout",
+    "notificaciones": "Notifications",
+    "ayuda": "Help",
+    "buscar": "Search",
+    "perfil": "Profile",
     "candidato": {
       "dashboard": "Dashboard",
       "historial": "My history",
@@ -42,5 +47,11 @@
     "preseleccion": "Preselection",
     "entrevista": "Interview",
     "oferta": "Offer"
+  },
+  "configuracion": {
+    "configuracion": "Configuration",
+    "cambiarIdioma": "Change language to",
+    "es": "spanish",
+    "en": "english"
   }
 }
