@@ -37,4 +37,12 @@ export const AUTH_ROUTES: Routes = [
     canMatch: [guestGuard],
     loadComponent: () => import('../../auth/pages/verify/verify').then((m) => m.Verify),
   },
+  {
+    path: 'cambio-contrasena',
+    canMatch: [guestGuard],
+    loadComponent: () =>
+      import('../../auth/pages/cambio-contrasena/cambio-contrasena').then(
+        (m) => m.CambioContrasena,
+      ),
+  },
 ];

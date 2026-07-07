@@ -134,3 +134,22 @@ ul li {
 
   font-size: 11px;
 }
+
+.green-badge {
+  padding: 0.25rem 0.75rem; /* py-1 px-3 */
+  border-radius: 9999px;
+
+  background-color: var(--p-forest-mist);
+  color: var(--p-forest-lite);
+  border: 1px solid var(--p-forest-lite);
+
+  font-size: 11px;
+}
+
+.card {
+  background-color: #fff;
+  //border: 1px solid #d1d5db; // border-gray-300
+  border-radius: 1.5rem; // rounded-3xl
+  //padding: 1rem; // p-4
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); // shadow-sm
+}
