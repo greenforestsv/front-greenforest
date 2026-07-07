@@ -1,65 +1,96 @@
 <div
   class="grid justify-items-center grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 p-4 pt-0 lg:pl-0"
 >
-  @for (empresa of empresas(); track empresa.id) {
-    <div class="w-full max-w-md card p-4 flex flex-col gap-4">
-      <div class="flex items-center gap-2">
-        <p-avatar size="large" shape="circle" [label]="empresa.name.charAt(0)" />
-        <div>
-          <h2 class="inter-font font-bold">{{ empresa.name }}</h2>
-          <div class="text-sm flex gap-2 items-center text-gray-600">
-            <span>{{ empresa.industry }}</span>
-            <span>&bull;</span>
-            <span>{{ empresa.country }}</span>
+  @if (loading()) {
+    <!-- SKELETONS -->
+    @for (item of items; track $index) {
+      <div class="w-full max-w-md rounded-3xl bg-white p-4 shadow-sm">
+        <div class="mb-4 flex items-start gap-3">
+          <p-skeleton shape="circle" size="3rem" />
+
+          <div class="flex-1 space-y-2">
+            <p-skeleton width="40%" borderRadius="16px" />
+            <p-skeleton width="50%" borderRadius="16px" />
           </div>
+        </div>
+        <div class="flex-1 space-y-3">
+          <p-skeleton width="100%" height="1.1rem" borderRadius="16px" />
+          <p-skeleton width="100%" height="1.1rem" borderRadius="16px" />
+          <p-skeleton width="100%" height="1.1rem" borderRadius="16px" />
+        </div>
+        <div class="mt-4 flex space-x-2">
+          <p-skeleton width="25%" height="1.75rem" borderRadius="16px" />
+          <p-skeleton width="25%" height="1.75rem" borderRadius="16px" />
         </div>
       </div>
-      <div class="text-sm flex flex-col gap-2">
-        <!-- ASCENSOS -->
+    }
+  } @else {
+    <!-- CARDS -->
+    @for (empresa of empresas(); track empresa.id) {
+      <div class="w-full max-w-md card p-4 flex flex-col gap-4">
         <div class="flex items-center gap-2">
-          <span class="w-40 text-gray-600">Ascensos internos</span>
-          <!-- BARRA -->
-          <div class="w-64 bg-gray-100 rounded-full h-3">
-            <div
-              class="flex h-3 bg-mid rounded-full"
-              [style.width.%]="empresa.ascensos_internos"
-            ></div>
+          <p-avatar size="large" shape="circle" [label]="empresa.name.charAt(0)" />
+          <div>
+            <h2 class="inter-font font-bold">{{ empresa.name }}</h2>
+            <div class="text-sm flex gap-2 items-center text-gray-600">
+              <span>{{ empresa.industry }}</span>
+              <span>&bull;</span>
+              <span>{{ empresa.country }}</span>
+            </div>
           </div>
-          <!-- PORCENTAJE -->
-          <span>{{ empresa.ascensos_internos }}%</span>
         </div>
-        <!-- ROTACIÓN -->
-        <div class="flex items-center gap-2">
-          <span class="w-40 text-gray-600">Rotación baja</span>
-          <!-- BARRA -->
-          <div class="w-64 bg-gray-100 rounded-full h-3">
-            <div class="flex h-3 bg-mid rounded-full" [style.width.%]="empresa.rotacion"></div>
+        <div class="text-sm flex flex-col gap-2">
+          <!-- ASCENSOS -->
+          <div class="flex items-center gap-2">
+            <span class="w-40 text-gray-600">Ascensos internos</span>
+            <!-- BARRA -->
+            <div class="w-64 bg-gray-100 rounded-full h-3">
+              <div
+                class="flex h-3 bg-lite rounded-full"
+                [style.width.%]="empresa.ascensos_internos"
+              ></div>
+            </div>
+            <!-- PORCENTAJE -->
+            <span>{{ empresa.ascensos_internos }}%</span>
           </div>
-          <!-- PORCENTAJE -->
-          <span>{{ empresa.rotacion }}%</span>
+          <!-- ROTACIÓN -->
+          <div class="flex items-center gap-2">
+            <span class="w-40 text-gray-600">Rotación baja</span>
+            <!-- BARRA -->
+            <div class="w-64 bg-gray-100 rounded-full h-3">
+              <div class="flex h-3 bg-lite rounded-full" [style.width.%]="empresa.rotacion"></div>
+            </div>
+            <!-- PORCENTAJE -->
+            <span>{{ empresa.rotacion }}%</span>
+          </div>
+          <!-- BENEFICIOS -->
+          <div class="flex items-center gap-2">
+            <span class="w-40 text-gray-600">Beneficios reales</span>
+            <!-- BARRA -->
+            <div class="w-64 bg-gray-100 rounded-full h-3">
+              <div
+                class="flex h-3 bg-lite rounded-full"
+                [style.width.%]="empresa.beneficios_reales"
+              ></div>
+            </div>
+            <!-- PORCENTAJE -->
+            <span>{{ empresa.beneficios_reales }}%</span>
+          </div>
         </div>
-        <!-- BENEFICIOS -->
-        <div class="flex items-center gap-2">
-          <span class="w-40 text-gray-600">Beneficios reales</span>
-          <!-- BARRA -->
-          <div class="w-64 bg-gray-100 rounded-full h-3">
-            <div
-              class="flex h-3 bg-mid rounded-full"
-              [style.width.%]="empresa.beneficios_reales"
-            ></div>
-          </div>
-          <!-- PORCENTAJE -->
-          <span>{{ empresa.beneficios_reales }}%</span>
+        <div class="flex gap-2">
+          @if (empresa.reputacion_alta) {
+            <span class="green-badge">Reputación alta</span>
+          }
+          @if (empresa.solicito_acceso) {
+            <span class="accent-badge">Solicitó acceso</span>
+          }
+          @if (empresa.vacantes > 0) {
+            <span class="gray-badge"
+              >{{ empresa.vacantes }} {{ empresa.vacantes === 1 ? 'vacante' : 'vacantes' }}</span
+            >
+          }
         </div>
       </div>
-      <div class="flex gap-2">
-        @if (empresa.reputacion_alta) {
-          <span class="green-badge">Reputación alta</span>
-        }
-        @if (empresa.solicito_acceso) {
-          <span class="accent-badge">Solicitó acceso</span>
-        }
-      </div>
-    </div>
+    }
   }
 </div>

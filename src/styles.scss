@@ -124,26 +124,27 @@ ul li {
   vertical-align: middle;
 }
 
-.accent-badge {
-  padding: 0.25rem 0.75rem; /* py-1 px-3 */
+@mixin badge($bg, $color, $border) {
+  padding: 0.25rem 0.75rem;
   border-radius: 9999px;
 
-  background-color: var(--color-accent-50);
-  color: var(--color-accent-500);
-  border: 1px solid var(--color-accent-100);
+  background-color: $bg;
+  color: $color;
+  border: 1px solid $border;
 
   font-size: 11px;
 }
 
+.accent-badge {
+  @include badge(var(--color-accent-50), var(--color-accent-500), var(--color-accent-100));
+}
+
 .green-badge {
-  padding: 0.25rem 0.75rem; /* py-1 px-3 */
-  border-radius: 9999px;
+  @include badge(var(--p-forest-mist), var(--p-forest-lite), var(--p-forest-lite));
+}
 
-  background-color: var(--p-forest-mist);
-  color: var(--p-forest-lite);
-  border: 1px solid var(--p-forest-lite);
-
-  font-size: 11px;
+.gray-badge {
+  @include badge(var(--color-gray-100), var(--color-gray-600), var(--color-gray-200));
 }
 
 .card {
