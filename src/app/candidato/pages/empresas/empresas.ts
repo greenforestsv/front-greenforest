@@ -3,10 +3,11 @@ import { AvatarModule } from 'primeng/avatar';
 import { Empresa } from '../../interfaces/empresa.interface';
 import { EmpresasService } from '../../services/empresas.service';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-empresas',
-  imports: [AvatarModule, SkeletonModule],
+  imports: [AvatarModule, SkeletonModule, TranslatePipe],
   templateUrl: './empresas.html',
   styleUrl: './empresas.scss',
 })

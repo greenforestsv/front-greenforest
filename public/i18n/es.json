@@ -48,6 +48,15 @@
     "entrevista": "Entrevista",
     "oferta": "Oferta"
   },
+  "empresas": {
+    "ascensosInternos": "Ascensos internos",
+    "rotacionBaja": "Rotación baja",
+    "beneficiosReales": "Beneficios reales",
+    "reputacionAlta": "Reputación alta",
+    "solicitoAcceso": "Solicitó acceso",
+    "vacantes": "vacantes",
+    "vacante": "vacante"
+  },
   "configuracion": {
     "configuracion": "Configuración",
     "cambiarIdioma": "Cambiar idioma a",

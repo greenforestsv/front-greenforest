@@ -25,6 +25,9 @@ export interface LoginCandidatoDto {
 }
 
 export interface LoginResponse {
+  name: string;
+  country: string;
+  is_verified: boolean;
   token: string;
 }
 

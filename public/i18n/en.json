@@ -48,6 +48,15 @@
     "entrevista": "Interview",
     "oferta": "Offer"
   },
+  "empresas": {
+    "ascensosInternos": "Internal promotions",
+    "rotacionBaja": "Low turnover",
+    "beneficiosReales": "Real benefits",
+    "reputacionAlta": "Great reputation",
+    "solicitoAcceso": "Requested access",
+    "vacantes": "job openings",
+    "vacante": "job opening"
+  },
   "configuracion": {
     "configuracion": "Configuration",
     "cambiarIdioma": "Change language to",

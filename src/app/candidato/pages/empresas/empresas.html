@@ -42,7 +42,7 @@
         <div class="text-sm flex flex-col gap-2">
           <!-- ASCENSOS -->
           <div class="flex items-center gap-2">
-            <span class="w-40 text-gray-600">Ascensos internos</span>
+            <span class="w-40 text-gray-600">{{ 'empresas.ascensosInternos' | translate }}</span>
             <!-- BARRA -->
             <div class="w-64 bg-gray-100 rounded-full h-3">
               <div
@@ -55,7 +55,7 @@
           </div>
           <!-- ROTACIÓN -->
           <div class="flex items-center gap-2">
-            <span class="w-40 text-gray-600">Rotación baja</span>
+            <span class="w-40 text-gray-600">{{ 'empresas.rotacionBaja' | translate }}</span>
             <!-- BARRA -->
             <div class="w-64 bg-gray-100 rounded-full h-3">
               <div class="flex h-3 bg-lite rounded-full" [style.width.%]="empresa.rotacion"></div>
@@ -65,7 +65,7 @@
           </div>
           <!-- BENEFICIOS -->
           <div class="flex items-center gap-2">
-            <span class="w-40 text-gray-600">Beneficios reales</span>
+            <span class="w-40 text-gray-600">{{ 'empresas.beneficiosReales' | translate }}</span>
             <!-- BARRA -->
             <div class="w-64 bg-gray-100 rounded-full h-3">
               <div
@@ -79,14 +79,19 @@
         </div>
         <div class="flex gap-2">
           @if (empresa.reputacion_alta) {
-            <span class="green-badge">Reputación alta</span>
+            <span class="green-badge">{{ 'empresas.reputacionAlta' | translate }}</span>
           }
           @if (empresa.solicito_acceso) {
-            <span class="accent-badge">Solicitó acceso</span>
+            <span class="accent-badge">{{ 'empresas.solicitoAcceso' | translate }}</span>
           }
           @if (empresa.vacantes > 0) {
             <span class="gray-badge"
-              >{{ empresa.vacantes }} {{ empresa.vacantes === 1 ? 'vacante' : 'vacantes' }}</span
+              >{{ empresa.vacantes }}
+              {{
+                empresa.vacantes === 1
+                  ? ('empresas.vacante' | translate)
+                  : ('empresas.vacantes' | translate)
+              }}</span
             >
           }
         </div>
