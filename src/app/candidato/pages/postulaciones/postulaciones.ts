@@ -1,9 +1,12 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { SkeletonModule } from 'primeng/skeleton';
+import { PostulacionesService } from '../../services/postulaciones.service';
+import { Postulacion } from '../../interfaces/postulacion.interface';
 
 @Component({
   selector: 'app-postulaciones',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, SkeletonModule],
   templateUrl: './postulaciones.html',
   styleUrl: './postulaciones.scss',
 })
@@ -68,57 +71,30 @@ export class Postulaciones {
     },
   }); */
 
-  postulaciones = signal([
-    {
-      id: 1,
-      name: 'Growth Marketing Manager',
-      company: 'LinkX Retail',
-      status: 'A',
-    },
-    {
-      id: 2,
-      name: 'Product Marketing SaaS',
-      company: 'GreenLabs',
-      status: 'A',
-    },
-    {
-      id: 3,
-      name: 'BI Lead',
-      company: 'Central Analytics',
-      status: 'A',
-    },
-    {
-      id: 4,
-      name: 'AI Automation Specialist',
-      company: 'NovaTech',
-      status: 'P',
-    },
-    {
-      id: 5,
-      name: 'Business Intelligence Lead',
-      company: 'GreenLabs',
-      status: 'P',
-    },
-    {
-      id: 6,
-      name: 'Marketing Data Strategist',
-      company: 'Kodigo',
-      status: 'E',
-    },
-    {
-      id: 7,
-      name: 'Consultora AI Ops',
-      company: 'Nueva Visión',
-      status: 'O',
-    },
-  ]);
+  items = Array.from({ length: 4 });
 
-  status(status: string) {
+  /* Injección de servicio */
+  private postulacionesService = inject(PostulacionesService);
+
+  /* Estados iniciales */
+  postulaciones = signal<Postulacion[]>([]);
+  loading = signal(true);
+
+  /* Constructor donde obtenemos la data */
+  constructor() {
+    this.postulacionesService.getPostulaciones().subscribe((postulaciones) => {
+      this.postulaciones.set(postulaciones);
+      this.loading.set(false);
+    });
+  }
+
+  /* Contadores */
+  countStatus(status: string) {
     return computed(() => this.postulaciones().filter((p) => p.status === status));
   }
 
-  aplicados = this.status('A');
-  preseleccion = this.status('P');
-  entrevista = this.status('E');
-  oferta = this.status('O');
+  aplicados = this.countStatus('A');
+  preseleccion = this.countStatus('P');
+  entrevista = this.countStatus('E');
+  oferta = this.countStatus('O');
 }
