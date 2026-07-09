@@ -1,193 +1,156 @@
-<div class="max-w-4xl mx-auto">
-  <h1 class="text-3xl font-bold mb-5">Mi curriculum</h1>
-  <div class="my-12 p-8 bg-white rounded-3xl shadow-sm">
-    <!-- PERFIL -->
-    <section class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-6 relative">
-      <!-- EDIT BUTTON -->
-      <p-button icon="pi pi-pencil" class="absolute top-0 right-0" [rounded]="true" size="small" />
-      <!-- AVATAR -->
-      <div class="ring-4 ring-mist rounded-full p-1 shrink-0 relative">
-        <p-avatar
-          icon="pi pi-user"
-          size="xlarge"
-          shape="circle"
-          class="bg-mid text-white flex items-center justify-center !w-24 !h-24 text-2xl"
-        />
-        <p-button
-          icon="pi pi-plus"
-          class="absolute bottom-0 right-0"
-          [rounded]="true"
-          size="small"
-        />
-      </div>
-
-      <div class="text-center md:text-left space-y-2 w-full">
-        <h2 class="text-2xl font-bold">{{ cv().perfil.nombre }}</h2>
-        <h3 class="text-xl font-bold text-lite">
-          {{ cv().perfil.titulo }}
-        </h3>
-
-        <address
-          class="flex flex-wrap justify-center md:justify-start gap-y-2 gap-x-4 not-italic text-sm font-medium text-gray-500"
-        >
-          <span class="flex items-center gap-1.5">
-            <i class="pi pi-map-marker text-lite"></i>{{ cv().perfil.ubicacion }}
-          </span>
-          <a
-            [href]="'mailto:' + cv().perfil.correo"
-            class="flex items-center gap-1.5 text-lite hover:text-mid transition-colors duration-200"
-          >
-            <i class="pi pi-envelope"></i>{{ cv().perfil.correo }}</a
-          >
-          <a
-            [href]="'tel:' + cv().perfil.telefono"
-            class="flex items-center gap-1.5 text-lite hover:text-mid transition-colors duration-200"
-          >
-            <i class="pi pi-phone"></i>{{ cv().perfil.telefono }}</a
-          >
-        </address>
-      </div>
-    </section>
-    <!-- DESCRIPCION -->
-    <section class="relative">
-      <!-- EDIT BUTTON -->
-      <p-button icon="pi pi-pencil" class="absolute top-0 right-0" [rounded]="true" size="small" />
-      <p class="pt-10 text-gray-600 leading-relaxed font-normal text-base md:text-md">
-        {{ cv().perfil.descripcion }}
-      </p>
-    </section>
-
-    <!-- EXPERIENCIAS -->
-    <section class="mt-8 relative">
-      <!-- EDIT BUTTON -->
-      <p-button icon="pi pi-pencil" class="absolute top-0 right-0" [rounded]="true" size="small" />
-      <h2 class="text-2xl font-bold mb-5">Experiencias Profesionales</h2>
-
-      <div class="relative border-l border-gray-300 ml-4 md:ml-6">
-        @for (experiencia of cv().experiencias; track experiencia.titulo) {
-          <div class="mb-10 ml-6 relative">
-            <span
-              class="absolute -left-[31px] top-0 bg-cream border-2 border-lite rounded-full size-4 flex items-center justify-center shadow-sm"
-            >
-              <span class="bg-lite rounded-full w-1.5 h-1.5"></span>
-            </span>
-
-            <div class="bg-white p-6 rounded-3xl shadow-sm">
-              <div class="mb-2">
-                <span
-                  class="text-xs font-semibold uppercase text-lite bg-mist px-2.5 py-1 rounded-full w-fit"
-                >
-                  {{ experiencia.fecha }}
-                </span>
-              </div>
-
-              <h3 class="text-lg font-bold">
-                {{ experiencia.titulo }}
-              </h3>
-              <p class="font-medium text-lite mb-3">
-                {{ experiencia.empresa }}
-              </p>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                {{ experiencia.descripcion }}
-              </p>
-            </div>
-          </div>
-        }
-      </div>
-    </section>
-    <!-- ESTUDIOS -->
-    <section class="relative">
-      <!-- EDIT BUTTON -->
-      <p-button icon="pi pi-pencil" class="absolute top-0 right-0" [rounded]="true" size="small" />
-      <h2 class="text-2xl font-bold mb-5">Estudios</h2>
-
-      <div class="relative border-l border-gray-300 ml-4 md:ml-6">
-        @for (educacion of cv().educacion; track educacion.titulo) {
-          <div class="mb-10 ml-6 relative">
-            <span
-              class="absolute -left-[31px] top-0 bg-cream border-2 border-lite rounded-full size-4 flex items-center justify-center shadow-sm"
-            >
-              <span class="bg-lite rounded-full w-1.5 h-1.5"></span>
-            </span>
-
-            <div class="bg-white p-6 rounded-3xl shadow-sm">
-              <div class="mb-2">
-                <span
-                  class="text-xs font-semibold uppercase text-lite bg-mist px-2.5 py-1 rounded-full w-fit"
-                >
-                  {{ educacion.fecha }}
-                </span>
-              </div>
-
-              <h3 class="text-lg font-bold mb-3">
-                {{ educacion.titulo }}
-              </h3>
-              <span class="text-sm font-medium text-gray-500">
-                {{ educacion.institucion }}
-              </span>
-
-              @if (educacion.descripcion) {
-                <p class="text-gray-600 text-sm leading-relaxed">
-                  {{ educacion.descripcion }}
-                </p>
-              }
-            </div>
-          </div>
-        }
-      </div>
-    </section>
-    <!-- IDIOMAS -->
-    <section class="md:col-span-1 bg-white p-6 rounded-3xl shadow-sm relative">
-      <!-- EDIT BUTTON -->
-      <p-button icon="pi pi-pencil" class="absolute top-0 right-0" [rounded]="true" size="small" />
-      <h2 class="text-2xl font-bold">Idiomas</h2>
-
-      <div class="flex flex-wrap gap-2.5 pt-2">
-        <div class="flex flex-wrap gap-2.5 pt-2">
-          @for (idioma of cv().idiomas; track idioma.id) {
-            <span class="text-sm bg-mist text-lite px-3.5 py-1.5 rounded-full">
-              {{ idioma.nombre }} - {{ idioma.nivel }}
-            </span>
-          }
+<div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
+  @if (loading()) {
+    <div class="flex-1 w-full rounded-3xl bg-white p-8">
+      <div class="mb-4 w-full flex justify-between items-start lg:items-center">
+        <div class="space-y-2 flex-1">
+          <p-skeleton width="30%" height="2rem" />
+          <p-skeleton width="50%" height="2rem" />
+        </div>
+        <div class="lg:hidden flex">
+          <p-skeleton shape="circle" height="2rem" width="2rem" />
+        </div>
+        <div class="hidden lg:flex">
+          <p-skeleton height="2rem" width="6rem" />
         </div>
       </div>
-    </section>
-    <!-- HABILIDADES -->
-    <section class="md:col-span-2 bg-white p-6 rounded-3xl shadow-sm relative mt-8">
-      <!-- EDIT BUTTON -->
-      <p-button icon="pi pi-pencil" class="absolute top-0 right-0" [rounded]="true" size="small" />
-      <h2 class="text-2xl font-bold">Conocimientos y Habilidades</h2>
-
-      <div class="flex flex-wrap gap-2.5 pt-2">
-        @for (habilidad of cv().habilidades; track habilidad.id) {
-          <span class="text-sm bg-mist text-lite px-3.5 py-1.5 rounded-full">
-            {{ habilidad.nombre }}
-          </span>
-        }
+      <div class="flex-1 space-y-3">
+        <p-skeleton width="100%" height="15rem" borderRadius="1.5rem" />
+        <p-skeleton width="100%" height="15rem" borderRadius="1.5rem" />
       </div>
-    </section>
-    <!-- PRUEBAS -->
-    <section class="md:col-span-2 bg-white p-6 rounded-3xl shadow-sm relative mt-8">
-      <h2 class="text-2xl font-bold">Pruebas y Evaluaciones</h2>
+    </div>
+    <div class="w-[22rem] flex flex-col gap-4">
+      <div class="bg-white rounded-3xl p-3 space-y-2">
+        <p-skeleton width="50%" height="1.75rem" />
+        <p-skeleton width="100%" height="3.8rem" />
+        <p-skeleton width="100%" height="3.8rem" />
+        <p-skeleton width="100%" height="3.8rem" />
+      </div>
+      <div class="card p-3 space-y-2">
+        <p-skeleton width="50%" height="1.75rem" />
+        <p-skeleton width="100%" height="1.75rem" />
+        <p-skeleton width="100%" height="1.75rem" />
+        <p-skeleton width="100%" height="1.75rem" />
+        <p-skeleton width="100%" height="1.75rem" />
+      </div>
+    </div>
+  } @else {
+    <!-- WORK EXPERIENCE -->
+    <section class="card p-8 flex-1">
+      <!-- EDIT BUTTON -->
+      <div class="flex items-start lg:items-center justify-between mb-4 gap-2">
+        <div>
+          <h2 class="text-2xl font-bold">Historial laboral verificado</h2>
+          <p class="text-gray-600">Experiencias, logros y evaluaciones validadas por empresas</p>
+        </div>
+        <p-button icon="pi pi-plus" class="flex lg:hidden" [rounded]="true" size="small" />
+        <p-button
+          icon="pi pi-plus"
+          class="hidden lg:flex"
+          [rounded]="true"
+          size="small"
+          label="Agregar experiencia"
+        />
+      </div>
 
-      <div class="flex flex-wrap gap-2.5 pt-2">
-        @for (prueba of cv().pruebas; track prueba.id) {
-          <div
-            class="bg-white p-5 rounded-3xl shadow-sm flex flex-col relative border border-gray-300"
-          >
-            <i
-              class="pi pi-language text-lite absolute top-3 right-3 bg-mist rounded-full p-1.5"
-            ></i>
-            <h3 class="font-bold mb-2">
-              {{ prueba.nombre }}
-            </h3>
-            <span class="text-sm"> Nivel: {{ prueba.score }} </span>
-            <span class="text-sm">
-              {{ prueba.fecha }}
-            </span>
+      <div class="relative border-l border-gray-300 space-y-4">
+        @for (experience of cv()?.work_experiences; track experience.id) {
+          <div class="ml-6 relative">
+            <!-- TIMELINE -->
+            <span class="absolute -left-[31px] top-0 shadow-sm bg-lite rounded-full size-4"> </span>
+
+            <div class="card border border-gray-300 p-4 space-y-4">
+              <h3 class="text-lg font-bold">
+                {{ experience.title }} &bull; {{ experience.company }}
+              </h3>
+              <ul class="space-y-1 text-gray-600">
+                @for (item of experience.activities; track $index) {
+                  <span class="flex gap-2">
+                    &bull;
+                    <li>{{ item }}</li></span
+                  >
+                }
+              </ul>
+              <!-- BADGES -->
+              <div class="flex flex-wrap gap-2">
+                <span class="green-badge">Validado</span>
+                <span class="accent-badge">Ascenso interno</span>
+                <span class="gray-badge">
+                  {{ experience.start_date }}
+                </span>
+                @if (experience.end_date) {
+                  <span class="gray-badge">
+                    {{ experience.end_date }}
+                  </span>
+                }
+              </div>
+            </div>
           </div>
         }
       </div>
     </section>
-  </div>
+    <!-- DERECHA -->
+    <div class="flex flex-col gap-4">
+      <!-- NIVEL DE ACCESO -->
+      <section class="card p-4 flex flex-col gap-2">
+        <h2 class="font-bold">Nivel de acceso</h2>
+        <div class="card flex flex-col gap-2">
+          <div
+            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300"
+          >
+            <div class="text-sm flex-1">
+              <h3 class="font-bold">Público</h3>
+              <p class="text-gray-600">Cargos, habilidades y disponibilidad</p>
+            </div>
+            <div class="flex items-center">
+              <span class="green-badge">Activo</span>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300"
+          >
+            <div class="text-sm flex-1">
+              <h3 class="font-bold">Protegido</h3>
+              <p class="text-gray-600">Evaluaciones y motivos de salida</p>
+            </div>
+            <div class="flex items-center">
+              <span class="accent-badge">Con permiso</span>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300"
+          >
+            <div class="text-sm flex-1">
+              <h3 class="font-bold">Privado</h3>
+              <p class="text-gray-600">Salario histórico y documentos</p>
+            </div>
+            <div class="flex items-center">
+              <span class="gray-badge">Oculto</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- SEÑALES VERIFICADAS -->
+      <section class="card space-y-2 p-4">
+        <h2 class="font-bold">Señales verificadas</h2>
+        <div class="card flex flex-col divide-y text-sm divide-gray-300">
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600">Logros validados</h3>
+            <span class="font-bold">18</span>
+          </div>
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600">Evaluaciones positivas</h3>
+            <span class="font-bold">9</span>
+          </div>
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600">Reconocimientos</h3>
+            <span class="font-bold">6</span>
+          </div>
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600">Alertas</h3>
+            <span class="font-bold">0</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  }
 </div>

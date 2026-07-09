@@ -1,18 +1,37 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { Curriculum as CV } from '../../interfaces/interfaces';
+import { AspirantesService } from '../../services/aspirantes.service';
+import { CV } from '../../interfaces/cv.interfaces';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-curriculum',
-  imports: [AvatarModule, TimelineModule, ButtonModule, CardModule],
+  imports: [AvatarModule, TimelineModule, ButtonModule, CardModule, SkeletonModule],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',
 })
 export class Curriculum {
-  cv = signal<CV>({
+  /* Injección de servicio */
+  aspirantesService = inject(AspirantesService);
+
+  /* Estados iniciales */
+  cv = signal<CV | null>(null);
+  loading = signal(false);
+
+  /* Constructor */
+  constructor() {
+    this.aspirantesService.getCV().subscribe((cv) => {
+      console.log(cv);
+      /* Ponemos datos en estado */
+      this.cv.set(cv);
+      this.loading.set(false);
+    });
+  }
+
+  /* cv = signal<CV>({
     id: 1,
     perfil: {
       nombre: 'Mary Jane Watson',
@@ -95,5 +114,5 @@ export class Curriculum {
         score: 'Avanzado',
       },
     ],
-  });
+  }); */
 }
