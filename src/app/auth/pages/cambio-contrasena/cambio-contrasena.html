@@ -1,0 +1,113 @@
+<div class="relative min-h-screen overflow-hidden">
+  <!-- Imagen de fondo -->
+  <img
+    src="/bosque-1.jpg"
+    alt=""
+    loading="lazy"
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover object-bottom -z-20 select-none"
+  />
+
+  <div class="flex min-h-screen items-center justify-center p-6 sm:p-6 lg:p-8">
+    <div class="w-full max-w-md rounded-3xl bg-white px-6 py-7 shadow-xl sm:px-8 pt-0">
+      <div class="logo mx-auto cursor-pointer" routerLink="/"></div>
+
+      <div class="mb-8 text-center">
+        <h1 class="text-3xl font-light text-primary">Cambio de Contraseña</h1>
+      </div>
+
+      <form
+        [formGroup]="changePasswordForm"
+        (ngSubmit)="changePassword()"
+        class="flex flex-col gap-4 w-full"
+      >
+        <div class="flex flex-col gap-4">
+          <!-- CONTRASEÑA ACTUAL -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Contraseña actual <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="password"
+              id="current_password"
+              placeholder="Contraseña actual"
+              formControlName="current_password"
+              [invalid]="current_password.invalid && current_password.touched"
+              required
+            />
+            @if (current_password.invalid && current_password.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (current_password.hasError('required')) {
+                  La contraseña actual es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- NUEVA CONTRASEÑA -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Nueva contraseña <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="password"
+              id="new_password"
+              placeholder="Nueva contraseña"
+              formControlName="new_password"
+              [invalid]="new_password.invalid && new_password.touched"
+              required
+            />
+            @if (new_password.invalid && new_password.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (new_password.hasError('required')) {
+                  La nueva contraseña es obligatoria.
+                }
+
+                @if (new_password.hasError('minlength')) {
+                  Debe tener al menos 8 caracteres.
+                }
+
+                @if (new_password.hasError('pattern')) {
+                  Debe contener una mayúscula y un número.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- CONFIRMAR NUEVA CONTRASEÑA -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Confirmar nueva contraseña <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="password"
+              id="confirm_new_password"
+              placeholder="Confirmar nueva contraseña"
+              formControlName="confirm_new_password"
+              [invalid]="confirm_new_password.invalid && confirm_new_password.touched"
+              required
+            />
+            @if (changePasswordForm.touched && changePasswordForm.hasError('passwordMismatch')) {
+              <p-message severity="error" size="small" variant="simple"
+                >Las contraseñas no coinciden.</p-message
+              >
+            }
+            @if (confirm_new_password.touched && confirm_new_password.hasError('required')) {
+              <p-message severity="error" size="small" variant="simple"
+                >Debés confirmar tu contraseña.</p-message
+              >
+            }
+          </div>
+        </div>
+
+        <!-- BOTÓN REGISTRO -->
+        <button pButton type="submit" [loading]="loading()" class="mt-2">
+          <span pButtonLabel>Cambiar contraseña </span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
