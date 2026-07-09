@@ -35,12 +35,12 @@
     </div>
   } @else {
     <!-- WORK EXPERIENCE -->
-    <section class="card p-8 flex-1">
+    <section class="card p-8 flex-2">
       <!-- EDIT BUTTON -->
       <div class="flex items-start lg:items-center justify-between mb-4 gap-2">
         <div>
-          <h2 class="text-2xl font-bold">Historial laboral verificado</h2>
-          <p class="text-gray-600">Experiencias, logros y evaluaciones validadas por empresas</p>
+          <h2 class="text-2xl font-bold">{{ 'cv.historial_laboral_verificado' | translate }}</h2>
+          <p class="text-gray-600">{{ 'cv.experiencias_verificadas' | translate }}</p>
         </div>
         <p-button icon="pi pi-plus" class="flex lg:hidden" [rounded]="true" size="small" />
         <p-button
@@ -48,7 +48,7 @@
           class="hidden lg:flex"
           [rounded]="true"
           size="small"
-          label="Agregar experiencia"
+          [label]="'cv.agregar_experiencia' | translate"
         />
       </div>
 
@@ -72,8 +72,8 @@
               </ul>
               <!-- BADGES -->
               <div class="flex flex-wrap gap-2">
-                <span class="green-badge">Validado</span>
-                <span class="accent-badge">Ascenso interno</span>
+                <span class="green-badge">{{ 'cv.validado' | translate }}</span>
+                <span class="accent-badge">{{ 'cv.ascenso_interno' | translate }}</span>
                 <span class="gray-badge">
                   {{ experience.start_date }}
                 </span>
@@ -89,64 +89,64 @@
       </div>
     </section>
     <!-- DERECHA -->
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 flex-1">
       <!-- NIVEL DE ACCESO -->
       <section class="card p-4 flex flex-col gap-2">
-        <h2 class="font-bold">Nivel de acceso</h2>
+        <h2 class="font-bold">{{ 'cv.nivel_acceso' | translate }}</h2>
         <div class="card flex flex-col gap-2">
           <div
-            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300"
+            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300 gap-2"
           >
             <div class="text-sm flex-1">
-              <h3 class="font-bold">Público</h3>
-              <p class="text-gray-600">Cargos, habilidades y disponibilidad</p>
+              <h3 class="font-bold">{{ 'cv.publico' | translate }}</h3>
+              <p class="text-gray-600">{{ 'cv.descripcion_publico' | translate }}</p>
             </div>
             <div class="flex items-center">
-              <span class="green-badge">Activo</span>
+              <span class="green-badge">{{ 'cv.activo' | translate }}</span>
             </div>
           </div>
           <div
-            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300"
+            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300 gap-2"
           >
             <div class="text-sm flex-1">
-              <h3 class="font-bold">Protegido</h3>
-              <p class="text-gray-600">Evaluaciones y motivos de salida</p>
+              <h3 class="font-bold">{{ 'cv.protegido' | translate }}</h3>
+              <p class="text-gray-600">{{ 'cv.descripcion_protegido' | translate }}</p>
             </div>
             <div class="flex items-center">
-              <span class="accent-badge">Con permiso</span>
+              <span class="accent-badge">{{ 'cv.con_permiso' | translate }}</span>
             </div>
           </div>
           <div
-            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300"
+            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300 gap-2"
           >
             <div class="text-sm flex-1">
-              <h3 class="font-bold">Privado</h3>
-              <p class="text-gray-600">Salario histórico y documentos</p>
+              <h3 class="font-bold">{{ 'cv.privado' | translate }}</h3>
+              <p class="text-gray-600">{{ 'cv.descripcion_privado' | translate }}</p>
             </div>
             <div class="flex items-center">
-              <span class="gray-badge">Oculto</span>
+              <span class="gray-badge">{{ 'cv.oculto' | translate }}</span>
             </div>
           </div>
         </div>
       </section>
       <!-- SEÑALES VERIFICADAS -->
       <section class="card space-y-2 p-4">
-        <h2 class="font-bold">Señales verificadas</h2>
+        <h2 class="font-bold">{{ 'cv.senales_verificadas' | translate }}</h2>
         <div class="card flex flex-col divide-y text-sm divide-gray-300">
           <div class="flex justify-between py-2">
-            <h3 class="text-gray-600">Logros validados</h3>
+            <h3 class="text-gray-600">{{ 'cv.logros_validados' | translate }}</h3>
             <span class="font-bold">18</span>
           </div>
           <div class="flex justify-between py-2">
-            <h3 class="text-gray-600">Evaluaciones positivas</h3>
+            <h3 class="text-gray-600">{{ 'cv.evaluaciones_positivas' | translate }}</h3>
             <span class="font-bold">9</span>
           </div>
           <div class="flex justify-between py-2">
-            <h3 class="text-gray-600">Reconocimientos</h3>
+            <h3 class="text-gray-600">{{ 'cv.reconocimientos' | translate }}</h3>
             <span class="font-bold">6</span>
           </div>
           <div class="flex justify-between py-2">
-            <h3 class="text-gray-600">Alertas</h3>
+            <h3 class="text-gray-600">{{ 'cv.alertas' | translate }}</h3>
             <span class="font-bold">0</span>
           </div>
         </div>

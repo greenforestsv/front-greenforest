@@ -14,7 +14,7 @@
     "perfil": "Profile",
     "candidato": {
       "dashboard": "Dashboard",
-      "historial": "My history",
+      "historial": "My work history",
       "postulaciones": "Job applications",
       "empresas": "Companies",
       "perfil": "My profile",
@@ -41,6 +41,28 @@
       "usuarios": "Users",
       "configuracion": "Configuration"
     }
+  },
+  "cv": {
+    "historial_laboral_verificado": "Verified Work History",
+    "experiencias_verificadas": "Experiences, achievements, and evaluations verified by companies",
+    "nivel_acceso": "Access Level",
+    "publico": "Public",
+    "descripcion_publico": "Job titles, skills, and availability",
+    "protegido": "Protected",
+    "descripcion_protegido": "Performance reviews and departure reasons",
+    "con_permiso": "With Permission",
+    "privado": "Private",
+    "descripcion_privado": "Salary history and documents",
+    "oculto": "Hidden",
+    "senales_verificadas": "Verified Signals",
+    "logros_validados": "Validated Achievements",
+    "evaluaciones_positivas": "Positive Reviews",
+    "reconocimientos": "Recognitions",
+    "alertas": "Alerts",
+    "validado": "Verified",
+    "ascenso_interno": "Internal Promotion",
+    "activo": "Active",
+    "agregar_experiencia": "Add experience"
   },
   "postulaciones": {
     "aplicado": "Applied",

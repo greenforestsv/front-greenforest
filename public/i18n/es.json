@@ -42,6 +42,28 @@
       "configuracion": "Configuración"
     }
   },
+  "cv": {
+    "historial_laboral_verificado": "Historial laboral verificado",
+    "experiencias_verificadas": "Experiencias, logros y evaluaciones validadas por empresas",
+    "nivel_acceso": "Nivel de acceso",
+    "publico": "Público",
+    "descripcion_publico": "Cargos, habilidades y disponibilidad",
+    "protegido": "Protegido",
+    "descripcion_protegido": "Evaluaciones y motivos de salida",
+    "con_permiso": "Con permiso",
+    "privado": "Privado",
+    "descripcion_privado": "Salario histórico y documentos",
+    "oculto": "Oculto",
+    "senales_verificadas": "Señales verificadas",
+    "logros_validados": "Logros validados",
+    "evaluaciones_positivas": "Evaluaciones positivas",
+    "reconocimientos": "Reconocimientos",
+    "alertas": "Alertas",
+    "validado": "Validado",
+    "ascenso_interno": "Ascenso interno",
+    "activo": "Activo",
+    "agregar_experiencia": "Agregar experiencia"
+  },
   "postulaciones": {
     "aplicado": "Aplicado",
     "preseleccion": "Preselección",

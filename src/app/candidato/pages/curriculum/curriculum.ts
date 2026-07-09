@@ -6,10 +6,11 @@ import { CardModule } from 'primeng/card';
 import { AspirantesService } from '../../services/aspirantes.service';
 import { CV } from '../../interfaces/cv.interfaces';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-curriculum',
-  imports: [AvatarModule, TimelineModule, ButtonModule, CardModule, SkeletonModule],
+  imports: [AvatarModule, TimelineModule, ButtonModule, CardModule, SkeletonModule, TranslatePipe],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',
 })
