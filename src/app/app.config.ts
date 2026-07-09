@@ -11,16 +11,17 @@ import { AppTheme } from './themes/app.theme';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { MessageService } from 'primeng/api';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { authInterceptor } from './auth/interceptors/auth.interceptor';
 
 registerLocaleData(localeEs);
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(), // Core HTTP Client provider
+    provideHttpClient(withInterceptors([authInterceptor])), // Core HTTP Client provider
     MessageService,
     { provide: LOCALE_ID, useValue: 'es' },
     provideTranslateService({
