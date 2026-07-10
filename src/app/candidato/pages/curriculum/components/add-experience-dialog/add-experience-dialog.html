@@ -1,0 +1,146 @@
+<div class="flex justify-center">
+  <p-button
+    icon="pi pi-plus"
+    class="hidden lg:flex"
+    [rounded]="true"
+    size="small"
+    [label]="'cv.agregar_experiencia' | translate"
+    (click)="visible.set(true)"
+  />
+  <p-button
+    icon="pi pi-plus"
+    class="flex lg:hidden"
+    [rounded]="true"
+    size="small"
+    (click)="visible.set(true)"
+  />
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    [header]="'cv.agregar_experiencia' | translate"
+    [style]="{ width: '24rem', borderRadius: '1.5rem' }"
+  >
+    <form
+      id="experienceForm"
+      [formGroup]="experienceForm"
+      (ngSubmit)="save()"
+      class="flex flex-col gap-4"
+    >
+      <!-- TÍTULO -->
+      <div class="flex flex-col gap-1">
+        <label pLabel for="title">Título <span class="text-accent-500">*</span></label>
+        <input
+          pInputText
+          type="text"
+          id="title"
+          formControlName="title"
+          required
+          [invalid]="title.invalid && title.touched"
+          fluid
+        />
+        @if (title.invalid && title.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (title.hasError('required')) {
+              El título nombre es obligatorio.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- EMPRESA -->
+      <div class="flex flex-col gap-1">
+        <label pLabel for="company">Empresa <span class="text-accent-500">*</span></label>
+        <input
+          pInputText
+          type="text"
+          id="company"
+          formControlName="company"
+          required
+          [invalid]="company.invalid && company.touched"
+          fluid
+        />
+        @if (company.invalid && company.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (company.hasError('required')) {
+              La empresa es obligatoria.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- ACTIVIDADES -->
+      <div class="flex flex-col gap-1">
+        <label pLabel for="activities"
+          >Actividades realizadas <span class="text-accent-500">*</span></label
+        >
+        <small class="text-gray-500">
+          Separá las actividades usando
+          <kbd class="size-5 inline-flex items-center justify-center rounded border">&#x21B5;</kbd>
+          Enter.
+        </small>
+        <textarea
+          id="activities"
+          formControlName="activities"
+          rows="5"
+          cols="30"
+          pTextarea
+          [placeholder]="placeholderActivities"
+          required
+          [invalid]="activities.invalid && activities.touched"
+          [autoResize]="true"
+        ></textarea>
+        @if (activities.invalid && activities.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (activities.hasError('required')) {
+              Las actividades son obligatorias.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- FECHA INICIO -->
+      <div class="flex flex-col gap-1">
+        <label pLabel for="start_date"
+          >Fecha de inicio <span class="text-accent-500">*</span></label
+        >
+        <p-datepicker
+          id="start_date"
+          formControlName="start_date"
+          [showIcon]="true"
+          inputId="start_date"
+          required
+          dateFormat="dd/M/yy"
+          [invalid]="start_date.invalid && start_date.touched"
+        />
+        @if (start_date.invalid && start_date.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (start_date.hasError('required')) {
+              La fecha de inicio es obligatoria.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- FECHA FIN -->
+      <div class="flex flex-col gap-1">
+        <label pLabel for="end_date">Fecha de fin</label>
+        <p-datepicker
+          id="end_date"
+          formControlName="end_date"
+          [showIcon]="true"
+          inputId="end_date"
+          dateFormat="dd/M/yy"
+        />
+        <!-- TODO: que la fecha sea mayor que la inicial [invalid]="end_date.invalid && end_date.touched" -->
+      </div>
+
+      <!-- BOTÓN OCULTO PARA EL ENTER -->
+      <button type="submit" hidden></button>
+    </form>
+    <!-- BOTONES -->
+    <ng-template pTemplate="footer">
+      <p-button label="Cancelar" (click)="closeDialog()" severity="secondary" variant="outlined" />
+      <p-button type="button" [loading]="loading()" (click)="save()" label="Guardar" />
+    </ng-template>
+  </p-dialog>
+</div>

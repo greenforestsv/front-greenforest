@@ -1,5 +1,6 @@
 <div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
   @if (loading()) {
+    <!-- SKELETONS -->
     <div class="flex-1 w-full rounded-3xl bg-white p-8">
       <div class="mb-4 w-full flex justify-between items-start lg:items-center">
         <div class="space-y-2 flex-1">
@@ -36,55 +37,53 @@
   } @else {
     <!-- WORK EXPERIENCE -->
     <section class="card p-8 flex-2">
-      <!-- EDIT BUTTON -->
       <div class="flex items-start lg:items-center justify-between mb-4 gap-2">
         <div>
           <h2 class="text-2xl font-bold">{{ 'cv.historial_laboral_verificado' | translate }}</h2>
           <p class="text-gray-600">{{ 'cv.experiencias_verificadas' | translate }}</p>
         </div>
-        <p-button icon="pi pi-plus" class="flex lg:hidden" [rounded]="true" size="small" />
-        <p-button
-          icon="pi pi-plus"
-          class="hidden lg:flex"
-          [rounded]="true"
-          size="small"
-          [label]="'cv.agregar_experiencia' | translate"
-        />
+        <!-- ADD EXP DIALOG -->
+        <app-add-experience-dialog (experienceAdded)="loadCV()" />
       </div>
 
       <div class="relative border-l border-gray-300 space-y-4">
-        @for (experience of cv()?.work_experiences; track experience.id) {
-          <div class="ml-6 relative">
-            <!-- TIMELINE -->
-            <span class="absolute -left-[31px] top-0 shadow-sm bg-lite rounded-full size-4"> </span>
+        @if (!cv()?.work_experiences?.length) {
+          <p>No hay historial laboral</p>
+        } @else {
+          @for (experience of cv()?.work_experiences; track experience.id) {
+            <div class="ml-6 relative">
+              <!-- TIMELINE -->
+              <span class="absolute -left-[31px] top-0 shadow-sm bg-lite rounded-full size-4">
+              </span>
 
-            <div class="card border border-gray-300 p-4 space-y-4">
-              <h3 class="text-lg font-bold">
-                {{ experience.title }} &bull; {{ experience.company }}
-              </h3>
-              <ul class="space-y-1 text-gray-600">
-                @for (item of experience.activities; track $index) {
-                  <span class="flex gap-2">
-                    &bull;
-                    <li>{{ item }}</li></span
-                  >
-                }
-              </ul>
-              <!-- BADGES -->
-              <div class="flex flex-wrap gap-2">
-                <span class="green-badge">{{ 'cv.validado' | translate }}</span>
-                <span class="accent-badge">{{ 'cv.ascenso_interno' | translate }}</span>
-                <span class="gray-badge">
-                  {{ experience.start_date }}
-                </span>
-                @if (experience.end_date) {
+              <div class="card border border-gray-300 p-4 space-y-4">
+                <h3 class="text-lg font-bold">
+                  {{ experience.title }} &bull; {{ experience.company }}
+                </h3>
+                <ul class="space-y-1 text-gray-600 text-sm">
+                  @for (item of experience.activities; track $index) {
+                    <span class="flex gap-2">
+                      &bull;
+                      <li>{{ item }}</li></span
+                    >
+                  }
+                </ul>
+                <!-- BADGES -->
+                <div class="flex flex-wrap gap-2">
+                  <span class="green-badge">{{ 'cv.validado' | translate }}</span>
+                  <span class="accent-badge">{{ 'cv.ascenso_interno' | translate }}</span>
                   <span class="gray-badge">
-                    {{ experience.end_date }}
+                    {{ experience.start_date }}
                   </span>
-                }
+                  @if (experience.end_date) {
+                    <span class="gray-badge">
+                      {{ experience.end_date }}
+                    </span>
+                  }
+                </div>
               </div>
             </div>
-          </div>
+          }
         }
       </div>
     </section>
@@ -95,35 +94,35 @@
         <h2 class="font-bold">{{ 'cv.nivel_acceso' | translate }}</h2>
         <div class="card flex flex-col gap-2">
           <div
-            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300 gap-2"
+            class="bg-white rounded-2xl shadow-sm flex flex-row md:flex-col lg:flex-row justify-between p-3 border border-gray-300 gap-2"
           >
             <div class="text-sm flex-1">
               <h3 class="font-bold">{{ 'cv.publico' | translate }}</h3>
               <p class="text-gray-600">{{ 'cv.descripcion_publico' | translate }}</p>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center justify-end">
               <span class="green-badge">{{ 'cv.activo' | translate }}</span>
             </div>
           </div>
           <div
-            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300 gap-2"
+            class="bg-white rounded-2xl shadow-sm flex flex-row md:flex-col lg:flex-row justify-between p-3 border border-gray-300 gap-2"
           >
             <div class="text-sm flex-1">
               <h3 class="font-bold">{{ 'cv.protegido' | translate }}</h3>
               <p class="text-gray-600">{{ 'cv.descripcion_protegido' | translate }}</p>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center justify-end">
               <span class="accent-badge">{{ 'cv.con_permiso' | translate }}</span>
             </div>
           </div>
           <div
-            class="bg-white rounded-2xl shadow-sm flex justify-between p-3 border border-gray-300 gap-2"
+            class="bg-white rounded-2xl shadow-sm flex flex-row md:flex-col lg:flex-row justify-between p-3 border border-gray-300 gap-2"
           >
             <div class="text-sm flex-1">
               <h3 class="font-bold">{{ 'cv.privado' | translate }}</h3>
               <p class="text-gray-600">{{ 'cv.descripcion_privado' | translate }}</p>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center justify-end">
               <span class="gray-badge">{{ 'cv.oculto' | translate }}</span>
             </div>
           </div>
