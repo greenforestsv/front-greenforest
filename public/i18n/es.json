@@ -1,4 +1,9 @@
 {
+  "common": {
+    "guardar": "Save",
+    "cancelar": "Cancel",
+    "error_inesperado": "Ocurrió un error inesperado"
+  },
   "nav": {
     "home": "Inicio",
     "empleos": "Bolsa de empleo",
@@ -62,7 +67,21 @@
     "validado": "Validado",
     "ascenso_interno": "Ascenso interno",
     "activo": "Activo",
-    "agregar_experiencia": "Agregar experiencia"
+    "agregar_experiencia": "Agregar experiencia",
+    "titulo": "Título",
+    "empresa": "Empresa",
+    "fecha_inicio": "Fecha de inicio",
+    "fecha_fin": "Fecha de fin",
+    "actividades_realizadas": "Actividades realizadas",
+    "titulo_obligatorio": "El título es obligatorio.",
+    "fecha_inicio_obligatoria": "La fecha de inicio es obligatoria.",
+    "empresa_obligatoria": "La empresa es obligatoria.",
+    "actividades_obligatorias": "Las actividades son obligatorias.",
+    "placeholder_actividades": "Ejemplo:\nDesarrollé módulos frontend\nOptimicé consultas SQL\nCreé funciones...",
+    "separar_actividades": "Separá las actividades usando la tecla ",
+    "experiencia_agregada_summary": "Experiencia agregada",
+    "experiencia_agregada_detail": "Experiencia laboral agregada exitosamente.",
+    "error_agregar_experiencia": "Error al agregar experiencia"
   },
   "postulaciones": {
     "aplicado": "Aplicado",

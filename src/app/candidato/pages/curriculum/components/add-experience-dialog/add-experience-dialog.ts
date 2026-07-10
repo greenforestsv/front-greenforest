@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angu
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AspirantesService } from '../../../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
@@ -30,6 +30,7 @@ import { TextareaModule } from 'primeng/textarea';
 })
 export class AddExperienceDialog {
   /* INJECCIÓN DE SERVICIOS */
+  private translate = inject(TranslateService);
   aspirantesService = inject(AspirantesService);
   private messageService = inject(MessageService);
 
@@ -40,10 +41,6 @@ export class AddExperienceDialog {
   visible = signal(false);
   loading = signal(false);
   error = signal<string | null>('Internal server error');
-  placeholderActivities = `Ejemplo:
-  Desarrollé módulos frontend
-  Optimicé consultas SQL
-  Creé funciones...`;
 
   // ESTADOS INICIALES Y VALIDACIONES
   readonly experienceForm = this.fb.nonNullable.group({
@@ -124,8 +121,8 @@ export class AddExperienceDialog {
         next: (res: any) => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Experiencia agregada',
-            detail: 'Experiencia laboral agregada exitosamente.',
+            summary: this.translate.instant('cv.experiencia_agregada_summary'),
+            detail: this.translate.instant('cv.experiencia_agregada_detail'),
             life: 5000,
           });
 
@@ -136,8 +133,8 @@ export class AddExperienceDialog {
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error de creación de cuenta',
-            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            summary: this.translate.instant('cv.error_agregar_experiencia'),
+            detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
             life: 5000,
           });
         },

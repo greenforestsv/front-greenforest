@@ -28,7 +28,9 @@
     >
       <!-- TÍTULO -->
       <div class="flex flex-col gap-1">
-        <label pLabel for="title">Título <span class="text-accent-500">*</span></label>
+        <label pLabel for="title"
+          >{{ 'cv.titulo' | translate }} <span class="text-accent-500">*</span></label
+        >
         <input
           pInputText
           type="text"
@@ -41,7 +43,7 @@
         @if (title.invalid && title.touched) {
           <p-message severity="error" size="small" variant="simple">
             @if (title.hasError('required')) {
-              El título nombre es obligatorio.
+              {{ 'cv.titulo_obligatorio' | translate }}
             }
           </p-message>
         }
@@ -49,7 +51,9 @@
 
       <!-- EMPRESA -->
       <div class="flex flex-col gap-1">
-        <label pLabel for="company">Empresa <span class="text-accent-500">*</span></label>
+        <label pLabel for="company"
+          >{{ 'cv.empresa' | translate }} <span class="text-accent-500">*</span></label
+        >
         <input
           pInputText
           type="text"
@@ -62,7 +66,7 @@
         @if (company.invalid && company.touched) {
           <p-message severity="error" size="small" variant="simple">
             @if (company.hasError('required')) {
-              La empresa es obligatoria.
+              {{ 'cv.empresa_obligatoria' | translate }}
             }
           </p-message>
         }
@@ -71,10 +75,11 @@
       <!-- ACTIVIDADES -->
       <div class="flex flex-col gap-1">
         <label pLabel for="activities"
-          >Actividades realizadas <span class="text-accent-500">*</span></label
+          >{{ 'cv.actividades_realizadas' | translate }}
+          <span class="text-accent-500">*</span></label
         >
         <small class="text-gray-500">
-          Separá las actividades usando
+          {{ 'cv.separar_actividades' | translate }}
           <kbd class="size-5 inline-flex items-center justify-center rounded border">&#x21B5;</kbd>
           Enter.
         </small>
@@ -84,7 +89,7 @@
           rows="5"
           cols="30"
           pTextarea
-          [placeholder]="placeholderActivities"
+          [placeholder]="'cv.placeholder_actividades' | translate"
           required
           [invalid]="activities.invalid && activities.touched"
           [autoResize]="true"
@@ -92,7 +97,7 @@
         @if (activities.invalid && activities.touched) {
           <p-message severity="error" size="small" variant="simple">
             @if (activities.hasError('required')) {
-              Las actividades son obligatorias.
+              {{ 'cv.actividades_obligatorias' | translate }}
             }
           </p-message>
         }
@@ -101,7 +106,7 @@
       <!-- FECHA INICIO -->
       <div class="flex flex-col gap-1">
         <label pLabel for="start_date"
-          >Fecha de inicio <span class="text-accent-500">*</span></label
+          >{{ 'cv.fecha_inicio' | translate }} <span class="text-accent-500">*</span></label
         >
         <p-datepicker
           id="start_date"
@@ -115,7 +120,7 @@
         @if (start_date.invalid && start_date.touched) {
           <p-message severity="error" size="small" variant="simple">
             @if (start_date.hasError('required')) {
-              La fecha de inicio es obligatoria.
+              {{ 'cv.fecha_inicio_obligatoria' | translate }}
             }
           </p-message>
         }
@@ -123,7 +128,7 @@
 
       <!-- FECHA FIN -->
       <div class="flex flex-col gap-1">
-        <label pLabel for="end_date">Fecha de fin</label>
+        <label pLabel for="end_date">{{ 'cv.fecha_fin' | translate }}</label>
         <p-datepicker
           id="end_date"
           formControlName="end_date"
@@ -139,8 +144,18 @@
     </form>
     <!-- BOTONES -->
     <ng-template pTemplate="footer">
-      <p-button label="Cancelar" (click)="closeDialog()" severity="secondary" variant="outlined" />
-      <p-button type="button" [loading]="loading()" (click)="save()" label="Guardar" />
+      <p-button
+        [label]="'common.cancelar' | translate"
+        (click)="closeDialog()"
+        severity="secondary"
+        variant="outlined"
+      />
+      <p-button
+        type="button"
+        [loading]="loading()"
+        (click)="save()"
+        [label]="'common.guardar' | translate"
+      />
     </ng-template>
   </p-dialog>
 </div>

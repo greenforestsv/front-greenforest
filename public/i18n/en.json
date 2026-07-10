@@ -1,4 +1,9 @@
 {
+  "common": {
+    "guardar": "Save",
+    "cancelar": "Cancel",
+    "error_inesperado": "An unexpected error occurred."
+  },
   "nav": {
     "home": "Home",
     "empleos": "Job board",
@@ -62,7 +67,21 @@
     "validado": "Verified",
     "ascenso_interno": "Internal Promotion",
     "activo": "Active",
-    "agregar_experiencia": "Add experience"
+    "agregar_experiencia": "Add experience",
+    "titulo": "Job title",
+    "empresa": "Company",
+    "fecha_inicio": "Start date",
+    "fecha_fin": "End date",
+    "actividades_realizadas": "Key responsabilities",
+    "titulo_obligatorio": "Job title is required.",
+    "fecha_inicio_obligatoria": "Start date is required.",
+    "empresa_obligatoria": "Company is required.",
+    "actividades_obligatorias": "Responsibilities are required.",
+    "placeholder_actividades": "Example:\nDeveloped frontend modules\nOptimized SQL queries\nCreated new features...",
+    "separar_actividades": "Separate responsibilities by pressing ",
+    "experiencia_agregada_summary": "Experience added",
+    "experiencia_agregada_detail": "Work experience was added successfully.",
+    "error_agregar_experiencia": "Error adding experience"
   },
   "postulaciones": {
     "aplicado": "Applied",
