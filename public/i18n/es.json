@@ -1,7 +1,7 @@
 {
   "common": {
-    "guardar": "Save",
-    "cancelar": "Cancel",
+    "guardar": "Guardar",
+    "cancelar": "Cancelar",
     "error_inesperado": "Ocurrió un error inesperado"
   },
   "nav": {

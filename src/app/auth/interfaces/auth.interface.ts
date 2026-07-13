@@ -9,6 +9,8 @@ export interface SignupCandidatoDto {
   email: string;
   phone: string;
   address?: string;
+  country: string;
+  department: string;
 }
 
 export interface SignupCandidatoResponse {

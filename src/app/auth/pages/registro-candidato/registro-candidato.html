@@ -131,10 +131,7 @@
                 </p-message>
               }
             </div>
-          </div>
 
-          <!-- DERECHA -->
-          <div class="flex flex-col gap-4 flex-1">
             <!-- TELÉFONO -->
             <div class="flex flex-col gap-1">
               <label pLabel class="text-sm"
@@ -155,11 +152,13 @@
                   @if (phone.hasError('required')) {
                     El número de teléfono es obligatorio.
                   }
-                  <!-- TODO: usar select para país-->
                 </p-message>
               }
             </div>
+          </div>
 
+          <!-- DERECHA -->
+          <div class="flex flex-col gap-4 flex-1">
             <!-- FECHA DE NACIMIENTO -->
             <div class="flex flex-col gap-1.5">
               <label pLabel class="text-sm"
@@ -243,60 +242,58 @@
                 optionValue="value"
                 placeholder="Género"
               />
+              @if (gender.invalid && gender.touched) {
+                <p-message severity="error" size="small" variant="simple">
+                  @if (gender.hasError('required')) {
+                    El género es obligatorio.
+                  }
+                </p-message>
+              }
             </div>
+
+            <!-- PAÍS -->
+            <div class="flex flex-col gap-1">
+              <label pLabel class="text-sm">País <span class="text-accent-500">*</span></label>
+              <p-select
+                formControlName="country"
+                [options]="countryOptions"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Páis"
+              />
+              @if (country.invalid && country.touched) {
+                <p-message severity="error" size="small" variant="simple">
+                  @if (country.hasError('required')) {
+                    El páis es obligatorio.
+                  }
+                </p-message>
+              }
+            </div>
+
+            <!-- DEPARTAMENTO -->
+            <div class="flex flex-col gap-1">
+              <label pLabel class="text-sm"
+                >Departamento <span class="text-accent-500">*</span></label
+              >
+              <p-select
+                formControlName="department"
+                [options]="departmentOptions"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Departamento"
+              />
+              @if (department.invalid && department.touched) {
+                <p-message severity="error" size="small" variant="simple">
+                  @if (department.hasError('required')) {
+                    El departamento es obligatorio.
+                  }
+                </p-message>
+              }
+            </div>
+
+            <!-- FIN -->
           </div>
         </div>
-
-        <!-- CONTRASEÑA -->
-        <!-- <div class="flex flex-col gap-1">
-        <input
-          pInputText
-          type="password"
-          id="password"
-          placeholder="Contraseña"
-          formControlName="password"
-          [invalid]="password.invalid && password.touched"
-          required
-        />
-        @if (password.invalid && password.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            @if (password.hasError('required')) {
-              La contraseña es obligatoria.
-            }
-
-            @if (password.hasError('minlength')) {
-              Debe tener al menos 8 caracteres.
-            }
-
-            @if (password.hasError('pattern')) {
-              Debe contener una mayúscula y un número.
-            }
-          </p-message>
-        }
-      </div> -->
-
-        <!-- CONFIRMAR CONTRASEÑA -->
-        <!-- <div class="flex flex-col gap-1">
-        <input
-          pInputText
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirmar Contraseña"
-          formControlName="confirmPassword"
-          [invalid]="confirmPassword.invalid && confirmPassword.touched"
-          required
-        />
-        @if (signupForm.touched && signupForm.hasError('passwordMismatch')) {
-          <p-message severity="error" size="small" variant="simple"
-            >Las contraseñas no coinciden.</p-message
-          >
-        }
-        @if (confirmPassword.touched && confirmPassword.hasError('required')) {
-          <p-message severity="error" size="small" variant="simple"
-            >Debés confirmar tu contraseña.</p-message
-          >
-        }
-      </div> -->
 
         <!-- BOTÓN REGISTRO -->
         <button pButton type="submit" [loading]="loading()" class="mt-2">

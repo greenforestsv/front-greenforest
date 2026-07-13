@@ -46,6 +46,8 @@ export class RegistroCandidato {
     { label: 'Hombre', value: 'M' },
     { label: 'Otro', value: 'U' },
   ];
+  countryOptions = [{ label: 'Honduras', value: 'HND' }];
+  departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
 
   // VALIDACIONES
   readonly signupForm = this.fb.nonNullable.group(
@@ -57,19 +59,12 @@ export class RegistroCandidato {
       address: [''],
       dni: ['', [Validators.required]],
       birth_date: [new Date(), [Validators.required]],
-      gender: ['F', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
+      gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
+      country: ['', [Validators.required]],
+      department: ['', [Validators.required]],
       phone: ['', [Validators.required, phoneValidator()]],
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['', [Validators.required]],
-      /*       password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/),
-        ],
-      ],
-      confirmPassword: ['', Validators.required], */
     },
     {
       validators: emailMatchValidator,
@@ -85,11 +80,11 @@ export class RegistroCandidato {
   readonly dni = this.signupForm.controls.dni;
   readonly birth_date = this.signupForm.controls.birth_date;
   readonly gender = this.signupForm.controls.gender;
+  readonly country = this.signupForm.controls.country;
+  readonly department = this.signupForm.controls.department;
   readonly phone = this.signupForm.controls.phone;
   readonly email = this.signupForm.controls.email;
   readonly confirmEmail = this.signupForm.controls.confirmEmail;
-  //readonly password = this.signupForm.controls.password;
-  //readonly confirmPassword = this.signupForm.controls.confirmPassword;
 
   signup(): void {
     if (this.signupForm.invalid) {
@@ -110,8 +105,13 @@ export class RegistroCandidato {
       birth_date,
       phone,
       email,
+      country,
+      department,
     } = this.signupForm.getRawValue();
+
     const gender = this.signupForm.getRawValue().gender as 'M' | 'F' | 'U';
+    const countryLabel = this.countryOptions.find((c) => c.value === country)?.label ?? '';
+    const departmentLabel = this.departmentOptions.find((d) => d.value === department)?.label ?? '';
 
     this.authService
       .signupCandidato({
@@ -122,6 +122,8 @@ export class RegistroCandidato {
         phone,
         email,
         gender,
+        country: countryLabel,
+        department: departmentLabel,
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
         ...(address.trim() && { address }),
