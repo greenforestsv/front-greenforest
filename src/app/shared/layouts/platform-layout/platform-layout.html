@@ -13,16 +13,22 @@
 
       <!-- LINKS -->
       <nav class="flex flex-col gap-2 overflow-y-auto thin-scrollbar pr-1">
-        @for (link of links(); track link.id) {
-          <a
-            [routerLink]="link.route"
-            routerLinkActive="bg-mid"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-mid"
-          >
-            <i [class]="'pi ' + link.icon"></i>
-            {{ link.name | translate }}
-          </a>
+        @if (loading()) {
+          @for (item of items; track $index) {
+            <p-skeleton height="3rem" style="background-color: var(--color-primary)" />
+          }
+        } @else {
+          @for (link of links(); track $index) {
+            <a
+              [routerLink]="link.relative_route"
+              routerLinkActive="bg-mid"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-mid"
+            >
+              <!-- <i [class]="'pi ' + link.icon"></i> -->
+              {{ link.name | translate }}
+            </a>
+          }
         }
       </nav>
       <!-- Logout Desktop -->
@@ -55,16 +61,22 @@
     <!-- LOGO -->
     <app-green-forest-logo />
     <div class="flex flex-col gap-2 mt-4">
-      @for (link of links(); track link.id) {
-        <a
-          [routerLink]="link.route"
-          routerLinkActive="bg-mid"
-          (click)="drawerVisible.set(false)"
-          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-mid"
-        >
-          <i [class]="'pi ' + link.icon"></i>
-          {{ link.name | translate }}
-        </a>
+      @if (loading()) {
+        @for (item of items; track $index) {
+          <p-skeleton height="3rem" style="background-color: var(--color-primary)" />
+        }
+      } @else {
+        @for (link of links(); track $index) {
+          <a
+            [routerLink]="link.relative_route"
+            routerLinkActive="bg-mid"
+            (click)="drawerVisible.set(false)"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-mid"
+          >
+            <!-- <i [class]="'pi ' + link.icon"></i> -->
+            {{ link.name | translate }}
+          </a>
+        }
       }
     </div>
     <!-- Logout Mobile -->

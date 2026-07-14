@@ -9,12 +9,15 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
-import { SidebarService } from '../../services/platform-sidebar.service';
 import { SidebarUser } from '../../interfaces/sidebar.interfaces';
-import { Link } from '../../interfaces/interfaces';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { MenuService } from '../../../core/services/menu.service';
+import { MessageService } from 'primeng/api';
+import { finalize } from 'rxjs';
+import { MenuResponse } from '../../../core/interfaces/menu.interfaces';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   standalone: true,
@@ -34,6 +37,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     TranslatePipe,
     BadgeModule,
     OverlayBadgeModule,
+    SkeletonModule,
   ],
   templateUrl: './platform-layout.html',
   styleUrl: './platform-layout.scss',
@@ -42,25 +46,36 @@ export class PlatformLayout {
   drawerVisible = signal(false);
   sidebarVisible = signal(true);
   busqueda: string | undefined;
+  items = Array.from({ length: 8 });
 
   private authService = inject(AuthService);
   private router = inject(Router);
-  private sidebarService = inject(SidebarService);
+  private menuService = inject(MenuService);
+  private messageService = inject(MessageService);
 
+  loading = signal(false);
   usuario = signal<SidebarUser | null>(null);
-  links = signal<Link[] | []>([]);
+  links = signal<MenuResponse[] | []>([]);
 
   constructor() {
-    const CANDIDATO = 1;
-    const EMPRESA = 2;
-
-    const rol = this.router.url.includes('candidato') ? CANDIDATO : EMPRESA; /* TODO: uuid */
-
-    this.sidebarService.obtenerSidebar(rol).subscribe((data) => {
-      this.usuario.set(data.user);
-      /* FIXME: que venga ordenado del backend */
-      this.links.set(data.links.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
-    });
+    this.usuario.set({ name: 'Test Name', avatarImage: '' });
+    //this.links.set(data.links.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+    this.menuService
+      .getAspirantsMenu()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (res: MenuResponse[]) => {
+          this.links.set(res);
+        },
+        error: (err: { error: { message: any }; status: number }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener rutas de menú de candidato',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 
   logout(): void {
