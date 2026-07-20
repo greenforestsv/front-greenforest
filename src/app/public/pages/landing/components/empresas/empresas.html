@@ -1,0 +1,32 @@
+<div
+  id="companies"
+  class="flex w-full max-w-[1180px] mx-auto bg-white z-1 rounded-3xl shadow-sm py-5 mb-10 px-4 lg:px-0 items-center"
+>
+  <h2 class="inter-font font-bold text-mid uppercase text-xs ml-6">
+    Empresas que confían en nosotros
+  </h2>
+  @if (this.analytics.companies.list!.length > 0 && this.analytics.companies.list!.length < 6) {
+    @for (company of this.analytics.companies.list; track $index) {
+      <div id="company" class="mx-auto max-w-[150px]">
+        <img loading="lazy" [src]="company.image" [alt]="company.name" class="opacity-55" />
+      </div>
+    }
+  } @else {
+    <p-carousel
+      [value]="this.analytics.companies.list ?? []"
+      [numVisible]="4"
+      [numScroll]="1"
+      [responsiveOptions]="responsiveOptions"
+      [circular]="true"
+      autoplayInterval="3000"
+      [showIndicators]="false"
+      [showNavigators]="false"
+    >
+      <ng-template let-company #item>
+        <div id="company" class="mx-auto max-w-[150px]">
+          <img loading="lazy" [src]="company.image" [alt]="company.name" class="opacity-55" />
+        </div>
+      </ng-template>
+    </p-carousel>
+  }
+</div>

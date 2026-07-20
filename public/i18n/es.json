@@ -1,0 +1,110 @@
+{
+  "common": {
+    "guardar": "Guardar",
+    "cancelar": "Cancelar",
+    "error_inesperado": "Ocurrió un error inesperado"
+  },
+  "nav": {
+    "home": "Inicio",
+    "empleos": "Bolsa de empleo",
+    "valor": "Propuesta de valor",
+    "empresas": "Portal de Empresas",
+    "candidatos": "Portal de Candidatos"
+  },
+  "sidebar": {
+    "logout": "Cerrar sesión",
+    "notificaciones": "Notificaciones",
+    "ayuda": "Ayuda",
+    "buscar": "Buscar",
+    "perfil": "Perfil",
+    "candidato": {
+      "dashboard": "Dashboard",
+      "historial": "Mi historial",
+      "postulaciones": "Mis postulaciones",
+      "empresas": "Empresas",
+      "perfil": "Mi perfil",
+      "vacantes": "Vacantes",
+      "solicitudesAcceso": "Solicitudes de acceso",
+      "evaluaciones": "Evaluaciones",
+      "crecimiento": "Mi crecimiento",
+      "configuracion": "Configuración"
+    },
+    "empresa": {
+      "dashboard": "Dashboard",
+      "vacantes": "Vacantes",
+      "candidatos": "Candidatos",
+      "entrevistas": "Entrevistas IA",
+      "evaluaciones": "Evaluaciones",
+      "empleados": "Empleados",
+      "marcacion": "Marcación",
+      "turnos": "Turnos",
+      "nomina": "Nómina",
+      "desempeno": "Desempeño",
+      "solicitudesAcceso": "Solicitudes de acceso",
+      "reportes": "Reportes",
+      "perfil": "Perfil",
+      "usuarios": "Usuarios",
+      "configuracion": "Configuración"
+    }
+  },
+  "cv": {
+    "historial_laboral_verificado": "Historial laboral verificado",
+    "experiencias_verificadas": "Experiencias, logros y evaluaciones validadas por empresas",
+    "nivel_acceso": "Nivel de acceso",
+    "publico": "Público",
+    "descripcion_publico": "Cargos, habilidades y disponibilidad",
+    "protegido": "Protegido",
+    "descripcion_protegido": "Evaluaciones y motivos de salida",
+    "con_permiso": "Con permiso",
+    "privado": "Privado",
+    "descripcion_privado": "Salario histórico y documentos",
+    "oculto": "Oculto",
+    "senales_verificadas": "Señales verificadas",
+    "logros_validados": "Logros validados",
+    "evaluaciones_positivas": "Evaluaciones positivas",
+    "reconocimientos": "Reconocimientos",
+    "alertas": "Alertas",
+    "validado": "Validado",
+    "ascenso_interno": "Ascenso interno",
+    "activo": "Activo",
+    "agregar_experiencia": "Agregar experiencia",
+    "titulo": "Título",
+    "empresa": "Empresa",
+    "area": "Área",
+    "fecha_inicio": "Fecha de inicio",
+    "fecha_fin": "Fecha de fin",
+    "actividades_realizadas": "Actividades realizadas",
+    "titulo_obligatorio": "El título es obligatorio.",
+    "fecha_inicio_obligatoria": "La fecha de inicio es obligatoria.",
+    "fecha_fin_mayor_inicio": "La fecha de fin no puede ser anterior a la fecha de inicio.",
+    "empresa_obligatoria": "La empresa es obligatoria.",
+    "area_obligatoria": "El área es obligatoria.",
+    "actividades_obligatorias": "Las actividades son obligatorias.",
+    "placeholder_actividades": "Ejemplo:\nDesarrollé módulos frontend\nOptimicé consultas SQL\nCreé funciones...",
+    "separar_actividades": "Separá las actividades usando la tecla ",
+    "experiencia_agregada_summary": "Experiencia agregada",
+    "experiencia_agregada_detail": "Experiencia laboral agregada exitosamente.",
+    "error_agregar_experiencia": "Error al agregar experiencia"
+  },
+  "postulaciones": {
+    "aplicado": "Aplicado",
+    "preseleccion": "Preselección",
+    "entrevista": "Entrevista",
+    "oferta": "Oferta"
+  },
+  "empresas": {
+    "ascensosInternos": "Ascensos internos",
+    "rotacionBaja": "Rotación baja",
+    "beneficiosReales": "Beneficios reales",
+    "reputacionAlta": "Reputación alta",
+    "solicitoAcceso": "Solicitó acceso",
+    "vacantes": "vacantes",
+    "vacante": "vacante"
+  },
+  "configuracion": {
+    "configuracion": "Configuración",
+    "cambiarIdioma": "Cambiar idioma a",
+    "es": "español",
+    "en": "inglés"
+  }
+}

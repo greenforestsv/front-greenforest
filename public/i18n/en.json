@@ -1,0 +1,110 @@
+{
+  "common": {
+    "guardar": "Save",
+    "cancelar": "Cancel",
+    "error_inesperado": "An unexpected error occurred."
+  },
+  "nav": {
+    "home": "Home",
+    "empleos": "Job board",
+    "valor": "Value proposition",
+    "empresas": "Company Portal",
+    "candidatos": "Candidate Portal"
+  },
+  "sidebar": {
+    "logout": "Logout",
+    "notificaciones": "Notifications",
+    "ayuda": "Help",
+    "buscar": "Search",
+    "perfil": "Profile",
+    "candidato": {
+      "dashboard": "Dashboard",
+      "historial": "My work history",
+      "postulaciones": "Job applications",
+      "empresas": "Companies",
+      "perfil": "My profile",
+      "vacantes": "Jobs",
+      "solicitudesAcceso": "Access requests",
+      "evaluaciones": "Evaluations",
+      "crecimiento": "My growth",
+      "configuracion": "Configuration"
+    },
+    "empresa": {
+      "dashboard": "Dashboard",
+      "vacantes": "Jobs",
+      "candidatos": "Candidates",
+      "entrevistas": "AI interviews",
+      "evaluaciones": "Assessments",
+      "empleados": "Employees",
+      "marcacion": "Time tracking",
+      "turnos": "Shifts",
+      "nomina": "Payroll",
+      "desempeno": "Performance",
+      "solicitudesAcceso": "Access requests",
+      "reportes": "Reports",
+      "perfil": "Profile",
+      "usuarios": "Users",
+      "configuracion": "Configuration"
+    }
+  },
+  "cv": {
+    "historial_laboral_verificado": "Verified Work History",
+    "experiencias_verificadas": "Experiences, achievements, and evaluations verified by companies",
+    "nivel_acceso": "Access Level",
+    "publico": "Public",
+    "descripcion_publico": "Job titles, skills, and availability",
+    "protegido": "Protected",
+    "descripcion_protegido": "Performance reviews and departure reasons",
+    "con_permiso": "With Permission",
+    "privado": "Private",
+    "descripcion_privado": "Salary history and documents",
+    "oculto": "Hidden",
+    "senales_verificadas": "Verified Signals",
+    "logros_validados": "Validated Achievements",
+    "evaluaciones_positivas": "Positive Reviews",
+    "reconocimientos": "Recognitions",
+    "alertas": "Alerts",
+    "validado": "Verified",
+    "ascenso_interno": "Internal Promotion",
+    "activo": "Active",
+    "agregar_experiencia": "Add experience",
+    "titulo": "Job title",
+    "empresa": "Company",
+    "area": "Area",
+    "fecha_inicio": "Start date",
+    "fecha_fin": "End date",
+    "actividades_realizadas": "Key responsabilities",
+    "titulo_obligatorio": "Job title is required.",
+    "fecha_inicio_obligatoria": "Start date is required.",
+    "fecha_fin_mayor_inicio": "The end date cannot be earlier than the start date.",
+    "empresa_obligatoria": "Company is required.",
+    "area_obligatoria": "Area is required.",
+    "actividades_obligatorias": "Responsibilities are required.",
+    "placeholder_actividades": "Example:\nDeveloped frontend modules\nOptimized SQL queries\nCreated new features...",
+    "separar_actividades": "Separate responsibilities by pressing ",
+    "experiencia_agregada_summary": "Experience added",
+    "experiencia_agregada_detail": "Work experience was added successfully.",
+    "error_agregar_experiencia": "Error adding experience"
+  },
+  "postulaciones": {
+    "aplicado": "Applied",
+    "preseleccion": "Preselection",
+    "entrevista": "Interview",
+    "oferta": "Offer"
+  },
+  "empresas": {
+    "ascensosInternos": "Internal promotions",
+    "rotacionBaja": "Low turnover",
+    "beneficiosReales": "Real benefits",
+    "reputacionAlta": "Great reputation",
+    "solicitoAcceso": "Requested access",
+    "vacantes": "job openings",
+    "vacante": "job opening"
+  },
+  "configuracion": {
+    "configuracion": "Configuration",
+    "cambiarIdioma": "Change language to",
+    "es": "spanish",
+    "en": "english"
+  }
+}

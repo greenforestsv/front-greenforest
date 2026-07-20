@@ -1,0 +1,13 @@
+.logo {
+  width: 250px;
+  height: 120px;
+
+  background-color: var(--color-mid);
+
+  -webkit-mask: url('/logo.svg') center / contain no-repeat;
+  mask: url('/logo.svg') center / contain no-repeat;
+}
+
+label {
+  color: var(--p-forest-mid);
+}

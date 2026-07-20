@@ -1,0 +1,32 @@
+<div class="background flex items-center">
+  <div class="px-7 py-6 rounded-3xl bg-white mx-auto w-full max-w-md shadow-sm">
+    <div class="hover:cursor-pointer logo mx-auto" routerLink="/"></div>
+    <div class="text-center mb-8">
+      <h1 class="text-primary mt-2 text-3xl font-light">Inicia sesión</h1>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-7">
+      <p-floatlabel>
+        <input pInputText id="correo" autocomplete="off" [fluid]="true" />
+        <label for="correo">Correo</label>
+      </p-floatlabel>
+      <p-floatlabel class="w-full">
+        <p-password
+          inputId="password"
+          formControlName="password"
+          [toggleMask]="true"
+          [feedback]="false"
+          class="w-full"
+          [fluid]="true"
+        />
+        <label for="password">Contraseña</label>
+      </p-floatlabel>
+
+      <div class="flex justify-end">
+        <p-button label="¿Olvidaste tu contraseña?" routerLink="/" link />
+      </div>
+
+      <p-button label="Iniciar Sesión" type="submit" [fluid]="true" />
+    </form>
+  </div>
+</div>

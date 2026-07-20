@@ -1,0 +1,14 @@
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { Hero } from './components/hero/hero';
+import { ParaEmpresasCandidatos } from './components/para-empresas-candidatos/para-empresas-candidatos';
+import { EtapasCicloTalento } from './components/etapas-ciclo-talento/etapas-ciclo-talento';
+import { SeccionCtas } from './components/seccion-ctas/seccion-ctas';
+
+@Component({
+  selector: 'app-quienes-somos',
+  imports: [ButtonModule, Hero, ParaEmpresasCandidatos, EtapasCicloTalento, SeccionCtas],
+  templateUrl: './quienes-somos.html',
+  styleUrl: './quienes-somos.scss',
+})
+export class QuieneSomos {}

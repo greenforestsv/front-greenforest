@@ -1,0 +1,16 @@
+<div id="element" class="w-fit mx-auto">
+  <div class="icon text-center w-fit h-fit flex mx-auto rounded-full px-5 py-4 mb-4">
+    <i [class]="icon()" class="m-auto text-xl!"></i>
+  </div>
+  <div id="data" class="flex flex-col text-center">
+    @if (qty() > 0) {
+      <span class="title text-xl playfair-font text-deep">
+        {{ qty() | kFormatter }}
+      </span>
+    }
+    <span class="title text-xl playfair-font text-deep">
+      {{ qtyStrgin() }}
+    </span>
+    <span class="description font-light"> {{ legend() }} </span>
+  </div>
+</div>

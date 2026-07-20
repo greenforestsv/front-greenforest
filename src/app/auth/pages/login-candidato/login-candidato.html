@@ -1,0 +1,86 @@
+<div class="relative min-h-screen overflow-hidden">
+  <!-- Imagen de fondo -->
+  <img
+    src="/bosque-1.jpg"
+    alt=""
+    loading="lazy"
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover object-bottom -z-20 select-none"
+  />
+
+  <div class="flex min-h-screen items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div class="w-full max-w-md rounded-3xl bg-white px-6 py-7 shadow-xl sm:px-8">
+      <div class="logo mx-auto cursor-pointer" routerLink="/"></div>
+
+      <div class="mb-8 text-center">
+        <h1 class="mt-2 text-3xl font-light text-primary">Inicia sesión</h1>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-4">
+        <div class="space-y-6">
+          <div>
+            <p-floatlabel>
+              <input
+                pInputText
+                type="email"
+                id="correo"
+                autocomplete="email"
+                [fluid]="true"
+                formControlName="email"
+                [invalid]="
+                  (loginForm.controls.email.invalid && loginForm.controls.email.touched) ||
+                  loginForm.hasError('invalidCredentials')
+                "
+              />
+              <label for="correo">Correo</label>
+            </p-floatlabel>
+            @if (email.invalid && email.touched) {
+              <p-message severity="error" size="small" variant="simple" class="mt-1">
+                @if (email.hasError('required')) {
+                  El correo es obligatorio.
+                }
+              </p-message>
+            }
+          </div>
+
+          <div>
+            <p-floatlabel class="w-full mt-8">
+              <p-password
+                inputId="password"
+                formControlName="password"
+                [toggleMask]="true"
+                [feedback]="false"
+                [fluid]="true"
+                class="w-full"
+                [invalid]="
+                  (loginForm.controls.password.invalid && loginForm.controls.password.touched) ||
+                  loginForm.hasError('invalidCredentials')
+                "
+              />
+              <label for="password">Contraseña</label>
+            </p-floatlabel>
+            @if (password.invalid && password.touched) {
+              <p-message severity="error" size="small" variant="simple" class="mt-1">
+                @if (password.hasError('required')) {
+                  La contraseña es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <p-button label="¿Olvidaste tu contraseña?" routerLink="/olvido-contrasena" link />
+        </div>
+
+        <p-button label="Iniciar Sesión" type="submit" [fluid]="true" [loading]="loading()" />
+      </form>
+
+      <div class="mt-5 text-center text-sm">
+        ¿No tenés una cuenta?
+
+        <p-button label="Crear cuenta" routerLink="/registro-candidato" link />
+      </div>
+    </div>
+  </div>
+</div>

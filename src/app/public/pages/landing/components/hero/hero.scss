@@ -1,0 +1,10 @@
+.hero-image {
+  min-height: 540px;
+  border-radius: 40px;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(15, 46, 35, 0.15), rgba(255, 255, 255, 0.4)),
+    url('/oficina.jpg') center / cover;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}

@@ -1,0 +1,68 @@
+<header class="max-w-[1180px] mx-auto">
+  <div
+    class="w-full max-w-[1180px] fixed top-0 z-50 bg-white backdrop-blur rounded-3xl shadow-sm mt-4"
+  >
+    <div class="mx-auto px-6">
+      <div class="flex h-18 items-center justify-between">
+        <!-- Logo -->
+        <div class="h-full flex items-center">
+          <div
+            class="logo h-[50px] w-[150px] flex items-center justify-center shrink-0 cursor-pointer"
+            routerLink="/"
+          ></div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-3">
+          @for (link of headerLinks(); track link.route) {
+            <p-button
+              [label]="link.name | translate"
+              [routerLink]="link.route"
+              variant="text"
+              routerLinkActive="bg-(--p-button-text-primary-hover-background) rounded-xl"
+              [routerLinkActiveOptions]="{ exact: true }"
+            />
+          }
+        </nav>
+
+        <div class="flex gap-2">
+          <!--  <p-button
+            [label]="'nav.empresas' | translate"
+            routerLink="/login-empresarial"
+            variant="outlined"
+          />
+          <p-button [label]="'nav.candidatos' | translate" routerLink="/login-candidato" /> -->
+        </div>
+
+        <!-- Mobile Button -->
+        <p-button
+          (onClick)="menuOpen = !menuOpen"
+          [icon]="menuOpen ? 'pi pi-times' : 'pi pi-bars'"
+          [rounded]="true"
+          [text]="true"
+          severity="secondary"
+          class="md:hidden"
+          ariaLabel="Abrir menú"
+        />
+      </div>
+
+      <!-- Mobile Menu -->
+      @if (menuOpen) {
+        <nav class="md:hidden py-4 border-t border-gray-100">
+          <div class="flex flex-col gap-2">
+            @for (link of headerLinks(); track link.route) {
+              <p-button
+                [label]="link.name | translate"
+                [routerLink]="link.route"
+                variant="text"
+                routerLinkActive="bg-(--p-button-text-primary-hover-background) rounded-xl"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [fluid]="true"
+              />
+            }
+          </div>
+        </nav>
+      }
+    </div>
+  </div>
+</header>

@@ -1,0 +1,156 @@
+@use 'tailwindcss';
+@use 'primeicons/primeicons.css';
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+@theme {
+  /* ORANGE */
+  --color-accent-50: #fdf1e9;
+  --color-accent-100: #fbe6d8;
+  --color-accent-500: #dd6b2f;
+  --color-accent-700: #b8551f;
+  /* GREEN */
+  --color-cream: #f2f5f2;
+  --color-mist: #d8f3dc;
+  --color-pale: #a8c5a3;
+  --color-lite: #2e7d53;
+  --color-mid: #1e4b38;
+  --color-primary: #0f2e23;
+  --color-deep: #0d2818;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-cream);
+  min-height: 100vh;
+}
+
+.inter-font {
+  font-family: 'Inter', sans-serif;
+}
+
+.playfair-font {
+  font-family: 'Playfair', serif;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./app/themes/fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
+@font-face {
+  font-family: 'Playfair';
+  src: url('./app/themes/fonts/PlayfairDisplay-VariableFont_wght.ttf');
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em {
+  font-family: 'Playfair', serif;
+}
+
+.btn-accent button.p-button {
+  background-color: var(--p-accent-500);
+  border-color: var(--p-accent-500);
+}
+
+.btn-accent button.p-button:hover {
+  background-color: var(--p-accent-700);
+  border-color: var(--p-accent-700);
+}
+
+button.p-button-outlined {
+  border: 1px solid var(--color-primary);
+}
+
+button.p-button {
+  border-radius: 0.75rem;
+}
+
+input.p-inputtext {
+  border-radius: 0.75rem;
+}
+
+/* span.p-avatar-label {
+  font-family: 'Playfair', serif;
+} */
+
+ul li {
+  line-height: 1;
+}
+
+/* .p-avatar.p-avatar-xl {
+  border-radius: 1rem;
+} */
+
+#tabla-etapas .p-datatable,
+#tabla-etapas .p-datatable-table-container {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+#logout-btn-dark .p-button:hover {
+  background-color: rgba(239, 68, 68, 0.3);
+}
+
+.white-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.5rem 0.75rem;
+  background-color: white;
+  color: var(--color-mid);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.white-badge::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent-500);
+  vertical-align: middle;
+}
+
+@mixin badge($bg, $color, $border) {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+
+  background-color: $bg;
+  color: $color;
+  border: 1px solid $border;
+
+  font-size: 11px;
+}
+
+.accent-badge {
+  @include badge(var(--color-accent-50), var(--color-accent-500), var(--color-accent-100));
+}
+
+.green-badge {
+  @include badge(var(--p-forest-mist), var(--p-forest-lite), var(--p-forest-lite));
+}
+
+.gray-badge {
+  @include badge(var(--color-gray-100), var(--color-gray-600), var(--color-gray-200));
+}
+
+.card {
+  background-color: #fff;
+  //border: 1px solid #d1d5db; // border-gray-300
+  border-radius: 1.5rem; // rounded-3xl
+  //padding: 1rem; // p-4
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); // shadow-sm
+}

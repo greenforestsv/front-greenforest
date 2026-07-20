@@ -1,0 +1,37 @@
+<!-- Contenedor relativo -->
+<div class="relative pt-8">
+  <!-- Indicador -->
+  <div class="absolute -top-1 -translate-x-1/2 flex flex-col items-center" style="left: 72%">
+    <span class="text-sm font-medium">Tú</span>
+
+    <!-- Triángulo -->
+    <div
+      class="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-gray-600"
+    ></div>
+  </div>
+
+  <!-- Barra -->
+  <div class="flex h-3 overflow-hidden rounded-full">
+    <div class="bg-green-500" [style.width.%]="postuladosPct()"></div>
+    <div class="bg-yellow-500" [style.width.%]="entrevistadosPct()"></div>
+    <div class="bg-blue-500" [style.width.%]="contratadosPct()"></div>
+  </div>
+</div>
+
+<!-- Leyenda -->
+<div class="flex gap-4 mt-4 text-sm justify-center">
+  <div class="flex items-center gap-2">
+    <span class="size-3 rounded-full bg-green-500"></span>
+    <span>Postulados</span>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <span class="size-3 rounded-full bg-yellow-500"></span>
+    <span>Entrevistados</span>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <span class="size-3 rounded-full bg-blue-500"></span>
+    <span>Contratados</span>
+  </div>
+</div>

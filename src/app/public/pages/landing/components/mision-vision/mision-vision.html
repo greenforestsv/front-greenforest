@@ -1,0 +1,38 @@
+<section class="pt-6 pb-16 w-full max-w-[1180px] mx-auto">
+  <div class="bg-deep rounded-3xl p-6 md:p-10 lg:p-14 flex flex-col lg:flex-row gap-10 lg:gap-12">
+    <!-- MISIÓN -->
+    <div class="flex flex-row items-start gap-6">
+      <div class="shrink-0 size-15 rounded-full bg-mid flex justify-center items-center">
+        <i
+          [class]="'pi ' + misionVision()[0].icono"
+          style="color: #fff; font-size: 1.5rem; font-weight: 300"
+        ></i>
+      </div>
+      <div class="flex flex-col gap-4">
+        <h2 class="text-white text-3xl">
+          {{ misionVision()[0].titulo }}
+        </h2>
+        <p class="font-light text-sm text-white leading-6">
+          {{ misionVision()[0].descripcion }}
+        </p>
+      </div>
+    </div>
+    <!-- VISIÓN -->
+    <div class="flex flex-row items-start gap-6">
+      <div class="shrink-0 size-15 rounded-full bg-mid flex justify-center items-center">
+        <i
+          [class]="'pi ' + misionVision()[1].icono"
+          style="color: #fff; font-size: 1.5rem; font-weight: 300"
+        ></i>
+      </div>
+      <div class="flex flex-col gap-4">
+        <h2 class="text-white text-3xl">
+          {{ misionVision()[1].titulo }}
+        </h2>
+        <p class="font-light text-sm text-white leading-6">
+          {{ misionVision()[1].descripcion }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

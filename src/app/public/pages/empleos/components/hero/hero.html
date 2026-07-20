@@ -1,0 +1,29 @@
+<section class="hero w-full flex mb-4">
+  <div class="flex-1 flex flex-col gap-4 justify-center">
+    <span class="white-badge">Bolsa de empleo pública</span>
+    <h1 class="text-6xl text-mid">
+      Encontrá tu próxima <span class="text-accent-500 playfair-font">oportunidad</span>
+    </h1>
+    <p class="font-light">Explorá vacantes activas en empresas verificadas por Green Forest.</p>
+  </div>
+  <div class="bg-white my-5 px-4 rounded-3xl shadow-sm flex w-xs items-center gap-4">
+    <div class="bg-(--p-surface-200) py-3 px-4 rounded-lg">
+      <i class="pi pi-briefcase" style="color: var(--p-primary-600)"></i>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h3 class="text-2xl">¿Sos una empresa?</h3>
+      <p class="font-light text-sm">
+        Publicá tus vacantes y encontrá talento calificado para tu equipo
+      </p>
+      <p-button
+        label="Ir a portal de empresas"
+        variant="outlined"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        size="small"
+        [style]="{ border: '0', color: 'red' }"
+        routerLink="/login-empresarial"
+      />
+    </div>
+  </div>
+</section>

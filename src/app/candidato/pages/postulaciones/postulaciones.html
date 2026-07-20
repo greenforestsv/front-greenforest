@@ -1,0 +1,102 @@
+<div class="pipeline p-4 lg:pl-0">
+  @if (loading()) {
+    <!-- SKELETONS -->
+    @for (item of items; track $index) {
+      <div class="w-full max-w-md rounded-3xl bg-white p-4 shadow-sm">
+        <div class="mb-4 w-full flex justify-between items-center">
+          <p-skeleton width="5rem" height="1.5rem" />
+          <p-skeleton shape="circle" height="1.5rem" width="1.5rem" />
+        </div>
+        <div class="flex-1 space-y-3">
+          <p-skeleton width="100%" height="4rem" />
+          <p-skeleton width="100%" height="4rem" />
+          <p-skeleton width="100%" height="4rem" />
+        </div>
+      </div>
+    }
+  } @else {
+    <!-- Aplicado -->
+    <section class="rounded-3xl bg-white p-4 shadow-sm">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">{{ 'postulaciones.aplicado' | translate }}</h2>
+        <div class="accent-badge size-6 flex items-center justify-center">
+          {{ aplicados().length }}
+        </div>
+      </div>
+
+      <div class="flex-1 space-y-3 overflow-y-auto">
+        @for (item of postulaciones(); track item.id) {
+          @if (item.status === 'A') {
+            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+              <h3 class="font-medium">{{ item.name }}</h3>
+              <p class="mt-1 text-gray-500">{{ item.company }}</p>
+            </article>
+          }
+        }
+      </div>
+    </section>
+
+    <!-- Preselección -->
+    <section class="rounded-3xl bg-white p-4 shadow-sm">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">{{ 'postulaciones.preseleccion' | translate }}</h2>
+        <div class="accent-badge size-6 flex items-center justify-center">
+          {{ preseleccion().length }}
+        </div>
+      </div>
+
+      <div class="flex-1 space-y-3 overflow-y-auto">
+        @for (item of postulaciones(); track item.id) {
+          @if (item.status === 'P') {
+            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+              <h3 class="font-medium">{{ item.name }}</h3>
+              <p class="mt-1 text-gray-500">{{ item.company }}</p>
+            </article>
+          }
+        }
+      </div>
+    </section>
+
+    <!-- Entrevista -->
+    <section class="rounded-3xl bg-white p-4 shadow-sm">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">{{ 'postulaciones.entrevista' | translate }}</h2>
+        <div class="accent-badge size-6 flex items-center justify-center">
+          {{ entrevista().length }}
+        </div>
+      </div>
+
+      <div class="flex-1 space-y-3 overflow-y-auto">
+        @for (item of postulaciones(); track item.id) {
+          @if (item.status === 'E') {
+            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+              <h3 class="font-medium">{{ item.name }}</h3>
+              <p class="mt-1 text-gray-500">{{ item.company }}</p>
+            </article>
+          }
+        }
+      </div>
+    </section>
+
+    <!-- Oferta -->
+    <section class="rounded-3xl bg-white p-4 shadow-sm">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">{{ 'postulaciones.oferta' | translate }}</h2>
+        <div class="accent-badge size-6 flex items-center justify-center">
+          {{ oferta().length }}
+        </div>
+      </div>
+
+      <div class="flex-1 space-y-3 overflow-y-auto">
+        @for (item of postulaciones(); track item.id) {
+          @if (item.status === 'O') {
+            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+              <h3 class="font-medium">{{ item.name }}</h3>
+              <p class="mt-1 text-gray-500">{{ item.company }}</p>
+            </article>
+          }
+        }
+      </div>
+    </section>
+  }
+</div>

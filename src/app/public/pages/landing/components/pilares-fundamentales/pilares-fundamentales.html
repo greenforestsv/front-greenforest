@@ -1,0 +1,32 @@
+<section class="pb-10 z-1 pt-20 max-w-[1180px] mx-auto">
+  <div class="flex flex-col items-center">
+    <span class="white-badge"> Ecosistema Completo </span>
+    <div class="flex flex-col mt-6 text-center">
+      <h2 class="text-5xl">
+        Un bosque de oportunidades,<br /><em class="italic text-lite"
+          >tres pilares fundamentales</em
+        >
+      </h2>
+
+      <p class="font-light max-w-3/4 mx-auto mb-4 mt-4">
+        Atracción, contratación y gestión del talento en una experiencia fluida para empresas y
+        candidatos.
+      </p>
+    </div>
+
+    @if (this.generalService.portals()) {
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
+        @for (pilar of this.generalService.portals(); track $index) {
+          <app-card
+            [title]="pilar.title"
+            [description]="pilar.description"
+            [icon]="pilar.icon"
+            [style]="pilar.style"
+            [itemsAdvantage]="pilar.itemsAdvantage"
+            [link]="pilar.link"
+          ></app-card>
+        }
+      </div>
+    }
+  </div>
+</section>
