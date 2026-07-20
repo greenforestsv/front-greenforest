@@ -18,7 +18,7 @@
     [(visible)]="visible"
     [modal]="true"
     [header]="'cv.agregar_experiencia' | translate"
-    [style]="{ width: '24rem', borderRadius: '1.5rem' }"
+    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
   >
     <form
       id="experienceForm"
@@ -26,50 +26,122 @@
       (ngSubmit)="save()"
       class="flex flex-col gap-4"
     >
-      <!-- TÍTULO -->
-      <div class="flex flex-col gap-1">
-        <label pLabel for="title"
-          >{{ 'cv.titulo' | translate }} <span class="text-accent-500">*</span></label
-        >
-        <input
-          pInputText
-          type="text"
-          id="title"
-          formControlName="title"
-          required
-          [invalid]="title.invalid && title.touched"
-          fluid
-        />
-        @if (title.invalid && title.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            @if (title.hasError('required')) {
-              {{ 'cv.titulo_obligatorio' | translate }}
+      <div class="flex flex-col lg:flex-row gap-4">
+        <!-- LEFT -->
+        <div class="space-y-4">
+          <!-- TÍTULO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="title"
+              >{{ 'cv.titulo' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="title"
+              formControlName="title"
+              required
+              [invalid]="title.invalid && title.touched"
+              fluid
+            />
+            @if (title.invalid && title.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (title.hasError('required')) {
+                  {{ 'cv.titulo_obligatorio' | translate }}
+                }
+              </p-message>
             }
-          </p-message>
-        }
-      </div>
+          </div>
 
-      <!-- EMPRESA -->
-      <div class="flex flex-col gap-1">
-        <label pLabel for="company"
-          >{{ 'cv.empresa' | translate }} <span class="text-accent-500">*</span></label
-        >
-        <input
-          pInputText
-          type="text"
-          id="company"
-          formControlName="company"
-          required
-          [invalid]="company.invalid && company.touched"
-          fluid
-        />
-        @if (company.invalid && company.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            @if (company.hasError('required')) {
-              {{ 'cv.empresa_obligatoria' | translate }}
+          <!-- EMPRESA -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="company"
+              >{{ 'cv.empresa' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="company"
+              formControlName="company"
+              required
+              [invalid]="company.invalid && company.touched"
+              fluid
+            />
+            @if (company.invalid && company.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (company.hasError('required')) {
+                  {{ 'cv.empresa_obligatoria' | translate }}
+                }
+              </p-message>
             }
-          </p-message>
-        }
+          </div>
+
+          <!-- ÁREA -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="area"
+              >{{ 'cv.area' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="area"
+              formControlName="area"
+              required
+              [invalid]="area.invalid && area.touched"
+              fluid
+            />
+            @if (area.invalid && area.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (area.hasError('required')) {
+                  {{ 'cv.area_obligatoria' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="space-y-4">
+          <!-- FECHA INICIO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="start_date"
+              >{{ 'cv.fecha_inicio' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <p-datepicker
+              id="start_date"
+              formControlName="start_date"
+              [showIcon]="true"
+              inputId="start_date"
+              required
+              dateFormat="dd/M/yy"
+              [invalid]="start_date.invalid && start_date.touched"
+            />
+            @if (start_date.invalid && start_date.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (start_date.hasError('required')) {
+                  {{ 'cv.fecha_inicio_obligatoria' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- FECHA FIN -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="end_date">{{ 'cv.fecha_fin' | translate }}</label>
+            <p-datepicker
+              id="end_date"
+              formControlName="end_date"
+              [showIcon]="true"
+              inputId="end_date"
+              dateFormat="dd/M/yy"
+              [invalid]="experienceForm.hasError('endDateBeforeStartDate') && end_date.touched"
+            />
+            @if (experienceForm.hasError('endDateBeforeStartDate') && end_date.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                {{ 'cv.fecha_fin_mayor_inicio' | translate }}
+              </p-message>
+            }
+          </div>
+        </div>
       </div>
 
       <!-- ACTIVIDADES -->
@@ -101,42 +173,6 @@
             }
           </p-message>
         }
-      </div>
-
-      <!-- FECHA INICIO -->
-      <div class="flex flex-col gap-1">
-        <label pLabel for="start_date"
-          >{{ 'cv.fecha_inicio' | translate }} <span class="text-accent-500">*</span></label
-        >
-        <p-datepicker
-          id="start_date"
-          formControlName="start_date"
-          [showIcon]="true"
-          inputId="start_date"
-          required
-          dateFormat="dd/M/yy"
-          [invalid]="start_date.invalid && start_date.touched"
-        />
-        @if (start_date.invalid && start_date.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            @if (start_date.hasError('required')) {
-              {{ 'cv.fecha_inicio_obligatoria' | translate }}
-            }
-          </p-message>
-        }
-      </div>
-
-      <!-- FECHA FIN -->
-      <div class="flex flex-col gap-1">
-        <label pLabel for="end_date">{{ 'cv.fecha_fin' | translate }}</label>
-        <p-datepicker
-          id="end_date"
-          formControlName="end_date"
-          [showIcon]="true"
-          inputId="end_date"
-          dateFormat="dd/M/yy"
-        />
-        <!-- TODO: que la fecha sea mayor que la inicial [invalid]="end_date.invalid && end_date.touched" -->
       </div>
 
       <!-- BOTÓN OCULTO PARA EL ENTER -->

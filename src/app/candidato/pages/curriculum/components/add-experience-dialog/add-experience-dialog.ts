@@ -11,6 +11,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
+import { endDateAfterStartDateValidator } from '../../../../../auth/validators/auth.validator';
 
 @Component({
   selector: 'app-add-experience-dialog',
@@ -43,18 +44,25 @@ export class AddExperienceDialog {
   error = signal<string | null>('Internal server error');
 
   // ESTADOS INICIALES Y VALIDACIONES
-  readonly experienceForm = this.fb.nonNullable.group({
-    title: ['', Validators.required],
-    start_date: [new Date(), Validators.required],
-    end_date: [null],
-    company: ['', Validators.required],
-    activities: ['', Validators.required],
-  });
+  readonly experienceForm = this.fb.nonNullable.group(
+    {
+      title: ['', Validators.required],
+      start_date: [new Date(), Validators.required],
+      end_date: [null],
+      company: ['', Validators.required],
+      area: ['', Validators.required],
+      activities: ['', Validators.required],
+    },
+    {
+      validators: endDateAfterStartDateValidator(),
+    },
+  );
 
   readonly title = this.experienceForm.controls.title;
   readonly start_date = this.experienceForm.controls.start_date;
   readonly end_date = this.experienceForm.controls.end_date;
   readonly company = this.experienceForm.controls.company;
+  readonly area = this.experienceForm.controls.area;
   readonly activities = this.experienceForm.controls.activities;
 
   closeDialog() {
@@ -68,6 +76,7 @@ export class AddExperienceDialog {
       start_date: new Date(),
       end_date: null,
       company: '',
+      area: '',
       activities: '',
     });
 
@@ -88,7 +97,8 @@ export class AddExperienceDialog {
     this.loading.set(true);
     this.error.set(null);
 
-    const { title, start_date, end_date, company, activities } = this.experienceForm.getRawValue();
+    const { title, start_date, end_date, company, area, activities } =
+      this.experienceForm.getRawValue();
 
     const cleanActivities = activities
       .split(/\n/)
@@ -109,12 +119,15 @@ export class AddExperienceDialog {
       start_date: dayjs(start_date).format('YYYY-MM-DD'),
       end_date: end_date ? dayjs(end_date).format('YYYY-MM-DD') : null,
       company,
+      area,
       activities: cleanActivities,
     };
 
+    console.log(nuevaExperiencia);
+
     this.aspirantesService
       .patchCV({
-        work_experiences: [nuevaExperiencia],
+        works_experience: [nuevaExperiencia],
       })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({

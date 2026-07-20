@@ -4,7 +4,7 @@ export interface CreateCV {
   skills?: string[];
   languages?: Language[];
   educations?: Education[];
-  work_experiences?: WorkExperience[];
+  works_experience?: WorkExperience[];
 }
 
 export interface CV {
@@ -15,7 +15,7 @@ export interface CV {
   phone?: string;
   description?: string;
   education?: Education[];
-  work_experiences?: WorkExperience[];
+  works_experience?: WorkExperience[];
   languages?: Language[];
   skills?: string[];
 }
@@ -31,11 +31,12 @@ export interface Education {
 
 export interface WorkExperience {
   id?: number;
-  title?: string;
-  start_date?: string;
+  title: string;
+  start_date: string;
   end_date?: string | null;
-  company?: string;
-  activities?: string[];
+  company: string;
+  area: string;
+  activities: string[];
 }
 
 export interface Language {
