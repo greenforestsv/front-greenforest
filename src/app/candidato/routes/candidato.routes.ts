@@ -19,7 +19,8 @@ export const CANDIDATO_ROUTES: Routes = [
       },
       {
         path: 'perfil',
-        loadComponent: () => import('../pages/perfil/perfil').then((m) => m.Perfil),
+        loadComponent: () =>
+          import('../pages/perfil/perfil-candidato').then((m) => m.PerfilCandidato),
       },
       {
         path: 'curriculum',
