@@ -1,0 +1,81 @@
+<div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
+  @if (loading()) {
+    <div class="flex-2 flex flex-col gap-4">
+      <section class="card p-8"></section>
+      <section class="card p-8"></section>
+      <div class="w-full flex flex-col lg:flex-row gap-4">
+        <section class="card p-8 flex-1"></section>
+        <section class="card p-8 flex-1"></section>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4 flex-1">
+      <aside class="card p-4"></aside>
+      <aside class="card p-4"></aside>
+    </div>
+  } @else {
+    <div class="flex-2 flex flex-col gap-4">
+      <section class="card p-8 flex flex-col sm:flex-row items-center gap-4">
+        <p-avatar size="xlarge" shape="square" class="shrink-0" />
+        <div class="space-y-2">
+          <h1 class="text-3xl">
+            {{ aspirante()?.first_name + ' ' + aspirante()?.first_surname }}
+          </h1>
+          <p class="text-sm">
+            Lic. en Mercadeo · MBA Global Business Administration · Perfil híbrido negocio +
+            tecnología
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="green-badge">Marketing Strategy</span>
+            <span class="green-badge">BI</span>
+            <span class="green-badge">AI Automation</span>
+            <span class="gray-badge">Inglés intermedio</span>
+          </div>
+        </div>
+      </section>
+      <section class="card p-8 space-y-2">
+        <div class="flex flex-wrap-reverse justify-between gap-2">
+          <h2>Resumen profesional</h2>
+          <span class="accent-badge">Visible para empresas</span>
+        </div>
+        <p class="text-sm">
+          Profesional de mercadeo y negocios con enfoque en tecnología, automatización e
+          inteligencia artificial aplicada. Experiencia coordinando campañas, tableros de datos,
+          procesos comerciales y productos digitales para empresas regionales.
+        </p>
+      </section>
+      <div class="w-full flex flex-col lg:flex-row gap-4">
+        <section class="card p-8 flex-1"><h2>Documentos</h2></section>
+        <section class="card p-8 flex-1"><h2>Visibilidad</h2></section>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4 flex-1">
+      <aside class="card p-4">
+        <div class="flex flex-wrap-reverse justify-between gap-2">
+          <h2>Completitud de perfil</h2>
+          <span class="green-badge">86%</span>
+        </div>
+        <div class="flex items-center justify-center">
+          <div
+            class="relative flex h-44 w-44 items-center justify-center rounded-full"
+            style="background: conic-gradient(#16a34a 309.6deg, #e5e7eb 309.6deg)"
+          >
+            <!-- Centro blanco -->
+            <div class="flex h-32 w-32 items-center justify-center rounded-full bg-white">
+              <span class="text-3xl font-bold text-gray-900">86%</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <aside class="card p-4">
+        <h2 class="mb-2">Green ID</h2>
+        <div class="text-sm p-4 border rounded-3xl space-y-2">
+          <h3>GF-MJ-2026-0018</h3>
+          <p>
+            Identificador único para conectar aplicaciones, evaluaciones y verificaciones laborales
+            sin exponer datos sensibles de forma automática.
+          </p>
+        </div>
+      </aside>
+    </div>
+  }
+</div>
