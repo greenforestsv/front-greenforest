@@ -3,10 +3,11 @@ import { PrivateAspirant } from '../../interfaces/aspirant.interfaces';
 import { AspirantesService } from '../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
+import { ChartDoughnut } from './components/chart-doughnut/chart-doughnut';
 
 @Component({
   selector: 'app-perfil-candidato',
-  imports: [AvatarModule],
+  imports: [AvatarModule, ChartDoughnut],
   templateUrl: './perfil-candidato.html',
   styleUrl: './perfil-candidato.scss',
 })
@@ -17,6 +18,7 @@ export class PerfilCandidato {
 
   /* ESTADOS SIGNAL */
   aspirante = signal<PrivateAspirant | null>(null);
+  profilePercentage = signal(86);
   loading = signal(false);
 
   constructor() {
