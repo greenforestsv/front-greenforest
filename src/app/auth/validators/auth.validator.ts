@@ -48,3 +48,17 @@ export function phoneValidator(): ValidatorFn {
     return isValidPhoneNumber(control.value) ? null : { invalidPhone: true };
   };
 }
+
+/* VALIDADOR FECHA FIN MAYOR A FECHA INICIO */
+export const endDateAfterStartDateValidator: ValidatorFn = (
+  control: AbstractControl,
+): ValidationErrors | null => {
+  const startDate = control.get('startDate')?.value;
+  const endDate = control.get('endDate')?.value;
+
+  if (!startDate || !endDate) return null;
+
+  return dayjs(endDate).isAfter(dayjs(startDate)) || dayjs(endDate).isSame(dayjs(startDate))
+    ? null
+    : { endDateBeforeStartDate: true };
+};
