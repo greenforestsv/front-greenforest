@@ -19,6 +19,10 @@ export const EMPRESA_ROUTES: Routes = [
         loadComponent: () => import('../pages/dashboard/dashboard').then((m) => m.Dashboard),
       },
       {
+        path: 'perfil',
+        loadComponent: () => import('../pages/perfil/perfil-empresa').then((m) => m.PerfilEmpresa),
+      },
+      {
         path: 'configuracion',
         loadComponent: () =>
           import('../pages/configuracion/configuracion').then((m) => m.Configuracion),

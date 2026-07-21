@@ -1,0 +1,122 @@
+<div class="p-8 space-y-4">
+  <section class="flex gap-2 justify-between items-center flex-wrap">
+    <div class="space-y-2">
+      <h1 class="text-3xl">Perfil público de empresa</h1>
+      <p>
+        Lo que el talento ve: cultura, beneficios, reputación, vacantes, salario visible, rotación y
+        crecimiento interno.
+      </p>
+    </div>
+    <div>
+      <p-button label="Actualizar perfil" />
+    </div>
+  </section>
+  <div class="flex flex-col xl:flex-row gap-4">
+    <section class="p-8 flex-2 space-y-2 bg-mid rounded-3xl shadow-sm text-white">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2>Empresa cliente</h2>
+          <span class="text-sm">Empresa verfiicada &bull; El Salvador</span>
+        </div>
+        <span class="gray-badge">Top empleador</span>
+      </div>
+      <p class="font-bold text-3xl">84/100</p>
+      <p class="text-sm">
+        Tu reputación como empleador se alimenta de rotación, ascensos, evaluaciones, beneficios y
+        satisfacción de empleados.
+      </p>
+
+      <!-- BARRAS CON PORCENTAJES-->
+      <div class="text-sm flex flex-col gap-2 w-full">
+        <!-- CULTURA -->
+        <div class="flex items-center gap-2">
+          <span class="w-30">Cultura</span>
+          <!-- BARRA -->
+          <div class="flex-1 bg-gray-100 rounded-full h-3">
+            <div
+              class="flex h-3 bg-lite rounded-full"
+              [style.width.%]="reputacion()[0].ascensos_internos"
+            ></div>
+          </div>
+          <!-- PORCENTAJE -->
+          <span>{{ reputacion()[0].ascensos_internos }}%</span>
+        </div>
+
+        <!-- CRECIMIENTO -->
+        <div class="flex items-center gap-2">
+          <span class="w-30">Crecimiento</span>
+          <!-- BARRA -->
+          <div class="flex-1 bg-gray-100 rounded-full h-3">
+            <div
+              class="flex h-3 bg-lite rounded-full"
+              [style.width.%]="reputacion()[0].rotacion"
+            ></div>
+          </div>
+          <!-- PORCENTAJE -->
+          <span>{{ reputacion()[0].rotacion }}%</span>
+        </div>
+
+        <!-- RETENCIÓN -->
+        <div class="flex items-center gap-2">
+          <span class="w-30">Retención</span>
+          <!-- BARRA -->
+          <div class="flex-1 bg-gray-100 rounded-full h-3">
+            <div
+              class="flex h-3 bg-lite rounded-full"
+              [style.width.%]="reputacion()[0].beneficios_reales"
+            ></div>
+          </div>
+          <!-- PORCENTAJE -->
+          <span>{{ reputacion()[0].beneficios_reales }}%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONFIGURACIÓN PÚBLICA -->
+    <section class="card p-6 flex-1 space-y-2">
+      <h2>Configuración pública</h2>
+
+      <!-- LISTA -->
+      <div class="flex flex-col gap-2 text-sm w-full">
+        <div class="flex justify-between py-2 items-center border border-gray-300 rounded-2xl p-2">
+          <div class="bg-(--p-surface-200) size-8 rounded-lg flex items-center justify-center">
+            <i class="pi pi-dollar" style="color: var(--p-primary-600); font-size: 0.5rem"></i>
+          </div>
+          <div>
+            <h3>Salario visible en vacantes</h3>
+            <span class="text-gray-600">Mejora conversión de postulantes</span>
+          </div>
+
+          <span class="green-badge">Activo</span>
+        </div>
+
+        <div class="flex justify-between py-2 items-center border border-gray-300 rounded-2xl p-2">
+          <div class="bg-(--p-surface-200) size-8 rounded-lg flex items-center justify-center">
+            <i
+              class="pi pi-arrow-up-right"
+              style="color: var(--p-primary-600); font-size: 0.5rem"
+            ></i>
+          </div>
+          <div>
+            <h3>Ascensos internos visibles</h3>
+            <span class="text-gray-600">Indicador público agregado</span>
+          </div>
+
+          <span class="green-badge">Activo</span>
+        </div>
+
+        <div class="flex justify-between py-2 items-center border border-gray-300 rounded-2xl p-2">
+          <div class="bg-(--p-surface-200) size-8 rounded-lg flex items-center justify-center">
+            <i class="pi pi-star-fill" style="color: var(--p-primary-600); font-size: 0.5rem"></i>
+          </div>
+          <div>
+            <h3>Testimonios verificados</h3>
+            <span class="text-gray-600">Moderación pendiente</span>
+          </div>
+
+          <span class="accent-badge">Pendiente</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
