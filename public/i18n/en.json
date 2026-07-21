@@ -47,6 +47,36 @@
       "configuracion": "Configuration"
     }
   },
+  "perfil": {
+    "candidato": {
+      "ingles_intermedio": "Intermediate English",
+      "resumen_profesional": "Professional Summary",
+      "visible_empresas": "Visible to employers",
+      "documentos": "Documents",
+      "subir": "Upload",
+      "cv_ejecutivo": "Executive Resume",
+      "actualizado_hace": "Updated",
+      "dias": "days ago",
+      "activo": "Active",
+      "portafolio_proyectos": "Project Portfolio",
+      "dashboard_campanas_autom": "Dashboards, campaigns, automations",
+      "identidad_verificada": "Verified Identity",
+      "validacion_usuario_b2c": "B2C user verification",
+      "visibilidad": "Visibility",
+      "controlada": "Controlled",
+      "perfil_basico_publico": "Public basic profile",
+      "nombre_cargo_etc": "Name, position, skills and city",
+      "salario_pretendido": "Expected salary",
+      "visible_cuando_aplico": "Visible only when I apply",
+      "historial_detallado": "Detailed history",
+      "requiere_aprobacion_manual": "Requires manual approval",
+      "completitud_perfil": "Profile Completion",
+      "datos_personales": "Personal Information",
+      "experiencia": "Experience",
+      "evaluaciones": "Assessments",
+      "referencias": "References"
+    }
+  },
   "cv": {
     "historial_laboral_verificado": "Verified Work History",
     "experiencias_verificadas": "Experiences, achievements, and evaluations verified by companies",

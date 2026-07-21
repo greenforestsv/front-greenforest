@@ -14,8 +14,8 @@
     </div>
   } @else {
     <div class="flex-2 flex flex-col gap-4">
-      <section class="card p-8 flex flex-col sm:flex-row items-center gap-4">
-        <p-avatar size="xlarge" shape="square" class="shrink-0" />
+      <section class="card p-8 flex flex-col lg:flex-row items-center gap-4">
+        <p-avatar size="xlarge" shape="circle" class="shrink-0" image="/images/profile.jpg" />
         <div class="space-y-2">
           <h1 class="text-3xl">
             {{ aspirante()?.first_name + ' ' + aspirante()?.first_surname }}
@@ -28,14 +28,14 @@
             <span class="green-badge">Marketing Strategy</span>
             <span class="green-badge">BI</span>
             <span class="green-badge">AI Automation</span>
-            <span class="gray-badge">Inglés intermedio</span>
+            <span class="gray-badge">{{ 'perfil.candidato.ingles_intermedio' | translate }}</span>
           </div>
         </div>
       </section>
       <section class="card p-8 space-y-2">
         <div class="flex flex-wrap-reverse justify-between gap-2">
-          <h2>Resumen profesional</h2>
-          <span class="accent-badge">Visible para empresas</span>
+          <h2>{{ 'perfil.candidato.resumen_profesional' | translate }}</h2>
+          <span class="accent-badge">{{ 'perfil.candidato.visible_empresas' | translate }}</span>
         </div>
         <p class="text-sm">
           Profesional de mercadeo y negocios con enfoque en tecnología, automatización e
@@ -44,18 +44,148 @@
         </p>
       </section>
       <div class="w-full flex flex-col lg:flex-row gap-4">
-        <section class="card p-8 flex-1"><h2>Documentos</h2></section>
-        <section class="card p-8 flex-1"><h2>Visibilidad</h2></section>
+        <!-- DOCUMENTOS -->
+        <section class="card p-8 flex-1 space-y-2">
+          <div class="flex flex-wrap-reverse justify-between gap-2">
+            <h2>{{ 'perfil.candidato.documentos' | translate }}</h2>
+            <p-button
+              [label]="'perfil.candidato.subir' | translate"
+              icon="pi pi-upload"
+              size="small"
+            />
+          </div>
+
+          <!-- LISTA -->
+          <div class="flex flex-col divide-y text-sm divide-gray-300 w-xs">
+            <div class="flex justify-between py-2 items-center">
+              <div>
+                <h3>{{ 'perfil.candidato.cv_ejecutivo' | translate }}</h3>
+                <span class="text-sm text-gray-600"
+                  >{{ 'perfil.candidato.actualizado_hace' | translate }} 2
+                  {{ 'perfil.candidato.dias' | translate }}</span
+                >
+              </div>
+              <span class="text-sm text-gray-600">{{ 'perfil.candidato.activo' | translate }}</span>
+            </div>
+            <div class="flex justify-between py-2 items-center">
+              <div>
+                <h3>
+                  {{ 'perfil.candidato.portafolio_proyectos' | translate }}
+                </h3>
+                <span class="text-sm text-gray-600">{{
+                  'perfil.candidato.dashboard_campanas_autom' | translate
+                }}</span>
+              </div>
+              <span class="text-sm text-gray-600">{{ 'perfil.candidato.activo' | translate }}</span>
+            </div>
+            <div class="flex justify-between py-2 items-center">
+              <div>
+                <h3>
+                  {{ 'perfil.candidato.identidad_verificada' | translate }}
+                </h3>
+                <span class="text-sm text-gray-600">{{
+                  'perfil.candidato.validacion_usuario_b2c' | translate
+                }}</span>
+              </div>
+              <span class="text-sm text-gray-600">&#10003;</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- VISIBILIDAD -->
+        <section class="card p-8 flex-1 space-y-2">
+          <div class="flex flex-wrap-reverse justify-between gap-2">
+            <h2>{{ 'perfil.candidato.visibilidad' | translate }}</h2>
+            <span class="green-badge">{{ 'perfil.candidato.controlada' | translate }}</span>
+          </div>
+
+          <!-- LISTA -->
+          <form [formGroup]="switchForm">
+            <div class="card flex flex-col divide-y text-sm divide-gray-300 w-xs">
+              <div class="flex justify-between py-2">
+                <div>
+                  <h3>
+                    {{ 'perfil.candidato.perfil_basico_publico' | translate }}
+                  </h3>
+                  <span class="text-sm text-gray-600">{{
+                    'perfil.candidato.nombre_cargo_etc' | translate
+                  }}</span>
+                </div>
+
+                <p-toggleswitch formControlName="perfil_basico_publico" />
+              </div>
+
+              <div class="flex justify-between py-2">
+                <div>
+                  <h3>
+                    {{ 'perfil.candidato.salario_pretendido' | translate }}
+                  </h3>
+                  <span class="text-sm text-gray-600">{{
+                    'perfil.candidato.visible_cuando_aplico' | translate
+                  }}</span>
+                </div>
+
+                <p-toggleswitch formControlName="salario_pretendido" />
+              </div>
+
+              <div class="flex justify-between py-2">
+                <div>
+                  <h3>
+                    {{ 'perfil.candidato.historial_detallado' | translate }}
+                  </h3>
+                  <span class="text-sm text-gray-600">{{
+                    'perfil.candidato.requiere_aprobacion_manual' | translate
+                  }}</span>
+                </div>
+
+                <p-toggleswitch formControlName="historial_detallado" />
+              </div>
+            </div>
+          </form>
+        </section>
       </div>
     </div>
 
-    <aside class="flex flex-col gap-4 flex-1 card p-4">
+    <!-- COMPLETITUD DE PERFIL -->
+    <aside class="flex flex-col gap-4 flex-1 card p-8">
       <div class="flex flex-wrap-reverse justify-between gap-2">
-        <h2>Completitud de perfil</h2>
+        <h2>{{ 'perfil.candidato.completitud_perfil' | translate }}</h2>
         <span class="green-badge">{{ profilePercentage() }} %</span>
       </div>
-      <div class="p-4">
+
+      <div
+        class="flex gap-4 flex-col lg:flex-row xl:flex-col items-center justify-center lg:justify-between"
+      >
+        <!-- CHART -->
         <app-chart-doughnut [percentage]="profilePercentage()" />
+
+        <!-- LISTA -->
+        <div class="card flex flex-col divide-y text-sm divide-gray-300 w-xs">
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600" style="font-weight: normal">
+              {{ 'perfil.candidato.datos_personales' | translate }}
+            </h3>
+            <span class="font-bold">100%</span>
+          </div>
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600" style="font-weight: normal">
+              {{ 'perfil.candidato.experiencia' | translate }}
+            </h3>
+            <span class="font-bold">90%</span>
+          </div>
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600" style="font-weight: normal">
+              {{ 'perfil.candidato.evaluaciones' | translate }}
+            </h3>
+            <span class="font-bold">72%</span>
+          </div>
+          <div class="flex justify-between py-2">
+            <h3 class="text-gray-600" style="font-weight: normal">
+              {{ 'perfil.candidato.referencias' | translate }}
+            </h3>
+            <span class="font-bold">64%</span>
+          </div>
+        </div>
       </div>
     </aside>
   }

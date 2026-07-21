@@ -58,7 +58,7 @@ export class PlatformLayout {
   links = signal<MenuResponse[] | []>([]);
 
   constructor() {
-    this.usuario.set({ name: 'Test Name', avatarImage: '' });
+    this.usuario.set({ name: 'Test Name', avatarImage: '/images/profile.jpg' });
     //this.links.set(data.links.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
     this.menuService
       .getAspirantsMenu()

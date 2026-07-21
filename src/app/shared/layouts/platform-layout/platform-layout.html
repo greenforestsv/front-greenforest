@@ -158,8 +158,8 @@
             tooltipPosition="bottom"
             tooltipStyleClass="text-xs"
             ><p-avatar
-              [image]="usuario()?.avatarImage"
-              [label]="usuario()?.name?.charAt(0)"
+              [label]="loading() ? usuario()?.name?.charAt(0) : undefined"
+              [image]="loading() ? undefined : '/images/profile.jpg'"
               class="mr-1"
               shape="circle"
             />

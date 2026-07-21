@@ -47,6 +47,36 @@
       "configuracion": "Configuración"
     }
   },
+  "perfil": {
+    "candidato": {
+      "ingles_intermedio": "Inglés intermedio",
+      "resumen_profesional": "Resumen profesional",
+      "visible_empresas": "Visible para empresas",
+      "documentos": "Documentos",
+      "subir": "Subir",
+      "cv_ejecutivo": "CV ejecutivo",
+      "actualizado_hace": "Actualizado hace",
+      "dias": "días",
+      "activo": "Activo",
+      "portafolio_proyectos": "Portafolio de proyectos",
+      "dashboard_campanas_autom": "Dashboard, campañas, automatizaciones",
+      "identidad_verificada": "Identidad verificada",
+      "validacion_usuario_b2c": "Validación de usuario B2C",
+      "visibilidad": "Visibilidad",
+      "controlada": "Controlada",
+      "perfil_basico_publico": "Perfil básico público",
+      "nombre_cargo_etc": "Nombre, cargo, habilidades y ciudad",
+      "salario_pretendido": "Salario pretendido",
+      "visible_cuando_aplico": "Visible solo cuando aplico",
+      "historial_detallado": "Historial detallado",
+      "requiere_aprobacion_manual": "Requiere aprobación manual",
+      "completitud_perfil": "Completitud de perfil",
+      "datos_personales": "Datos personales",
+      "experiencia": "Experiencia",
+      "evaluaciones": "Evaluaciones",
+      "referencias": "Referencias"
+    }
+  },
   "cv": {
     "historial_laboral_verificado": "Historial laboral verificado",
     "experiencias_verificadas": "Experiencias, logros y evaluaciones validadas por empresas",
