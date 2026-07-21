@@ -56,27 +56,27 @@
           </div>
 
           <!-- LISTA -->
-          <div class="flex flex-col divide-y text-sm divide-gray-300 w-xs">
+          <div class="flex flex-col divide-y text-sm divide-gray-300 w-full">
             <div class="flex justify-between py-2 items-center">
               <div>
                 <h3>{{ 'perfil.candidato.cv_ejecutivo' | translate }}</h3>
-                <span class="text-sm text-gray-600"
+                <span class="text-gray-600"
                   >{{ 'perfil.candidato.actualizado_hace' | translate }} 2
                   {{ 'perfil.candidato.dias' | translate }}</span
                 >
               </div>
-              <span class="text-sm text-gray-600">{{ 'perfil.candidato.activo' | translate }}</span>
+              <span class="text-gray-600">{{ 'perfil.candidato.activo' | translate }}</span>
             </div>
             <div class="flex justify-between py-2 items-center">
               <div>
                 <h3>
                   {{ 'perfil.candidato.portafolio_proyectos' | translate }}
                 </h3>
-                <span class="text-sm text-gray-600">{{
+                <span class="text-gray-600">{{
                   'perfil.candidato.dashboard_campanas_autom' | translate
                 }}</span>
               </div>
-              <span class="text-sm text-gray-600">{{ 'perfil.candidato.activo' | translate }}</span>
+              <span class="text-gray-600">{{ 'perfil.candidato.activo' | translate }}</span>
             </div>
             <div class="flex justify-between py-2 items-center">
               <div>
@@ -100,46 +100,50 @@
           </div>
 
           <!-- LISTA -->
-          <form [formGroup]="switchForm">
-            <div class="card flex flex-col divide-y text-sm divide-gray-300 w-xs">
-              <div class="flex justify-between py-2">
-                <div>
-                  <h3>
-                    {{ 'perfil.candidato.perfil_basico_publico' | translate }}
-                  </h3>
-                  <span class="text-sm text-gray-600">{{
-                    'perfil.candidato.nombre_cargo_etc' | translate
-                  }}</span>
-                </div>
-
-                <p-toggleswitch formControlName="perfil_basico_publico" />
+          <form [formGroup]="switchForm" class="flex flex-col gap-2 text-sm w-full">
+            <div
+              class="flex justify-between py-2 items-center border border-gray-300 rounded-2xl p-2"
+            >
+              <div>
+                <h3>
+                  {{ 'perfil.candidato.perfil_basico_publico' | translate }}
+                </h3>
+                <span class="text-gray-600">{{
+                  'perfil.candidato.nombre_cargo_etc' | translate
+                }}</span>
               </div>
 
-              <div class="flex justify-between py-2">
-                <div>
-                  <h3>
-                    {{ 'perfil.candidato.salario_pretendido' | translate }}
-                  </h3>
-                  <span class="text-sm text-gray-600">{{
-                    'perfil.candidato.visible_cuando_aplico' | translate
-                  }}</span>
-                </div>
+              <p-toggleswitch formControlName="perfil_basico_publico" />
+            </div>
 
-                <p-toggleswitch formControlName="salario_pretendido" />
+            <div
+              class="flex justify-between py-2 items-center border border-gray-300 rounded-2xl p-2"
+            >
+              <div>
+                <h3>
+                  {{ 'perfil.candidato.salario_pretendido' | translate }}
+                </h3>
+                <span class="text-gray-600">{{
+                  'perfil.candidato.visible_cuando_aplico' | translate
+                }}</span>
               </div>
 
-              <div class="flex justify-between py-2">
-                <div>
-                  <h3>
-                    {{ 'perfil.candidato.historial_detallado' | translate }}
-                  </h3>
-                  <span class="text-sm text-gray-600">{{
-                    'perfil.candidato.requiere_aprobacion_manual' | translate
-                  }}</span>
-                </div>
+              <p-toggleswitch formControlName="salario_pretendido" />
+            </div>
 
-                <p-toggleswitch formControlName="historial_detallado" />
+            <div
+              class="flex justify-between py-2 items-center border border-gray-300 rounded-2xl p-2"
+            >
+              <div>
+                <h3>
+                  {{ 'perfil.candidato.historial_detallado' | translate }}
+                </h3>
+                <span class="text-gray-600">{{
+                  'perfil.candidato.requiere_aprobacion_manual' | translate
+                }}</span>
               </div>
+
+              <p-toggleswitch formControlName="historial_detallado" />
             </div>
           </form>
         </section>
@@ -154,13 +158,13 @@
       </div>
 
       <div
-        class="flex gap-4 flex-col lg:flex-row xl:flex-col items-center justify-center lg:justify-between"
+        class="flex gap-4 lg:gap-12 flex-col lg:flex-row xl:flex-col items-center justify-center xl:justify-between"
       >
         <!-- CHART -->
         <app-chart-doughnut [percentage]="profilePercentage()" />
 
         <!-- LISTA -->
-        <div class="card flex flex-col divide-y text-sm divide-gray-300 w-xs">
+        <div class="card flex flex-col divide-y text-sm divide-gray-300 w-full sm:w-xs">
           <div class="flex justify-between py-2">
             <h3 class="text-gray-600" style="font-weight: normal">
               {{ 'perfil.candidato.datos_personales' | translate }}
