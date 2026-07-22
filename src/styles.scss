@@ -143,8 +143,12 @@ ul li {
   @include badge(var(--p-forest-mist), var(--p-forest-lite), var(--p-forest-lite));
 }
 
+.blue-badge {
+  @include badge(var(--color-sky-100), var(--color-sky-600), var(--color-sky-300));
+}
+
 .gray-badge {
-  @include badge(var(--color-gray-100), var(--color-gray-600), var(--color-gray-200));
+  @include badge(var(--color-gray-100), var(--color-gray-600), var(--color-gray-300));
 }
 
 .card {

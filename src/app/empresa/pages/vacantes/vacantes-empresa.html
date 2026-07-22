@@ -1,0 +1,316 @@
+<div class="p-4 space-y-4">
+  <!-- HERO -->
+  <section class="flex gap-2 justify-between items-center flex-wrap">
+    <div class="space-y-2">
+      <h1 class="text-3xl">Vacantes y requerimiento</h1>
+      <p>
+        Crea plazas, define requisitos, activa filtros, revisa etapa por etapa y convierte vacantes
+        en procesos medibles.
+      </p>
+    </div>
+    <div>
+      <p-button icon="pi pi-plus" label="Nuevo requerimiento" />
+    </div>
+  </section>
+
+  <!-- ESTADÍSTICAS -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div class="card p-4 space-y-2">
+      <p class="text-sm text-gray-600">Vacantes activas</p>
+      <span class="text-3xl font-bold">24</span>
+    </div>
+    <div class="card p-4 space-y-2">
+      <p class="text-sm text-gray-600">Tiempo promedio de cierre</p>
+      <span class="text-3xl font-bold">19d</span>
+    </div>
+    <div class="card p-4 space-y-2">
+      <p class="text-sm text-gray-600">Costo por contratación</p>
+      <span class="text-3xl font-bold">$184</span>
+    </div>
+    <div class="card p-4 space-y-2">
+      <p class="text-sm text-gray-600">Contrataciones este mes</p>
+      <span class="text-3xl font-bold">7</span>
+    </div>
+  </section>
+
+  <div class="flex flex-col xl:flex-row gap-4">
+    <!-- PIPELINE -->
+    <section class="card p-8 flex-2 min-w-0 flex flex-col">
+      <h2>Pipeline por requerimientos</h2>
+
+      <div class="pipeline flex-1">
+        <!-- Postulados -->
+        <div class="rounded-3xl bg-white p-4 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-semibold">Postulados</h2>
+            <div class="gray-badge size-6 flex items-center justify-center">342</div>
+          </div>
+
+          <div class="flex-1 space-y-3 overflow-y-auto">
+            @for (candidato of candidatos(); track candidato.id) {
+              @if (candidato.status === 'PO') {
+                <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+                  <h3 class="font-medium">{{ candidato.name }}</h3>
+                  <p class="mt-1 text-gray-500 mb-2">{{ candidato.subtext }}</p>
+                  <span [class]="candidato.badge.color + '-badge'">{{ candidato.badge.text }}</span>
+                </article>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Preselección -->
+        <div class="rounded-3xl bg-white p-4 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-semibold">Preselección</h2>
+            <div class="gray-badge size-6 flex items-center justify-center">152</div>
+          </div>
+
+          <div class="flex-1 space-y-3 overflow-y-auto">
+            @for (candidato of candidatos(); track candidato.id) {
+              @if (candidato.status === 'PS') {
+                <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+                  <h3 class="font-medium">{{ candidato.name }}</h3>
+                  <p class="mt-1 text-gray-500 mb-2">{{ candidato.subtext }}</p>
+                  <span [class]="candidato.badge.color + '-badge'">{{ candidato.badge.text }}</span>
+                </article>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Entrevista -->
+        <div class="rounded-3xl bg-white p-4 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-semibold">Entrevista</h2>
+            <div class="gray-badge size-6 flex items-center justify-center">45</div>
+          </div>
+
+          <div class="flex-1 space-y-3 overflow-y-auto">
+            @for (candidato of candidatos(); track candidato.id) {
+              @if (candidato.status === 'EN') {
+                <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+                  <h3 class="font-medium">{{ candidato.name }}</h3>
+                  <p class="mt-1 text-gray-500 mb-2">{{ candidato.subtext }}</p>
+                  <span [class]="candidato.badge.color + '-badge'">{{ candidato.badge.text }}</span>
+                </article>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Evaluación -->
+        <div class="rounded-3xl bg-white p-4 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-semibold">Evaluación</h2>
+            <div class="gray-badge size-6 flex items-center justify-center">31</div>
+          </div>
+
+          <div class="flex-1 space-y-3 overflow-y-auto">
+            @for (candidato of candidatos(); track candidato.id) {
+              @if (candidato.status === 'EV') {
+                <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+                  <h3 class="font-medium">{{ candidato.name }}</h3>
+                  <p class="mt-1 text-gray-500 mb-2">{{ candidato.subtext }}</p>
+                  <span [class]="candidato.badge.color + '-badge'">{{ candidato.badge.text }}</span>
+                </article>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Oferta -->
+        <div class="rounded-3xl bg-white p-4 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-semibold">Oferta</h2>
+            <div class="gray-badge size-6 flex items-center justify-center">12</div>
+          </div>
+
+          <div class="flex-1 space-y-3 overflow-y-auto">
+            @for (candidato of candidatos(); track candidato.id) {
+              @if (candidato.status === 'O') {
+                <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
+                  <h3 class="font-medium">{{ candidato.name }}</h3>
+                  <p class="mt-1 text-gray-500 mb-2">{{ candidato.subtext }}</p>
+                  <span [class]="candidato.badge.color + '-badge'">{{ candidato.badge.text }}</span>
+                </article>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREAR REQUERIMIENTO -->
+    <section class="card p-6 flex-1 space-y-2">
+      <h2>Crear requerimiento</h2>
+      <p class="text-sm text-gray-600">Formulario base para producción</p>
+
+      <!-- FORMULARIO -->
+      <form [formGroup]="formRequerimiento">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+          <!-- PUESTO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="puesto" class="text-sm text-gray-600"
+              >PUESTO <span class="text-accent-500">*</span></label
+            >
+            <input
+              pSize="small"
+              pInputText
+              type="text"
+              id="puesto"
+              formControlName="puesto"
+              required
+              [invalid]="puesto.invalid && puesto.touched"
+              fluid
+            />
+            @if (puesto.invalid && puesto.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (puesto.hasError('required')) {
+                  El puesto es obligatorio
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- ÁREA -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm text-gray-600"
+              >ÁREA <span class="text-accent-500">*</span></label
+            >
+            <p-select
+              size="small"
+              formControlName="area"
+              [options]="areaOptions"
+              optionLabel="label"
+              optionValue="value"
+            />
+            @if (area.invalid && area.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (area.hasError('required')) {
+                  El área es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- MODALIDAD -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm text-gray-600"
+              >MODALIDAD <span class="text-accent-500">*</span></label
+            >
+            <p-select
+              size="small"
+              formControlName="modalidad"
+              [options]="modalidadOptions"
+              optionLabel="label"
+              optionValue="value"
+            />
+            @if (modalidad.invalid && modalidad.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (modalidad.hasError('required')) {
+                  La modalidad es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- RANGO SALARIAL -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="rango_salarial" class="text-sm text-gray-600"
+              >RANGO SALARIAL <span class="text-accent-500">*</span></label
+            >
+            <input
+              pSize="small"
+              pInputText
+              type="text"
+              id="rango_salarial"
+              formControlName="rango_salarial"
+              required
+              [invalid]="rango_salarial.invalid && rango_salarial.touched"
+              fluid
+            />
+            @if (rango_salarial.invalid && rango_salarial.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (rango_salarial.hasError('required')) {
+                  El rango salarial es obligatorio
+                }
+              </p-message>
+            }
+          </div>
+        </div>
+
+        <!-- REQUISITOS CLAVE -->
+        <div class="flex flex-col gap-1">
+          <label pLabel for="requisitos_clave" class="text-sm text-gray-600"
+            >REQUISITOS CLAVE <span class="text-accent-500">*</span></label
+          >
+          <textarea
+            id="requisitos_clave"
+            formControlName="requisitos_clave"
+            rows="5"
+            cols="30"
+            pTextarea
+            required
+            [invalid]="requisitos_clave.invalid && requisitos_clave.touched"
+          ></textarea>
+          @if (requisitos_clave.invalid && requisitos_clave.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (requisitos_clave.hasError('required')) {
+                Los requisitos clave son obligatorios
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- BOTONES -->
+        <div class="mt-4">
+          <p-button
+            type="button"
+            [loading]="loading()"
+            (click)="save()"
+            label="Guardar borrador"
+            [fluid]="true"
+          />
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- LISTADO EJECUTIVO -->
+  <section class="card p-6">
+    <div class="flex gap-2 justify-between items-center flex-wrap mb-4">
+      <h2>Listado ejecutivo</h2>
+      <p-button label="Exportar" size="small" icon="pi pi-file-export" />
+    </div>
+    <p-table [value]="listadoEjecutivo()" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template #header>
+        <tr>
+          <!-- <th>Id</th> -->
+          <th class="!bg-green-50 text-sm uppercase !text-gray-600 rounded-tl-3xl">Vacante</th>
+          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Área</th>
+          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Candidatos</th>
+          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Etapa</th>
+          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Dueño</th>
+          <th class="!bg-green-50 text-sm uppercase !text-gray-600 rounded-tr-3xl">Estado</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-vacante>
+        <tr>
+          <!--  <td>{{ vacante.id }}</td> -->
+          <td>
+            <p class="font-bold text-black">{{ vacante.nombre }}</p>
+            <p class="text-gray-600">{{ vacante.subtext }}</p>
+          </td>
+          <td>{{ vacante.area }}</td>
+          <td>{{ vacante.numeroCandidatos }}</td>
+          <td>{{ vacante.etapa }}</td>
+          <td>{{ vacante.dueno }}</td>
+          <td>
+            <span [class]="vacante.estado.color + '-badge'">{{ vacante.estado.text }}</span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </section>
+</div>

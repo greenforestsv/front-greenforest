@@ -23,6 +23,11 @@ export const EMPRESA_ROUTES: Routes = [
         loadComponent: () => import('../pages/perfil/perfil-empresa').then((m) => m.PerfilEmpresa),
       },
       {
+        path: 'vacantes',
+        loadComponent: () =>
+          import('../pages/vacantes/vacantes-empresa').then((m) => m.VacantesEmpresa),
+      },
+      {
         path: 'configuracion',
         loadComponent: () =>
           import('../pages/configuracion/configuracion').then((m) => m.Configuracion),

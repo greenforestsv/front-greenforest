@@ -1,0 +1,16 @@
+h1,
+h2,
+h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+}
+
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(5, 210px);
+
+  gap: 14px;
+
+  overflow-x: auto;
+  width: 100%;
+}
