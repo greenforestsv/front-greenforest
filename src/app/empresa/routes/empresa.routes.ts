@@ -28,6 +28,10 @@ export const EMPRESA_ROUTES: Routes = [
           import('../pages/vacantes/vacantes-empresa').then((m) => m.VacantesEmpresa),
       },
       {
+        path: 'candidatos',
+        loadComponent: () => import('../pages/candidatos/candidatos').then((m) => m.Candidatos),
+      },
+      {
         path: 'configuracion',
         loadComponent: () =>
           import('../pages/configuracion/configuracion').then((m) => m.Configuracion),

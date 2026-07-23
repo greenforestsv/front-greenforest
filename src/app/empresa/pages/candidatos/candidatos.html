@@ -1,0 +1,104 @@
+<div class="p-4 space-y-4">
+  <!-- HERO -->
+  <section class="flex gap-2 justify-between items-center flex-wrap">
+    <div class="space-y-2">
+      <span class="kicker">Talento externo</span>
+      <h1 class="text-3xl">Candidatos y búsqueda inteligente</h1>
+      <p>
+        Consulta perfiles, solicita historial verificado con autorización, compara compatibilidad y
+        arma shortlists por vacante.
+      </p>
+    </div>
+    <div>
+      <p-button icon="pi pi-search" label="Buscar talento" />
+    </div>
+  </section>
+
+  <!-- ESTADÍSTICAS -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+    <div class="card p-4 space-y-2">
+      <p class="text-sm text-gray-600">Base relevante</p>
+      <span class="text-3xl font-bold">4,820</span>
+    </div>
+    <div class="card p-4 space-y-2">
+      <p class="text-sm text-gray-600">Historial autorizado</p>
+      <span class="text-3xl font-bold">43</span>
+    </div>
+    <div class="card p-4 space-y-2">
+      <p class="text-sm text-gray-600">Shortlists activas</p>
+      <span class="text-3xl font-bold">9</span>
+    </div>
+  </section>
+
+  <!-- CANDIDATOS -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+    @for (candidato of candidatos(); track candidato.id) {
+      <div class="card p-4 space-y-2">
+        <div class="flex gap-4 items-center">
+          <p-avatar size="normal" shape="circle" [label]="candidato.name.charAt(0)" />
+          <div>
+            <p class="font-bold">{{ candidato.name }}</p>
+            <span [class]="candidato.estado.color + '-badge'">{{ candidato.estado.text }}</span>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">{{ candidato.subtext }}</p>
+        <ul class="flex gap-2 mb-4">
+          @for (skill of candidato.skills; track $index) {
+            <li class="inline green-badge">
+              {{ skill }}
+            </li>
+          }
+        </ul>
+        <p-button
+          [label]="candidato.action.text"
+          size="small"
+          [severity]="candidato.action.severity"
+        />
+      </div>
+    }
+  </section>
+
+  <!-- TABLA COMPARATIVA -->
+  <section class="card p-6">
+    <div class="flex gap-2 justify-between items-center flex-wrap mb-4">
+      <h2>Tabla comparativa</h2>
+      <p-button label="Filtrar" size="small" icon="pi pi-filter" />
+    </div>
+    <p-table [value]="tablaComprarativa()" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template #header>
+        <tr>
+          <!-- <th>Id</th> -->
+          <th class="table-header rounded-tl-3xl">Candidato</th>
+          <th class="table-header">Puesto Sugerido</th>
+          <th class="table-header">Match</th>
+          <th class="table-header">Historial</th>
+          <th class="table-header">Evaluación</th>
+          <th class="table-header rounded-tr-3xl">Acción</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-vacante>
+        <tr class="text-sm">
+          <!--  <td>{{ vacante.id }}</td> -->
+          <td class="flex gap-2 items-center">
+            <p-avatar [label]="vacante.nombre.charAt(0)" shape="circle" />
+            <div>
+              <p class="font-bold text-black">{{ vacante.nombre }}</p>
+              <p class="text-gray-600">{{ vacante.subtext }}</p>
+            </div>
+          </td>
+          <td>{{ vacante.puestoSugerido }}</td>
+          <td>
+            <span class="square-badge">{{ vacante.match }}</span>
+          </td>
+          <td>
+            <span [class]="vacante.historial.color + '-badge'">{{ vacante.historial.text }}</span>
+          </td>
+          <td>{{ vacante.evaluacion }}%</td>
+          <td>
+            <p-button size="small" [label]="vacante.accion" />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </section>
+</div>

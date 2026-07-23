@@ -158,3 +158,33 @@ ul li {
   //padding: 1rem; // p-4
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); // shadow-sm
 }
+
+.kicker {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-lite);
+  font-weight: 900;
+  margin: 0 0 0.5rem;
+}
+
+.table-header {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: oklch(44.6% 0.03 256.802) !important;
+  background: #f8faf8 !important;
+  font-weight: 900;
+}
+
+.square-badge {
+  width: 2.875rem;
+  height: 2.875rem;
+  border-radius: 1rem;
+  background: var(--color-mist);
+  display: grid;
+  place-items: center;
+  color: var(--color-lite);
+  font-weight: bold;
+  border: 0.0625rem solid #d2e7da;
+}

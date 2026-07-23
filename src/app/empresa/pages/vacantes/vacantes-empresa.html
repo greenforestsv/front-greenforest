@@ -2,6 +2,7 @@
   <!-- HERO -->
   <section class="flex gap-2 justify-between items-center flex-wrap">
     <div class="space-y-2">
+      <span class="kicker">Selección</span>
       <h1 class="text-3xl">Vacantes y requerimiento</h1>
       <p>
         Crea plazas, define requisitos, activa filtros, revisa etapa por etapa y convierte vacantes
@@ -287,12 +288,12 @@
       <ng-template #header>
         <tr>
           <!-- <th>Id</th> -->
-          <th class="!bg-green-50 text-sm uppercase !text-gray-600 rounded-tl-3xl">Vacante</th>
-          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Área</th>
-          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Candidatos</th>
-          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Etapa</th>
-          <th class="!bg-green-50 text-sm uppercase !text-gray-600">Dueño</th>
-          <th class="!bg-green-50 text-sm uppercase !text-gray-600 rounded-tr-3xl">Estado</th>
+          <th class="table-header rounded-tl-3xl">Vacante</th>
+          <th class="table-header">Área</th>
+          <th class="table-header">Candidatos</th>
+          <th class="table-header">Etapa</th>
+          <th class="table-header">Dueño</th>
+          <th class="table-header rounded-tr-3xl">Estado</th>
         </tr>
       </ng-template>
       <ng-template #body let-vacante>
