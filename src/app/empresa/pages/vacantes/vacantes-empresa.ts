@@ -8,6 +8,9 @@ import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
+import { VerDetalleVacanteDialog } from './components/ver-detalle-vacante-dialog/ver-detalle-vacante-dialog';
+import { EditarVacanteDialog } from './components/editar-vacante-dialog/editar-vacante-dialog';
 
 @Component({
   selector: 'app-vacantes-empresa',
@@ -21,6 +24,9 @@ import { TableModule } from 'primeng/table';
     TextareaModule,
     SelectModule,
     TableModule,
+    PaginatorModule,
+    VerDetalleVacanteDialog,
+    EditarVacanteDialog,
   ],
   templateUrl: './vacantes-empresa.html',
   styleUrl: './vacantes-empresa.scss',
@@ -166,4 +172,12 @@ export class VacantesEmpresa {
   ]);
 
   save() {}
+  loadCV() {}
+
+  first: number = 0;
+  rows: number = 10;
+  onPageChange(event: any) {
+    this.first = event.first ?? 0;
+    this.rows = event.rows ?? 10;
+  }
 }
