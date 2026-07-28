@@ -1,0 +1,149 @@
+<div class="p-4">
+  <div class="flex flex-col xl:flex-row gap-4">
+    <!-- MAIN -->
+    <div class="flex-2 space-y-4">
+      <!-- FILTROS -->
+      <form [formGroup]="search_form" class="flex items-center justify-between gap-2 flex-wrap">
+        <!-- BUSCAR -->
+        <div class="flex flex-col gap-1">
+          <!-- <label pLabel class="text-sm">Buscar</label> -->
+          <input pInputText id="buscar" placeholder="Buscar" formControlName="buscar" fluid />
+        </div>
+
+        <!-- ÁREA -->
+        <div class="flex flex-col gap-1 flex-1">
+          <!-- <label pLabel class="text-sm text-gray-600">Área</label> -->
+          <p-select
+            size="small"
+            formControlName="area"
+            [options]="area_options"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Área"
+            fluid
+          />
+        </div>
+
+        <!-- MODALIDAD -->
+        <div class="flex flex-col gap-1 flex-1">
+          <!-- <label pLabel class="text-sm text-gray-600">Modalidad</label> -->
+          <p-select
+            size="small"
+            formControlName="modalidad"
+            [options]="modalidad_options"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Modalidad"
+            fluid
+          />
+        </div>
+
+        <!-- SALARIO -->
+        <div class="flex flex-col gap-1 flex-1">
+          <!-- <label pLabel class="text-sm text-gray-600">Salario</label> -->
+          <p-select
+            size="small"
+            formControlName="salario"
+            [options]="salario_options"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Salario"
+            fluid
+          />
+        </div>
+
+        <p-button label="Buscar" />
+      </form>
+
+      <!-- JOB CARDS -->
+      <app-paginated-jobs />
+
+      <!-- CARDS SCROLLER -->
+      <!-- <p-scroller
+        [items]="items"
+        [itemSize]="58"
+        scrollHeight="500px"
+        styleClass="w-full"
+        [style]="{ width: '100%' }"
+      >
+        <ng-template pTemplate="item" let-item let-index="index">
+          <div class="card h-[50px] mb-2 flex items-center px-4">
+            {{ item }}
+          </div>
+        </ng-template>
+      </p-scroller> -->
+    </div>
+
+    <!-- ASIDE -->
+    <div class="flex-1 flex flex-col gap-4">
+      <!-- MATCHING INTELIGENTE -->
+      <aside class="card p-6 space-y-2">
+        <h2>Matching inteligente</h2>
+        <p class="text-sm text-gray-600">
+          Green Forest cruza tus habilidades, historial verificado, preferencias y reputación de
+          empresa para recomendar oportunidades de mayor ajuste.
+        </p>
+        <!-- BARRAS CON PORCENTAJES-->
+        <div class="text-sm flex flex-col gap-2 w-full">
+          @for (item of matching_inteligente(); track item.id) {
+            <div class="border border-gray-300 p-4 rounded-2xl">
+              <h3>{{ item.name }}</h3>
+              <div class="flex items-center gap-2">
+                <!-- BARRA -->
+                <div class="flex-1 bg-gray-100 rounded-full h-3">
+                  <div
+                    class="flex h-3 bg-lite rounded-full"
+                    [style.width.%]="item.percentage"
+                  ></div>
+                </div>
+                <!-- PORCENTAJE -->
+                <span>{{ item.percentage }}%</span>
+              </div>
+            </div>
+          }
+        </div>
+      </aside>
+
+      <!-- ANTES DE APLICAR -->
+      <aside class="card p-6">
+        <h2>Antes de aplicar ves</h2>
+
+        <!-- LISTA -->
+        <div class="flex flex-col gap-2 text-sm w-full divide-y divide-gray-300">
+          <div class="flex gap-2 py-2 items-center">
+            <div class="bg-(--p-surface-200) size-8 rounded-lg flex items-center justify-center">
+              <i class="pi pi-dollar" style="color: var(--p-primary-600); font-size: 0.5rem"></i>
+            </div>
+            <div>
+              <h3>Rango salarial</h3>
+              <span class="text-gray-600">Evita procesos a ciegas</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 py-2 items-center">
+            <div class="bg-(--p-surface-200) size-8 rounded-lg flex items-center justify-center">
+              <i
+                class="pi pi-arrow-up-right"
+                style="color: var(--p-primary-600); font-size: 0.5rem"
+              ></i>
+            </div>
+            <div>
+              <h3>Ascensos internos</h3>
+              <span class="text-gray-600">Señal real de crecimiento</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 py-2 items-center">
+            <div class="bg-(--p-surface-200) size-8 rounded-lg flex items-center justify-center">
+              <i class="pi pi-star-fill" style="color: var(--p-primary-600); font-size: 0.5rem"></i>
+            </div>
+            <div>
+              <h3>Rotación</h3>
+              <span class="text-gray-600">Rango de permanencia</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
