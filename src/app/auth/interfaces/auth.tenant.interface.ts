@@ -7,12 +7,12 @@ export interface Representative {
   birth_date: Date;
   gender: 'M' | 'F' | 'U';
   email: string;
-  phone: string;
+  phone?: string;
   country: string;
   department: string;
-  profession?: string;
+  profession: string;
   address?: string;
-  carnet?: string;
+  carnet: string;
 }
 
 export interface SignupTenantDto {
@@ -21,13 +21,13 @@ export interface SignupTenantDto {
   phone: string;
   cell_phone?: string;
   tenant_alternative_email?: string;
-  description?: string;
+  description: string;
   approach: string[];
-  is_multinational: boolean;
+  is_multinational?: boolean;
   locations: string[];
   url_profile_photo?: string;
   database_host?: string;
-  is_isolate?: string;
-  have_carnets: boolean;
+  is_isolate: 'NO' | 'INSTANCE';
+  have_carnets?: boolean;
   representative: Representative;
 }

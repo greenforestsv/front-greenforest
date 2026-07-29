@@ -77,13 +77,13 @@
             <!-- CONFIRMAR CORREO -->
             <div class="flex flex-col gap-1">
               <label pLabel class="text-sm" for="confirm_email"
-                >Confirmá Correo <span class="text-accent-500">*</span></label
+                >Confirmá correo <span class="text-accent-500">*</span></label
               >
               <input
                 pInputText
                 type="email"
                 id="confirm_email"
-                placeholder="Confirmar Correo"
+                placeholder="Confirma correo"
                 formControlName="confirm_email"
                 email
                 [invalid]="confirm_email.invalid && confirm_email.touched"
@@ -104,7 +104,7 @@
             <!-- CORREO ALTERNATIVO -->
             <div class="flex flex-col gap-1">
               <label pLabel class="text-sm" for="tenant_alternative_email"
-                >Correo <span class="text-accent-500">*</span></label
+                >Correo alternativo</label
               >
               <input
                 pInputText
@@ -112,7 +112,6 @@
                 id="tenant_alternative_email"
                 formControlName="tenant_alternative_email"
                 placeholder="Correo alternativo"
-                required
                 email
                 [invalid]="tenant_alternative_email.invalid && tenant_alternative_email.touched"
                 fluid
@@ -205,12 +204,6 @@
                 </p-message>
               }
             </div>
-
-            <!-- TIENE CARNETS -->
-            <div class="flex items-center gap-2">
-              <p-checkbox inputId="have_carnets" name="group" [value]="have_carnets" />
-              <label pLabel for="have_carnets" class="text-sm">Tiene carnets</label>
-            </div>
           </div>
 
           <!-- DERECHA -->
@@ -279,6 +272,12 @@
               }
             </div>
 
+            <!-- TIENE CARNETS -->
+            <div class="flex items-center gap-2">
+              <p-checkbox inputId="have_carnets" name="group" [value]="have_carnets" />
+              <label pLabel for="have_carnets" class="text-sm">Tiene carnets</label>
+            </div>
+
             <!-- ES MULTINACIONAL -->
             <div class="flex items-center gap-2">
               <p-checkbox inputId="is_multinational" name="group" [value]="is_multinational" />
@@ -287,11 +286,10 @@
 
             <!-- URL IMAGEN -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="is_isolate"
-                >Imagen <span class="text-accent-500">*</span></label
-              >
+              <label pLabel class="text-sm" for="url_profile_photo">Imagen de perfil</label>
               <div class="flex flex-wrap items-center gap-3">
                 <p-fileupload
+                  id="url_profile_photo"
                   #fu
                   mode="basic"
                   chooseLabel="Escoger"
@@ -310,26 +308,16 @@
 
             <!-- HOST BASE DE DATOS -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="database_host"
-                >Host de base de datos <span class="text-accent-500">*</span></label
-              >
+              <label pLabel class="text-sm" for="database_host">Host de base de datos</label>
               <input
                 pInputText
                 type="text"
                 id="database_host"
                 formControlName="database_host"
                 placeholder="Host de base de datos"
-                required
                 [invalid]="database_host.invalid && database_host.touched"
                 fluid
               />
-              @if (database_host.invalid && database_host.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (database_host.hasError('required')) {
-                    El host de base de datos es obligatorio.
-                  }
-                </p-message>
-              }
             </div>
 
             <!-- ES AISLADO -->
@@ -337,15 +325,13 @@
               <label pLabel class="text-sm" for="is_isolate"
                 >Es Aislado <span class="text-accent-500">*</span></label
               >
-              <input
-                pInputText
-                type="text"
+              <p-select
                 id="is_isolate"
                 formControlName="is_isolate"
+                [options]="is_isolate_options"
+                optionLabel="label"
+                optionValue="value"
                 placeholder="Es Aislado"
-                required
-                [invalid]="is_isolate.invalid && is_isolate.touched"
-                fluid
               />
               @if (is_isolate.invalid && is_isolate.touched) {
                 <p-message severity="error" size="small" variant="simple">
@@ -505,6 +491,7 @@
                 >Género <span class="text-accent-500">*</span></label
               >
               <p-select
+                id="gender"
                 formControlName="gender"
                 [options]="genderOptions"
                 optionLabel="label"
@@ -550,24 +537,19 @@
 
             <!-- TELÉFONO -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="phone"
-                >Número de teléfono <span class="text-accent-500">*</span></label
-              >
+              <label pLabel class="text-sm" for="phone">Número de teléfono</label>
               <input
                 pInputText
                 type="text"
                 id="phone"
                 formControlName="phone"
                 placeholder="+50322334455"
-                required
                 [invalid]="phone.invalid && phone.touched"
                 fluid
               />
               @if (phone.invalid && phone.touched) {
                 <p-message severity="error" size="small" variant="simple">
-                  @if (phone.hasError('required')) {
-                    El número de teléfono es obligatorio.
-                  } @else if (phone.hasError('invalidPhone')) {
+                  @if (phone.hasError('invalidPhone')) {
                     El número de teléfono no es válido.
                   }
                 </p-message>
@@ -580,6 +562,7 @@
                 >País <span class="text-accent-500">*</span></label
               >
               <p-select
+                id="country"
                 formControlName="country"
                 [options]="countryOptions"
                 optionLabel="label"
@@ -601,6 +584,7 @@
                 >Departamento <span class="text-accent-500">*</span></label
               >
               <p-select
+                id="department"
                 formControlName="department"
                 [options]="departmentOptions"
                 optionLabel="label"
@@ -618,7 +602,9 @@
 
             <!-- PROFESIÓN -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="profession">Profesión</label>
+              <label pLabel class="text-sm" for="profession"
+                >Profesión <span class="text-accent-500">*</span></label
+              >
               <input
                 pInputText
                 type="text"
@@ -628,6 +614,13 @@
                 [invalid]="profession.invalid && profession.touched"
                 fluid
               />
+              @if (profession.invalid && profession.touched) {
+                <p-message severity="error" size="small" variant="simple">
+                  @if (profession.hasError('required')) {
+                    La profesión es obligatoria.
+                  }
+                </p-message>
+              }
             </div>
 
             <!-- CARNET -->

@@ -14,7 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-  selector: 'app-registro-candidato',
+  selector: 'app-cambio-contrasena',
   standalone: true,
   imports: [
     ReactiveFormsModule,

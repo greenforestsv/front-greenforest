@@ -50,6 +50,10 @@ export class RegistroEmpresa {
   loading = signal(false);
   error = signal<string | null>('Internal server error');
 
+  is_isolate_options = [
+    { label: 'No', value: 'NO' },
+    { label: 'Instancia', value: 'INSTANCE' },
+  ];
   genderOptions = [
     { label: 'Mujer', value: 'F' },
     { label: 'Hombre', value: 'M' },
@@ -77,7 +81,7 @@ export class RegistroEmpresa {
       is_multinational: [false],
       url_profile_photo: [''],
       database_host: [''],
-      is_isolate: [''],
+      is_isolate: ['', Validators.required],
       have_carnets: [false],
 
       representative: this.fb.nonNullable.group({
@@ -89,12 +93,12 @@ export class RegistroEmpresa {
         birth_date: [new Date(), Validators.required],
         gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
         email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.required, phoneValidator()]],
+        phone: ['', phoneValidator()],
         country: ['', Validators.required],
         department: ['', Validators.required],
-        profession: [''],
+        profession: ['', Validators.required],
         address: [''],
-        carnet: [''],
+        carnet: ['', Validators.required],
       }),
     },
     {
@@ -141,13 +145,25 @@ export class RegistroEmpresa {
   signup(): void {
     if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
+      console.log('invalid form');
       return;
     }
+    console.log('valid form');
 
     this.loading.set(true);
     this.error.set(null);
 
-    const { approach, locations, representative, ...company } = this.signupForm.getRawValue();
+    const {
+      approach,
+      locations,
+      database_host,
+      cell_phone,
+      tenant_alternative_email,
+      url_profile_photo,
+      confirm_email,
+      representative: { second_name, second_surname, phone, address, ...representative },
+      ...company
+    } = this.signupForm.getRawValue();
 
     const cleanApproach = approach
       .split(/\n/)
@@ -174,20 +190,32 @@ export class RegistroEmpresa {
     }
 
     const gender = this.representative.getRawValue().gender as 'M' | 'F' | 'U';
+    const is_isolate = this.is_isolate.getRawValue() as 'NO' | 'INSTANCE';
 
     const departmentLabel =
       this.departmentOptions.find((d) => d.value === representative.department)?.label ?? '';
 
     const data = {
       ...company,
+      is_isolate,
       approach: cleanApproach,
       locations: cleanLocations,
+      ...(database_host.trim() && { database_host }),
+      ...(cell_phone.trim() && { cell_phone }),
+      ...(tenant_alternative_email.trim() && { tenant_alternative_email }),
+      ...(url_profile_photo.trim() && { url_profile_photo }),
       representative: {
         ...representative,
         gender,
         department: departmentLabel,
+        ...(second_name.trim() && { second_name }),
+        ...(second_surname.trim() && { second_surname }),
+        ...(phone.trim() && { phone }),
+        ...(address.trim() && { address }),
       },
     };
+
+    console.log(data);
 
     this.authTenantService
       .signupTenant(data)
