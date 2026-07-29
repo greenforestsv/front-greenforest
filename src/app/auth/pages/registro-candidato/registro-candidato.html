@@ -142,7 +142,7 @@
                 type="text"
                 id="phone"
                 formControlName="phone"
-                placeholder="Número de teléfono"
+                placeholder="+50399887766"
                 required
                 [invalid]="phone.invalid && phone.touched"
                 fluid
@@ -151,6 +151,8 @@
                 <p-message severity="error" size="small" variant="simple">
                   @if (phone.hasError('required')) {
                     El número de teléfono es obligatorio.
+                  } @else if (phone.hasError('invalidPhone')) {
+                    El número de teléfono no es válido.
                   }
                 </p-message>
               }
@@ -289,6 +291,20 @@
                   }
                 </p-message>
               }
+            </div>
+
+            <!-- PROFESIÓN -->
+            <div class="flex flex-col gap-1">
+              <label pLabel class="text-sm">Profesión</label>
+              <input
+                pInputText
+                type="text"
+                id="profession"
+                formControlName="profession"
+                placeholder="Profesión"
+                [invalid]="profession.invalid && profession.touched"
+                fluid
+              />
             </div>
 
             <!-- FIN -->

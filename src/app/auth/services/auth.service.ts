@@ -9,7 +9,7 @@ import {
   LoginResponse,
   JwtPayload,
 } from '../interfaces/auth.interface';
-import { switchMap, map, catchError, delay } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -17,34 +17,17 @@ import { of } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  // Endpoint público y seguro para obtener la IP en formato JSON
-  private ipApiUrl = 'https://ipapi.co';
 
   constructor(private http: HttpClient) {}
 
   /* LOGIN */
   loginCandidato(data: LoginCandidatoDto) {
-    return this.http.get<{ ip: string }>(this.ipApiUrl).pipe(
-      // Extraemos solo el string de la IP
-      map((res) => res.ip),
-
-      // Si la API de IP falla, asignamos un valor por defecto para no romper el Login
-      catchError(() => of('0.0.0.0')),
-
-      // Encadenamos la respuesta con tu petición POST original
-      switchMap((clientIp) => {
-        console.log({ ip_login: clientIp });
-        return this.http.post<LoginResponse>(`${this.apiUrl}/auth/aspirant`, {
-          ...data,
-          ip_login: clientIp, // IP real del cliente
-        });
-      }),
-    );
+    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/aspirant`, data);
   }
 
   /* SIGNUP */
   signupCandidato(data: SignupCandidatoDto) {
-    return this.http.post<SignupCandidatoResponse>(`${this.apiUrl}/aspirant`, data);
+    return this.http.post<SignupCandidatoResponse>(`${this.apiUrl}/register-aspirant`, data);
   }
 
   /* VERIFY */
@@ -69,7 +52,7 @@ export class AuthService {
 
   /* RESET PASSWORD */
   resetPassword(): void {
-    /* TODO: */
+    /* TODO:  */
     return;
   }
 

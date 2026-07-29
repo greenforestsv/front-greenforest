@@ -12,6 +12,8 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
+import { finalize } from 'rxjs';
+import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
 
 @Component({
   selector: 'app-registro-candidato',
@@ -46,7 +48,7 @@ export class RegistroCandidato {
     { label: 'Hombre', value: 'M' },
     { label: 'Otro', value: 'U' },
   ];
-  countryOptions = [{ label: 'Honduras', value: 'HND' }];
+  countryOptions = [{ label: 'Honduras', value: 'HN' }];
   departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
 
   // VALIDACIONES
@@ -65,6 +67,7 @@ export class RegistroCandidato {
       phone: ['', [Validators.required, phoneValidator()]],
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['', [Validators.required]],
+      profession: [''],
     },
     {
       validators: emailMatchValidator,
@@ -85,6 +88,7 @@ export class RegistroCandidato {
   readonly phone = this.signupForm.controls.phone;
   readonly email = this.signupForm.controls.email;
   readonly confirmEmail = this.signupForm.controls.confirmEmail;
+  readonly profession = this.signupForm.controls.profession;
 
   signup(): void {
     if (this.signupForm.invalid) {
@@ -107,10 +111,11 @@ export class RegistroCandidato {
       email,
       country,
       department,
+      profession,
     } = this.signupForm.getRawValue();
 
     const gender = this.signupForm.getRawValue().gender as 'M' | 'F' | 'U';
-    const countryLabel = this.countryOptions.find((c) => c.value === country)?.label ?? '';
+    //const countryLabel = this.countryOptions.find((c) => c.value === country)?.label ?? '';
     const departmentLabel = this.departmentOptions.find((d) => d.value === department)?.label ?? '';
 
     this.authService
@@ -122,15 +127,29 @@ export class RegistroCandidato {
         phone,
         email,
         gender,
-        country: countryLabel,
+        country,
         department: departmentLabel,
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
         ...(address.trim() && { address }),
+        ...(profession.trim() && { profession }),
       })
+      .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (res: any) => {
-          sessionStorage.setItem('verifyId', res.id);
+        next: (res: SignupCandidatoResponse) => {
+          localStorage.setItem('token', res.token);
+
+          this.router.navigate(['/candidato'], {
+            state: {
+              toast: {
+                severity: 'success',
+                summary: 'Cuenta creada',
+                detail: 'Tu cuenta fue creada correctamente.',
+                sticky: true,
+              },
+            },
+          });
+          /* sessionStorage.setItem('verifyId', res.id);
           this.router.navigate(['/verify', res.id], {
             state: {
               toast: {
@@ -140,7 +159,7 @@ export class RegistroCandidato {
                 sticky: true,
               },
             },
-          });
+          }); */
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
@@ -149,11 +168,6 @@ export class RegistroCandidato {
             detail: err.error?.message ?? 'Ocurrió un error inesperado',
             life: 5000,
           });
-
-          this.loading.set(false);
-        },
-        complete: () => {
-          this.loading.set(false);
         },
       });
   }
