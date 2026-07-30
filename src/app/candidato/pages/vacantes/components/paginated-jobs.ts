@@ -26,7 +26,7 @@ export class PaginatedJobs {
   totalRecords = signal(0);
   first: number = 0;
   rows: number = 3;
-  rowsPerPageOptions = [3, 6, 9, 12, 15, 18, 21, 24];
+  rowsPerPageOptions = [3, 6, 9, 12];
 
   constructor() {
     this.loadJobs();

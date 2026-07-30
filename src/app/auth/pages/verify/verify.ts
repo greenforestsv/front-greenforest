@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-verify',
@@ -59,33 +60,31 @@ export class Verify {
 
     const { code } = this.verifyForm.getRawValue();
 
-    this.authService.verifyCandidato(this.id!, code).subscribe({
-      next: (res: any) => {
-        this.router.navigate(['/login-candidato'], {
-          state: {
-            toast: {
-              severity: 'success',
-              summary: 'Cuenta verificada',
-              detail:
-                'Tu cuenta fue verificada correctamente. Usá la contraseña que recibiste por correo para iniciar sesión.',
-              sticky: true,
+    this.authService
+      .verifyCandidato(this.id!, code)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (res: any) => {
+          this.router.navigate(['/login-candidato'], {
+            state: {
+              toast: {
+                severity: 'success',
+                summary: 'Cuenta verificada',
+                detail:
+                  'Tu cuenta fue verificada correctamente. Usá la contraseña que recibiste por correo para iniciar sesión.',
+                sticky: true,
+              },
             },
-          },
-        });
-      },
-      error: (err: { error: { message: any } }) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error al verificar correo',
-          detail: err.error?.message ?? 'Ocurrió un error inesperado',
-          life: 5000,
-        });
-
-        this.loading.set(false);
-      },
-      complete: () => {
-        this.loading.set(false);
-      },
-    });
+          });
+        },
+        error: (err: { error: { message: any } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al verificar correo',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 }

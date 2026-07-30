@@ -12,6 +12,7 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-cambio-contrasena',
@@ -76,9 +77,12 @@ export class CambioContrasena {
 
     const { current_password, new_password } = this.changePasswordForm.getRawValue();
 
-    this.authService.changePassword(current_password, new_password).subscribe({
-      next: (res: any) => {
-        /* sessionStorage.setItem('verifyId', res.id);
+    this.authService
+      .changePassword(current_password, new_password)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (res: any) => {
+          /* sessionStorage.setItem('verifyId', res.id);
           this.router.navigate(['/verify', res.id], {
             state: {
               toast: {
@@ -89,20 +93,15 @@ export class CambioContrasena {
               },
             },
           }); */
-      },
-      error: (err: { error: { message: any } }) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error de al cambiar contraseña',
-          detail: err.error?.message ?? 'Ocurrió un error inesperado',
-          life: 5000,
-        });
-
-        this.loading.set(false);
-      },
-      complete: () => {
-        this.loading.set(false);
-      },
-    });
+        },
+        error: (err: { error: { message: any } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error de al cambiar contraseña',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 }

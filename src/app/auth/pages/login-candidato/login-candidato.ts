@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login-candidato',
@@ -61,29 +62,27 @@ export class LoginCandidato {
     this.loading.set(true);
     this.error.set(null);
 
-    this.authService.loginCandidato(this.loginForm.getRawValue()).subscribe({
-      next: (res: any) => {
-        localStorage.setItem('token', res.token);
+    this.authService
+      .loginCandidato(this.loginForm.getRawValue())
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (res: any) => {
+          localStorage.setItem('token', res.token);
 
-        this.router.navigate(['/candidato/dashboard']);
-      },
-      error: (err: { error: { message: any }; status: number }) => {
-        if (err.status === 401) {
-          this.loginForm.setErrors({ invalidCredentials: true });
-          this.loginForm.markAllAsTouched();
-        }
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error al iniciar sesión',
-          detail: err.error?.message ?? 'Ocurrió un error inesperado',
-          life: 5000,
-        });
-
-        this.loading.set(false);
-      },
-      complete: () => {
-        this.loading.set(false);
-      },
-    });
+          this.router.navigate(['/candidato/dashboard']);
+        },
+        error: (err: { error: { message: any }; status: number }) => {
+          if (err.status === 401) {
+            this.loginForm.setErrors({ invalidCredentials: true });
+            this.loginForm.markAllAsTouched();
+          }
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al iniciar sesión',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 }

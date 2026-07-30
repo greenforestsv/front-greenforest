@@ -46,7 +46,9 @@ export class OlvidoContrasena {
     this.loading.set(true);
     this.error.set(null);
 
-    /* this.authService.resetPassword(this.resetPasswordForm.getRawValue()).subscribe({
+    /* this.authService.resetPassword(this.resetPasswordForm.getRawValue())
+      .pipe(finalize(() => this.loading.set(false)))
+    .subscribe({
       next: (res: any) => {
         localStorage.setItem('token', res.token);
 
@@ -61,10 +63,7 @@ export class OlvidoContrasena {
         });
 
         this.loading.set(false);
-      },
-      complete: () => {
-        this.loading.set(false);
-      },
+      }
     }); */
   }
 }

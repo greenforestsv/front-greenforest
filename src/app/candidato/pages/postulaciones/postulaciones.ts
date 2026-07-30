@@ -3,7 +3,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PostulacionesService } from '../../services/postulaciones.service';
 import { Postulacion } from '../../interfaces/postulacion.interface';
+import { finalize } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
+/* TODO: postularse */
 @Component({
   selector: 'app-postulaciones',
   imports: [TranslatePipe, SkeletonModule],
@@ -74,6 +77,7 @@ export class Postulaciones {
   items = Array.from({ length: 4 });
 
   /* Injección de servicio */
+  messageService = inject(MessageService);
   private postulacionesService = inject(PostulacionesService);
 
   /* Estados iniciales */
@@ -82,10 +86,22 @@ export class Postulaciones {
 
   /* Constructor donde obtenemos la data */
   constructor() {
-    this.postulacionesService.getPostulaciones().subscribe((postulaciones) => {
-      this.postulaciones.set(postulaciones);
-      this.loading.set(false);
-    });
+    this.postulacionesService
+      .getPostulaciones()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (postulaciones) => {
+          this.postulaciones.set(postulaciones);
+        },
+        error: (err: { error: { message: any } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener postulaciones',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 
   /* Contadores */

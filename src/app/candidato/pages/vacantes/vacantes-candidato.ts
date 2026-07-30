@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormsModule } from '@angular/forms';
@@ -11,7 +10,6 @@ import { PaginatedJobs } from './components/paginated-jobs';
   selector: 'app-vacantes-candidato',
   standalone: true,
   imports: [
-    ScrollerModule,
     SelectModule,
     ButtonModule,
     FormsModule,
