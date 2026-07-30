@@ -12,7 +12,10 @@ export class PostulacionesService {
   private apiUrl = environment.apiUrl;
 
   /* GET POSTULACIONES */
-  getPostulaciones(): Observable<Postulacion[]> {
+  getPostulaciones() {
+    return this.http.get<Postulacion[]>(`${this.apiUrl}/applications`);
+  }
+  /*  getPostulaciones(): Observable<Postulacion[]> {
     const postulaciones: Postulacion[] = [
       {
         id: 1,
@@ -58,7 +61,7 @@ export class PostulacionesService {
       },
     ];
     return of(postulaciones).pipe(delay(1500));
-  }
+  } */
 
   /* CREAR POSTULACIÓN */
   applyToJob(id_vacante: string, id_empresa: string) {

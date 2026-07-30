@@ -1,7 +1,10 @@
 export interface Postulacion {
-  id: number;
+  id: string;
   name: string;
-  company: string;
+  job_title: string;
+  original_job_id: string;
+  original_tenant_id: string;
+  applied_at: Date;
   status: 'A' | 'P' | 'E' | 'O';
 }
 

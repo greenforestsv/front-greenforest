@@ -15,88 +15,27 @@
       </div>
     }
   } @else {
-    <!-- Aplicado -->
-    <section class="rounded-3xl bg-white p-4 shadow-sm">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="font-semibold">{{ 'postulaciones.aplicado' | translate }}</h2>
-        <div class="accent-badge size-6 flex items-center justify-center">
-          {{ aplicados().length }}
-        </div>
-      </div>
+    @for (status of statuses; track status.key) {
+      <section class="rounded-3xl bg-white p-4 shadow-sm">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="font-semibold">
+            {{ status.title | translate }}
+          </h2>
 
-      <div class="flex-1 space-y-3 overflow-y-auto">
-        @for (item of postulaciones(); track item.id) {
-          @if (item.status === 'A') {
-            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
-              <h3 class="font-medium">{{ item.name }}</h3>
-              <p class="mt-1 text-gray-500">{{ item.company }}</p>
+          <div class="accent-badge flex size-6 items-center justify-center">
+            {{ getByStatus(status.key).length }}
+          </div>
+        </div>
+
+        <div class="space-y-3 overflow-y-auto">
+          @for (item of getByStatus(status.key); track item.id) {
+            <article class="rounded-xl border border-gray-300 p-3 text-sm shadow-sm">
+              <h3 class="font-medium">{{ item.job_title }}</h3>
+              <p class="mt-1 text-gray-500">{{ item.name }}</p>
             </article>
           }
-        }
-      </div>
-    </section>
-
-    <!-- Preselección -->
-    <section class="rounded-3xl bg-white p-4 shadow-sm">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="font-semibold">{{ 'postulaciones.preseleccion' | translate }}</h2>
-        <div class="accent-badge size-6 flex items-center justify-center">
-          {{ preseleccion().length }}
         </div>
-      </div>
-
-      <div class="flex-1 space-y-3 overflow-y-auto">
-        @for (item of postulaciones(); track item.id) {
-          @if (item.status === 'P') {
-            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
-              <h3 class="font-medium">{{ item.name }}</h3>
-              <p class="mt-1 text-gray-500">{{ item.company }}</p>
-            </article>
-          }
-        }
-      </div>
-    </section>
-
-    <!-- Entrevista -->
-    <section class="rounded-3xl bg-white p-4 shadow-sm">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="font-semibold">{{ 'postulaciones.entrevista' | translate }}</h2>
-        <div class="accent-badge size-6 flex items-center justify-center">
-          {{ entrevista().length }}
-        </div>
-      </div>
-
-      <div class="flex-1 space-y-3 overflow-y-auto">
-        @for (item of postulaciones(); track item.id) {
-          @if (item.status === 'E') {
-            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
-              <h3 class="font-medium">{{ item.name }}</h3>
-              <p class="mt-1 text-gray-500">{{ item.company }}</p>
-            </article>
-          }
-        }
-      </div>
-    </section>
-
-    <!-- Oferta -->
-    <section class="rounded-3xl bg-white p-4 shadow-sm">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="font-semibold">{{ 'postulaciones.oferta' | translate }}</h2>
-        <div class="accent-badge size-6 flex items-center justify-center">
-          {{ oferta().length }}
-        </div>
-      </div>
-
-      <div class="flex-1 space-y-3 overflow-y-auto">
-        @for (item of postulaciones(); track item.id) {
-          @if (item.status === 'O') {
-            <article class="rounded-xl shadow-sm border border-gray-300 p-3 text-sm">
-              <h3 class="font-medium">{{ item.name }}</h3>
-              <p class="mt-1 text-gray-500">{{ item.company }}</p>
-            </article>
-          }
-        }
-      </div>
-    </section>
+      </section>
+    }
   }
 </div>

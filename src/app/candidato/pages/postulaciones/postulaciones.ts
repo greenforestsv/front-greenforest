@@ -6,7 +6,6 @@ import { Postulacion } from '../../interfaces/postulacion.interface';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
-/* TODO: postularse */
 @Component({
   selector: 'app-postulaciones',
   imports: [TranslatePipe, SkeletonModule],
@@ -84,6 +83,17 @@ export class Postulaciones {
   postulaciones = signal<Postulacion[]>([]);
   loading = signal(true);
 
+  statuses: { key: Postulacion['status']; title: string }[] = [
+    { key: 'A', title: 'postulaciones.aplicado' },
+    { key: 'P', title: 'postulaciones.preseleccion' },
+    { key: 'E', title: 'postulaciones.entrevista' },
+    { key: 'O', title: 'postulaciones.oferta' },
+  ];
+
+  getByStatus(status: Postulacion['status']) {
+    return this.postulaciones().filter((p) => p.status === status);
+  }
+
   /* Constructor donde obtenemos la data */
   constructor() {
     this.postulacionesService
@@ -91,7 +101,14 @@ export class Postulaciones {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (postulaciones) => {
-          this.postulaciones.set(postulaciones);
+          const estados: Postulacion['status'][] = ['A', 'P', 'E', 'O'];
+
+          this.postulaciones.set(
+            postulaciones.map((p, index) => ({
+              ...p,
+              status: estados[index % estados.length],
+            })),
+          );
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
