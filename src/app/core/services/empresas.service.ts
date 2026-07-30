@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { Empresa } from '../interfaces/empresa.interface';
+import { environment } from '../../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
+import { TenantResponseDto } from '../interfaces/empresa.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmpresasService {
+  /* CONSTRUCTOR */
+  constructor(private http: HttpClient) {}
+
+  apiUrl = environment.apiUrl;
+
   /* GET EMPRESAS */
-  getEmpresas(): Observable<Empresa[]> {
+  getEmpresas() {
+    return this.http.get<TenantResponseDto[]>(`${this.apiUrl}/tenant/list`);
+  }
+  /*  getEmpresas(): Observable<Empresa[]> {
     return of([
       {
         id: 1,
@@ -154,5 +165,5 @@ export class EmpresasService {
         vacantes: 0,
       },
     ]).pipe(delay(1500));
-  }
+  } */
 }

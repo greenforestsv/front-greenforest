@@ -11,3 +11,12 @@ export interface Empresa {
   solicito_acceso: boolean;
   vacantes: number;
 }
+
+export interface TenantResponseDto {
+  id: string;
+  name: string;
+  locations: string[];
+  approach: string[];
+  url_profile_photo?: string;
+  description: string;
+}

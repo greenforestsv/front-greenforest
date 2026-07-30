@@ -8,6 +8,8 @@ import { CV } from '../../interfaces/cv.interfaces';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AddExperienceDialog } from './components/add-experience-dialog/add-experience-dialog';
+import { finalize } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-curriculum',
@@ -26,6 +28,7 @@ import { AddExperienceDialog } from './components/add-experience-dialog/add-expe
 export class Curriculum {
   /* Injección de servicio */
   aspirantesService = inject(AspirantesService);
+  messageService = inject(MessageService);
 
   /* Estados iniciales */
   cv = signal<CV | null>(null);
@@ -39,9 +42,21 @@ export class Curriculum {
   loadCV() {
     this.loading.set(true);
 
-    this.aspirantesService.getCV().subscribe((cv) => {
-      this.cv.set(cv);
-      this.loading.set(false);
-    });
+    this.aspirantesService
+      .getCV()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (cv) => {
+          this.cv.set(cv);
+        },
+        error: (err: { error: { message: any }; status: number }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener datos de curriculum',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 }
