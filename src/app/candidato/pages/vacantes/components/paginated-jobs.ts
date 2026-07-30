@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { VacantesService } from '../../../../core/services/vacantes.service';
 import { Vacante } from '../../../../core/interfaces/vacantes.interfaces';
@@ -7,6 +7,7 @@ import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
+import { PostulacionesService } from '../../../services/postulaciones.service';
 
 @Component({
   standalone: true,
@@ -18,6 +19,7 @@ export class PaginatedJobs {
   private translate = inject(TranslateService);
   messageService = inject(MessageService);
   vacantesService = inject(VacantesService);
+  postulacionesService = inject(PostulacionesService);
 
   items = Array.from({ length: 3 });
   loading = signal(true);
@@ -61,5 +63,33 @@ export class PaginatedJobs {
     this.rows = event.rows;
 
     this.loadJobs();
+  }
+
+  applyToJob(id_vacante: string, id_empresa: string) {
+    this.loading.set(true);
+
+    this.postulacionesService
+      .applyToJob(id_vacante, id_empresa)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (postulacion) => {
+          console.log(postulacion);
+
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Postulación exitosa',
+            detail: 'Te postulate a esta vacante',
+            life: 5000,
+          });
+        },
+        error: (err: { error: { message: any } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al postularte a vacante',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 }

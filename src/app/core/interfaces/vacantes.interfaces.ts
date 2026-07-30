@@ -1,17 +1,4 @@
 export interface Vacante {
-  id: number;
-  title: string;
-  description: string;
-  salary_range: string;
-  tags: string[];
-}
-
-export interface VacantesResponse {
-  qty: number;
-  data: Vacante[];
-}
-
-export interface CrearVacante {
   id: string;
   title: string;
   description: string;
@@ -29,4 +16,9 @@ export interface CrearVacante {
   skills: string[];
   tools: string[];
   requirements: string[];
+}
+
+export interface VacantesResponse {
+  qty: number;
+  data: Vacante[];
 }

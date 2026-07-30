@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { Postulacion } from '../interfaces/postulacion.interface';
+import { ApplicationResponseDto, Postulacion } from '../interfaces/postulacion.interface';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostulacionesService {
+  private http = inject(HttpClient);
+  private apiUrl = environment.apiUrl;
+
   /* GET POSTULACIONES */
   getPostulaciones(): Observable<Postulacion[]> {
     const postulaciones: Postulacion[] = [
@@ -53,5 +58,13 @@ export class PostulacionesService {
       },
     ];
     return of(postulaciones).pipe(delay(1500));
+  }
+
+  /* CREAR POSTULACIÓN */
+  applyToJob(id_vacante: string, id_empresa: string) {
+    return this.http.post<ApplicationResponseDto>(
+      `${this.apiUrl}/applications/apply/${id_vacante}/${id_empresa}`,
+      null,
+    );
   }
 }
