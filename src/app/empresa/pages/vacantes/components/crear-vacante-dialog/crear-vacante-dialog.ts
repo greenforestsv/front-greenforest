@@ -1,10 +1,10 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-//import { AspirantesService } from '../../../../services/aspirantes.service';
+import { VacantesService } from '../../../../../core/services/vacantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -12,6 +12,9 @@ import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { SelectModule } from 'primeng/select';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CreateVacanteDto } from '../../../../../core/interfaces/vacantes.interfaces';
 
 @Component({
   selector: 'app-crear-vacante-dialog',
@@ -28,12 +31,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
     DatePickerModule,
     TextareaModule,
     InputNumberModule,
+    SelectModule,
+    CheckboxModule,
   ],
 })
 export class CrearVacanteDialog {
   /* INJECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
-  //aspirantesService = inject(AspirantesService);
+  vacantesService = inject(VacantesService);
   private messageService = inject(MessageService);
 
   /* FORM BUILDER */
@@ -42,37 +47,93 @@ export class CrearVacanteDialog {
   //ESTADOS INICIALS
   visible = signal(false);
   loading = signal(false);
-  error = signal<string | null>('Internal server error');
+
+  //SELECT OPTIONS
+  // TIPO DE CONTRATO
+  contractTypeOptions = [
+    { label: 'Indefinido', value: 1 },
+    { label: 'Temporal', value: 2 },
+    { label: 'Por proyecto', value: 3 },
+    { label: 'Servicios profesionales', value: 4 },
+    { label: 'Práctica profesional', value: 5 },
+  ];
+
+  // DEPARTAMENTO
+  departmentOptions = [
+    { label: 'Tecnología', value: 1 },
+    { label: 'Recursos Humanos', value: 2 },
+    { label: 'Marketing', value: 3 },
+    { label: 'Ventas', value: 4 },
+    { label: 'Finanzas', value: 5 },
+    { label: 'Operaciones', value: 6 },
+    { label: 'Administración', value: 7 },
+    { label: 'Atención al Cliente', value: 8 },
+  ];
+
+  // MODALIDAD
+  formatOptions = [
+    { label: 'Presencial', value: 1 },
+    { label: 'Híbrido', value: 2 },
+    { label: 'Remoto', value: 3 },
+  ];
 
   // ESTADOS INICIALES Y VALIDACIONES
   readonly vacanteForm = this.fb.nonNullable.group({
     title: ['', Validators.required],
-    description: ['', Validators.required],
-    ends_on: [new Date(), Validators.required],
-    min_salary: [0, [Validators.required, Validators.min(0)]],
+
+    ends_on: [new Date()],
+
+    min_salary: [0, [Validators.required, Validators.min(1)]],
     max_salary: [0, [Validators.required, Validators.min(1)]],
+
+    workday: ['', Validators.required],
     workday_type: ['', Validators.required],
-    workday: [[] as string[], Validators.required],
-    contract_type: ['', Validators.required],
-    area: ['', Validators.required],
-    format: ['', Validators.required],
-    payment_dates: ['', Validators.required],
-    skills: [[] as string[], Validators.required],
-    tools: [[] as string[], Validators.required],
-    requirements: [[] as string[], Validators.required],
+
+    availability: ['', Validators.required],
+
+    description: ['', Validators.required],
+
+    skills: ['', Validators.required],
+    tools: ['', Validators.required],
+    requirements: ['', Validators.required],
+
+    payment_form: ['', Validators.required],
+
+    contract_type: [0, [Validators.required, Validators.min(1)]],
+    department: [0, [Validators.required, Validators.min(1)]],
+    format: [0, [Validators.required, Validators.min(1)]],
+
+    number_of_vacancies: [1],
+
+    vehicle: [false],
+
+    level_experience: [''],
   });
 
   readonly title = this.vacanteForm.controls.title;
   readonly description = this.vacanteForm.controls.description;
   readonly ends_on = this.vacanteForm.controls.ends_on;
+
   readonly min_salary = this.vacanteForm.controls.min_salary;
   readonly max_salary = this.vacanteForm.controls.max_salary;
+
   readonly workday_type = this.vacanteForm.controls.workday_type;
   readonly workday = this.vacanteForm.controls.workday;
+
+  readonly availability = this.vacanteForm.controls.availability;
+
   readonly contract_type = this.vacanteForm.controls.contract_type;
-  readonly area = this.vacanteForm.controls.area;
+  readonly department = this.vacanteForm.controls.department;
   readonly format = this.vacanteForm.controls.format;
-  readonly payment_dates = this.vacanteForm.controls.payment_dates;
+
+  readonly payment_form = this.vacanteForm.controls.payment_form;
+
+  readonly number_of_vacancies = this.vacanteForm.controls.number_of_vacancies;
+
+  readonly vehicle = this.vacanteForm.controls.vehicle;
+
+  readonly level_experience = this.vacanteForm.controls.level_experience;
+
   readonly skills = this.vacanteForm.controls.skills;
   readonly tools = this.vacanteForm.controls.tools;
   readonly requirements = this.vacanteForm.controls.requirements;
@@ -86,26 +147,44 @@ export class CrearVacanteDialog {
     this.vacanteForm.reset({
       title: '',
       description: '',
+
       ends_on: new Date(),
-      min_salary: 0,
-      max_salary: 0,
+
+      min_salary: 1,
+      max_salary: 1,
+
       workday_type: '',
-      workday: [],
-      contract_type: '',
-      area: '',
-      format: '',
-      payment_dates: '',
-      skills: [],
-      tools: [],
-      requirements: [],
+      workday: '',
+
+      availability: '',
+
+      contract_type: 1,
+      department: 1,
+      format: 1,
+
+      payment_form: '',
+
+      number_of_vacancies: 1,
+
+      vehicle: false,
+
+      level_experience: '',
+
+      skills: '',
+      tools: '',
+      requirements: '',
     });
 
     this.vacanteForm.markAsPristine();
     this.vacanteForm.markAsUntouched();
   }
 
-  /* AVISA A LA PÁGINA QUE SE AGREGÓ UNA NUEVA EXPERIENCIA */
-  experienceAdded = output<void>();
+  private toArray(value: string): string[] {
+    return value
+      .split('\n')
+      .map((v) => v.trim())
+      .filter(Boolean);
+  }
 
   /* GUARDAR */
   save() {
@@ -115,71 +194,41 @@ export class CrearVacanteDialog {
     }
 
     this.loading.set(true);
-    this.error.set(null);
 
-    const {
-      title,
-      description,
-      ends_on,
-      min_salary,
-      max_salary,
-      workday_type,
-      workday,
-      contract_type,
-      area,
-      format,
-      payment_dates,
-      skills,
-      tools,
-      requirements,
-    } = this.vacanteForm.getRawValue();
+    const vacante = this.vacanteForm.getRawValue();
 
-    const nuevaVacante = {
-      title,
-      description,
-      ends_on: dayjs(ends_on).format('YYYY-MM-DD'),
-      min_salary,
-      max_salary,
-      workday_type,
-      workday,
-      contract_type,
-      area,
-      format,
-      payment_dates,
-      skills,
-      tools,
-      requirements,
+    const nuevaVacante: CreateVacanteDto = {
+      ...vacante,
+      workday: this.toArray(vacante.workday),
+      skills: this.toArray(vacante.skills),
+      tools: this.toArray(vacante.tools),
+      requirements: this.toArray(vacante.requirements),
+      ends_on: dayjs(vacante.ends_on).toISOString(),
     };
 
     console.log(nuevaVacante);
-
-    this.loading.set(false);
-  }
-  /*    this.aspirantesService
-      .patchCV({
-        works_experience: [nuevaExperiencia],
-      })
+    this.vacantesService
+      .createJob(nuevaVacante)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res: any) => {
           this.messageService.add({
             severity: 'success',
-            summary: this.translate.instant('cv.experiencia_agregada_summary'),
-            detail: this.translate.instant('cv.experiencia_agregada_detail'),
+            summary: 'Vacante creada',
+            detail: 'La vacante fue creada correctamente',
             life: 5000,
           });
-
-          this.experienceAdded.emit();
 
           this.closeDialog();
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
             severity: 'error',
-            summary: this.translate.instant('cv.error_agregar_experiencia'),
+            summary: 'Error al crear vacante',
             detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
             life: 5000,
           });
         },
-      }); */
+      });
+  }
 }

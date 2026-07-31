@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { Vacante, VacantesResponse } from '../interfaces/vacantes.interfaces';
+import { GetVacanteDto, CreateVacanteDto } from '../interfaces/vacantes.interfaces';
+import { PaginatedResponse } from '../interfaces/paginated-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,13 @@ export class VacantesService {
 
   /* OBTENER VACANTES */
   getJobs(limit: number, offset: number) {
-    return this.http.get<VacantesResponse>(`${this.apiUrl}/jobs?limit=${limit}&offset=${offset}`);
+    return this.http.get<PaginatedResponse<GetVacanteDto>>(
+      `${this.apiUrl}/jobs?limit=${limit}&offset=${offset}`,
+    );
   }
 
   /* CREAR VACANTE */
-  createJob(vacante: Vacante) {
-    return this.http.post<Vacante>(`${this.apiUrl}/posting-job`, vacante);
+  createJob(vacante: CreateVacanteDto) {
+    return this.http.post<CreateVacanteDto>(`${this.apiUrl}/posting-job`, vacante);
   }
 }

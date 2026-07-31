@@ -18,7 +18,7 @@
             <p-skeleton height="3rem" style="background-color: var(--color-primary)" />
           }
         } @else {
-          @for (link of links(); track $index) {
+          @for (link of links(); track link.relative_route) {
             <a
               [routerLink]="link.relative_route"
               routerLinkActive="bg-mid"
@@ -26,7 +26,7 @@
               class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors hover:bg-mid"
             >
               <!-- <i [class]="'pi ' + link.icon"></i> -->
-              {{ link.name | translate }}
+              {{ 'sidebar.' + link.name | translate }}
             </a>
           }
         }
@@ -107,16 +107,9 @@
             class="lg:hidden"
             (onClick)="drawerVisible.set(true)"
           />
-          <!-- <p-button
-            [icon]="sidebarVisible() ? 'pi pi-angle-double-left' : 'pi pi-angle-double-right'"
-            [text]="true"
-            class="hidden lg:flex"
-            (onClick)="sidebarVisible.update((v) => !v)"
-            size="large"
-          /> -->
         </div>
         <div class="flex gap-4 items-center">
-          <div class="hidden md:flex">
+          <!--           <div class="hidden md:flex">
             <p-iconfield>
               <p-inputicon class="pi pi-search" />
               <input type="text" pInputText fluid [placeholder]="'sidebar.buscar' | translate" />
@@ -130,7 +123,7 @@
             [pTooltip]="'sidebar.buscar' | translate"
             tooltipPosition="bottom"
             tooltipStyleClass="text-xs"
-          />
+          /> -->
 
           <p-overlay-badge>
             <p-button

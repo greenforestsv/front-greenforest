@@ -13,6 +13,7 @@
     header="Crear vacante"
     [style]="{ width: '36rem', borderRadius: '1.5rem' }"
   >
+    <!-- FORMULARIO -->
     <form
       id="vacanteForm"
       [formGroup]="vacanteForm"
@@ -22,16 +23,12 @@
       <!-- Título -->
       <div class="flex flex-col gap-1">
         <label for="title">Título <span class="text-accent-500">*</span></label>
-        <input
-          pInputText
-          id="title"
-          formControlName="title"
-          [invalid]="title.invalid && title.touched"
-          fluid
-        />
+        <input pInputText id="title" formControlName="title" fluid />
         @if (title.invalid && title.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            El título es obligatorio.
+          <p-message severity="error" size="small" variant="simple" class="mt-1">
+            @if (title.hasError('required')) {
+              Es obligatorio.
+            }
           </p-message>
         }
       </div>
@@ -45,11 +42,12 @@
           formControlName="description"
           rows="5"
           [autoResize]="true"
-          [invalid]="description.invalid && description.touched"
         ></textarea>
         @if (description.invalid && description.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            La descripción es obligatoria.
+          <p-message severity="error" size="small" variant="simple" class="mt-1">
+            @if (description.hasError('required')) {
+              Es obligatorio.
+            }
           </p-message>
         }
       </div>
@@ -57,154 +55,224 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <!-- Fecha de cierre -->
         <div class="flex flex-col gap-1">
-          <label for="ends_on">Fecha de cierre <span class="text-accent-500">*</span></label>
-          <p-datepicker
-            id="ends_on"
-            formControlName="ends_on"
-            [showIcon]="true"
-            dateFormat="dd/M/yy"
-            [invalid]="ends_on.invalid && ends_on.touched"
-          />
+          <label>Fecha de cierre <span class="text-accent-500">*</span></label>
+          <p-datepicker formControlName="ends_on" [showIcon]="true" dateFormat="dd/mm/yy" />
           @if (ends_on.invalid && ends_on.touched) {
-            <p-message severity="error" size="small" variant="simple">
-              La fecha de cierre es obligatoria.
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (ends_on.hasError('required')) {
+                Es obligatorio.
+              }
             </p-message>
           }
         </div>
 
-        <!-- Área -->
+        <!-- Disponibilidad -->
         <div class="flex flex-col gap-1">
-          <label for="area">Área <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="area"
-            formControlName="area"
-            [invalid]="area.invalid && area.touched"
-            fluid
-          />
-          @if (area.invalid && area.touched) {
-            <p-message severity="error" size="small" variant="simple">
-              El área es obligatoria.
+          <label>Disponibilidad <span class="text-accent-500">*</span></label>
+          <input pInputText formControlName="availability" fluid />
+          @if (availability.invalid && availability.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (availability.hasError('required')) {
+                Es obligatorio.
+              }
             </p-message>
           }
         </div>
 
         <!-- Salario mínimo -->
         <div class="flex flex-col gap-1">
-          <label for="min_salary">Salario mínimo <span class="text-accent-500">*</span></label>
+          <label>Salario mínimo <span class="text-accent-500">*</span></label>
           <p-inputnumber
-            inputId="min_salary"
             formControlName="min_salary"
             mode="currency"
             currency="USD"
             locale="en-US"
-            [invalid]="min_salary.invalid && min_salary.touched"
             fluid
           />
+          @if (min_salary.invalid && min_salary.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (min_salary.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
         <!-- Salario máximo -->
         <div class="flex flex-col gap-1">
-          <label for="max_salary">Salario máximo <span class="text-accent-500">*</span></label>
+          <label>Salario máximo <span class="text-accent-500">*</span></label>
           <p-inputnumber
-            inputId="max_salary"
             formControlName="max_salary"
             mode="currency"
             currency="USD"
             locale="en-US"
-            [invalid]="max_salary.invalid && max_salary.touched"
             fluid
           />
+          @if (max_salary.invalid && max_salary.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (max_salary.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
         <!-- Tipo de jornada -->
         <div class="flex flex-col gap-1">
-          <label for="workday_type">Tipo de jornada <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="workday_type"
-            formControlName="workday_type"
-            [invalid]="workday_type.invalid && workday_type.touched"
-            fluid
-          />
+          <label>Tipo de jornada <span class="text-accent-500">*</span></label>
+          <input pInputText formControlName="workday_type" fluid />
+          @if (workday_type.invalid && workday_type.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (workday_type.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
         <!-- Jornada -->
         <div class="flex flex-col gap-1">
-          <label for="workday">Jornada <span class="text-accent-500">*</span></label>
-          <input pInputText id="workday" formControlName="workday" fluid />
+          <label>Jornada <span class="text-accent-500">*</span></label>
+          <textarea pTextarea formControlName="workday" rows="3" [autoResize]="true"></textarea>
+          @if (workday.invalid && workday.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (workday.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
         <!-- Tipo de contrato -->
         <div class="flex flex-col gap-1">
-          <label for="contract_type">Tipo de contrato <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="contract_type"
+          <label>Tipo de contrato <span class="text-accent-500">*</span></label>
+          <p-select
             formControlName="contract_type"
-            [invalid]="contract_type.invalid && contract_type.touched"
+            [options]="contractTypeOptions"
+            optionLabel="label"
+            optionValue="value"
             fluid
           />
+          @if (contract_type.invalid && contract_type.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (contract_type.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- Departamento -->
+        <div class="flex flex-col gap-1">
+          <label>Departamento <span class="text-accent-500">*</span></label>
+          <p-select
+            formControlName="department"
+            [options]="departmentOptions"
+            optionLabel="label"
+            optionValue="value"
+            fluid
+          />
+          @if (department.invalid && department.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (department.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
         <!-- Modalidad -->
         <div class="flex flex-col gap-1">
-          <label for="format">Modalidad <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="format"
+          <label>Modalidad <span class="text-accent-500">*</span></label>
+          <p-select
             formControlName="format"
-            [invalid]="format.invalid && format.touched"
+            [options]="formatOptions"
+            optionLabel="label"
+            optionValue="value"
             fluid
           />
+          @if (format.invalid && format.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (format.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
-        <!-- Fechas de pago -->
-        <div class="flex flex-col gap-1 lg:col-span-2">
-          <label for="payment_dates">Fechas de pago <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="payment_dates"
-            formControlName="payment_dates"
-            [invalid]="payment_dates.invalid && payment_dates.touched"
-            fluid
-          />
+        <!-- Forma de pago -->
+        <div class="flex flex-col gap-1">
+          <label>Forma de pago <span class="text-accent-500">*</span></label>
+          <input pInputText formControlName="payment_form" fluid />
+          @if (payment_form.invalid && payment_form.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (payment_form.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- Número de vacantes -->
+        <div class="flex flex-col gap-1">
+          <label>Número de vacantes</label>
+          <p-inputnumber formControlName="number_of_vacancies" [min]="1" fluid />
+        </div>
+
+        <!-- Nivel de experiencia -->
+        <div class="flex flex-col gap-1">
+          <label>Nivel de experiencia</label>
+          <input pInputText formControlName="level_experience" fluid />
+        </div>
+
+        <!-- Vehículo -->
+        <div class="flex items-center gap-2 lg:col-span-2">
+          <p-checkbox binary formControlName="vehicle" inputId="vehicle" />
+          <label for="vehicle">Requiere vehículo propio</label>
         </div>
 
         <!-- Skills -->
         <div class="flex flex-col gap-1">
-          <label for="skills">Skills</label>
-          <textarea
-            pTextarea
-            id="skills"
-            formControlName="skills"
-            rows="3"
-            [autoResize]="true"
-          ></textarea>
+          <label>Skills <span class="text-accent-500">*</span></label>
+          <textarea pTextarea formControlName="skills" rows="4" [autoResize]="true"></textarea>
+          @if (skills.invalid && skills.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (skills.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
         <!-- Herramientas -->
         <div class="flex flex-col gap-1">
-          <label for="tools">Herramientas</label>
-          <textarea
-            pTextarea
-            id="tools"
-            formControlName="tools"
-            rows="3"
-            [autoResize]="true"
-          ></textarea>
+          <label>Herramientas <span class="text-accent-500">*</span></label>
+          <textarea pTextarea formControlName="tools" rows="4" [autoResize]="true"></textarea>
+          @if (tools.invalid && tools.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (tools.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
 
         <!-- Requisitos -->
         <div class="flex flex-col gap-1 lg:col-span-2">
-          <label for="requirements">Requisitos</label>
+          <label>Requisitos <span class="text-accent-500">*</span></label>
           <textarea
             pTextarea
-            id="requirements"
             formControlName="requirements"
-            rows="4"
+            rows="5"
             [autoResize]="true"
           ></textarea>
+          @if (requirements.invalid && requirements.touched) {
+            <p-message severity="error" size="small" variant="simple" class="mt-1">
+              @if (requirements.hasError('required')) {
+                Es obligatorio.
+              }
+            </p-message>
+          }
         </div>
       </div>
 
