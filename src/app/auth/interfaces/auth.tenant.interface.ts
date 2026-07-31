@@ -7,7 +7,7 @@ export interface Representative {
   birth_date: Date;
   gender: 'M' | 'F' | 'U';
   email: string;
-  phone?: string;
+  phone: string;
   country: string;
   department: string;
   profession: string;

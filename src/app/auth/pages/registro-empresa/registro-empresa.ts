@@ -161,7 +161,7 @@ export class RegistroEmpresa {
       tenant_alternative_email,
       url_profile_photo,
       confirm_email,
-      representative: { second_name, second_surname, phone, address, ...representative },
+      representative: { second_name, second_surname, address, ...representative },
       ...company
     } = this.signupForm.getRawValue();
 
