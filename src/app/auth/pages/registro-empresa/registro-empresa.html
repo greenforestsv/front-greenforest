@@ -537,7 +537,9 @@
 
             <!-- TELÉFONO -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="phone">Número de teléfono</label>
+              <label pLabel class="text-sm" for="phone"
+                >Número de teléfono <span class="text-accent-500">*</span></label
+              >
               <input
                 pInputText
                 type="text"
@@ -549,7 +551,9 @@
               />
               @if (phone.invalid && phone.touched) {
                 <p-message severity="error" size="small" variant="simple">
-                  @if (phone.hasError('invalidPhone')) {
+                  @if (phone.hasError('required')) {
+                    El número de teléfono es obligatorio.
+                  } @else if (phone.hasError('invalidPhone')) {
                     El número de teléfono no es válido.
                   }
                 </p-message>

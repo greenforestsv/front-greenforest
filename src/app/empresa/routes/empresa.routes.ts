@@ -11,13 +11,13 @@ export const EMPRESA_ROUTES: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'perfil',
         pathMatch: 'full',
       },
-      {
+      /*       {
         path: 'dashboard',
         loadComponent: () => import('../pages/dashboard/dashboard').then((m) => m.Dashboard),
-      },
+      }, */
       {
         path: 'perfil',
         loadComponent: () => import('../pages/perfil/perfil-empresa').then((m) => m.PerfilEmpresa),

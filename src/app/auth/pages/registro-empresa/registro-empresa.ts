@@ -93,7 +93,7 @@ export class RegistroEmpresa {
         birth_date: [new Date(), Validators.required],
         gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
         email: ['', [Validators.required, Validators.email]],
-        phone: ['', phoneValidator()],
+        phone: ['', [Validators.required, phoneValidator()]],
         country: ['', Validators.required],
         department: ['', Validators.required],
         profession: ['', Validators.required],
@@ -210,7 +210,6 @@ export class RegistroEmpresa {
         department: departmentLabel,
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
-        ...(phone.trim() && { phone }),
         ...(address.trim() && { address }),
       },
     };
@@ -225,7 +224,7 @@ export class RegistroEmpresa {
           console.log(res);
           /* localStorage.setItem('token', res.token);
 
-          this.router.navigate(['/candidato'], {
+          this.router.navigate(['/empresa'], {
             state: {
               toast: {
                 severity: 'success',
