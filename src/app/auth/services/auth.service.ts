@@ -22,7 +22,7 @@ export class AuthService {
 
   /* LOGIN */
   loginCandidato(data: LoginCandidatoDto) {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/aspirant`, data);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login/aspirant`, data);
   }
 
   /* SIGNUP */

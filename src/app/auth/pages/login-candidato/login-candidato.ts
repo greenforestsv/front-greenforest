@@ -69,7 +69,7 @@ export class LoginCandidato {
         next: (res: any) => {
           localStorage.setItem('token', res.token);
 
-          this.router.navigate(['/candidato/dashboard']);
+          this.router.navigate(['/candidato/perfil']);
         },
         error: (err: { error: { message: any }; status: number }) => {
           if (err.status === 401) {
