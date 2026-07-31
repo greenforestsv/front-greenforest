@@ -16,6 +16,14 @@ export interface Vacante {
   skills: string[];
   tools: string[];
   requirements: string[];
+  status: string;
+  department: string;
+  payment_form: string;
+  original_tenant_id: string;
+  normalized_name: string;
+  original_job_id?: string;
+  vehicle?: boolean;
+  number_of_vacancies: number;
 }
 
 export interface VacantesResponse {
