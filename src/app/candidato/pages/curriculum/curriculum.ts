@@ -8,6 +8,7 @@ import { CV } from '../../interfaces/cv.interfaces';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AddExperienceDialog } from './components/add-experience-dialog/add-experience-dialog';
+import { EditExperienceDialog } from './components/edit-experience-dialog/edit-experience-dialog';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
@@ -21,6 +22,7 @@ import { MessageService } from 'primeng/api';
     SkeletonModule,
     TranslatePipe,
     AddExperienceDialog,
+    EditExperienceDialog,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',

@@ -1,0 +1,197 @@
+<div class="flex justify-center">
+  <p-button
+    icon="pi pi-pencil"
+    class="hidden lg:flex"
+    [rounded]="true"
+    size="small"
+    [label]="'cv.editar_experiencia' | translate"
+    (click)="visible.set(true)"
+  />
+  <p-button
+    icon="pi pi-pencil"
+    class="flex lg:hidden"
+    [rounded]="true"
+    size="small"
+    (click)="visible.set(true)"
+  />
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    [header]="'cv.editar_experiencia' | translate"
+    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
+  >
+    <form
+      id="experienceForm"
+      [formGroup]="experienceForm"
+      (ngSubmit)="save()"
+      class="flex flex-col gap-4"
+    >
+      <div class="flex flex-col lg:flex-row gap-4">
+        <!-- LEFT -->
+        <div class="space-y-4">
+          <!-- TÍTULO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="title"
+              >{{ 'cv.titulo' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="title"
+              formControlName="title"
+              required
+              [invalid]="title.invalid && title.touched"
+              fluid
+            />
+            @if (title.invalid && title.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (title.hasError('required')) {
+                  {{ 'cv.titulo_obligatorio' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- EMPRESA -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="company"
+              >{{ 'cv.empresa' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="company"
+              formControlName="company"
+              required
+              [invalid]="company.invalid && company.touched"
+              fluid
+            />
+            @if (company.invalid && company.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (company.hasError('required')) {
+                  {{ 'cv.empresa_obligatoria' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- ÁREA -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="area"
+              >{{ 'cv.area' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="area"
+              formControlName="area"
+              required
+              [invalid]="area.invalid && area.touched"
+              fluid
+            />
+            @if (area.invalid && area.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (area.hasError('required')) {
+                  {{ 'cv.area_obligatoria' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="space-y-4">
+          <!-- FECHA INICIO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="start_date"
+              >{{ 'cv.fecha_inicio' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <p-datepicker
+              id="start_date"
+              formControlName="start_date"
+              [showIcon]="true"
+              inputId="start_date"
+              required
+              dateFormat="dd/M/yy"
+              [invalid]="start_date.invalid && start_date.touched"
+            />
+            @if (start_date.invalid && start_date.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (start_date.hasError('required')) {
+                  {{ 'cv.fecha_inicio_obligatoria' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- FECHA FIN -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="end_date">{{ 'cv.fecha_fin' | translate }}</label>
+            <p-datepicker
+              id="end_date"
+              formControlName="end_date"
+              [showIcon]="true"
+              inputId="end_date"
+              dateFormat="dd/M/yy"
+              [invalid]="experienceForm.hasError('endDateBeforeStartDate') && end_date.touched"
+            />
+            @if (experienceForm.hasError('endDateBeforeStartDate') && end_date.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                {{ 'cv.fecha_fin_mayor_inicio' | translate }}
+              </p-message>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIVIDADES -->
+      <div class="flex flex-col gap-1">
+        <label pLabel for="activities"
+          >{{ 'cv.actividades_realizadas' | translate }}
+          <span class="text-accent-500">*</span></label
+        >
+        <small class="text-gray-500">
+          {{ 'cv.separar_actividades' | translate }}
+          <kbd class="size-5 inline-flex items-center justify-center rounded border">&#x21B5;</kbd>
+          Enter.
+        </small>
+        <textarea
+          id="activities"
+          formControlName="activities"
+          rows="5"
+          cols="30"
+          pTextarea
+          [placeholder]="'cv.placeholder_actividades' | translate"
+          required
+          [invalid]="activities.invalid && activities.touched"
+          [autoResize]="true"
+        ></textarea>
+        @if (activities.invalid && activities.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (activities.hasError('required')) {
+              {{ 'cv.actividades_obligatorias' | translate }}
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- BOTÓN OCULTO PARA EL ENTER -->
+      <button type="submit" hidden></button>
+    </form>
+    <!-- BOTONES -->
+    <ng-template pTemplate="footer">
+      <p-button
+        [label]="'common.cancelar' | translate"
+        (click)="closeDialog()"
+        severity="secondary"
+        variant="outlined"
+      />
+      <p-button
+        type="button"
+        [loading]="loading()"
+        (click)="save()"
+        [label]="'common.guardar' | translate"
+      />
+    </ng-template>
+  </p-dialog>
+</div>
