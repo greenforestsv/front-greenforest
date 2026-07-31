@@ -11,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { VerDetalleVacanteDialog } from './components/ver-detalle-vacante-dialog/ver-detalle-vacante-dialog';
 import { EditarVacanteDialog } from './components/editar-vacante-dialog/editar-vacante-dialog';
+import { CrearVacanteDialog } from './components/crear-vacante-dialog/crear-vacante-dialog';
 
 @Component({
   selector: 'app-vacantes-empresa',
@@ -27,6 +28,7 @@ import { EditarVacanteDialog } from './components/editar-vacante-dialog/editar-v
     PaginatorModule,
     VerDetalleVacanteDialog,
     EditarVacanteDialog,
+    CrearVacanteDialog,
   ],
   templateUrl: './vacantes-empresa.html',
   styleUrl: './vacantes-empresa.scss',
