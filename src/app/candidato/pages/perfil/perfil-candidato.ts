@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditarPerfilDialog } from './components/editar-perfil-dialog/editar-perfil-dialog';
 
 @Component({
   selector: 'app-perfil-candidato',
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ToggleSwitchModule,
     ReactiveFormsModule,
+    EditarPerfilDialog,
   ],
   templateUrl: './perfil-candidato.html',
   styleUrl: './perfil-candidato.scss',
