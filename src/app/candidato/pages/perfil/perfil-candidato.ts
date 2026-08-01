@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { PrivateAspirant } from '../../interfaces/aspirant.interfaces';
 import { AspirantesService } from '../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
@@ -12,6 +11,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditarPerfilDialog } from './components/editar-perfil-dialog/editar-perfil-dialog';
+import { CV } from '../../interfaces/cv.interfaces';
 
 @Component({
   selector: 'app-perfil-candidato',
@@ -35,7 +35,7 @@ export class PerfilCandidato {
   fb = inject(FormBuilder);
 
   /* ESTADOS SIGNAL */
-  aspirante = signal<PrivateAspirant | null>(null);
+  perfil = signal<CV | null>(null);
   profilePercentage = signal(86);
   loading = signal(false);
 
@@ -49,16 +49,16 @@ export class PerfilCandidato {
     this.loading.set(true);
     /* OBTENCIÓN DE DATOS */
     this.aspirantsService
-      .getAspirantMe()
+      .getCV()
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (aspirant: PrivateAspirant) => {
-          this.aspirante.set(aspirant);
+        next: (data) => {
+          this.perfil.set(data);
         },
         error: (err: { error: { message: any }; status: number }) => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error al obtener datos de candidato',
+            summary: 'Error al obtener datos de perfil',
             detail: err.error?.message ?? 'Ocurrió un error inesperado',
             life: 5000,
           });

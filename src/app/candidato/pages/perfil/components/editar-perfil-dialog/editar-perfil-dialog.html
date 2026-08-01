@@ -13,197 +13,251 @@
     [header]="'perfil.candidato.editar_perfil' | translate"
     [style]="{ width: '36rem', borderRadius: '1.5rem' }"
   >
-    <form id="perfilForm" [formGroup]="perfilForm" (ngSubmit)="save()" class="flex flex-col gap-4">
-      <!-- Título -->
-      <div class="flex flex-col gap-1">
-        <label for="title">Título <span class="text-accent-500">*</span></label>
-        <input
-          pInputText
-          id="title"
-          formControlName="title"
-          [invalid]="title.invalid && title.touched"
-          fluid
-        />
-        @if (title.invalid && title.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            El título es obligatorio.
-          </p-message>
-        }
+    <form [formGroup]="perfilForm" (ngSubmit)="save()" class="flex flex-col gap-4 w-full">
+      <div class="flex flex-col md:flex-row gap-4">
+        <!-- IZQUIERDA -->
+        <div class="flex flex-col gap-4 flex-1">
+          <!-- PRIMER NOMBRE -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Primer nombre <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="first_name"
+              formControlName="first_name"
+              placeholder="Primer Nombre"
+              required
+              [invalid]="first_name.invalid && first_name.touched"
+              fluid
+            />
+            @if (first_name.invalid && first_name.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (first_name.hasError('required')) {
+                  El primer nombre es obligatorio.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- SEGUNDO NOMBRE -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">Segundo nombre</label>
+            <input
+              pInputText
+              type="text"
+              id="second_name"
+              formControlName="second_name"
+              placeholder="Segundo Nombre"
+              [invalid]="second_name.invalid && second_name.touched"
+              fluid
+            />
+          </div>
+
+          <!-- PRIMER APELLIDO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Primer apellido <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="first_surname"
+              formControlName="first_surname"
+              placeholder="Primer Apellido"
+              required
+              [invalid]="first_surname.invalid && first_surname.touched"
+              fluid
+            />
+            @if (first_surname.invalid && first_surname.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (first_surname.hasError('required')) {
+                  El primer apellido es obligatorio.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- SEGUNDO APELLIDO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">Segundo apellido</label>
+            <input
+              pInputText
+              type="text"
+              id="second_surname"
+              formControlName="second_surname"
+              placeholder="Segundo apellido"
+              [invalid]="second_surname.invalid && second_surname.touched"
+              fluid
+            />
+          </div>
+
+          <!-- DOMICILIO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">Domicilio</label>
+            <input
+              pInputText
+              type="text"
+              id="address"
+              formControlName="address"
+              placeholder="Domicilio"
+              [invalid]="address.invalid && address.touched"
+              fluid
+            />
+          </div>
+
+          <!-- TELÉFONO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Número de teléfono <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="phone"
+              formControlName="phone"
+              placeholder="+50399887766"
+              required
+              [invalid]="phone.invalid && phone.touched"
+              fluid
+            />
+            @if (phone.invalid && phone.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (phone.hasError('required')) {
+                  El número de teléfono es obligatorio.
+                } @else if (phone.hasError('invalidPhone')) {
+                  El número de teléfono no es válido.
+                }
+              </p-message>
+            }
+          </div>
+        </div>
+
+        <!-- DERECHA -->
+        <div class="flex flex-col gap-4 flex-1">
+          <!-- FECHA DE NACIMIENTO -->
+          <div class="flex flex-col gap-1.5">
+            <label pLabel class="text-sm"
+              >Fecha de nacimiento <span class="text-accent-500">*</span></label
+            >
+            <p-datepicker
+              formControlName="birth_date"
+              [showIcon]="true"
+              inputId="birth_date"
+              dateFormat="dd/mm/yy"
+            />
+            @if (birth_date.invalid && birth_date.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (birth_date.hasError('required')) {
+                  La fecha de nacimiento es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- CORREO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">Correo <span class="text-accent-500">*</span></label>
+            <input
+              pInputText
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="Correo"
+              required
+              email
+              [invalid]="email.invalid && email.touched"
+              fluid
+            />
+            @if (email.invalid && email.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (email.hasError('required')) {
+                  El correo es obligatorio.
+                }
+                @if (email.hasError('email')) {
+                  Ingresá un correo válido.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- GÉNERO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">Género <span class="text-accent-500">*</span></label>
+            <p-select
+              formControlName="gender"
+              [options]="genderOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Género"
+            />
+            @if (gender.invalid && gender.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (gender.hasError('required')) {
+                  El género es obligatorio.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- PAÍS -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">País <span class="text-accent-500">*</span></label>
+            <p-select
+              formControlName="country"
+              [options]="countryOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Páis"
+            />
+            @if (country.invalid && country.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (country.hasError('required')) {
+                  El páis es obligatorio.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- DEPARTAMENTO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Departamento <span class="text-accent-500">*</span></label
+            >
+            <p-select
+              formControlName="department"
+              [options]="departmentOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Departamento"
+            />
+            @if (department.invalid && department.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (department.hasError('required')) {
+                  El departamento es obligatorio.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- PROFESIÓN -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">Profesión</label>
+            <input
+              pInputText
+              type="text"
+              id="profession"
+              formControlName="profession"
+              placeholder="Profesión"
+              [invalid]="profession.invalid && profession.touched"
+              fluid
+            />
+          </div>
+
+          <!-- FIN -->
+        </div>
       </div>
-
-      <!-- Descripción -->
-      <div class="flex flex-col gap-1">
-        <label for="description">Descripción <span class="text-accent-500">*</span></label>
-        <textarea
-          pTextarea
-          id="description"
-          formControlName="description"
-          rows="5"
-          [autoResize]="true"
-          [invalid]="description.invalid && description.touched"
-        ></textarea>
-        @if (description.invalid && description.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            La descripción es obligatoria.
-          </p-message>
-        }
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <!-- Fecha de cierre -->
-        <div class="flex flex-col gap-1">
-          <label for="ends_on">Fecha de cierre <span class="text-accent-500">*</span></label>
-          <p-datepicker
-            id="ends_on"
-            formControlName="ends_on"
-            [showIcon]="true"
-            dateFormat="dd/M/yy"
-            [invalid]="ends_on.invalid && ends_on.touched"
-          />
-          @if (ends_on.invalid && ends_on.touched) {
-            <p-message severity="error" size="small" variant="simple">
-              La fecha de cierre es obligatoria.
-            </p-message>
-          }
-        </div>
-
-        <!-- Área -->
-        <div class="flex flex-col gap-1">
-          <label for="area">Área <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="area"
-            formControlName="area"
-            [invalid]="area.invalid && area.touched"
-            fluid
-          />
-          @if (area.invalid && area.touched) {
-            <p-message severity="error" size="small" variant="simple">
-              El área es obligatoria.
-            </p-message>
-          }
-        </div>
-
-        <!-- Salario mínimo -->
-        <div class="flex flex-col gap-1">
-          <label for="min_salary">Salario mínimo <span class="text-accent-500">*</span></label>
-          <p-inputnumber
-            inputId="min_salary"
-            formControlName="min_salary"
-            mode="currency"
-            currency="USD"
-            locale="en-US"
-            [invalid]="min_salary.invalid && min_salary.touched"
-            fluid
-          />
-        </div>
-
-        <!-- Salario máximo -->
-        <div class="flex flex-col gap-1">
-          <label for="max_salary">Salario máximo <span class="text-accent-500">*</span></label>
-          <p-inputnumber
-            inputId="max_salary"
-            formControlName="max_salary"
-            mode="currency"
-            currency="USD"
-            locale="en-US"
-            [invalid]="max_salary.invalid && max_salary.touched"
-            fluid
-          />
-        </div>
-
-        <!-- Tipo de jornada -->
-        <div class="flex flex-col gap-1">
-          <label for="workday_type">Tipo de jornada <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="workday_type"
-            formControlName="workday_type"
-            [invalid]="workday_type.invalid && workday_type.touched"
-            fluid
-          />
-        </div>
-
-        <!-- Jornada -->
-        <div class="flex flex-col gap-1">
-          <label for="workday">Jornada <span class="text-accent-500">*</span></label>
-          <input pInputText id="workday" formControlName="workday" fluid />
-        </div>
-
-        <!-- Tipo de contrato -->
-        <div class="flex flex-col gap-1">
-          <label for="contract_type">Tipo de contrato <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="contract_type"
-            formControlName="contract_type"
-            [invalid]="contract_type.invalid && contract_type.touched"
-            fluid
-          />
-        </div>
-
-        <!-- Modalidad -->
-        <div class="flex flex-col gap-1">
-          <label for="format">Modalidad <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="format"
-            formControlName="format"
-            [invalid]="format.invalid && format.touched"
-            fluid
-          />
-        </div>
-
-        <!-- Fechas de pago -->
-        <div class="flex flex-col gap-1 lg:col-span-2">
-          <label for="payment_dates">Fechas de pago <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            id="payment_dates"
-            formControlName="payment_dates"
-            [invalid]="payment_dates.invalid && payment_dates.touched"
-            fluid
-          />
-        </div>
-
-        <!-- Skills -->
-        <div class="flex flex-col gap-1">
-          <label for="skills">Skills</label>
-          <textarea
-            pTextarea
-            id="skills"
-            formControlName="skills"
-            rows="3"
-            [autoResize]="true"
-          ></textarea>
-        </div>
-
-        <!-- Herramientas -->
-        <div class="flex flex-col gap-1">
-          <label for="tools">Herramientas</label>
-          <textarea
-            pTextarea
-            id="tools"
-            formControlName="tools"
-            rows="3"
-            [autoResize]="true"
-          ></textarea>
-        </div>
-
-        <!-- Requisitos -->
-        <div class="flex flex-col gap-1 lg:col-span-2">
-          <label for="requirements">Requisitos</label>
-          <textarea
-            pTextarea
-            id="requirements"
-            formControlName="requirements"
-            rows="4"
-            [autoResize]="true"
-          ></textarea>
-        </div>
-      </div>
-
-      <button type="submit" hidden></button>
     </form>
     <!-- BOTONES -->
     <ng-template pTemplate="footer">

@@ -4,7 +4,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-//import { AspirantesService } from '../../../../services/aspirantes.service';
+import { AspirantesService } from '../../../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { phoneValidator } from '../../../../../auth/validators/auth.validator';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-editar-perfil-dialog',
@@ -28,12 +30,13 @@ import { InputNumberModule } from 'primeng/inputnumber';
     DatePickerModule,
     TextareaModule,
     InputNumberModule,
+    SelectModule,
   ],
 })
 export class EditarPerfilDialog {
   /* INJECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
-  //aspirantesService = inject(AspirantesService);
+  aspirantesService = inject(AspirantesService);
   private messageService = inject(MessageService);
 
   /* FORM BUILDER */
@@ -44,38 +47,44 @@ export class EditarPerfilDialog {
   loading = signal(false);
   error = signal<string | null>('Internal server error');
 
+  /* OPCIONES SELECT */
+  genderOptions = [
+    { label: 'Mujer', value: 'F' },
+    { label: 'Hombre', value: 'M' },
+    { label: 'Otro', value: 'U' },
+  ];
+  countryOptions = [{ label: 'Honduras', value: 'HN' }];
+  departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
+
   // ESTADOS INICIALES Y VALIDACIONES
   readonly perfilForm = this.fb.nonNullable.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    ends_on: [new Date(), Validators.required],
-    min_salary: [0, [Validators.required, Validators.min(0)]],
-    max_salary: [0, [Validators.required, Validators.min(1)]],
-    workday_type: ['', Validators.required],
-    workday: [[] as string[], Validators.required],
-    contract_type: ['', Validators.required],
-    area: ['', Validators.required],
-    format: ['', Validators.required],
-    payment_dates: ['', Validators.required],
-    skills: [[] as string[], Validators.required],
-    tools: [[] as string[], Validators.required],
-    requirements: [[] as string[], Validators.required],
+    first_name: ['', [Validators.required]],
+    second_name: [''],
+    first_surname: ['', [Validators.required]],
+    second_surname: [''],
+    address: [''],
+    birth_date: [new Date(), [Validators.required]],
+    gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
+    country: ['', [Validators.required]],
+    department: ['', [Validators.required]],
+    phone: ['', [Validators.required, phoneValidator()]],
+    email: ['', [Validators.required, Validators.email]],
+    profession: [''],
   });
 
-  readonly title = this.perfilForm.controls.title;
-  readonly description = this.perfilForm.controls.description;
-  readonly ends_on = this.perfilForm.controls.ends_on;
-  readonly min_salary = this.perfilForm.controls.min_salary;
-  readonly max_salary = this.perfilForm.controls.max_salary;
-  readonly workday_type = this.perfilForm.controls.workday_type;
-  readonly workday = this.perfilForm.controls.workday;
-  readonly contract_type = this.perfilForm.controls.contract_type;
-  readonly area = this.perfilForm.controls.area;
-  readonly format = this.perfilForm.controls.format;
-  readonly payment_dates = this.perfilForm.controls.payment_dates;
-  readonly skills = this.perfilForm.controls.skills;
-  readonly tools = this.perfilForm.controls.tools;
-  readonly requirements = this.perfilForm.controls.requirements;
+  // PROPIEDADES
+  readonly first_name = this.perfilForm.controls.first_name;
+  readonly second_name = this.perfilForm.controls.second_name;
+  readonly first_surname = this.perfilForm.controls.first_surname;
+  readonly second_surname = this.perfilForm.controls.second_surname;
+  readonly address = this.perfilForm.controls.address;
+  readonly birth_date = this.perfilForm.controls.birth_date;
+  readonly gender = this.perfilForm.controls.gender;
+  readonly country = this.perfilForm.controls.country;
+  readonly department = this.perfilForm.controls.department;
+  readonly phone = this.perfilForm.controls.phone;
+  readonly email = this.perfilForm.controls.email;
+  readonly profession = this.perfilForm.controls.profession;
 
   closeDialog() {
     this.resetForm();
@@ -84,32 +93,31 @@ export class EditarPerfilDialog {
 
   resetForm() {
     this.perfilForm.reset({
-      title: '',
-      description: '',
-      ends_on: new Date(),
-      min_salary: 0,
-      max_salary: 0,
-      workday_type: '',
-      workday: [],
-      contract_type: '',
-      area: '',
-      format: '',
-      payment_dates: '',
-      skills: [],
-      tools: [],
-      requirements: [],
+      first_name: '',
+      second_name: '',
+      first_surname: '',
+      second_surname: '',
+      address: '',
+      birth_date: new Date(),
+      gender: '',
+      country: '',
+      department: '',
+      phone: '',
+      email: '',
+      profession: '',
     });
 
     this.perfilForm.markAsPristine();
     this.perfilForm.markAsUntouched();
   }
 
-  /* AVISA A LA PÁGINA QUE SE AGREGÓ UNA NUEVA EXPERIENCIA */
-  experienceAdded = output<void>();
+  /* RECARGA PÁGINA */
+  perfilEditado = output<void>();
 
   /* GUARDAR */
   save() {
     if (this.perfilForm.invalid) {
+      console.log('invalid form');
       this.perfilForm.markAllAsTouched();
       return;
     }
@@ -117,69 +125,38 @@ export class EditarPerfilDialog {
     this.loading.set(true);
     this.error.set(null);
 
-    const {
-      title,
-      description,
-      ends_on,
-      min_salary,
-      max_salary,
-      workday_type,
-      workday,
-      contract_type,
-      area,
-      format,
-      payment_dates,
-      skills,
-      tools,
-      requirements,
-    } = this.perfilForm.getRawValue();
+    const perfil = this.perfilForm.getRawValue();
 
-    const nuevaVacante = {
-      title,
-      description,
-      ends_on: dayjs(ends_on).format('YYYY-MM-DD'),
-      min_salary,
-      max_salary,
-      workday_type,
-      workday,
-      contract_type,
-      area,
-      format,
-      payment_dates,
-      skills,
-      tools,
-      requirements,
+    const perfilEdit = {
+      ...perfil,
+      birth_date: dayjs(perfil.birth_date).toISOString(),
     };
 
-    console.log(nuevaVacante);
-
-    this.loading.set(false);
-  }
-  /*    this.aspirantesService
-      .patchCV({
-        works_experience: [nuevaExperiencia],
-      })
+    console.log(perfilEdit);
+    this.aspirantesService
+      .patchApirant(perfilEdit)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res: any) => {
           this.messageService.add({
             severity: 'success',
-            summary: this.translate.instant('cv.experiencia_agregada_summary'),
-            detail: this.translate.instant('cv.experiencia_agregada_detail'),
+            summary: '',
+            detail: '',
             life: 5000,
           });
 
-          this.experienceAdded.emit();
+          this.perfilEditado.emit();
 
           this.closeDialog();
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
             severity: 'error',
-            summary: this.translate.instant('cv.error_agregar_experiencia'),
+            summary: 'Error al editar datos de perfil',
             detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
             life: 5000,
           });
         },
-      }); */
+      });
+  }
 }

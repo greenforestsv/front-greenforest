@@ -14,7 +14,8 @@ export interface CV {
   email: string;
   phone?: string;
   description?: string;
-  education?: Education[];
+  profile_photo?: string;
+  educations?: Education[];
   works_experience?: WorkExperience[];
   languages?: Language[];
   skills?: string[];
@@ -40,6 +41,6 @@ export interface WorkExperience {
 }
 
 export interface Language {
-  name?: string;
+  name: string;
   level: string;
 }
