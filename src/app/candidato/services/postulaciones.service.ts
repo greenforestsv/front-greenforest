@@ -15,53 +15,6 @@ export class PostulacionesService {
   getPostulaciones() {
     return this.http.get<Postulacion[]>(`${this.apiUrl}/applications`);
   }
-  /*  getPostulaciones(): Observable<Postulacion[]> {
-    const postulaciones: Postulacion[] = [
-      {
-        id: 1,
-        name: 'Growth Marketing Manager',
-        company: 'LinkX Retail',
-        status: 'A',
-      },
-      {
-        id: 2,
-        name: 'Product Marketing SaaS',
-        company: 'GreenLabs',
-        status: 'A',
-      },
-      {
-        id: 3,
-        name: 'BI Lead',
-        company: 'Central Analytics',
-        status: 'A',
-      },
-      {
-        id: 4,
-        name: 'AI Automation Specialist',
-        company: 'NovaTech',
-        status: 'P',
-      },
-      {
-        id: 5,
-        name: 'Business Intelligence Lead',
-        company: 'GreenLabs',
-        status: 'P',
-      },
-      {
-        id: 6,
-        name: 'Marketing Data Strategist',
-        company: 'Kodigo',
-        status: 'E',
-      },
-      {
-        id: 7,
-        name: 'Consultora AI Ops',
-        company: 'Nueva Visión',
-        status: 'O',
-      },
-    ];
-    return of(postulaciones).pipe(delay(1500));
-  } */
 
   /* CREAR POSTULACIÓN */
   applyToJob(id_vacante: string, id_empresa: string) {
