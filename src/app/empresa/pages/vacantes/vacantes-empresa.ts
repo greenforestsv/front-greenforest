@@ -13,6 +13,7 @@ import { VerDetalleVacanteDialog } from './components/ver-detalle-vacante-dialog
 import { EditarVacanteDialog } from './components/editar-vacante-dialog/editar-vacante-dialog';
 import { CrearVacanteDialog } from './components/crear-vacante-dialog/crear-vacante-dialog';
 
+/* TODO: obtener vacantes por id de empresa */
 @Component({
   selector: 'app-vacantes-empresa',
   imports: [
