@@ -9,13 +9,13 @@
         arma shortlists por vacante.
       </p>
     </div>
-    <div>
+    <!-- <div>
       <p-button icon="pi pi-search" label="Buscar talento" />
-    </div>
+    </div> -->
   </section>
 
   <!-- ESTADÍSTICAS -->
-  <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+  <!--   <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
     <div class="card p-4 space-y-2">
       <p class="text-sm text-gray-600">Base relevante</p>
       <span class="text-3xl font-bold">4,820</span>
@@ -28,20 +28,24 @@
       <p class="text-sm text-gray-600">Shortlists activas</p>
       <span class="text-3xl font-bold">9</span>
     </div>
-  </section>
+  </section> -->
 
   <!-- CANDIDATOS -->
   <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
     @for (candidato of candidatos(); track candidato.id) {
       <div class="card p-4 space-y-2">
         <div class="flex gap-4 items-center">
-          <p-avatar size="normal" shape="circle" [label]="candidato.name.charAt(0)" />
+          @if (candidato.profile_photo) {
+            <p-avatar size="normal" shape="circle" [image]="candidato.profile_photo" />
+          } @else {
+            <p-avatar size="normal" shape="circle" [label]="candidato.first_name?.charAt(0)" />
+          }
           <div>
-            <p class="font-bold">{{ candidato.name }}</p>
-            <span [class]="candidato.estado.color + '-badge'">{{ candidato.estado.text }}</span>
+            <p class="font-bold">{{ candidato.first_name + ' ' + candidato.first_surname }}</p>
+            <!-- <span [class]="candidato.estado.color + '-badge'">{{ candidato.estado.text }}</span> -->
           </div>
         </div>
-        <p class="text-sm text-gray-600">{{ candidato.subtext }}</p>
+        <p class="text-sm text-gray-600">{{ candidato.profession }}</p>
         <ul class="flex gap-2 mb-4">
           @for (skill of candidato.skills; track $index) {
             <li class="inline green-badge">
@@ -49,17 +53,17 @@
             </li>
           }
         </ul>
-        <p-button
+        <!-- <p-button
           [label]="candidato.action.text"
           size="small"
           [severity]="candidato.action.severity"
-        />
+        /> -->
       </div>
     }
   </section>
 
   <!-- TABLA COMPARATIVA -->
-  <section class="card p-6">
+  <!-- <section class="card p-6">
     <div class="flex gap-2 justify-between items-center flex-wrap mb-4">
       <h2>Tabla comparativa</h2>
       <p-button label="Filtrar" size="small" icon="pi pi-filter" />
@@ -67,7 +71,7 @@
     <p-table [value]="tablaComprarativa()" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template #header>
         <tr>
-          <!-- <th>Id</th> -->
+        
           <th class="table-header rounded-tl-3xl">Candidato</th>
           <th class="table-header">Puesto Sugerido</th>
           <th class="table-header">Match</th>
@@ -78,7 +82,7 @@
       </ng-template>
       <ng-template #body let-vacante>
         <tr class="text-sm">
-          <!--  <td>{{ vacante.id }}</td> -->
+     
           <td class="flex gap-2 items-center">
             <p-avatar [label]="vacante.nombre.charAt(0)" shape="circle" />
             <div>
@@ -100,5 +104,5 @@
         </tr>
       </ng-template>
     </p-table>
-  </section>
+  </section> -->
 </div>

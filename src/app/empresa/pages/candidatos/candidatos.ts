@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
-import { ButtonSeverity } from 'primeng/button';
+import { AspirantesService } from '../../../candidato/services/aspirantes.service';
+import { finalize } from 'rxjs';
+import { PublicAspirant } from '../../../candidato/interfaces/aspirant.interfaces';
 
 @Component({
   selector: 'app-candidatos',
@@ -14,12 +15,36 @@ import { ButtonSeverity } from 'primeng/button';
 })
 export class Candidatos {
   private messageService = inject(MessageService);
-
-  /* FORM BUILDER */
-  private fb = inject(FormBuilder);
+  private aspirantesService = inject(AspirantesService);
 
   loading = signal(false);
-  candidatos = signal([
+  candidatos = signal<PublicAspirant[]>([]);
+
+  constructor() {
+    this.load();
+  }
+
+  load() {
+    this.loading.set(true);
+
+    this.aspirantesService
+      .getAspirants()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (candidatos) => {
+          this.candidatos.set(candidatos);
+        },
+        error: (err: { error: { message: any }; status: number }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener datos de candidatos',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
+  }
+  /* candidatos = signal([
     {
       id: 1,
       name: 'Ana Martínez',
@@ -104,7 +129,5 @@ export class Candidatos {
       evaluacion: '88',
       accion: 'Shortlist',
     },
-  ]);
-
-  save() {}
+  ]); */
 }
