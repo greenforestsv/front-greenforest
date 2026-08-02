@@ -58,6 +58,7 @@ export class AuthService {
 
   /* IS AUTHENTICATED */
   isAuthenticated(): boolean {
+    /* TODO: debe ser rol aspirante */
     const token = localStorage.getItem('token');
 
     if (!token) return false;

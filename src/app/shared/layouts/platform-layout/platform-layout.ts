@@ -58,8 +58,7 @@ export class PlatformLayout {
   links = signal<MenuResponse[] | []>([]);
 
   constructor() {
-    this.usuario.set({ name: 'Test Name', avatarImage: '/images/profile.jpg' });
-    //this.links.set(data.links.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+    this.usuario.set({ name: 'Perfil', avatarImage: '/images/profile.jpg' });
     this.menuService
       .getAspirantsMenu()
       .pipe(finalize(() => this.loading.set(false)))
@@ -79,7 +78,8 @@ export class PlatformLayout {
   }
 
   logout(): void {
+    /* TODO: revisar si es candidato o empresa antes de redirigir */
     this.authService.logout();
-    this.router.navigate(['/login-candidato']);
+    this.router.navigate(['login-candidato']);
   }
 }

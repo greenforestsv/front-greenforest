@@ -1,11 +1,10 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '../../auth/guards/auth.guard';
+import { authTenantGuard } from '../../auth/guards/auth.tenant.guard';
 
-/* TODO: crear guard que revise rol y plan */
 export const EMPRESA_ROUTES: Routes = [
   {
     path: 'empresa',
-    //canMatch: [authGuard],
+    canMatch: [authTenantGuard],
     loadComponent: () =>
       import('../../shared/layouts/platform-layout/platform-layout').then((m) => m.PlatformLayout),
     children: [
@@ -31,11 +30,11 @@ export const EMPRESA_ROUTES: Routes = [
         path: 'candidatos',
         loadComponent: () => import('../pages/candidatos/candidatos').then((m) => m.Candidatos),
       },
-      {
+      /* {
         path: 'configuracion',
         loadComponent: () =>
           import('../pages/configuracion/configuracion').then((m) => m.Configuracion),
-      },
+      }, */
     ],
   },
 ];
