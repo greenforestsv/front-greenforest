@@ -5,6 +5,8 @@ export interface PublicAspirant {
   first_surname?: string;
   second_surname?: string;
   profile_photo?: string;
+  skills: string[];
+  profession: string;
 }
 
 export interface PrivateAspirant extends PublicAspirant {

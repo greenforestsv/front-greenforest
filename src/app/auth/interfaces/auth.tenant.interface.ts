@@ -31,3 +31,16 @@ export interface SignupTenantDto {
   have_carnets?: boolean;
   representative: Representative;
 }
+
+export interface SignupTenantResponseDto {
+  country: string;
+  first_login: boolean;
+  name: string;
+  token: string;
+}
+
+export interface JwtPayload {
+  id: string;
+  iat: number;
+  exp: number;
+}

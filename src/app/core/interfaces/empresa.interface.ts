@@ -20,3 +20,13 @@ export interface TenantResponseDto {
   url_profile_photo?: string;
   description: string;
 }
+
+export interface PatchTenantDto {
+  name: string;
+  phone: string;
+  cell_phone: string;
+  locations: string[];
+  approach: string[];
+  url_profile_photo?: string;
+  description: string;
+}
