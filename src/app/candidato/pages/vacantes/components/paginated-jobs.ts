@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { VacantesService } from '../../../../core/services/vacantes.service';
-import { Vacante } from '../../../../core/interfaces/vacantes.interfaces';
+import { GetVacanteDto } from '../../../../core/interfaces/vacantes.interfaces';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -23,7 +23,7 @@ export class PaginatedJobs {
 
   items = Array.from({ length: 3 });
   loading = signal(true);
-  jobs = signal<Vacante[]>([]);
+  jobs = signal<GetVacanteDto[]>([]);
 
   totalRecords = signal(0);
   first: number = 0;
@@ -81,6 +81,8 @@ export class PaginatedJobs {
             detail: 'Te postulate a esta vacante',
             life: 5000,
           });
+
+          /* TODO: recargar vacantes. La vacante cambia a estado etapa/estado */
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
