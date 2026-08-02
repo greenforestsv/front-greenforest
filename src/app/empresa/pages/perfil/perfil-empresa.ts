@@ -1,15 +1,53 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TranslatePipe } from '@ngx-translate/core';
+import { EditarPerfilDialog } from './editar-perfil-dialog/editar-perfil-dialog';
+import { AvatarModule } from 'primeng/avatar';
+import { FormBuilder } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { EmpresasService } from '../../../core/services/empresas.service';
+import { TenantResponseDto } from '../../../core/interfaces/empresa.interface';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-perfil-empresa',
-  imports: [ButtonModule, TranslatePipe],
+  imports: [ButtonModule, TranslatePipe, EditarPerfilDialog, AvatarModule],
   templateUrl: './perfil-empresa.html',
   styleUrl: './perfil-empresa.scss',
 })
 export class PerfilEmpresa {
-  reputacion = signal([
+  /* INJECCIÓN DE SERVICIOS */
+  empresasService = inject(EmpresasService);
+  messageService = inject(MessageService);
+  fb = inject(FormBuilder);
+
+  /* ESTADOS SIGNAL */
+  perfil = signal<TenantResponseDto | null>(null);
+  profilePercentage = signal(86);
+  loading = signal(false);
+
+  constructor() {
+    this.loading.set(true);
+    /* OBTENCIÓN DE DATOS */
+    this.empresasService
+      .getEmpresaMe()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (data) => {
+          this.perfil.set(data);
+        },
+        error: (err: { error: { message: any }; status: number }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener datos de perfil',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
+  }
+
+  /*   reputacion = signal([
     {
       id: 1,
       name: 'NovaTech',
@@ -46,5 +84,5 @@ export class PerfilEmpresa {
       solicito_acceso: true,
       vacantes: 1,
     },
-  ]);
+  ]); */
 }

@@ -1,4 +1,4 @@
-<div class="p-4 space-y-4">
+<!-- <div class="p-4 space-y-4">
   <section class="flex gap-2 justify-between items-center flex-wrap">
     <div class="space-y-2">
       <h1 class="text-3xl">Perfil público de empresa</h1>
@@ -26,57 +26,51 @@
         satisfacción de empleados.
       </p>
 
-      <!-- BARRAS CON PORCENTAJES-->
       <div class="text-sm flex flex-col gap-2 w-full">
-        <!-- CULTURA -->
         <div class="flex items-center gap-2">
           <span class="w-30">Cultura</span>
-          <!-- BARRA -->
+
           <div class="flex-1 bg-gray-100 rounded-full h-3">
             <div
               class="flex h-3 bg-lite rounded-full"
               [style.width.%]="reputacion()[0].ascensos_internos"
             ></div>
           </div>
-          <!-- PORCENTAJE -->
+
           <span>{{ reputacion()[0].ascensos_internos }}%</span>
         </div>
 
-        <!-- CRECIMIENTO -->
         <div class="flex items-center gap-2">
           <span class="w-30">Crecimiento</span>
-          <!-- BARRA -->
+
           <div class="flex-1 bg-gray-100 rounded-full h-3">
             <div
               class="flex h-3 bg-lite rounded-full"
               [style.width.%]="reputacion()[0].rotacion"
             ></div>
           </div>
-          <!-- PORCENTAJE -->
+
           <span>{{ reputacion()[0].rotacion }}%</span>
         </div>
 
-        <!-- RETENCIÓN -->
         <div class="flex items-center gap-2">
           <span class="w-30">Retención</span>
-          <!-- BARRA -->
+
           <div class="flex-1 bg-gray-100 rounded-full h-3">
             <div
               class="flex h-3 bg-lite rounded-full"
               [style.width.%]="reputacion()[0].beneficios_reales"
             ></div>
           </div>
-          <!-- PORCENTAJE -->
+
           <span>{{ reputacion()[0].beneficios_reales }}%</span>
         </div>
       </div>
     </section>
 
-    <!-- CONFIGURACIÓN PÚBLICA -->
     <section class="card p-6 flex-1 space-y-2">
       <h2>Configuración pública</h2>
 
-      <!-- LISTA -->
       <div class="flex flex-col gap-2 text-sm w-full">
         <div class="flex justify-between py-2 items-center border border-gray-300 rounded-2xl p-2">
           <div class="bg-(--p-surface-200) size-8 rounded-lg flex items-center justify-center">
@@ -119,4 +113,63 @@
       </div>
     </section>
   </div>
+</div> -->
+<div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
+  @if (loading()) {
+    <div class="flex-2 flex flex-col gap-4">
+      <section class="card p-8"></section>
+      <section class="card p-8"></section>
+      <div class="w-full flex flex-col lg:flex-row gap-4">
+        <section class="card p-8 flex-1"></section>
+        <section class="card p-8 flex-1"></section>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4 flex-1">
+      <aside class="card p-4"></aside>
+      <aside class="card p-4"></aside>
+    </div>
+  } @else {
+    <div class="flex-2 flex flex-col gap-4">
+      <section class="card p-8 flex flex-col lg:flex-row items-center gap-4 lg:justify-between">
+        @if (perfil()?.url_profile_photo) {
+          <p-avatar
+            size="xlarge"
+            shape="circle"
+            class="shrink-0"
+            [image]="perfil()?.url_profile_photo"
+          />
+        } @else {
+          <p-avatar size="xlarge" shape="circle" class="shrink-0" />
+        }
+        <div class="space-y-2">
+          <h1 class="text-3xl">
+            {{ perfil()?.name }}
+          </h1>
+          <!--  <p class="text-sm">
+            {{ perfil()?.phone }}
+          </p> -->
+          <div class="flex flex-wrap gap-2">
+            @for (approach of perfil()?.approach; track $index) {
+              <span class="green-badge">{{ approach }}</span>
+            }
+            @for (location of perfil()?.locations; track $index) {
+              <span class="gray-badge">{{ location }}</span>
+            }
+          </div>
+        </div>
+        <div class="shrink-0">
+          <app-editar-perfil-dialog />
+        </div>
+      </section>
+      <section class="card p-8 space-y-2">
+        <div class="flex flex-wrap-reverse justify-between gap-2">
+          <h2>Resumen</h2>
+          <!-- <span class="accent-badge">{{ 'perfil.candidato.visible_empresas' | translate }}</span> -->
+        </div>
+        <p class="text-sm">
+          {{ perfil()?.description }}
+        </p>
+      </section>
+    </div>
+  }
 </div>

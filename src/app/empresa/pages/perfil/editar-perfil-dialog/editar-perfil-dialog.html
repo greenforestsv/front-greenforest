@@ -1,0 +1,213 @@
+<div class="flex justify-center">
+  <p-button
+    icon="pi pi-pencil"
+    class="flex"
+    [rounded]="true"
+    size="small"
+    [label]="'perfil.candidato.editar_perfil' | translate"
+    (click)="visible.set(true)"
+  />
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    [header]="'perfil.candidato.editar_perfil' | translate"
+    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
+  >
+    <form [formGroup]="perfilForm" (ngSubmit)="save()" class="flex flex-col gap-4 w-full">
+      <div class="flex flex-col gap-4">
+        <!-- NOMBRE -->
+        <div class="flex flex-col gap-1">
+          <label pLabel class="text-sm" for="name"
+            >Nombre <span class="text-accent-500">*</span></label
+          >
+          <input
+            pInputText
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Nombre"
+            required
+            [invalid]="name.invalid && name.touched"
+            fluid
+          />
+          @if (name.invalid && name.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (name.hasError('required')) {
+                El nombre es obligatorio.
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- TELÉFONO -->
+        <div class="flex flex-col gap-1">
+          <label pLabel class="text-sm" for="phone"
+            >Número de teléfono <span class="text-accent-500">*</span></label
+          >
+          <input
+            pInputText
+            type="text"
+            id="phone"
+            formControlName="phone"
+            placeholder="+50322334455"
+            required
+            [invalid]="phone.invalid && phone.touched"
+            fluid
+          />
+          @if (phone.invalid && phone.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (phone.hasError('required')) {
+                El número de teléfono es obligatorio.
+              } @else if (phone.hasError('invalidPhone')) {
+                El número de teléfono no es válido.
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- CELULAR -->
+        <div class="flex flex-col gap-1">
+          <label pLabel class="text-sm" for="cell_phone"
+            >Número de celular <span class="text-accent-500">*</span></label
+          >
+          <input
+            pInputText
+            type="text"
+            id="cell_phone"
+            formControlName="cell_phone"
+            placeholder="+50399887766"
+            required
+            [invalid]="cell_phone.invalid && cell_phone.touched"
+            fluid
+          />
+          @if (cell_phone.invalid && cell_phone.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (cell_phone.hasError('required')) {
+                El número de celular es obligatorio.
+              } @else if (cell_phone.hasError('invalidPhone')) {
+                El número de celular no es válido.
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- DESCRIPCIÓN -->
+        <div class="flex flex-col gap-1">
+          <label pLabel class="text-sm" for="description"
+            >Descripción <span class="text-accent-500">*</span></label
+          >
+          <textarea
+            id="description"
+            formControlName="description"
+            rows="5"
+            cols="30"
+            pTextarea
+            placeholder="descripción"
+            required
+            [invalid]="description.invalid && description.touched"
+            [autoResize]="true"
+          ></textarea>
+          @if (description.invalid && description.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (description.hasError('required')) {
+                La descripción es obligatoria.
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- APPROACH -->
+        <div class="flex flex-col gap-1">
+          <label pLabel for="approach" class="text-sm"
+            >Approach <span class="text-accent-500">*</span></label
+          >
+          <small class="text-gray-500">
+            Separa approach con
+            <kbd class="size-5 inline-flex items-center justify-center rounded border"
+              >&#x21B5;</kbd
+            >
+            Enter.
+          </small>
+          <textarea
+            id="approach"
+            formControlName="approach"
+            rows="5"
+            cols="30"
+            pTextarea
+            placeholder="Approach"
+            required
+            [invalid]="approach.invalid && approach.touched"
+            [autoResize]="true"
+          ></textarea>
+          @if (approach.invalid && approach.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (approach.hasError('required')) {
+                Approach es obligatorio
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- UBICACIONES -->
+        <div class="flex flex-col gap-1">
+          <label pLabel for="locations" class="text-sm"
+            >Ubicaciones <span class="text-accent-500">*</span></label
+          >
+          <small class="text-gray-500">
+            Separa las ubicaciones con
+            <kbd class="size-5 inline-flex items-center justify-center rounded border"
+              >&#x21B5;</kbd
+            >
+            Enter.
+          </small>
+          <textarea
+            id="locations"
+            formControlName="locations"
+            rows="5"
+            cols="30"
+            pTextarea
+            placeholder="ubicaciones"
+            required
+            [invalid]="locations.invalid && locations.touched"
+            [autoResize]="true"
+          ></textarea>
+          @if (locations.invalid && locations.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (locations.hasError('required')) {
+                Las ubicaciones con obligatorias.
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- URL IMAGEN -->
+        <div class="flex flex-col gap-1">
+          <label pLabel class="text-sm" for="url_profile_photo">Imagen de perfil</label>
+          <input
+            pInputText
+            type="text"
+            id="url_profile_photo"
+            formControlName="url_profile_photo"
+            placeholder="Url de imagen"
+            fluid
+          />
+        </div>
+      </div>
+    </form>
+    <!-- BOTONES -->
+    <ng-template pTemplate="footer">
+      <p-button
+        [label]="'common.cancelar' | translate"
+        (click)="closeDialog()"
+        severity="secondary"
+        variant="outlined"
+      />
+      <p-button
+        type="button"
+        [loading]="loading()"
+        (click)="save()"
+        [label]="'common.guardar' | translate"
+      />
+    </ng-template>
+  </p-dialog>
+</div>
