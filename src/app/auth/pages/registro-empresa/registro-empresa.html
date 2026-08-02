@@ -287,7 +287,15 @@
             <!-- URL IMAGEN -->
             <div class="flex flex-col gap-1">
               <label pLabel class="text-sm" for="url_profile_photo">Imagen de perfil</label>
-              <div class="flex flex-wrap items-center gap-3">
+              <input
+                pInputText
+                type="text"
+                id="url_profile_photo"
+                formControlName="url_profile_photo"
+                placeholder="Url de imagen"
+                fluid
+              />
+              <!-- <div class="flex flex-wrap items-center gap-3">
                 <p-fileupload
                   id="url_profile_photo"
                   #fu
@@ -301,7 +309,7 @@
                   (onUpload)="onUpload($event)"
                 />
               </div>
-              <!-- <button type="button" pButton severity="secondary" (click)="fu.upload()">
+              <button type="button" pButton severity="secondary" (click)="fu.upload()">
                 Upload
               </button> -->
             </div>
@@ -315,7 +323,6 @@
                 id="database_host"
                 formControlName="database_host"
                 placeholder="Host de base de datos"
-                [invalid]="database_host.invalid && database_host.touched"
                 fluid
               />
             </div>

@@ -214,26 +214,31 @@ export class RegistroEmpresa {
       },
     };
 
-    console.log(data);
-
     this.authTenantService
       .signupTenant(data)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res) => {
-          console.log(res);
-          /* localStorage.setItem('token', res.token);
+          localStorage.setItem('token', res.token);
 
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cuenta creada',
+            detail:
+              'La cuenta fue creada correctamente. Utilizá la contrseña que enviamos a tu correo.',
+            sticky: true,
+          });
           this.router.navigate(['/empresa'], {
             state: {
               toast: {
                 severity: 'success',
                 summary: 'Cuenta creada',
-                detail: 'Tu cuenta fue creada correctamente.',
+                detail:
+                  'La cuenta fue creada correctamente. Utilizá la contrseña que enviamos a tu correo.',
                 sticky: true,
               },
             },
-          }); */
+          });
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
