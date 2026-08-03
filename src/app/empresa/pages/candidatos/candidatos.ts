@@ -6,21 +6,35 @@ import { AvatarModule } from 'primeng/avatar';
 import { AspirantesService } from '../../../candidato/services/aspirantes.service';
 import { finalize } from 'rxjs';
 import { PublicAspirant } from '../../../candidato/interfaces/aspirant.interfaces';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-candidatos',
-  imports: [ButtonModule, TableModule, AvatarModule],
+  imports: [ButtonModule, TableModule, AvatarModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './candidatos.html',
   styleUrl: './candidatos.scss',
 })
 export class Candidatos {
   private messageService = inject(MessageService);
   private aspirantesService = inject(AspirantesService);
+  private fb = inject(FormBuilder);
 
   loading = signal(false);
-  candidatos = signal<PublicAspirant[]>([]);
+  /*  candidatos = signal<PublicAspirant[]>([]); */
+  // ESTADOS INICIALES DE FORMULARIO
+  readonly search_form = this.fb.nonNullable.group({
+    search_name: [''],
+    search_location: [''],
+    search_approach: [''],
+  });
 
-  constructor() {
+  // PROPIEDADES
+  readonly search_name = this.search_form.controls.search_name;
+  readonly search_location = this.search_form.controls.search_location;
+  readonly search_approach = this.search_form.controls.search_approach;
+
+  /*   constructor() {
     this.load();
   }
 
@@ -43,53 +57,47 @@ export class Candidatos {
           });
         },
       });
-  }
-  /* candidatos = signal([
+  } */
+  candidatos = signal([
     {
       id: 1,
-      name: 'Ana Martínez',
+      profile_photo: '',
+      first_name: 'Ana Martínez',
+      first_surname: '',
       estado: {
         text: 'Green score 92',
         color: 'green',
       },
-      subtext: 'BI Analyst · SQL · Power BI · Automatización',
+      profession: 'BI Analyst · SQL · Power BI · Automatización',
       skills: ['SQL', 'Dashboards', 'Excel avanzado'],
-      action: {
-        text: 'Solicitar historial',
-        severity: 'primary' as ButtonSeverity,
-      },
     },
     {
       id: 2,
-      name: 'Carlos Mejía',
+      profile_photo: '',
+      first_name: 'Carlos Mejía',
+      first_surname: '',
       estado: {
         text: 'Acceso pendiente',
         color: 'accent',
       },
-      subtext: 'QA Automation · Katalon · Selenium · APIs',
+      profession: 'QA Automation · Katalon · Selenium · APIs',
       skills: ['QA', 'Postman', 'Jira'],
-      action: {
-        text: 'Enviar recordatorio',
-        severity: 'secondary' as ButtonSeverity,
-      },
     },
     {
       id: 3,
-      name: 'María López',
+      profile_photo: '',
+      first_name: 'María López',
+      first_surname: '',
       estado: {
         text: 'Historial parcial',
         color: 'blue',
       },
-      subtext: 'People Ops · nómina · reclutamiento · cultura',
+      profession: 'People Ops · nómina · reclutamiento · cultura',
       skills: ['Planilla', 'RRHH', 'ATS'],
-      action: {
-        text: 'Agendar entrevista',
-        severity: 'primary' as ButtonSeverity,
-      },
     },
   ]);
 
-  tablaComprarativa = signal([
+  /*  tablaComprarativa = signal([
     {
       id: 1,
       nombre: 'Ana Martínez',
@@ -129,5 +137,5 @@ export class Candidatos {
       evaluacion: '88',
       accion: 'Shortlist',
     },
-  ]); */
+  ]);  */
 }
