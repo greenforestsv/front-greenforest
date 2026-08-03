@@ -11,7 +11,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
-import { endDateAfterStartDateValidator } from '../../../../../auth/validators/auth.validator';
+import { endDateAfterStartDateValidator } from '../../../../../core/validators/form.validators';
 @Component({
   selector: 'app-edit-experience-dialog',
   templateUrl: './edit-experience-dialog.html',

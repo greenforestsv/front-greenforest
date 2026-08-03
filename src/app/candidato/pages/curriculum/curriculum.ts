@@ -11,6 +11,7 @@ import { AddExperienceDialog } from './components/add-experience-dialog/add-expe
 import { EditExperienceDialog } from './components/edit-experience-dialog/edit-experience-dialog';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { AddEducationDialog } from './components/add-education-dialog/add-education-dialog';
 
 @Component({
   selector: 'app-curriculum',
@@ -23,6 +24,7 @@ import { MessageService } from 'primeng/api';
     TranslatePipe,
     AddExperienceDialog,
     EditExperienceDialog,
+    AddEducationDialog,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',

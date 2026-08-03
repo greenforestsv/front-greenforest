@@ -22,7 +22,7 @@ export interface CV {
 }
 
 export interface Education {
-  id: number;
+  id?: number;
   title: string;
   level: string;
   start_date: string;

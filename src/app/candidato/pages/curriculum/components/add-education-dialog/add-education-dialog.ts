@@ -11,10 +11,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
-import { endDateAfterStartDateValidator } from '../../../../../auth/validators/auth.validator';
+import { endDateAfterStartDateValidator } from '../../../../../core/validators/form.validators';
+import { Education } from '../../../../interfaces/cv.interfaces';
 @Component({
-  selector: 'app-add-experience-dialog',
-  templateUrl: './add-experience-dialog.html',
+  selector: 'app-add-education-dialog',
+  templateUrl: './add-education-dialog.html',
   standalone: true,
   imports: [
     DialogModule,
@@ -28,7 +29,7 @@ import { endDateAfterStartDateValidator } from '../../../../../auth/validators/a
     TextareaModule,
   ],
 })
-export class AddExperienceDialog {
+export class AddEducationDialog {
   /* INJECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
   aspirantesService = inject(AspirantesService);
@@ -43,26 +44,24 @@ export class AddExperienceDialog {
   error = signal<string | null>('Internal server error');
 
   // ESTADOS INICIALES Y VALIDACIONES
-  readonly experienceForm = this.fb.nonNullable.group(
+  readonly educationForm = this.fb.nonNullable.group(
     {
       title: ['', Validators.required],
-      start_date: [new Date(), Validators.required],
+      start_date: [null, Validators.required],
       end_date: [null],
-      company: ['', Validators.required],
-      area: ['', Validators.required],
-      activities: ['', Validators.required],
+      level: ['', Validators.required],
+      educational_center: ['', Validators.required],
     },
     {
       validators: endDateAfterStartDateValidator(),
     },
   );
 
-  readonly title = this.experienceForm.controls.title;
-  readonly start_date = this.experienceForm.controls.start_date;
-  readonly end_date = this.experienceForm.controls.end_date;
-  readonly company = this.experienceForm.controls.company;
-  readonly area = this.experienceForm.controls.area;
-  readonly activities = this.experienceForm.controls.activities;
+  readonly title = this.educationForm.controls.title;
+  readonly start_date = this.educationForm.controls.start_date;
+  readonly end_date = this.educationForm.controls.end_date;
+  readonly level = this.educationForm.controls.level;
+  readonly educational_center = this.educationForm.controls.educational_center;
 
   closeDialog() {
     this.resetForm();
@@ -70,17 +69,16 @@ export class AddExperienceDialog {
   }
 
   resetForm() {
-    this.experienceForm.reset({
+    this.educationForm.reset({
       title: '',
-      start_date: new Date(),
+      start_date: null,
       end_date: null,
-      company: '',
-      area: '',
-      activities: '',
+      educational_center: '',
+      level: '',
     });
 
-    this.experienceForm.markAsPristine();
-    this.experienceForm.markAsUntouched();
+    this.educationForm.markAsPristine();
+    this.educationForm.markAsUntouched();
   }
 
   /* AVISA A LA PÁGINA QUE SE AGREGÓ UNA NUEVA EXPERIENCIA */
@@ -88,53 +86,36 @@ export class AddExperienceDialog {
 
   /* GUARDAR */
   save() {
-    if (this.experienceForm.invalid) {
-      this.experienceForm.markAllAsTouched();
+    if (this.educationForm.invalid) {
+      console.log('invalid form');
+      this.educationForm.markAllAsTouched();
       return;
     }
 
     this.loading.set(true);
     this.error.set(null);
 
-    const { title, start_date, end_date, company, area, activities } =
-      this.experienceForm.getRawValue();
+    const education = this.educationForm.getRawValue();
 
-    const cleanActivities = activities
-      .split(/\n/)
-      .map((activity) => activity.trim())
-      .filter((activity) => activity.length > 0);
-
-    if (cleanActivities.length === 0) {
-      this.experienceForm.controls.activities.setErrors({
-        required: true,
-      });
-      this.experienceForm.controls.activities.markAsTouched();
-      this.loading.set(false);
-      return;
-    }
-
-    const nuevaExperiencia = {
-      title,
-      start_date: dayjs(start_date).format('YYYY-MM-DD'),
-      end_date: end_date ? dayjs(end_date).format('YYYY-MM-DD') : null,
-      company,
-      area,
-      activities: cleanActivities,
+    const newEducation: Education = {
+      ...education,
+      start_date: dayjs(education.start_date).toISOString(),
+      end_date: dayjs(education.end_date).toISOString(),
     };
 
-    console.log(nuevaExperiencia);
+    console.log(newEducation);
 
     this.aspirantesService
       .patchCV({
-        works_experience: [nuevaExperiencia],
+        educations: [newEducation],
       })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res: any) => {
           this.messageService.add({
             severity: 'success',
-            summary: this.translate.instant('cv.experiencia_agregada_summary'),
-            detail: this.translate.instant('cv.experiencia_agregada_detail'),
+            summary: 'Educación agregada',
+            detail: 'Educación agregada correctamente',
             life: 5000,
           });
 
