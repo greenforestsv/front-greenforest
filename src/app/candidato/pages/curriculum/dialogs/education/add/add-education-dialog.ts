@@ -4,15 +4,15 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { AspirantesService } from '../../../../services/aspirantes.service';
+import { AspirantesService } from '../../../../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
 import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
-import { endDateAfterStartDateValidator } from '../../../../../core/validators/form.validators';
-import { Education } from '../../../../interfaces/cv.interfaces';
+import { endDateAfterStartDateValidator } from '../../../../../../core/validators/form.validators';
+import { Education } from '../../../../../interfaces/cv.interfaces';
 @Component({
   selector: 'app-add-education-dialog',
   templateUrl: './add-education-dialog.html',

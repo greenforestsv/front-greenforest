@@ -1,40 +1,11 @@
-<div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
-  @if (loading()) {
-    <!-- SKELETONS -->
-    <div class="flex-1 w-full rounded-3xl bg-white p-8">
-      <div class="mb-4 w-full flex justify-between items-start lg:items-center">
-        <div class="space-y-2 flex-1">
-          <p-skeleton width="30%" height="2rem" />
-          <p-skeleton width="50%" height="2rem" />
-        </div>
-        <div class="lg:hidden flex">
-          <p-skeleton shape="circle" height="2rem" width="2rem" />
-        </div>
-        <div class="hidden lg:flex">
-          <p-skeleton height="2rem" width="6rem" />
-        </div>
-      </div>
-      <div class="flex-1 space-y-3">
-        <p-skeleton width="100%" height="15rem" borderRadius="1.5rem" />
-        <p-skeleton width="100%" height="15rem" borderRadius="1.5rem" />
-      </div>
-    </div>
-    <!-- <div class="w-[22rem] flex flex-col gap-4">
-      <div class="bg-white rounded-3xl p-3 space-y-2">
-        <p-skeleton width="50%" height="1.75rem" />
-        <p-skeleton width="100%" height="3.8rem" />
-        <p-skeleton width="100%" height="3.8rem" />
-        <p-skeleton width="100%" height="3.8rem" />
-      </div>
-      <div class="card p-3 space-y-2">
-        <p-skeleton width="50%" height="1.75rem" />
-        <p-skeleton width="100%" height="1.75rem" />
-        <p-skeleton width="100%" height="1.75rem" />
-        <p-skeleton width="100%" height="1.75rem" />
-        <p-skeleton width="100%" height="1.75rem" />
-      </div>
-    </div> -->
-  } @else {
+@if (loading()) {
+  <!-- SKELETONS -->
+  <app--curriculum-skeletons />
+} @else {
+  <!-- LANGUAGE DIALOG -->
+  <app-languages-dialog [languages]="cv()?.languages ?? []" (languageAdded)="loadCV()" />
+
+  <div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
     <!-- WORK EXPERIENCE -->
     <section class="card p-8 flex-2">
       <div class="flex items-center justify-between mb-4 gap-4 flex-wrap">
@@ -48,6 +19,22 @@
 
           <!-- ADD EDUCATION DIALOG -->
           <app-add-education-dialog (experienceAdded)="loadCV()" />
+
+          <!-- ADD LANGUAGE BUTTON -->
+          <p-button
+            icon="pi pi-plus"
+            label="Idioma"
+            size="small"
+            (click)="languagesDialog.openAdd()"
+          />
+
+          <!-- EDIT LANGUAGE BUTTON -->
+          <!--  <p-button
+            icon="pi pi-pencil"
+            rounded
+            severity="secondary"
+            (click)="languagesDialog.openEdit(language)"
+          /> -->
 
           <!-- EDIT EXP DIALOG -->
           <!-- <app-edit-experience-dialog (experienceAdded)="loadCV()" /> -->
@@ -94,6 +81,25 @@
           }
         }
       </div>
+
+      @if (cv()?.languages?.length) {
+        <div>
+          <h2>Idiomas</h2>
+
+          @for (language of cv()?.languages; track $index) {
+            <div class="flex items-center gap-2">
+              <span>{{ language.name }} - {{ language.level }}</span>
+
+              <p-button
+                icon="pi pi-pencil"
+                size="small"
+                [rounded]="true"
+                (click)="languagesDialog.openEdit(language, $index)"
+              />
+            </div>
+          }
+        </div>
+      }
     </section>
     <!-- DERECHA -->
     <!-- <div class="flex flex-col gap-4 flex-1">
@@ -158,5 +164,5 @@
         </div>
       </aside>
     </div> -->
-  }
-</div>
+  </div>
+}

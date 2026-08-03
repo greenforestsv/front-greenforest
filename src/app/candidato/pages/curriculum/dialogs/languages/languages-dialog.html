@@ -1,0 +1,77 @@
+<div class="flex justify-center">
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    [header]="mode() === 'add' ? 'Agregar idioma' : 'Editar idioma'"
+    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
+  >
+    <form
+      id="languageForm"
+      [formGroup]="languageForm"
+      (ngSubmit)="save()"
+      class="flex flex-col gap-4"
+    >
+      <div class="flex flex-col gap-4">
+        <!-- NOMBRE -->
+        <div class="flex flex-col gap-1">
+          <label pLabel for="name">Nombre <span class="text-accent-500">*</span></label>
+          <input
+            pInputText
+            type="text"
+            id="name"
+            formControlName="name"
+            required
+            [invalid]="name.invalid && name.touched"
+            fluid
+          />
+          @if (name.invalid && name.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (name.hasError('required')) {
+                El nombre es obligatorio
+              }
+            </p-message>
+          }
+        </div>
+
+        <!-- NIVEL -->
+        <div class="flex flex-col gap-1">
+          <label pLabel for="level">Nivel <span class="text-accent-500">*</span></label>
+          <input
+            pInputText
+            type="text"
+            id="level"
+            formControlName="level"
+            required
+            [invalid]="level.invalid && level.touched"
+            fluid
+          />
+          @if (level.invalid && level.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (level.hasError('required')) {
+                El nivel es obigatorio.
+              }
+            </p-message>
+          }
+        </div>
+      </div>
+
+      <!-- BOTÓN OCULTO PARA EL ENTER -->
+      <button type="submit" hidden></button>
+    </form>
+    <!-- BOTONES -->
+    <ng-template pTemplate="footer">
+      <p-button
+        [label]="'common.cancelar' | translate"
+        (click)="closeDialog()"
+        severity="secondary"
+        variant="outlined"
+      />
+      <p-button
+        type="button"
+        [loading]="loading()"
+        (click)="save()"
+        [label]="'common.guardar' | translate"
+      />
+    </ng-template>
+  </p-dialog>
+</div>

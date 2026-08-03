@@ -1,17 +1,18 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { AspirantesService } from '../../services/aspirantes.service';
 import { CV } from '../../interfaces/cv.interfaces';
-import { SkeletonModule } from 'primeng/skeleton';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AddExperienceDialog } from './components/add-experience-dialog/add-experience-dialog';
-import { EditExperienceDialog } from './components/edit-experience-dialog/edit-experience-dialog';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { AddEducationDialog } from './components/add-education-dialog/add-education-dialog';
+import { Skeletons } from './components/skeletons/skeletons';
+import { AddExperienceDialog } from './dialogs/work-experience/add/add-experience-dialog';
+import { EditExperienceDialog } from './dialogs/work-experience/edit/edit-experience-dialog';
+import { AddEducationDialog } from './dialogs/education/add/add-education-dialog';
+import { LanguagesDialog } from './dialogs/languages/languages-dialog';
 
 @Component({
   selector: 'app-curriculum',
@@ -20,11 +21,12 @@ import { AddEducationDialog } from './components/add-education-dialog/add-educat
     TimelineModule,
     ButtonModule,
     CardModule,
-    SkeletonModule,
     TranslatePipe,
     AddExperienceDialog,
     EditExperienceDialog,
     AddEducationDialog,
+    Skeletons,
+    LanguagesDialog,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',
@@ -33,6 +35,9 @@ export class Curriculum {
   /* Injección de servicio */
   aspirantesService = inject(AspirantesService);
   messageService = inject(MessageService);
+
+  @ViewChild(LanguagesDialog)
+  languagesDialog!: LanguagesDialog;
 
   /* Estados iniciales */
   cv = signal<CV | null>(null);
