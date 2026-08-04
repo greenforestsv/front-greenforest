@@ -7,13 +7,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { emailMatchValidator, phoneValidator } from '../../../core/validators/form.validators';
+import { emailMatchValidator, phoneValidator } from '../../../shared/validators/form.validators';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { finalize } from 'rxjs';
 import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
+import { CountriesSelect } from '../../../shared/components/countries-select/countries-select';
 
 @Component({
   selector: 'app-registro-candidato',
@@ -29,6 +30,7 @@ import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
     MessageModule,
     SelectModule,
     DatePickerModule,
+    CountriesSelect,
   ],
   templateUrl: './registro-candidato.html',
   styleUrl: './registro-candidato.scss',

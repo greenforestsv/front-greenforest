@@ -1,0 +1,19 @@
+<div class="flex flex-col gap-1">
+  <label pLabel class="text-sm" for="country">País <span class="text-accent-500">*</span></label>
+  <p-select
+    [formControl]="control()"
+    [options]="countries()"
+    optionLabel="name"
+    optionValue="iso_code"
+    placeholder="País"
+    [loading]="loading()"
+  />
+
+  @if (control().invalid && control().touched) {
+    <p-message severity="error" size="small" variant="simple">
+      @if (control().hasError('required')) {
+        El país es obligatorio.
+      }
+    </p-message>
+  }
+</div>

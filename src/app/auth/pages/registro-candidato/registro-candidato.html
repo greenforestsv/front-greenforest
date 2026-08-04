@@ -254,23 +254,7 @@
             </div>
 
             <!-- PAÍS -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm">País <span class="text-accent-500">*</span></label>
-              <p-select
-                formControlName="country"
-                [options]="countryOptions"
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Páis"
-              />
-              @if (country.invalid && country.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (country.hasError('required')) {
-                    El páis es obligatorio.
-                  }
-                </p-message>
-              }
-            </div>
+            <app-countries-select [control]="country" />
 
             <!-- DEPARTAMENTO -->
             <div class="flex flex-col gap-1">
