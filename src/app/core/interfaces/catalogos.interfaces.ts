@@ -36,5 +36,10 @@ export interface State {
   name: string;
   iso_state: string;
   is_active: boolean;
-  country: Country;
+}
+
+export interface GetStateDto {
+  name: string;
+  iso_state: string;
+  is_active: boolean;
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { GetCountryDto } from '../interfaces/catalogos.interfaces';
+import { GetCountryDto, GetStateDto } from '../interfaces/catalogos.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,6 @@ export class CatalogosService {
   }
   /* GET STATES */
   getStates() {
-    return this.http.get(`${this.apiUrl}/states/list`);
+    return this.http.get<GetStateDto[]>(`${this.apiUrl}/states/list`);
   }
 }
