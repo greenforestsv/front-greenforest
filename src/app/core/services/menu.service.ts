@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { MenuResponse } from '../interfaces/menu.interfaces';
 
@@ -7,8 +7,7 @@ import { MenuResponse } from '../interfaces/menu.interfaces';
   providedIn: 'root',
 })
 export class MenuService {
-  /* CONSTRUCTOR */
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
   /* GET MENÚ DE ASPIRANTES */

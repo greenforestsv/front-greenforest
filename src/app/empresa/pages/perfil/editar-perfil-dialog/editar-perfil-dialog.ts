@@ -11,7 +11,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { phoneValidator } from '../../../../core/validators/form.validators';
+import { phoneValidator } from '../../../../shared/validators/form.validators';
 import { SelectModule } from 'primeng/select';
 
 @Component({

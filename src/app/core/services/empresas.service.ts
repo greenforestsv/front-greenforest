@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { TenantResponseDto, PatchTenantDto } from '../interfaces/empresa.interface';
@@ -7,10 +7,8 @@ import { TenantResponseDto, PatchTenantDto } from '../interfaces/empresa.interfa
   providedIn: 'root',
 })
 export class EmpresasService {
-  /* CONSTRUCTOR */
-  constructor(private http: HttpClient) {}
-
-  apiUrl = environment.apiUrl;
+  private http = inject(HttpClient);
+  private apiUrl = environment.apiUrl;
 
   /* GET EMPRESAS */
   getEmpresas() {

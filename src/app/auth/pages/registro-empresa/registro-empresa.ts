@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
 import { AuthTenantService } from '../../services/auth.tenant.service';
-import { emailMatchValidator, phoneValidator } from '../../../core/validators/form.validators';
+import { emailMatchValidator, phoneValidator } from '../../../shared/validators/form.validators';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
