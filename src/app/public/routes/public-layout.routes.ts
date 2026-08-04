@@ -19,6 +19,13 @@ export const PUBLIC_ROUTES: Routes = [
         loadComponent: () =>
           import('../pages/quienes-somos/quienes-somos').then((m) => m.QuieneSomos),
       },
+      {
+        path: 'politicas-de-privacidad',
+        loadComponent: () =>
+          import('../pages/politicas-privacidad/politicas-privacidad').then(
+            (m) => m.PoliticasPrivacidad,
+          ),
+      },
     ],
   },
 ];
