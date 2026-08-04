@@ -15,6 +15,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { finalize } from 'rxjs';
 import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
 import { CountriesSelect } from '../../../shared/components/countries-select/countries-select';
+import { PoliticasPrivacidadCheckbox } from '../../../shared/components/politicas-privacidad-checkbox/politicas-privacidad-checkbox';
 
 @Component({
   selector: 'app-registro-candidato',
@@ -31,6 +32,7 @@ import { CountriesSelect } from '../../../shared/components/countries-select/cou
     SelectModule,
     DatePickerModule,
     CountriesSelect,
+    PoliticasPrivacidadCheckbox,
   ],
   templateUrl: './registro-candidato.html',
   styleUrl: './registro-candidato.scss',
@@ -70,6 +72,7 @@ export class RegistroCandidato {
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['', [Validators.required]],
       profession: [''],
+      accepts_privacy: [false, Validators.requiredTrue],
     },
     {
       validators: emailMatchValidator,
@@ -91,6 +94,7 @@ export class RegistroCandidato {
   readonly email = this.signupForm.controls.email;
   readonly confirmEmail = this.signupForm.controls.confirmEmail;
   readonly profession = this.signupForm.controls.profession;
+  readonly accepts_privacy = this.signupForm.controls.accepts_privacy;
 
   signup(): void {
     if (this.signupForm.invalid) {

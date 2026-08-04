@@ -1,0 +1,21 @@
+<div class="flex flex-col gap-1">
+  <div class="flex items-center gap-2">
+    <p-checkbox inputId="accepts_privacy" [formControl]="control()" [binary]="true" />
+    <label pLabel for="accepts_privacy" class="text-sm"
+      >Aceptas
+      <a
+        class="text-lite hover:underline"
+        href="/politicas-de-privacidad"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        políticas de privacidad
+      </a> </label
+    ><span class="text-accent-500">*</span>
+  </div>
+  @if (control().invalid && control().touched) {
+    <p-message severity="error" size="small" variant="simple">
+      Debes aceptar las políticas de privacidad.
+    </p-message>
+  }
+</div>
