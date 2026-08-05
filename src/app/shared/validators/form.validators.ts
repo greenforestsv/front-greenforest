@@ -4,16 +4,21 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
 /* PASSWORD */
-export const passwordMatchValidator: ValidatorFn = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
+export function passwordMatchValidator(
+  passwordControlName: string,
+  confirmPasswordControlName: string,
+): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get(passwordControlName);
+    const confirmPassword = control.get(confirmPasswordControlName);
 
-  if (!password || !confirmPassword) return null;
+    if (!password || !confirmPassword) {
+      return null;
+    }
 
-  return password.value === confirmPassword.value ? null : { passwordMismatch: true };
-};
+    return password.value === confirmPassword.value ? null : { passwordMismatch: true };
+  };
+}
 
 /* CORREO */
 export const emailMatchValidator: ValidatorFn = (

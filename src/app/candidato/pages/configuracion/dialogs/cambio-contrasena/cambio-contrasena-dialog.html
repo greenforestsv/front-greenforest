@@ -1,0 +1,115 @@
+<div class="flex justify-center">
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    header="Cambiar contraseña"
+    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
+  >
+    <form
+      id="changePasswordForm"
+      [formGroup]="changePasswordForm"
+      (ngSubmit)="save()"
+      class="flex flex-col gap-4"
+    >
+      <!-- CONTRSEÑA ACTUAL -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm"
+          >Contraseña actual <span class="text-accent-500">*</span></label
+        >
+        <p-password
+          inputId="current_password"
+          formControlName="current_password"
+          [toggleMask]="true"
+          [feedback]="false"
+          fluid
+          class="w-full"
+          [invalid]="current_password.invalid && current_password.touched"
+        />
+        @if (current_password.invalid && current_password.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (current_password.hasError('required')) {
+              La contraseña actual es obligatoria.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- NUEVA CONTRSEÑA -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm"
+          >Nueva contraseña <span class="text-accent-500">*</span></label
+        >
+        <p-password
+          inputId="new_password"
+          formControlName="new_password"
+          toggleMask
+          [feedback]="false"
+          fluid
+          class="w-full"
+          [invalid]="new_password.invalid && new_password.touched"
+        />
+        @if (new_password.invalid && new_password.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (new_password.hasError('required')) {
+              La nueva contraseña es obligatoria.
+            } @else if (new_password.hasError('minlength')) {
+              La contraseña debe tener al menos 8 caracteres.
+            } @else if (new_password.hasError('pattern')) {
+              La contraseña debe contener al menos una letra mayúscula, un número y un símbolo.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- CONFIRMAR NUEVA CONTRSEÑA -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm"
+          >Confirmar nueva contraseña <span class="text-accent-500">*</span></label
+        >
+        <p-password
+          inputId="confirm_new_password"
+          formControlName="confirm_new_password"
+          toggleMask
+          [feedback]="false"
+          fluid
+          class="w-full"
+          [invalid]="confirm_new_password.invalid && confirm_new_password.touched"
+        />
+        @if (confirm_new_password.touched) {
+          @if (confirm_new_password.hasError('required')) {
+            <p-message severity="error" size="small" variant="simple">
+              Debes confirmar la contraseña.
+            </p-message>
+          }
+
+          @if (
+            changePasswordForm.hasError('passwordMismatch') &&
+            !confirm_new_password.hasError('required')
+          ) {
+            <p-message severity="error" size="small" variant="simple">
+              Las contraseñas no coinciden.
+            </p-message>
+          }
+        }
+      </div>
+
+      <!-- BOTÓN OCULTO PARA EL ENTER -->
+      <button type="submit" hidden></button>
+    </form>
+    <!-- BOTONES -->
+    <ng-template pTemplate="footer">
+      <p-button
+        [label]="'common.cancelar' | translate"
+        (click)="closeDialog()"
+        severity="secondary"
+        variant="outlined"
+      />
+      <p-button
+        type="button"
+        [loading]="loading()"
+        (click)="save()"
+        [label]="'common.guardar' | translate"
+      />
+    </ng-template>
+  </p-dialog>
+</div>

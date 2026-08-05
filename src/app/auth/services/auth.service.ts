@@ -9,8 +9,6 @@ import {
   LoginResponse,
   JwtPayload,
 } from '../interfaces/auth.interface';
-import { delay } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -39,11 +37,8 @@ export class AuthService {
   }
 
   /* CHANGE PASSWORD */
-  changePassword(current_password: string, new_password: string) {
-    return of({
-      success: true,
-      message: 'Contraseña actualizada correctamente',
-    }).pipe(delay(1000));
+  changePassword(old_password: string, new_password: string) {
+    return this.http.patch(`${this.apiUrl}/auth/aspirant/password`, { old_password, new_password });
   }
 
   /* LOGOUT */
