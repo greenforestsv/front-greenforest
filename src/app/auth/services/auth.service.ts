@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { jwtDecode } from 'jwt-decode';
 import {
@@ -11,14 +11,15 @@ import {
 } from '../interfaces/auth.interface';
 import { delay } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
   private apiUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient) {}
 
   /* LOGIN */
   loginCandidato(data: LoginCandidatoDto) {
@@ -48,6 +49,7 @@ export class AuthService {
   /* LOGOUT */
   logout(): void {
     localStorage.removeItem('token');
+    this.router.navigate(['/']);
   }
 
   /* RESET PASSWORD */

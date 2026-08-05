@@ -49,7 +49,6 @@ export class PlatformLayout {
   items = Array.from({ length: 8 });
 
   private authService = inject(AuthService);
-  private router = inject(Router);
   private menuService = inject(MenuService);
   private messageService = inject(MessageService);
 
@@ -69,7 +68,7 @@ export class PlatformLayout {
         error: (err: { error: { message: any }; status: number }) => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error al obtener rutas de menú de candidato',
+            summary: 'Error al obtener rutas de menú',
             detail: err.error?.message ?? 'Ocurrió un error inesperado',
             life: 5000,
           });
@@ -78,8 +77,9 @@ export class PlatformLayout {
   }
 
   logout(): void {
-    /* TODO: revisar si es candidato o empresa antes de redirigir */
-    this.authService.logout();
-    this.router.navigate(['login-candidato']);
+    this.drawerVisible.set(false);
+    setTimeout(() => {
+      this.authService.logout();
+    }, 1_000);
   }
 }
