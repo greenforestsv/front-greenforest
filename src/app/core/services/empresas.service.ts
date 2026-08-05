@@ -1,7 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { TenantResponseDto, PatchTenantDto } from '../interfaces/empresa.interface';
+import {
+  TenantResponseDto,
+  PatchTenantDto,
+  FilterTenantListDto,
+} from '../interfaces/empresa.interface';
+import { PaginatedResponse, PaginatedRequest } from '../interfaces/pagination.interface';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +17,24 @@ export class EmpresasService {
   private apiUrl = environment.apiUrl;
 
   /* GET EMPRESAS */
-  getEmpresas() {
-    return this.http.get<TenantResponseDto[]>(`${this.apiUrl}/tenant/list`);
+  getEmpresas({ limit, offset, filters }: PaginatedRequest<FilterTenantListDto>) {
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
+
+    if (filters?.name) {
+      params = params.set('name', filters?.name);
+    }
+
+    if (filters?.country?.length) {
+      params = params.set('country', JSON.stringify(filters.country));
+    }
+
+    if (filters?.approach?.length) {
+      params = params.set('approach', JSON.stringify(filters.approach));
+    }
+
+    return this.http.get<PaginatedResponse<TenantResponseDto>>(`${this.apiUrl}/tenant/list`, {
+      params,
+    });
   }
 
   /* GET EMPRESA ME*/

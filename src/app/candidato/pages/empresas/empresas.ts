@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
-import { Empresa, TenantResponseDto } from '../../../core/interfaces/empresa.interface';
+import { TenantResponseDto } from '../../../core/interfaces/empresa.interface';
 import { EmpresasService } from '../../../core/services/empresas.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -9,6 +9,8 @@ import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { finalize } from 'rxjs';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-empresas',
@@ -20,6 +22,7 @@ import { finalize } from 'rxjs';
     InputTextModule,
     ButtonModule,
     ReactiveFormsModule,
+    EmptyState,
   ],
   templateUrl: './empresas.html',
   styleUrl: './empresas.scss',
@@ -27,7 +30,7 @@ import { finalize } from 'rxjs';
 export class Empresas {
   items = Array.from({ length: 9 });
   private empresasService = inject(EmpresasService);
-
+  private messageService = inject(MessageService);
   private fb = inject(FormBuilder);
 
   // ESTADOS INICIALES DE FORMULARIO
@@ -44,15 +47,33 @@ export class Empresas {
 
   empresas = signal<TenantResponseDto[]>([]);
   loading = signal(true);
-  messageService: any;
+
+  limit = 10;
+  offset = 0;
 
   constructor() {
+    this.load();
+  }
+
+  load() {
+    this.loading.set(true);
+
+    const request = {
+      limit: this.limit,
+      offset: this.offset,
+      filters: {
+        name: this.search_name.value || undefined,
+        country: this.search_location.value ? [this.search_location.value] : undefined,
+        approach: this.search_approach.value ? [this.search_approach.value] : undefined,
+      },
+    };
+
     this.empresasService
-      .getEmpresas()
+      .getEmpresas(request)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (empresas) => {
-          this.empresas.set(empresas);
+        next: (response) => {
+          this.empresas.set(response.data);
         },
         error: (err: { error: { message: any }; status: number }) => {
           this.messageService.add({

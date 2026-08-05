@@ -30,3 +30,9 @@ export interface PatchTenantDto {
   url_profile_photo?: string;
   description: string;
 }
+
+export interface FilterTenantListDto {
+  name?: string;
+  country?: string[];
+  approach?: string[];
+}

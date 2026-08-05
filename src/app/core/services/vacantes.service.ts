@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { GetVacanteDto, CreateVacanteDto } from '../interfaces/vacantes.interfaces';
-import { PaginatedResponse } from '../interfaces/paginated-response.interface';
+import { PaginatedResponse } from '../interfaces/pagination.interface';
 
 @Injectable({
   providedIn: 'root',
