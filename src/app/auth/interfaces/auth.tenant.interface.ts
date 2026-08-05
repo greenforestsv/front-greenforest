@@ -44,3 +44,16 @@ export interface JwtPayload {
   iat: number;
   exp: number;
 }
+
+export interface LoginEmployeeDto {
+  user?: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginEmployeeResponseDto {
+  name: string;
+  country: string;
+  first_login: boolean;
+  token: string;
+}

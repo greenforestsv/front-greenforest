@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { SignupTenantDto } from '../interfaces/auth.tenant.interface';
+import {
+  LoginEmployeeDto,
+  LoginEmployeeResponseDto,
+  SignupTenantDto,
+} from '../interfaces/auth.tenant.interface';
 import { SignupTenantResponseDto, JwtPayload } from '../interfaces/auth.tenant.interface';
 import { jwtDecode } from 'jwt-decode';
 
@@ -9,9 +13,13 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthTenantService {
+  private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  /* LOGIN */
+  loginEmployee(data: LoginEmployeeDto) {
+    return this.http.post<LoginEmployeeResponseDto>(`${this.apiUrl}/login/employee`, data);
+  }
 
   /* SIGNUP */
   signupTenant(data: SignupTenantDto) {

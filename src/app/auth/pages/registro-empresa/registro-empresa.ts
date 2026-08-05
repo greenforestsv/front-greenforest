@@ -225,7 +225,7 @@ export class RegistroEmpresa {
             severity: 'success',
             summary: 'Cuenta creada',
             detail:
-              'La cuenta fue creada correctamente. Utilizá la contrseña que enviamos a tu correo.',
+              'La cuenta fue creada correctamente. Utilizá la contraseña que enviamos a tu correo.',
             sticky: true,
           });
           this.router.navigate(['/empresa'], {
@@ -234,7 +234,7 @@ export class RegistroEmpresa {
                 severity: 'success',
                 summary: 'Cuenta creada',
                 detail:
-                  'La cuenta fue creada correctamente. Utilizá la contrseña que enviamos a tu correo.',
+                  'La cuenta fue creada correctamente. Utilizá la contraseña que enviamos a tu correo.',
                 sticky: true,
               },
             },
