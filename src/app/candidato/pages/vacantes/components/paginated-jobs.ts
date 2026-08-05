@@ -1,28 +1,32 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { VacantesService } from '../../../../core/services/vacantes.service';
-import { GetVacanteDto } from '../../../../core/interfaces/vacantes.interfaces';
+import { FilterJobListDto, GetVacanteDto } from '../../../../core/interfaces/vacantes.interfaces';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PostulacionesService } from '../../../services/postulaciones.service';
+import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 
 @Component({
   standalone: true,
-  imports: [PaginatorModule, ButtonModule, TranslatePipe, SkeletonModule],
+  imports: [PaginatorModule, ButtonModule, TranslatePipe, SkeletonModule, EmptyState],
   selector: 'app-paginated-jobs',
   templateUrl: './paginated-jobs.html',
 })
 export class PaginatedJobs {
+  /* INPUT */
+  filters = input<FilterJobListDto>({});
+
   private translate = inject(TranslateService);
   messageService = inject(MessageService);
   vacantesService = inject(VacantesService);
   postulacionesService = inject(PostulacionesService);
 
   items = Array.from({ length: 3 });
-  loading = signal(true);
+  loading = signal(false);
   jobs = signal<GetVacanteDto[]>([]);
 
   totalRecords = signal(0);
@@ -34,13 +38,18 @@ export class PaginatedJobs {
     this.loadJobs();
   }
 
-  loadJobs() {
+  loadJobs(resetPage = false) {
     this.loading.set(true);
 
+    if (resetPage) {
+      this.first = 0;
+    }
+
     const page = this.first / this.rows + 1;
+    const request = { limit: this.rows, offset: page, filters: this.filters() };
 
     this.vacantesService
-      .getJobs(this.rows, page)
+      .getJobs(request)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
@@ -50,8 +59,8 @@ export class PaginatedJobs {
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
             severity: 'error',
-            summary: this.translate.instant('vacantes.error_obtener_vacantes'),
-            detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
+            summary: 'Error al obtener vacantes',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
             life: 5000,
           });
         },

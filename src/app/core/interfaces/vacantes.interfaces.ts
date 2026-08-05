@@ -37,3 +37,11 @@ export interface CreateVacanteDto extends Vacante {
   department: number;
   format: number;
 }
+
+export interface FilterJobListDto {
+  name?: string;
+  department?: string;
+  format?: string;
+  min_salary?: string;
+  max_salary?: string;
+}

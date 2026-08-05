@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@angular/core';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormsModule } from '@angular/forms';
@@ -30,17 +30,19 @@ export class VacantesCandidato {
 
   // ESTADOS INICIALES DE FORMULARIO
   readonly search_form = this.fb.nonNullable.group({
-    buscar: [''],
-    area: [''],
-    modalidad: [''],
-    salario: [''],
+    name: [''],
+    department: [''],
+    format: [''],
+    min_salary: [''],
+    max_salary: [''],
   });
 
   // PROPIEDADES
-  readonly buscar = this.search_form.controls.buscar;
-  readonly area = this.search_form.controls.area;
-  readonly modalidad = this.search_form.controls.modalidad;
-  readonly salario = this.search_form.controls.salario;
+  readonly name = this.search_form.controls.name;
+  readonly department = this.search_form.controls.department;
+  readonly format = this.search_form.controls.format;
+  readonly min_salary = this.search_form.controls.min_salary;
+  readonly max_salary = this.search_form.controls.max_salary;
 
   matching_inteligente = signal([
     {

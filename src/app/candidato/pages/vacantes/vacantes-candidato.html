@@ -1,73 +1,55 @@
 <div class="p-4">
-  <div class="flex flex-col xl:flex-row gap-4">
-    <!-- MAIN -->
-    <div class="flex-2 space-y-4">
-      <!-- FILTROS -->
-      <!-- <form [formGroup]="search_form" class="flex items-center justify-between gap-2 flex-wrap">
-        <div class="flex flex-col gap-1">
-          <input pInputText id="buscar" placeholder="Buscar" formControlName="buscar" fluid />
-        </div>
-
-        <div class="flex flex-col gap-1 flex-1">
-          <p-select
-            size="small"
-            formControlName="area"
-            [options]="area_options"
-            optionLabel="label"
-            optionValue="value"
-            placeholder="Área"
-            fluid
-          />
-        </div>
-
-        <div class="flex flex-col gap-1 flex-1">
-          <p-select
-            size="small"
-            formControlName="modalidad"
-            [options]="modalidad_options"
-            optionLabel="label"
-            optionValue="value"
-            placeholder="Modalidad"
-            fluid
-          />
-        </div>
-
-        <div class="flex flex-col gap-1 flex-1">
-          <p-select
-            size="small"
-            formControlName="salario"
-            [options]="salario_options"
-            optionLabel="label"
-            optionValue="value"
-            placeholder="Salario"
-            fluid
-          />
-        </div>
-
-        <p-button label="Buscar" />
-      </form> -->
-
-      <!-- JOB CARDS -->
-      <app-paginated-jobs />
-
-      <!-- CARDS SCROLLER -->
-      <!-- <p-scroller
-        [items]="items"
-        [itemSize]="58"
-        scrollHeight="500px"
-        styleClass="w-full"
-        [style]="{ width: '100%' }"
+  <div class="flex flex-col gap-4">
+    <section class="card p-8 flex flex-col gap-2">
+      <h1 class="text-2xl inter-font font-bold mb-2">Buscar Empresas</h1>
+      <form
+        [formGroup]="search_form"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1fr_1fr_1fr_auto] gap-3 items-end"
       >
-        <ng-template pTemplate="item" let-item let-index="index">
-          <div class="card h-[50px] mb-2 flex items-center px-4">
-            {{ item }}
-          </div>
-        </ng-template>
-      </p-scroller> -->
-    </div>
+        <input pInputText id="name" placeholder="Buscar por nombre" formControlName="name" fluid />
 
-    <!-- ASIDE -->
-    <!--     <div class="flex-1 flex flex-col gap-4">
+        <input
+          pInputText
+          id="department"
+          placeholder="Buscar por departamento"
+          formControlName="department"
+          fluid
+        />
+
+        <input
+          pInputText
+          id="format"
+          placeholder="Buscar por modalidad"
+          formControlName="format"
+          fluid
+        />
+
+        <input
+          pInputText
+          id="format"
+          placeholder="Buscar por modalidad"
+          formControlName="format"
+          fluid
+        />
+
+        <input
+          pInputText
+          id="format"
+          placeholder="Buscar por modalidad"
+          formControlName="format"
+          fluid
+        />
+
+        <p-button label="Buscar" (onClick)="jobs.loadJobs(true)" [loading]="jobs.loading()" />
+      </form>
+    </section>
+
+    <!-- JOB CARDS -->
+    <app-paginated-jobs #jobs [filters]="search_form.getRawValue()" />
+  </div>
+
+  <!-- ASIDE -->
+  <!--     <div class="flex-1 flex flex-col gap-4">
   
       <aside class="card p-6 space-y-2">
         <h2>Matching inteligente</h2>
@@ -137,5 +119,4 @@
         </div>
       </aside>
     </div> -->
-  </div>
 </div>
