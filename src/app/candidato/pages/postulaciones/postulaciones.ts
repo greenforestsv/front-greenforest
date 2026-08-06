@@ -5,74 +5,15 @@ import { PostulacionesService } from '../../services/postulaciones.service';
 import { Postulacion } from '../../interfaces/postulacion.interface';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 
 @Component({
   selector: 'app-postulaciones',
-  imports: [TranslatePipe, SkeletonModule],
+  imports: [TranslatePipe, SkeletonModule, EmptyState],
   templateUrl: './postulaciones.html',
   styleUrl: './postulaciones.scss',
 })
 export class Postulaciones {
-  /*   data = signal<ChartData<'bar'>>({
-    labels: ['Total'],
-    datasets: [
-      {
-        label: 'Postulados',
-        data: [120],
-        backgroundColor: '#4CAF50',
-        barThickness: 12,
-      },
-      {
-        label: 'Entrevistados',
-        data: [45],
-        backgroundColor: '#FFC107',
-        barThickness: 12,
-      },
-      {
-        label: 'Contratados',
-        data: [12],
-        backgroundColor: '#2196F3',
-        barThickness: 12,
-      },
-    ],
-  });
-
-  options = signal<ChartOptions<'bar'>>({
-    indexAxis: 'y',
-    responsive: true,
-    scales: {
-      x: {
-        stacked: true,
-        display: false,
-      },
-      y: {
-        stacked: true,
-        display: false,
-      },
-    },
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          usePointStyle: true,
-          pointStyle: 'circle',
-          boxWidth: 12,
-          boxHeight: 12,
-          padding: 10,
-        },
-      },
-      tooltip: {
-        usePointStyle: true,
-        callbacks: {
-          labelPointStyle: () => ({
-            pointStyle: 'circle',
-            rotation: 0,
-          }),
-        },
-      },
-    },
-  }); */
-
   items = Array.from({ length: 4 });
 
   /* Injección de servicio */

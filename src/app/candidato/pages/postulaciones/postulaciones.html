@@ -1,6 +1,6 @@
-<div class="pipeline p-4 lg:pl-0">
-  @if (loading()) {
-    <!-- SKELETONS -->
+@if (loading()) {
+  <!-- SKELETONS -->
+  <div class="pipeline p-4 lg:pl-0">
     @for (item of items; track $index) {
       <div class="w-full max-w-md rounded-3xl bg-white p-4 shadow-sm">
         <div class="mb-4 w-full flex justify-between items-center">
@@ -14,28 +14,39 @@
         </div>
       </div>
     }
-  } @else {
-    @for (status of statuses; track status.key) {
-      <section class="rounded-3xl bg-white p-4 shadow-sm">
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="font-semibold">
-            {{ status.title | translate }}
-          </h2>
+  </div>
+} @else {
+  <div class="p-4 pt-0 lg:pl-0 space-y-4">
+    <section class="card p-8 flex flex-col gap-2">
+      <h1 class="text-2xl inter-font font-bold mb-2">Mis postulaciones</h1>
+    </section>
+    @if (!postulaciones().length) {
+      <app-empty-state />
+    } @else {
+      <div class="pipeline p-4 lg:pl-0">
+        @for (status of statuses; track status.key) {
+          <section class="rounded-3xl bg-white p-4 shadow-sm">
+            <div class="mb-4 flex items-center justify-between">
+              <h2 class="font-semibold">
+                {{ status.title | translate }}
+              </h2>
 
-          <div class="accent-badge flex size-6 items-center justify-center">
-            {{ getByStatus(status.key).length }}
-          </div>
-        </div>
+              <div class="accent-badge flex size-6 items-center justify-center">
+                {{ getByStatus(status.key).length }}
+              </div>
+            </div>
 
-        <div class="space-y-3 overflow-y-auto">
-          @for (item of getByStatus(status.key); track item.id) {
-            <article class="rounded-xl border border-gray-300 p-3 text-sm shadow-sm">
-              <h3 class="font-medium">{{ item.job_title }}</h3>
-              <p class="mt-1 text-gray-500">{{ item.name }}</p>
-            </article>
-          }
-        </div>
-      </section>
+            <div class="space-y-3 overflow-y-auto">
+              @for (item of getByStatus(status.key); track item.id) {
+                <article class="rounded-xl border border-gray-300 p-3 text-sm shadow-sm">
+                  <h3 class="font-medium">{{ item.job_title }}</h3>
+                  <p class="mt-1 text-gray-500">{{ item.name }}</p>
+                </article>
+              }
+            </div>
+          </section>
+        }
+      </div>
     }
-  }
-</div>
+  </div>
+}

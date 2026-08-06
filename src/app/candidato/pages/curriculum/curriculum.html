@@ -41,10 +41,10 @@
         </div>
       </div>
 
-      <div class="relative border-l border-gray-300 space-y-4">
-        @if (!cv()?.works_experience?.length) {
-          <p>No hay historial laboral</p>
-        } @else {
+      @if (!cv()?.works_experience?.length) {
+        <app-empty-state />
+      } @else {
+        <div class="relative border-l border-gray-300 space-y-4">
           @for (experience of cv()?.works_experience; track experience.id) {
             <div class="ml-6 relative">
               <!-- TIMELINE -->
@@ -79,8 +79,8 @@
               </div>
             </div>
           }
-        }
-      </div>
+        </div>
+      }
 
       @if (cv()?.languages?.length) {
         <div>

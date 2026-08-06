@@ -13,6 +13,7 @@ import { AddExperienceDialog } from './dialogs/work-experience/add/add-experienc
 import { EditExperienceDialog } from './dialogs/work-experience/edit/edit-experience-dialog';
 import { AddEducationDialog } from './dialogs/education/add/add-education-dialog';
 import { LanguagesDialog } from './dialogs/languages/languages-dialog';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 
 @Component({
   selector: 'app-curriculum',
@@ -27,6 +28,7 @@ import { LanguagesDialog } from './dialogs/languages/languages-dialog';
     AddEducationDialog,
     Skeletons,
     LanguagesDialog,
+    EmptyState,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',
