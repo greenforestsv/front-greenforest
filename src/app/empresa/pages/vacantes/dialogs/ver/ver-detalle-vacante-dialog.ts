@@ -10,8 +10,10 @@ import { PaginatorModule } from 'primeng/paginator';
 import { finalize } from 'rxjs';
 import { VacantesService } from '../../../../../core/services/vacantes.service';
 import { GetDetalleVacanteDto } from '../../../../../core/interfaces/vacantes.interfaces';
-import { AspirantesService } from '../../../../../candidato/services/aspirantes.service';
+import { PostulacionesService } from '../../../../../core/services/postulaciones.service';
 import { SkeletonModule } from 'primeng/skeleton';
+import { GetCandidatoDto } from '../../../../../core/interfaces/postulacion.interface';
+import { EmptyState } from '../../../../../shared/components/empty-state/empty-state';
 
 @Component({
   selector: 'app-ver-detalle-vacante-dialog',
@@ -27,11 +29,12 @@ import { SkeletonModule } from 'primeng/skeleton';
     AvatarModule,
     PaginatorModule,
     SkeletonModule,
+    EmptyState,
   ],
 })
 export class VerDetalleVacanteDialog {
   /* INJECCIÓN DE SERVICIOS */
-  private aspirantesService = inject(AspirantesService);
+  private postulacionesService = inject(PostulacionesService);
   private messageService = inject(MessageService);
   private vacantesService = inject(VacantesService);
 
@@ -39,6 +42,7 @@ export class VerDetalleVacanteDialog {
   visible = signal(false);
   loading = signal(false);
   job = signal<GetDetalleVacanteDto[]>([]);
+  candidatos = signal<GetCandidatoDto[]>([]);
   id = input.required<string>();
 
   closeDialog() {
@@ -135,22 +139,6 @@ export class VerDetalleVacanteDialog {
     }));
   });
 
-  detalleVacante = signal([
-    {
-      id: 1,
-      nombre: 'AI Automation Specialist',
-      modalidad: 'Híbrido',
-      salario: 'Visible',
-      area: 'Operaciones',
-      numeroCandidatos: '48',
-      dueno: 'María José',
-      estado: {
-        text: 'Activa',
-        color: 'green',
-      },
-    },
-  ]);
-
   noPostulados = signal([
     {
       id: 1,
@@ -193,6 +181,11 @@ export class VerDetalleVacanteDialog {
     },
   ]);
 
+  loadDetails(id: string) {
+    this.loadJob(id);
+    this.loadJobCandidates(id);
+  }
+
   loadJob(id: string) {
     this.job.set([]);
     this.visible.set(true);
@@ -203,13 +196,36 @@ export class VerDetalleVacanteDialog {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (vacante) => {
-          console.log(vacante);
           this.job.set([vacante]);
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error al obtener vacantes',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
+  }
+
+  loadJobCandidates(id: string) {
+    this.candidatos.set([]);
+    this.visible.set(true);
+    this.loading.set(true);
+
+    this.postulacionesService
+      .getCandidatosPostulacion(id)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (candidatos) => {
+          console.log(candidatos);
+          this.candidatos.set(candidatos);
+        },
+        error: (err: { error: { message: any } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener candidato postulados',
             detail: err.error?.message ?? 'Ocurrió un error inesperado',
             life: 5000,
           });

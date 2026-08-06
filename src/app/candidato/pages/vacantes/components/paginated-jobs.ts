@@ -7,7 +7,7 @@ import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
-import { PostulacionesService } from '../../../services/postulaciones.service';
+import { PostulacionesService } from '../../../../core/services/postulaciones.service';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 
 @Component({

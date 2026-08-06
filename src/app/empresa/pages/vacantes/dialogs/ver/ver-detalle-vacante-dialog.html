@@ -1,5 +1,5 @@
 <div class="flex justify-center">
-  <p-button [rounded]="true" size="small" label="Ver detalle" (onClick)="loadJob(id())" />
+  <p-button [rounded]="true" size="small" label="Ver detalle" (onClick)="loadDetails(id())" />
 
   <p-dialog
     [(visible)]="visible"
@@ -68,8 +68,56 @@
           </p-tablist>
           <p-tabpanels>
             <!-- POSTULADOS PIPELINE -->
-            <p-tabpanel value="tab1">
-              <div class="pipeline flex-1">
+
+            @if (candidatos().length) {
+              <p-table [value]="candidatos()" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template #header>
+                  <tr>
+                    <th class="table-header rounded-tl-3xl">Candidato</th>
+                    <th class="table-header">Habilidades</th>
+                    <th class="table-header">Fecha que aplicó</th>
+                    <th class="table-header">Estado</th>
+                    <th class="table-header">Perfil público</th>
+                    <th class="table-header rounded-tr-3xl">Acción</th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-candidato>
+                  <tr class="text-sm">
+                    <td>
+                      <div class="flex gap-2 items-center">
+                        @if (candidato.profile_photo) {
+                          <p-avatar [image]="candidato.profile_photo" shape="circle" />
+                        } @else {
+                          <p-avatar [label]="candidato.aspirant_name.charAt(0)" shape="circle" />
+                        }
+                        <div>
+                          <p class="font-bold text-black">{{ candidato.aspirant_name }}</p>
+                          <!--                           <p class="text-gray-600">{{ vacante.subtext }}</p> -->
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      {{ candidato.skills }}
+                    </td>
+                    <td>
+                      {{ candidato.applied_at }}
+                    </td>
+                    <td>
+                      {{ candidato.status }}
+                    </td>
+                    <td>
+                      {{ candidato.public_profile }}
+                    </td>
+                    <td>
+                      <p-button size="small" label="Ver perfil" />
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            } @else {
+              <app-empty-state />
+            }
+            <!-- <div class="pipeline flex-1">
                 @for (column of pipeline(); track column.status) {
                   <div class="rounded-3xl bg-white p-4 shadow-sm">
                     <div class="mb-4 flex items-center justify-between">
@@ -97,8 +145,8 @@
                     </div>
                   </div>
                 }
-              </div>
-            </p-tabpanel>
+              </div> -->
+
             <!-- NO POSTULADOS -->
             <!--  <p-tabpanel value="tab2">
             <section class="space-y-4">

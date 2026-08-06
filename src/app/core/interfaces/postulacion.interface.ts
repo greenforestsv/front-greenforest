@@ -16,3 +16,13 @@ export interface ApplicationResponseDto {
   id: string;
   applied_at: Date;
 }
+
+export interface GetCandidatoDto {
+  applied_at: string;
+  aspirant_name: string;
+  skills?: string[];
+  status: string;
+  aspirant_id: string;
+  profile_photo?: string;
+  public_profile: boolean;
+}

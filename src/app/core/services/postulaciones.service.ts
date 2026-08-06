@@ -1,6 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
-import { ApplicationResponseDto, Postulacion } from '../interfaces/postulacion.interface';
+import {
+  ApplicationResponseDto,
+  GetCandidatoDto,
+  Postulacion,
+} from '../interfaces/postulacion.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 
@@ -22,5 +25,10 @@ export class PostulacionesService {
       `${this.apiUrl}/applications/apply/${id_vacante}/${id_empresa}`,
       null,
     );
+  }
+
+  /* GET CANDIDATOS POSTULACIÓN */
+  getCandidatosPostulacion(job_id: string) {
+    return this.http.get<GetCandidatoDto[]>(`${this.apiUrl}/applications/tenant/${job_id}`);
   }
 }

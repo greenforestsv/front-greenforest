@@ -191,7 +191,6 @@ export class VacantesEmpresa {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
-          console.log(response.data);
           this.jobs.set(response.data);
           this.totalRecords.set(response.qty);
         },

@@ -1,8 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
-import { PostulacionesService } from '../../services/postulaciones.service';
-import { Postulacion } from '../../interfaces/postulacion.interface';
+import { PostulacionesService } from '../../../core/services/postulaciones.service';
+import { Postulacion } from '../../../core/interfaces/postulacion.interface';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
