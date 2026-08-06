@@ -13,7 +13,7 @@ export class PostulacionesService {
 
   /* GET POSTULACIONES */
   getPostulaciones() {
-    return this.http.get<Postulacion[]>(`${this.apiUrl}/applications`);
+    return this.http.get<Postulacion[]>(`${this.apiUrl}/applications/aspirant`);
   }
 
   /* CREAR POSTULACIÓN */

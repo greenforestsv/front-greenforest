@@ -42,6 +42,7 @@ export class Postulaciones {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (postulaciones) => {
+          console.log(postulaciones);
           const estados: Postulacion['status'][] = ['A', 'P', 'E', 'O'];
 
           this.postulaciones.set(

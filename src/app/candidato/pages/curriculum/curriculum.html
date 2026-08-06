@@ -65,8 +65,8 @@
                 </ul>
                 <!-- BADGES -->
                 <div class="flex flex-wrap gap-2">
-                  <span class="green-badge">{{ 'cv.validado' | translate }}</span>
-                  <span class="accent-badge">{{ 'cv.ascenso_interno' | translate }}</span>
+                  <!--  <span class="green-badge">{{ 'cv.validado' | translate }}</span>
+                  <span class="accent-badge">{{ 'cv.ascenso_interno' | translate }}</span> -->
                   <span class="gray-badge">
                     {{ experience.start_date }}
                   </span>
@@ -77,6 +77,27 @@
                   }
                 </div>
               </div>
+            </div>
+          }
+        </div>
+      }
+
+      @if (cv()?.educations?.length) {
+        <div>
+          <h2>Educación</h2>
+
+          @for (education of cv()?.educations; track $index) {
+            <div class="flex items-center gap-2">
+              <p>{{ education.level }}</p>
+              <p>{{ education.title }}</p>
+              <p>{{ education.educational_center }}</p>
+              <span class="gray-badge">{{ education.start_date }}</span>
+              @if (education.end_date) {
+                <span class="gray-badge">{{ education.end_date }}</span>
+              }
+
+              <p-button icon="pi pi-pencil" size="small" [rounded]="true" />
+              <!--   (click)="educationDialog.openEdit(education, $index)"  -->
             </div>
           }
         </div>
