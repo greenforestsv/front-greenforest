@@ -1,11 +1,12 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PostulacionesService } from '../../../core/services/postulaciones.service';
-import { Postulacion } from '../../../core/interfaces/postulacion.interface';
+import { GetPostulacionCandidatoDto } from '../../../core/interfaces/postulacion.interface';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { PROCESSES } from '../../../core/constants/processes.constants';
 
 @Component({
   selector: 'app-postulaciones',
@@ -21,36 +22,23 @@ export class Postulaciones {
   private postulacionesService = inject(PostulacionesService);
 
   /* Estados iniciales */
-  postulaciones = signal<Postulacion[]>([]);
+  postulaciones = signal<GetPostulacionCandidatoDto[]>([]);
   loading = signal(true);
 
-  statuses: { key: Postulacion['status']; title: string }[] = [
-    { key: 'A', title: 'postulaciones.aplicado' },
-    { key: 'P', title: 'postulaciones.preseleccion' },
-    { key: 'E', title: 'postulaciones.entrevista' },
-    { key: 'O', title: 'postulaciones.oferta' },
-  ];
+  processes = PROCESSES;
 
-  getByStatus(status: Postulacion['status']) {
-    return this.postulaciones().filter((p) => p.status === status);
+  getByProcess(process: string) {
+    return this.postulaciones().filter((p) => p.process === process);
   }
 
-  /* Constructor donde obtenemos la data */
   constructor() {
     this.postulacionesService
-      .getPostulaciones()
+      .getPostulacionesCandidato()
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (postulaciones) => {
           console.log(postulaciones);
-          const estados: Postulacion['status'][] = ['A', 'P', 'E', 'O'];
-
-          this.postulaciones.set(
-            postulaciones.map((p, index) => ({
-              ...p,
-              status: estados[index % estados.length],
-            })),
-          );
+          this.postulaciones.set(postulaciones);
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
@@ -62,14 +50,4 @@ export class Postulaciones {
         },
       });
   }
-
-  /* Contadores */
-  countStatus(status: string) {
-    return computed(() => this.postulaciones().filter((p) => p.status === status));
-  }
-
-  aplicados = this.countStatus('A');
-  preseleccion = this.countStatus('P');
-  entrevista = this.countStatus('E');
-  oferta = this.countStatus('O');
 }

@@ -8,6 +8,16 @@ export interface Postulacion {
   status: 'A' | 'P' | 'E' | 'O';
 }
 
+export interface GetPostulacionCandidatoDto {
+  application_id: string;
+  applied_at: string;
+  central_job: string;
+  process: string;
+  status: string;
+  tenant_normalized_name: string;
+  title: string;
+}
+
 export interface ApplicationResponseDto {
   name: string;
   job_title: string;

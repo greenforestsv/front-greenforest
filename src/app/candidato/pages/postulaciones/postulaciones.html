@@ -24,23 +24,28 @@
       <app-empty-state />
     } @else {
       <div class="pipeline">
-        @for (status of statuses; track status.key) {
+        @for (process of processes; track process.key) {
           <section class="rounded-3xl bg-white p-4 shadow-sm">
             <div class="mb-4 flex items-center justify-between">
               <h2 class="font-semibold">
-                {{ status.title | translate }}
+                {{ process.title }}
               </h2>
 
               <div class="accent-badge flex size-6 items-center justify-center">
-                {{ getByStatus(status.key).length }}
+                {{ getByProcess(process.key).length }}
               </div>
             </div>
 
             <div class="space-y-3 overflow-y-auto">
-              @for (item of getByStatus(status.key); track item.id) {
+              @for (postulacion of getByProcess(process.key); track postulacion.application_id) {
                 <article class="rounded-xl border border-gray-300 p-3 text-sm shadow-sm">
-                  <h3 class="font-medium">{{ item.job_title }}</h3>
-                  <p class="mt-1 text-gray-500">{{ item.name }}</p>
+                  <h3 class="font-medium">
+                    {{ postulacion.tenant_normalized_name }}
+                  </h3>
+
+                  <p class="mt-1 text-gray-500">
+                    {{ postulacion.title }}
+                  </p>
                 </article>
               }
             </div>

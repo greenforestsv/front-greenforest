@@ -53,6 +53,7 @@ export class PaginatedJobs {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
+          console.log(response.data);
           this.jobs.set(response.data);
           this.totalRecords.set(response.qty);
         },
@@ -74,11 +75,11 @@ export class PaginatedJobs {
     this.loadJobs();
   }
 
-  applyToJob(id_vacante: string, id_empresa: string) {
+  applyToJob(id_vacante: string) {
     this.loading.set(true);
 
     this.postulacionesService
-      .applyToJob(id_vacante, id_empresa)
+      .applyToJob(id_vacante)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (postulacion) => {
@@ -90,8 +91,6 @@ export class PaginatedJobs {
             detail: 'Te postulate a esta vacante',
             life: 5000,
           });
-
-          /* TODO: recargar vacantes. La vacante cambia a estado etapa/estado */
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({

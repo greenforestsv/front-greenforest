@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   ApplicationResponseDto,
   GetCandidatoDto,
-  Postulacion,
+  GetPostulacionCandidatoDto,
 } from '../interfaces/postulacion.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
@@ -14,17 +14,14 @@ export class PostulacionesService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  /* GET POSTULACIONES */
-  getPostulaciones() {
-    return this.http.get<Postulacion[]>(`${this.apiUrl}/applications/aspirant`);
+  /* GET POSTULACIONES DE CANDIDATO */
+  getPostulacionesCandidato() {
+    return this.http.get<GetPostulacionCandidatoDto[]>(`${this.apiUrl}/applications/aspirant`);
   }
 
   /* CREAR POSTULACIÓN */
-  applyToJob(id_vacante: string, id_empresa: string) {
-    return this.http.post<ApplicationResponseDto>(
-      `${this.apiUrl}/applications/apply/${id_vacante}/${id_empresa}`,
-      null,
-    );
+  applyToJob(id_vacante: string) {
+    return this.http.post<ApplicationResponseDto>(`${this.apiUrl}/apply-job/${id_vacante}`, null);
   }
 
   /* GET CANDIDATOS POSTULACIÓN */
