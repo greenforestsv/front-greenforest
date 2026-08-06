@@ -37,3 +37,13 @@ export interface FilterAspirantListDto {
   profession?: string;
   skills?: string[];
 }
+
+export interface GetAspirantListDto {
+  name: string;
+  profile_photo: string;
+  profession: string;
+  skills: string[];
+  country: string;
+  is_verified: boolean;
+  public_profile: boolean;
+}

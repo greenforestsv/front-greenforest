@@ -7,5 +7,5 @@ export const authTenantGuard: CanMatchFn = () => {
   const authTenantService = inject(AuthTenantService);
   const router = inject(Router);
 
-  return authTenantService.isAuthenticated() ? true : router.createUrlTree(['/login-empresa']);
+  return authTenantService.isAuthenticated() ? true : router.createUrlTree(['/login-empresarial']);
 };

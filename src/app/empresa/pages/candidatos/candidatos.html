@@ -49,32 +49,47 @@
     <!-- CANDIDATOS -->
     @if (candidatos().length) {
       <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-        @for (candidato of candidatos(); track candidato.id) {
+        @for (candidato of candidatos(); track $index) {
           <div class="card p-4 space-y-2">
-            <div class="flex gap-4 items-center">
-              @if (candidato.profile_photo) {
-                <p-avatar size="normal" shape="circle" [image]="candidato.profile_photo" />
-              } @else {
-                <p-avatar size="normal" shape="circle" [label]="candidato.first_name?.charAt(0)" />
-              }
-              <div>
-                <p class="font-bold">{{ candidato.first_name + ' ' + candidato.first_surname }}</p>
-                <!-- <span [class]="candidato.estado.color + '-badge'">{{ candidato.estado.text }}</span> -->
+            <div class="flex gap-4 justify-between items-center">
+              <div class="space-y-2">
+                <div class="flex gap-4 items-center">
+                  @if (candidato.profile_photo) {
+                    <p-avatar size="normal" shape="circle" [image]="candidato.profile_photo" />
+                  } @else {
+                    <p-avatar size="normal" shape="circle" [label]="candidato.name.charAt(0)" />
+                  }
+                  <div>
+                    <p class="font-bold">{{ candidato.name }}</p>
+                    <!-- <span [class]="candidato.estado.color + '-badge'">{{ candidato.estado.text }}</span> -->
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600">{{ candidato.profession }}</p>
+                <p class="text-sm text-gray-600">{{ candidato.country }}</p>
+                <p>
+                  @if (candidato.is_verified) {
+                    <span class="green-badge">Verificado</span>
+                  }
+                  @if (candidato.public_profile) {
+                    <span class="green-badge">Perfil público</span>
+                  }
+                </p>
+              </div>
+              <div class="shrink-0">
+                <p-button
+                  label="Ver perfil"
+                  size="small"
+                  [routerLink]="['/perfil', candidato.name]"
+                />
               </div>
             </div>
-            <p class="text-sm text-gray-600">{{ candidato.profession }}</p>
-            <ul class="flex gap-2 mb-4">
+            <ul class="flex gap-2 items-center flex-wrap">
               @for (skill of candidato.skills; track $index) {
-                <li class="inline green-badge">
+                <li class="inline accent-badge">
                   {{ skill }}
                 </li>
               }
             </ul>
-            <!-- <p-button
-          [label]="candidato.action.text"
-          size="small"
-          [severity]="candidato.action.severity"
-        /> -->
           </div>
         }
       </section>

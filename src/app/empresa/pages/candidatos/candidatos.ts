@@ -5,11 +5,12 @@ import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { AspirantesService } from '../../../candidato/services/aspirantes.service';
 import { finalize } from 'rxjs';
-import { PublicAspirant } from '../../../candidato/interfaces/aspirant.interfaces';
+import { GetAspirantListDto } from '../../../candidato/interfaces/aspirant.interfaces';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { SkeletonModule } from 'primeng/skeleton';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-candidatos',
@@ -21,6 +22,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     InputTextModule,
     EmptyState,
     SkeletonModule,
+    RouterLink,
   ],
   templateUrl: './candidatos.html',
   styleUrl: './candidatos.scss',
@@ -32,7 +34,7 @@ export class Candidatos {
 
   items = Array.from({ length: 3 });
   loading = signal(false);
-  candidatos = signal<PublicAspirant[]>([]);
+  candidatos = signal<GetAspirantListDto[]>([]);
   totalRecords = signal(0);
   first: number = 0;
   rows: number = 3;

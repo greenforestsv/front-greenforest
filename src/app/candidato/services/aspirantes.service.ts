@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment.development';
 import { CV, CreateCV } from '../interfaces/cv.interfaces';
 import {
   FilterAspirantListDto,
+  GetAspirantListDto,
   PatchAspirantDto,
   PrivateAspirant,
   PublicAspirant,
@@ -54,7 +55,7 @@ export class AspirantesService {
       params = params.set('skills', JSON.stringify(filters.skills));
     }
 
-    return this.http.get<PaginatedResponse<PublicAspirant>>(`${this.apiUrl}/aspirant/list`, {
+    return this.http.get<PaginatedResponse<GetAspirantListDto>>(`${this.apiUrl}/aspirant/list`, {
       params,
     });
   }
