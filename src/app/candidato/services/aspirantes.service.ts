@@ -1,12 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { CV, CreateCV } from '../interfaces/cv.interfaces';
 import {
+  FilterAspirantListDto,
   PatchAspirantDto,
   PrivateAspirant,
   PublicAspirant,
 } from '../interfaces/aspirant.interfaces';
+import { PaginatedRequest, PaginatedResponse } from '../../core/interfaces/pagination.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +39,23 @@ export class AspirantesService {
   }
 
   /* GET APIRANTES */
-  getAspirants() {
-    return this.http.get<PublicAspirant[]>(`${this.apiUrl}/aspirant/list`);
+  getAspirants({ limit, offset, filters }: PaginatedRequest<FilterAspirantListDto>) {
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
+
+    if (filters?.name) {
+      params = params.set('name', filters?.name);
+    }
+
+    if (filters?.profession) {
+      params = params.set('profession', filters?.profession);
+    }
+
+    if (filters?.skills?.length) {
+      params = params.set('skills', JSON.stringify(filters.skills));
+    }
+
+    return this.http.get<PaginatedResponse<PublicAspirant>>(`${this.apiUrl}/aspirant/list`, {
+      params,
+    });
   }
 }

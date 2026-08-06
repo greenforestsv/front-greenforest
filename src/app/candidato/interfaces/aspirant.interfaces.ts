@@ -31,3 +31,9 @@ export interface PatchAspirantDto {
   profession?: string;
   address?: string;
 }
+
+export interface FilterAspirantListDto {
+  name?: string;
+  profession?: string;
+  skills?: string[];
+}

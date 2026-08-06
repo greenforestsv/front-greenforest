@@ -8,10 +8,20 @@ import { finalize } from 'rxjs';
 import { PublicAspirant } from '../../../candidato/interfaces/aspirant.interfaces';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-candidatos',
-  imports: [ButtonModule, TableModule, AvatarModule, ReactiveFormsModule, InputTextModule],
+  imports: [
+    ButtonModule,
+    TableModule,
+    AvatarModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    EmptyState,
+    SkeletonModule,
+  ],
   templateUrl: './candidatos.html',
   styleUrl: './candidatos.scss',
 })
@@ -20,33 +30,55 @@ export class Candidatos {
   private aspirantesService = inject(AspirantesService);
   private fb = inject(FormBuilder);
 
+  items = Array.from({ length: 3 });
   loading = signal(false);
-  /*  candidatos = signal<PublicAspirant[]>([]); */
+  candidatos = signal<PublicAspirant[]>([]);
+  totalRecords = signal(0);
+  first: number = 0;
+  rows: number = 3;
+  rowsPerPageOptions = [3, 6, 9, 12];
+
   // ESTADOS INICIALES DE FORMULARIO
   readonly search_form = this.fb.nonNullable.group({
-    search_name: [''],
-    search_location: [''],
-    search_approach: [''],
+    name: [''],
+    profession: [''],
+    skills: [''],
   });
 
   // PROPIEDADES
-  readonly search_name = this.search_form.controls.search_name;
-  readonly search_location = this.search_form.controls.search_location;
-  readonly search_approach = this.search_form.controls.search_approach;
+  readonly name = this.search_form.controls.name;
+  readonly profession = this.search_form.controls.profession;
+  readonly skills = this.search_form.controls.skills;
 
-  /*   constructor() {
+  constructor() {
     this.load();
   }
 
-  load() {
+  load(resetPage = false) {
     this.loading.set(true);
 
+    if (resetPage) {
+      this.first = 0;
+    }
+
+    const page = this.first / this.rows + 1;
+    const request = {
+      limit: this.rows,
+      offset: page,
+      filters: {
+        name: this.name.value || undefined,
+        profession: this.profession.value || undefined,
+        skills: this.skills.value ? [this.skills.value] : undefined,
+      },
+    };
+
     this.aspirantesService
-      .getAspirants()
+      .getAspirants(request)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (candidatos) => {
-          this.candidatos.set(candidatos);
+        next: (response) => {
+          this.candidatos.set(response.data);
+          this.totalRecords.set(response.qty);
         },
         error: (err: { error: { message: any }; status: number }) => {
           this.messageService.add({
@@ -57,8 +89,9 @@ export class Candidatos {
           });
         },
       });
-  } */
-  candidatos = signal([
+  }
+
+  /* candidatos = signal([
     {
       id: 1,
       profile_photo: '',
@@ -95,7 +128,7 @@ export class Candidatos {
       profession: 'People Ops · nómina · reclutamiento · cultura',
       skills: ['Planilla', 'RRHH', 'ATS'],
     },
-  ]);
+  ]); */
 
   /*  tablaComprarativa = signal([
     {
