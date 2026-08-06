@@ -1,13 +1,17 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
 import { TabsModule } from 'primeng/tabs';
 import { AvatarModule } from 'primeng/avatar';
 import { PaginatorModule } from 'primeng/paginator';
+import { finalize } from 'rxjs';
+import { VacantesService } from '../../../../../core/services/vacantes.service';
+import { GetDetalleVacanteDto } from '../../../../../core/interfaces/vacantes.interfaces';
+import { AspirantesService } from '../../../../../candidato/services/aspirantes.service';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-ver-detalle-vacante-dialog',
@@ -17,24 +21,25 @@ import { PaginatorModule } from 'primeng/paginator';
   imports: [
     DialogModule,
     ButtonModule,
-    TranslatePipe,
     MessageModule,
     TableModule,
     TabsModule,
     AvatarModule,
     PaginatorModule,
+    SkeletonModule,
   ],
 })
 export class VerDetalleVacanteDialog {
   /* INJECCIÓN DE SERVICIOS */
-  private translate = inject(TranslateService);
-  //aspirantesService = inject(AspirantesService);
+  private aspirantesService = inject(AspirantesService);
   private messageService = inject(MessageService);
+  private vacantesService = inject(VacantesService);
 
   //ESTADOS INICIALS
   visible = signal(false);
   loading = signal(false);
-  error = signal<string | null>('Internal server error');
+  job = signal<GetDetalleVacanteDto[]>([]);
+  id = input.required<string>();
 
   closeDialog() {
     this.visible.set(false);
@@ -187,6 +192,30 @@ export class VerDetalleVacanteDialog {
       accion: 'Shortlist',
     },
   ]);
+
+  loadJob(id: string) {
+    this.job.set([]);
+    this.visible.set(true);
+    this.loading.set(true);
+
+    this.vacantesService
+      .getJobDetails(id)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (vacante) => {
+          console.log(vacante);
+          this.job.set([vacante]);
+        },
+        error: (err: { error: { message: any } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener vacantes',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
+  }
 
   first: number = 0;
   rows: number = 10;

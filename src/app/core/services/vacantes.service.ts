@@ -5,6 +5,7 @@ import {
   GetVacanteDto,
   CreateVacanteDto,
   FilterJobListDto,
+  GetDetalleVacanteDto,
 } from '../interfaces/vacantes.interfaces';
 import { PaginatedRequest, PaginatedResponse } from '../interfaces/pagination.interface';
 
@@ -41,8 +42,39 @@ export class VacantesService {
     });
   }
 
+  /* OBTENER VACANTES DE EMPRESA */
+  getTenantJobs({ limit, offset, filters = {} }: PaginatedRequest<FilterJobListDto>) {
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
+    const { name, department, format, min_salary, max_salary } = filters;
+
+    if (name) {
+      params = params.set('name', name);
+    }
+    if (department) {
+      params = params.set('department', department);
+    }
+    if (format) {
+      params = params.set('format', format);
+    }
+    if (min_salary) {
+      params = params.set('min_salary', min_salary);
+    }
+    if (max_salary) {
+      params = params.set('max_salary', max_salary);
+    }
+
+    return this.http.get<PaginatedResponse<GetVacanteDto>>(`${this.apiUrl}/jobs/tenant`, {
+      params,
+    });
+  }
+
   /* CREAR VACANTE */
   createJob(vacante: CreateVacanteDto) {
     return this.http.post<CreateVacanteDto>(`${this.apiUrl}/posting-job`, vacante);
+  }
+
+  /* VER DETALLE VACANTE */
+  getJobDetails(id: string) {
+    return this.http.get<GetDetalleVacanteDto>(`${this.apiUrl}/job-details/${id}`);
   }
 }

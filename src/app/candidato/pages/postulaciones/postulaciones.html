@@ -1,29 +1,29 @@
-@if (loading()) {
-  <!-- SKELETONS -->
-  <div class="pipeline p-4 lg:pl-0">
-    @for (item of items; track $index) {
-      <div class="w-full max-w-md rounded-3xl bg-white p-4 shadow-sm">
-        <div class="mb-4 w-full flex justify-between items-center">
-          <p-skeleton width="5rem" height="1.5rem" />
-          <p-skeleton shape="circle" height="1.5rem" width="1.5rem" />
+<div class="p-4 pt-0 lg:pl-0 space-y-4">
+  <section class="card p-8">
+    <h1 class="text-2xl inter-font font-bold">Mis postulaciones</h1>
+  </section>
+  @if (loading()) {
+    <!-- SKELETONS -->
+    <div class="pipeline">
+      @for (item of items; track $index) {
+        <div class="w-full max-w-md rounded-3xl bg-white p-4 shadow-sm">
+          <div class="mb-4 w-full flex justify-between items-center">
+            <p-skeleton width="5rem" height="1.5rem" />
+            <p-skeleton shape="circle" height="1.5rem" width="1.5rem" />
+          </div>
+          <div class="flex-1 space-y-3">
+            <p-skeleton width="100%" height="4rem" />
+            <p-skeleton width="100%" height="4rem" />
+            <p-skeleton width="100%" height="4rem" />
+          </div>
         </div>
-        <div class="flex-1 space-y-3">
-          <p-skeleton width="100%" height="4rem" />
-          <p-skeleton width="100%" height="4rem" />
-          <p-skeleton width="100%" height="4rem" />
-        </div>
-      </div>
-    }
-  </div>
-} @else {
-  <div class="p-4 pt-0 lg:pl-0 space-y-4">
-    <section class="card p-8 flex flex-col gap-2">
-      <h1 class="text-2xl inter-font font-bold mb-2">Mis postulaciones</h1>
-    </section>
+      }
+    </div>
+  } @else {
     @if (!postulaciones().length) {
       <app-empty-state />
     } @else {
-      <div class="pipeline p-4 lg:pl-0">
+      <div class="pipeline">
         @for (status of statuses; track status.key) {
           <section class="rounded-3xl bg-white p-4 shadow-sm">
             <div class="mb-4 flex items-center justify-between">
@@ -48,5 +48,5 @@
         }
       </div>
     }
-  </div>
-}
+  }
+</div>

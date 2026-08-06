@@ -1,19 +1,22 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
-import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
-import { VerDetalleVacanteDialog } from './components/ver-detalle-vacante-dialog/ver-detalle-vacante-dialog';
-import { EditarVacanteDialog } from './components/editar-vacante-dialog/editar-vacante-dialog';
-import { CrearVacanteDialog } from './components/crear-vacante-dialog/crear-vacante-dialog';
+import { VerDetalleVacanteDialog } from './dialogs/ver/ver-detalle-vacante-dialog';
+import { EditarVacanteDialog } from './dialogs/editar/editar-vacante-dialog';
+import { CrearVacanteDialog } from './dialogs/crear/crear-vacante-dialog';
+import { VacantesService } from '../../../core/services/vacantes.service';
+import { finalize } from 'rxjs';
+import { GetVacanteDto } from '../../../core/interfaces/vacantes.interfaces';
+import dayjs from 'dayjs';
 
-/* TODO: obtener vacantes por id de empresa */
 @Component({
   selector: 'app-vacantes-empresa',
   imports: [
@@ -36,10 +39,11 @@ import { CrearVacanteDialog } from './components/crear-vacante-dialog/crear-vaca
 })
 export class VacantesEmpresa {
   private messageService = inject(MessageService);
+  private vacantesService = inject(VacantesService);
 
-  /* FORM BUILDER */
-  private fb = inject(FormBuilder);
-
+  /* SIGNAL */
+  jobs = signal<GetVacanteDto[]>([]);
+  totalRecords = signal(0);
   loading = signal(false);
   candidatos = signal([
     {
@@ -114,25 +118,7 @@ export class VacantesEmpresa {
     },
   ]);
 
-  areaOptions = [{ label: 'Operaciones', value: 'OPE' }];
-  modalidadOptions = [{ label: 'Híbrido', value: 'HIB' }];
-
-  // ESTADOS INICIALES Y VALIDACIONES DE FORMULARIO
-  readonly formRequerimiento = this.fb.nonNullable.group({
-    puesto: ['', Validators.required],
-    area: ['OPE', Validators.required],
-    modalidad: ['HIB', Validators.required],
-    rango_salarial: ['', Validators.required],
-    requisitos_clave: ['', Validators.required],
-  });
-
-  readonly puesto = this.formRequerimiento.controls.puesto;
-  readonly area = this.formRequerimiento.controls.area;
-  readonly modalidad = this.formRequerimiento.controls.modalidad;
-  readonly rango_salarial = this.formRequerimiento.controls.rango_salarial;
-  readonly requisitos_clave = this.formRequerimiento.controls.requisitos_clave;
-
-  listadoEjecutivo = signal([
+  /*   listadoEjecutivo = signal([
     {
       id: 1,
       nombre: 'AI Automation Specialist',
@@ -172,15 +158,51 @@ export class VacantesEmpresa {
         color: 'blue',
       },
     },
-  ]);
+  ]); */
+
+  formatDate(date: string | Date) {
+    return dayjs(date).format('D MMM YYYY');
+  }
+
+  constructor() {
+    this.loadJobs();
+  }
 
   save() {}
-  loadCV() {}
 
   first: number = 0;
   rows: number = 10;
   onPageChange(event: any) {
     this.first = event.first ?? 0;
     this.rows = event.rows ?? 10;
+  }
+
+  loadJobs(resetPage = false) {
+    this.loading.set(true);
+
+    if (resetPage) {
+      this.first = 0;
+    }
+
+    const request = { limit: this.rows, offset: this.first };
+
+    this.vacantesService
+      .getTenantJobs(request)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (response) => {
+          console.log(response.data);
+          this.jobs.set(response.data);
+          this.totalRecords.set(response.qty);
+        },
+        error: (err: { error: { message: any } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener vacantes',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
   }
 }

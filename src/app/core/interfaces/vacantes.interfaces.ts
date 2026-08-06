@@ -29,6 +29,27 @@ export interface GetVacanteDto extends Vacante {
   original_job_id?: string;
 }
 
+export interface GetDetalleVacanteDto {
+  id: string;
+  availability: string;
+  contract_type: string;
+  department: string;
+  description: string;
+  format: string;
+  level_experience: string;
+  max_salary: string;
+  min_salary: string;
+  number_of_vacancies: string;
+  payment_form: string;
+  processes: string[];
+  requirements: string[];
+  skills: string[];
+  tools: string[];
+  vehicle: boolean;
+  workday: string[];
+  workday_type: string;
+}
+
 export interface CreateVacanteDto extends Vacante {
   availability: string;
   level_experience: string;
