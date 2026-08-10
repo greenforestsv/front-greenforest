@@ -19,6 +19,7 @@ export interface TenantResponseDto {
   approach: string[];
   url_profile_photo?: string;
   description: string;
+  is_verified?: boolean;
 }
 
 export interface PatchTenantDto {

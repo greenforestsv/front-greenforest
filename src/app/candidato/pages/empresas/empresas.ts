@@ -3,7 +3,6 @@ import { AvatarModule } from 'primeng/avatar';
 import { TenantResponseDto } from '../../../core/interfaces/empresa.interface';
 import { EmpresasService } from '../../../core/services/empresas.service';
 import { SkeletonModule } from 'primeng/skeleton';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
@@ -11,13 +10,15 @@ import { ButtonModule } from 'primeng/button';
 import { finalize } from 'rxjs';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { MessageService } from 'primeng/api';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-empresas',
   imports: [
+    RouterLink,
     AvatarModule,
     SkeletonModule,
-    TranslatePipe,
+
     SelectModule,
     InputTextModule,
     ButtonModule,

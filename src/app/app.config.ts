@@ -4,7 +4,7 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { AppTheme } from './themes/app.theme';
@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
       }),
     }),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     providePrimeNG({
       theme: {
         preset: AppTheme,

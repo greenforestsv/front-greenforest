@@ -39,11 +39,15 @@ export class EmpresasService {
 
   /* GET EMPRESA ME*/
   getEmpresaMe() {
-    return this.http.get<TenantResponseDto>(`${this.apiUrl}/tenant`);
+    return this.http.get<TenantResponseDto>(`${this.apiUrl}/tenant/my-profile`);
   }
 
   /* GET EMPRESA ME*/
   patchEmpresa(body: PatchTenantDto) {
     return this.http.patch(`${this.apiUrl}/tenant`, body);
+  }
+
+  getDetalleEmpresa(id: string) {
+    return this.http.get<TenantResponseDto>(`${this.apiUrl}/tenant/detail/${id}`);
   }
 }

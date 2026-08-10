@@ -41,6 +41,11 @@ export const CANDIDATO_ROUTES: Routes = [
         loadComponent: () => import('../pages/empresas/empresas').then((m) => m.Empresas),
       },
       {
+        path: 'empresas/:id',
+        loadComponent: () =>
+          import('../pages/empresas/empresa-detalle/empresa-detalle').then((m) => m.EmpresaDetalle),
+      },
+      {
         path: 'configuracion',
         loadComponent: () =>
           import('../pages/configuracion/configuracion').then((m) => m.Configuracion),
