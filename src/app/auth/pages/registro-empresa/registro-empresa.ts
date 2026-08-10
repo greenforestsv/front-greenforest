@@ -71,7 +71,7 @@ export class RegistroEmpresa {
       tenant_alternative_email: ['', Validators.email],
 
       phone: ['', [Validators.required, phoneValidator()]],
-      cell_phone: ['', phoneValidator()],
+      cel_phone: ['', phoneValidator()],
 
       description: ['', Validators.required],
 
@@ -113,7 +113,7 @@ export class RegistroEmpresa {
   readonly tenant_alternative_email = this.signupForm.controls.tenant_alternative_email;
 
   readonly phone = this.signupForm.controls.phone;
-  readonly cell_phone = this.signupForm.controls.cell_phone;
+  readonly cel_phone = this.signupForm.controls.cel_phone;
 
   readonly description = this.signupForm.controls.description;
   readonly approach = this.signupForm.controls.approach;
@@ -157,7 +157,7 @@ export class RegistroEmpresa {
       approach,
       locations,
       database_host,
-      cell_phone,
+      cel_phone,
       tenant_alternative_email,
       url_profile_photo,
       confirm_email,
@@ -201,7 +201,7 @@ export class RegistroEmpresa {
       approach: cleanApproach,
       locations: cleanLocations,
       ...(database_host.trim() && { database_host }),
-      ...(cell_phone.trim() && { cell_phone }),
+      ...(cel_phone.trim() && { cel_phone }),
       ...(tenant_alternative_email.trim() && { tenant_alternative_email }),
       ...(url_profile_photo.trim() && { url_profile_photo }),
       representative: {

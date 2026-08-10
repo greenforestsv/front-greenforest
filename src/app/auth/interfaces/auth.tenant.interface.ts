@@ -19,7 +19,7 @@ export interface SignupTenantDto {
   tenant_name: string;
   tenant_email: string;
   phone: string;
-  cell_phone?: string;
+  cel_phone?: string;
   tenant_alternative_email?: string;
   description: string;
   approach: string[];
