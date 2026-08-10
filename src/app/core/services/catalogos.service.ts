@@ -19,7 +19,7 @@ export class CatalogosService {
     return this.http.get<GetCountryDto[]>(`${this.apiUrl}/countries/list`);
   }
   /* GET STATES */
-  getStates() {
-    return this.http.get<GetStateDto[]>(`${this.apiUrl}/states/list`);
+  getStates(country_iso: string) {
+    return this.http.get<GetStateDto[]>(`${this.apiUrl}/states/list/${country_iso}`);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { CatalogosService } from '../../../core/services/catalogos.service';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
@@ -20,16 +20,32 @@ export class StatesSelect {
   states = signal<GetStateDto[]>([]);
 
   control = input.required<FormControl<string>>();
+  countryControl = input.required<FormControl<string>>();
 
-  constructor() {
-    this.load();
+  ngOnInit() {
+    const country = this.countryControl();
+
+    if (country.value) {
+      this.load(country.value);
+    }
+
+    country.valueChanges.subscribe((countryIso) => {
+      this.control().reset();
+
+      if (!countryIso) {
+        this.states.set([]);
+        return;
+      }
+
+      this.load(countryIso);
+    });
   }
 
-  load() {
+  load(country_iso: string) {
     this.loading.set(true);
 
     this.catalogsService
-      .getStates()
+      .getStates(country_iso)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (data) => {

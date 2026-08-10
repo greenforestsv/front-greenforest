@@ -17,7 +17,7 @@
       </div>
 
       <form [formGroup]="signupForm" (ngSubmit)="signup()" class="flex flex-col gap-4 w-full">
-        <div class="flex flex-col lg:flex-row gap-4">
+        <div class="flex flex-col md:flex-row gap-4">
           <!-- IZQUIERDA -->
           <div class="flex flex-col gap-4 flex-1">
             <!-- PRIMER NOMBRE -->
@@ -257,25 +257,7 @@
             <app-countries-select [control]="country" />
 
             <!-- DEPARTAMENTO -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm"
-                >Departamento <span class="text-accent-500">*</span></label
-              >
-              <p-select
-                formControlName="department"
-                [options]="departmentOptions"
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Departamento"
-              />
-              @if (department.invalid && department.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (department.hasError('required')) {
-                    El departamento es obligatorio.
-                  }
-                </p-message>
-              }
-            </div>
+            <app-states-select [control]="department" [countryControl]="country" />
 
             <!-- PROFESIÓN -->
             <div class="flex flex-col gap-1">

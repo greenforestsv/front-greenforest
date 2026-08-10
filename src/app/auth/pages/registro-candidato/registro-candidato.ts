@@ -16,6 +16,7 @@ import { finalize } from 'rxjs';
 import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
 import { CountriesSelect } from '../../../shared/components/countries-select/countries-select';
 import { PoliticasPrivacidadCheckbox } from '../../../shared/components/politicas-privacidad-checkbox/politicas-privacidad-checkbox';
+import { StatesSelect } from '../../../shared/components/states-select/states-select';
 
 @Component({
   selector: 'app-registro-candidato',
@@ -33,6 +34,7 @@ import { PoliticasPrivacidadCheckbox } from '../../../shared/components/politica
     DatePickerModule,
     CountriesSelect,
     PoliticasPrivacidadCheckbox,
+    StatesSelect,
   ],
   templateUrl: './registro-candidato.html',
   styleUrl: './registro-candidato.scss',
@@ -52,8 +54,6 @@ export class RegistroCandidato {
     { label: 'Hombre', value: 'M' },
     { label: 'Otro', value: 'U' },
   ];
-  countryOptions = [{ label: 'Honduras', value: 'HN' }];
-  departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
 
   // VALIDACIONES
   readonly signupForm = this.fb.nonNullable.group(
@@ -121,8 +121,6 @@ export class RegistroCandidato {
     } = this.signupForm.getRawValue();
 
     const gender = this.signupForm.getRawValue().gender as 'M' | 'F' | 'U';
-    //const countryLabel = this.countryOptions.find((c) => c.value === country)?.label ?? '';
-    const departmentLabel = this.departmentOptions.find((d) => d.value === department)?.label ?? '';
 
     this.authService
       .signupCandidato({
@@ -134,7 +132,7 @@ export class RegistroCandidato {
         email,
         gender,
         country,
-        department: departmentLabel,
+        department,
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
         ...(address.trim() && { address }),
