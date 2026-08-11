@@ -60,6 +60,16 @@ export interface CreateVacanteDto extends Vacante {
   processes: number[];
 }
 
+export interface PatchVacanteDto extends Vacante {
+  availability: string;
+  level_experience: string;
+
+  contract_type: number;
+  department: number;
+  format: number;
+  processes: number[];
+}
+
 export interface FilterJobListDto {
   name?: string;
   department?: string;

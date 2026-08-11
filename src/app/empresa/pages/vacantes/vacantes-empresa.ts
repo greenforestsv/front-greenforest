@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { VerDetalleVacanteDialog } from './dialogs/ver/ver-detalle-vacante-dialog';
 import { EditarVacanteDialog } from './dialogs/editar/editar-vacante-dialog';
 import { CrearVacanteDialog } from './dialogs/crear/crear-vacante-dialog';
@@ -167,13 +167,13 @@ export class VacantesEmpresa {
     this.loadJobs();
   }
 
-  save() {}
-
   first: number = 0;
   rows: number = 10;
-  onPageChange(event: any) {
+  onPageChange(event: PaginatorState): void {
     this.first = event.first ?? 0;
     this.rows = event.rows ?? 10;
+
+    this.loadJobs();
   }
 
   loadJobs(resetPage = false) {

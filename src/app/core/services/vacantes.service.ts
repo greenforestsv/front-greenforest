@@ -7,6 +7,7 @@ import {
   FilterJobListDto,
   GetDetalleVacanteDto,
   GetProcesoDto,
+  PatchVacanteDto,
 } from '../interfaces/vacantes.interfaces';
 import { PaginatedRequest, PaginatedResponse } from '../interfaces/pagination.interface';
 
@@ -17,7 +18,7 @@ export class VacantesService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  /* OBTENER VACANTES */
+  /* OBTENER TODAS LAS VACANTES */
   getJobs({ limit, offset, filters = {} }: PaginatedRequest<FilterJobListDto>) {
     let params = new HttpParams().set('limit', limit).set('offset', offset);
     const { name, department, format, min_salary, max_salary } = filters;
@@ -43,7 +44,7 @@ export class VacantesService {
     });
   }
 
-  /* OBTENER VACANTES DE EMPRESA */
+  /* OBTENER VACANTES DE UNA EMPRESA */
   getTenantJobs({ limit, offset, filters = {} }: PaginatedRequest<FilterJobListDto>) {
     let params = new HttpParams().set('limit', limit).set('offset', offset);
     const { name, department, format, min_salary, max_salary } = filters;
@@ -82,5 +83,10 @@ export class VacantesService {
   /* GET PROCESSES DE VACANTES */
   getActiveJobProcesses() {
     return this.http.get<GetProcesoDto[]>(`${this.apiUrl}/process-application/active/list`);
+  }
+
+  /* PATCH VACANTE */
+  patchJob(job_id: string, body: PatchVacanteDto) {
+    return this.http.patch(`${this.apiUrl}/job/${job_id}`, body);
   }
 }

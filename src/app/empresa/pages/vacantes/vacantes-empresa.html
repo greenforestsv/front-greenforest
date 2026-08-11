@@ -74,7 +74,10 @@
                 <div class="flex items-center gap-2">
                   <!-- VER DETALLE DE VACANTE DIALOG -->
                   <app-ver-detalle-vacante-dialog [id]="vacante.id" />
-                  <app-editar-vacante-dialog (experienceAdded)="loadJobs()" />
+                  <app-editar-vacante-dialog
+                    (loadVacantes)="loadJobs()"
+                    [currentVacanteId]="vacante.id"
+                  />
                 </div>
               </td>
             </tr>
@@ -84,7 +87,7 @@
           (onPageChange)="onPageChange($event)"
           [first]="first"
           [rows]="rows"
-          [totalRecords]="120"
+          [totalRecords]="totalRecords()"
           [rowsPerPageOptions]="[10, 20, 30]"
         />
       } @else {
