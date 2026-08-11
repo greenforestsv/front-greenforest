@@ -15,6 +15,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { GetCandidatoDto } from '../../../../../core/interfaces/postulacion.interface';
 import { EmptyState } from '../../../../../shared/components/empty-state/empty-state';
 import { FormatDatePipe } from '../../../../../shared/pipes/format-date.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ver-detalle-vacante-dialog',
@@ -32,6 +33,7 @@ import { FormatDatePipe } from '../../../../../shared/pipes/format-date.pipe';
     SkeletonModule,
     EmptyState,
     FormatDatePipe,
+    RouterLink,
   ],
 })
 export class VerDetalleVacanteDialog {

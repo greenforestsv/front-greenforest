@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { CV, CreateCV } from '../interfaces/cv.interfaces';
 import {
@@ -16,12 +16,17 @@ import { PaginatedRequest, PaginatedResponse } from '../../core/interfaces/pagin
 })
 export class AspirantesService {
   /* CONSTRUCTOR */
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
   /* GET ASPIRANTE ME */
   getAspirantMe() {
     return this.http.get<PrivateAspirant>(`${this.apiUrl}/aspirant/me`);
+  }
+
+  /* GET ASPIRANTE PÚBLICO*/
+  getPublicAspirant(id: string) {
+    return this.http.get<PublicAspirant>(`${this.apiUrl}/aspirant/profile/${id}`);
   }
 
   /* GET CURRICULUM */

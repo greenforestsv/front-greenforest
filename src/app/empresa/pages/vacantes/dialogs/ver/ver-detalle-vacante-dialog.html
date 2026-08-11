@@ -110,7 +110,11 @@
                       {{ candidato.public_profile }}
                     </td>
                     <td>
-                      <p-button size="small" label="Ver perfil" />
+                      <p-button
+                        size="small"
+                        label="Ver perfil"
+                        [routerLink]="`/empresa/candidatos/${candidato.id}`"
+                      />
                     </td>
                   </tr>
                 </ng-template>

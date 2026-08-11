@@ -1,0 +1,5 @@
+@if (loading()) {
+  <p>loading...</p>
+} @else {
+  <h1>{{ candidato()?.first_name + ' ' + candidato()?.second_name }}</h1>
+}

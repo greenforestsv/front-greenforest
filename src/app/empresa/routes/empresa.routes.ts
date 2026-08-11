@@ -30,11 +30,18 @@ export const EMPRESA_ROUTES: Routes = [
         path: 'candidatos',
         loadComponent: () => import('../pages/candidatos/candidatos').then((m) => m.Candidatos),
       },
-      /* {
+      {
+        path: 'candidatos/:id',
+        loadComponent: () =>
+          import('../pages/candidatos/candidato-detalle/candidato-detalle').then(
+            (m) => m.CandidatoDetalle,
+          ),
+      },
+      {
         path: 'configuracion',
         loadComponent: () =>
           import('../pages/configuracion/configuracion').then((m) => m.Configuracion),
-      }, */
+      },
     ],
   },
 ];
