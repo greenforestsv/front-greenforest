@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { TranslatePipe } from '@ngx-translate/core';
 import { EditarPerfilDialog } from './editar-perfil-dialog/editar-perfil-dialog';
 import { AvatarModule } from 'primeng/avatar';
 import { FormBuilder } from '@angular/forms';
@@ -8,10 +7,11 @@ import { MessageService } from 'primeng/api';
 import { EmpresasService } from '../../../core/services/empresas.service';
 import { TenantResponseDto } from '../../../core/interfaces/empresa.interface';
 import { finalize } from 'rxjs';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-perfil-empresa',
-  imports: [ButtonModule, TranslatePipe, EditarPerfilDialog, AvatarModule],
+  imports: [ButtonModule, EditarPerfilDialog, AvatarModule, SkeletonModule],
   templateUrl: './perfil-empresa.html',
   styleUrl: './perfil-empresa.scss',
 })

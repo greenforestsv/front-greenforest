@@ -5,14 +5,14 @@ import { VacantesService } from '../../../../core/services/vacantes.service';
 import { FilterJobListDto, GetVacanteDto } from '../../../../core/interfaces/vacantes.interfaces';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PostulacionesService } from '../../../../core/services/postulaciones.service';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 
 @Component({
   standalone: true,
-  imports: [PaginatorModule, ButtonModule, TranslatePipe, SkeletonModule, EmptyState],
+  imports: [PaginatorModule, ButtonModule, SkeletonModule, EmptyState],
   selector: 'app-paginated-jobs',
   templateUrl: './paginated-jobs.html',
 })

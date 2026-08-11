@@ -18,7 +18,6 @@ import { RouterLink } from '@angular/router';
     RouterLink,
     AvatarModule,
     SkeletonModule,
-
     SelectModule,
     InputTextModule,
     ButtonModule,

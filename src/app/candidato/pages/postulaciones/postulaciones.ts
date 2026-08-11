@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PostulacionesService } from '../../../core/services/postulaciones.service';
 import { GetPostulacionCandidatoDto } from '../../../core/interfaces/postulacion.interface';
@@ -10,7 +9,7 @@ import { PROCESSES } from '../../../core/constants/processes.constants';
 
 @Component({
   selector: 'app-postulaciones',
-  imports: [TranslatePipe, SkeletonModule, EmptyState],
+  imports: [SkeletonModule, EmptyState],
   templateUrl: './postulaciones.html',
   styleUrl: './postulaciones.scss',
 })
