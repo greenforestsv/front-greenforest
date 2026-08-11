@@ -27,7 +27,7 @@
         @if (title.invalid && title.touched) {
           <p-message severity="error" size="small" variant="simple" class="mt-1">
             @if (title.hasError('required')) {
-              Es obligatorio.
+              El título es obligatorio.
             }
           </p-message>
         }
@@ -46,7 +46,7 @@
         @if (description.invalid && description.touched) {
           <p-message severity="error" size="small" variant="simple" class="mt-1">
             @if (description.hasError('required')) {
-              Es obligatorio.
+              La descripción es obligatoria.
             }
           </p-message>
         }
@@ -60,7 +60,7 @@
           @if (ends_on.invalid && ends_on.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (ends_on.hasError('required')) {
-                Es obligatorio.
+                La fecha de cierre es obligatoria.
               }
             </p-message>
           }
@@ -73,7 +73,7 @@
           @if (availability.invalid && availability.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (availability.hasError('required')) {
-                Es obligatorio.
+                La diponibilidad es obligatoria.
               }
             </p-message>
           }
@@ -92,7 +92,7 @@
           @if (min_salary.invalid && min_salary.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (min_salary.hasError('required')) {
-                Es obligatorio.
+                El salario mínimo es obligatorio.
               }
             </p-message>
           }
@@ -111,7 +111,7 @@
           @if (max_salary.invalid && max_salary.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (max_salary.hasError('required')) {
-                Es obligatorio.
+                El salario máximo es obligatorio.
               }
             </p-message>
           }
@@ -124,7 +124,7 @@
           @if (workday_type.invalid && workday_type.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (workday_type.hasError('required')) {
-                Es obligatorio.
+                El tipo de jornada es obligatorio.
               }
             </p-message>
           }
@@ -137,7 +137,7 @@
           @if (workday.invalid && workday.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (workday.hasError('required')) {
-                Es obligatorio.
+                La jornada es obligatoria.
               }
             </p-message>
           }
@@ -156,7 +156,7 @@
           @if (contract_type.invalid && contract_type.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (contract_type.hasError('required')) {
-                Es obligatorio.
+                El tipo de contrato es obligatorio.
               }
             </p-message>
           }
@@ -175,7 +175,7 @@
           @if (department.invalid && department.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (department.hasError('required')) {
-                Es obligatorio.
+                El departamento es obligatorio.
               }
             </p-message>
           }
@@ -194,7 +194,7 @@
           @if (format.invalid && format.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (format.hasError('required')) {
-                Es obligatorio.
+                La modalidad es obligatoria.
               }
             </p-message>
           }
@@ -207,7 +207,7 @@
           @if (payment_form.invalid && payment_form.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (payment_form.hasError('required')) {
-                Es obligatorio.
+                La forma de pago es obligatoria.
               }
             </p-message>
           }
@@ -233,12 +233,12 @@
 
         <!-- Skills -->
         <div class="flex flex-col gap-1">
-          <label>Skills <span class="text-accent-500">*</span></label>
+          <label>Habilidades <span class="text-accent-500">*</span></label>
           <textarea pTextarea formControlName="skills" rows="4" [autoResize]="true"></textarea>
           @if (skills.invalid && skills.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (skills.hasError('required')) {
-                Es obligatorio.
+                Las habilidades son obligatorias.
               }
             </p-message>
           }
@@ -251,7 +251,7 @@
           @if (tools.invalid && tools.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (tools.hasError('required')) {
-                Es obligatorio.
+                Las herraminetas son obligatorias.
               }
             </p-message>
           }
@@ -269,10 +269,15 @@
           @if (requirements.invalid && requirements.touched) {
             <p-message severity="error" size="small" variant="simple" class="mt-1">
               @if (requirements.hasError('required')) {
-                Es obligatorio.
+                Los requerimientos son obligatorios.
               }
             </p-message>
           }
+        </div>
+
+        <!-- Procesos -->
+        <div class="flex flex-col gap-1 lg:col-span-2 w-full">
+          <app-procesos-postulacion-multiselect [control]="processes" />
         </div>
       </div>
 

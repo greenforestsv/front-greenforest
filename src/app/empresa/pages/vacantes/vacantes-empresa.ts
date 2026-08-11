@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +14,9 @@ import { CrearVacanteDialog } from './dialogs/crear/crear-vacante-dialog';
 import { VacantesService } from '../../../core/services/vacantes.service';
 import { finalize } from 'rxjs';
 import { GetVacanteDto } from '../../../core/interfaces/vacantes.interfaces';
-import dayjs from 'dayjs';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { SkeletonModule } from 'primeng/skeleton';
+import { FormatDatePipe } from '../../../shared/pipes/format-date.pipe';
 
 @Component({
   selector: 'app-vacantes-empresa',
@@ -24,7 +25,6 @@ import dayjs from 'dayjs';
     InputTextModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslatePipe,
     MessageModule,
     TextareaModule,
     SelectModule,
@@ -33,6 +33,9 @@ import dayjs from 'dayjs';
     VerDetalleVacanteDialog,
     EditarVacanteDialog,
     CrearVacanteDialog,
+    EmptyState,
+    SkeletonModule,
+    FormatDatePipe,
   ],
   templateUrl: './vacantes-empresa.html',
   styleUrl: './vacantes-empresa.scss',
@@ -159,10 +162,6 @@ export class VacantesEmpresa {
       },
     },
   ]); */
-
-  formatDate(date: string | Date) {
-    return dayjs(date).format('D MMM YYYY');
-  }
 
   constructor() {
     this.loadJobs();

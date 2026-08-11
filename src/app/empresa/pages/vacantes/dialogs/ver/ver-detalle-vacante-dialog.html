@@ -92,15 +92,16 @@
                         }
                         <div>
                           <p class="font-bold text-black">{{ candidato.aspirant_name }}</p>
-                          <!--                           <p class="text-gray-600">{{ vacante.subtext }}</p> -->
                         </div>
                       </div>
                     </td>
                     <td>
-                      {{ candidato.skills }}
+                      @for (skill of candidato.skills; track $index) {
+                        {{ skill }}
+                      }
                     </td>
                     <td>
-                      {{ candidato.applied_at }}
+                      {{ candidato.applied_at | formatDate }}
                     </td>
                     <td>
                       {{ candidato.status }}

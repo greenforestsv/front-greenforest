@@ -14,6 +14,7 @@ import { PostulacionesService } from '../../../../../core/services/postulaciones
 import { SkeletonModule } from 'primeng/skeleton';
 import { GetCandidatoDto } from '../../../../../core/interfaces/postulacion.interface';
 import { EmptyState } from '../../../../../shared/components/empty-state/empty-state';
+import { FormatDatePipe } from '../../../../../shared/pipes/format-date.pipe';
 
 @Component({
   selector: 'app-ver-detalle-vacante-dialog',
@@ -30,6 +31,7 @@ import { EmptyState } from '../../../../../shared/components/empty-state/empty-s
     PaginatorModule,
     SkeletonModule,
     EmptyState,
+    FormatDatePipe,
   ],
 })
 export class VerDetalleVacanteDialog {

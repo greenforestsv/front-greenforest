@@ -15,6 +15,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CreateVacanteDto } from '../../../../../core/interfaces/vacantes.interfaces';
+import { toArray } from '../../../../../shared/utils/string.utils';
+import { ProcesosPostulacionMultiSelect } from '../../../../../shared/components/procesos-postulacion-multiselect/procesos-postulacion-multiselect';
 
 @Component({
   selector: 'app-crear-vacante-dialog',
@@ -33,6 +35,7 @@ import { CreateVacanteDto } from '../../../../../core/interfaces/vacantes.interf
     InputNumberModule,
     SelectModule,
     CheckboxModule,
+    ProcesosPostulacionMultiSelect,
   ],
 })
 export class CrearVacanteDialog {
@@ -96,6 +99,7 @@ export class CrearVacanteDialog {
     skills: ['', Validators.required],
     tools: ['', Validators.required],
     requirements: ['', Validators.required],
+    processes: this.fb.nonNullable.control<number[]>([], Validators.required),
 
     payment_form: ['', Validators.required],
 
@@ -137,6 +141,7 @@ export class CrearVacanteDialog {
   readonly skills = this.vacanteForm.controls.skills;
   readonly tools = this.vacanteForm.controls.tools;
   readonly requirements = this.vacanteForm.controls.requirements;
+  readonly processes = this.vacanteForm.controls.processes;
 
   closeDialog() {
     this.resetForm();
@@ -173,17 +178,11 @@ export class CrearVacanteDialog {
       skills: '',
       tools: '',
       requirements: '',
+      processes: [],
     });
 
     this.vacanteForm.markAsPristine();
     this.vacanteForm.markAsUntouched();
-  }
-
-  private toArray(value: string): string[] {
-    return value
-      .split('\n')
-      .map((v) => v.trim())
-      .filter(Boolean);
   }
 
   /* GUARDAR */
@@ -199,10 +198,11 @@ export class CrearVacanteDialog {
 
     const nuevaVacante: CreateVacanteDto = {
       ...vacante,
-      workday: this.toArray(vacante.workday),
-      skills: this.toArray(vacante.skills),
-      tools: this.toArray(vacante.tools),
-      requirements: this.toArray(vacante.requirements),
+      workday: toArray(vacante.workday),
+      skills: toArray(vacante.skills),
+      tools: toArray(vacante.tools),
+      requirements: toArray(vacante.requirements),
+      processes: vacante.processes,
       ends_on: dayjs(vacante.ends_on).toISOString(),
     };
 

@@ -57,6 +57,7 @@ export interface CreateVacanteDto extends Vacante {
   contract_type: number;
   department: number;
   format: number;
+  processes: number[];
 }
 
 export interface FilterJobListDto {
@@ -65,4 +66,13 @@ export interface FilterJobListDto {
   format?: string;
   min_salary?: string;
   max_salary?: string;
+}
+
+export interface GetProcesoDto {
+  id: number;
+  name: string;
+  description?: string;
+  orden: number;
+  fixed: boolean;
+  status?: string[];
 }

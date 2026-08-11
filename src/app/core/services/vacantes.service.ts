@@ -6,6 +6,7 @@ import {
   CreateVacanteDto,
   FilterJobListDto,
   GetDetalleVacanteDto,
+  GetProcesoDto,
 } from '../interfaces/vacantes.interfaces';
 import { PaginatedRequest, PaginatedResponse } from '../interfaces/pagination.interface';
 
@@ -76,5 +77,10 @@ export class VacantesService {
   /* VER DETALLE VACANTE */
   getJobDetails(id: string) {
     return this.http.get<GetDetalleVacanteDto>(`${this.apiUrl}/job-details/${id}`);
+  }
+
+  /* GET PROCESSES DE VACANTES */
+  getActiveJobProcesses() {
+    return this.http.get<GetProcesoDto[]>(`${this.apiUrl}/process-application/active/list`);
   }
 }
