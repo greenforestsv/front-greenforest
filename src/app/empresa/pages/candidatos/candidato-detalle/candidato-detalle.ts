@@ -1,29 +1,38 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
 import { AspirantesService } from '../../../../candidato/services/aspirantes.service';
 import { PublicAspirant } from '../../../../candidato/interfaces/aspirant.interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 
 @Component({
   selector: 'app-candidato-detalle',
-  imports: [],
+  imports: [EmptyState],
   templateUrl: './candidato-detalle.html',
   styleUrl: './candidato-detalle.scss',
 })
 export class CandidatoDetalle {
-  id = input.required<string>();
-
-  candidato = signal<PublicAspirant | null>(null);
-  loading = signal(true);
-
+  private route = inject(ActivatedRoute);
   private aspirantesService = inject(AspirantesService);
   private messageService = inject(MessageService);
 
+  id = signal<string | null>(null);
+  candidato = signal<PublicAspirant | null>(null);
+  loading = signal(false);
+
   constructor() {
-    this.load(this.id());
+    this.id.set(this.route.snapshot.paramMap.get('id'));
+    this.load();
   }
 
-  load(id: string) {
+  load() {
+    const id = this.id();
+
+    if (!id) {
+      return;
+    }
+
     this.loading.set(true);
 
     this.aspirantesService

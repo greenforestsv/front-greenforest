@@ -113,7 +113,7 @@
                       <p-button
                         size="small"
                         label="Ver perfil"
-                        [routerLink]="`/empresa/candidatos/${candidato.id}`"
+                        [routerLink]="['/empresa/candidatos', candidato.aspirant_id]"
                       />
                     </td>
                   </tr>

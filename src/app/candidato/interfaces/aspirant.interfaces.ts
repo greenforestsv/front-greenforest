@@ -39,6 +39,7 @@ export interface FilterAspirantListDto {
 }
 
 export interface GetAspirantListDto {
+  id: string;
   name: string;
   profile_photo: string;
   profession: string;

@@ -1,5 +1,9 @@
 @if (loading()) {
   <p>loading...</p>
 } @else {
-  <h1>{{ candidato()?.first_name + ' ' + candidato()?.second_name }}</h1>
+  @if (candidato()) {
+    <h1>{{ candidato()?.first_name + ' ' + candidato()?.second_name }}</h1>
+  } @else {
+    <app-empty-state />
+  }
 }
