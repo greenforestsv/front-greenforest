@@ -22,6 +22,28 @@ export interface TenantResponseDto {
   is_verified?: boolean;
 }
 
+export interface PerfilEmpresaDto {
+  active_jobs: number;
+  alternative_email: string;
+  approach: string[];
+  avg_valorations: number;
+  cel_phone: string;
+  description: string;
+  email: string;
+  employees: number;
+  favorites: number;
+  id: string;
+  is_multinational: boolean;
+  is_verified: boolean;
+  locations: string[];
+  name: string;
+  normalized_name: string;
+  phone: string;
+  url_profile_photo: string;
+  vinculation_date: string;
+  website: string;
+}
+
 export interface PatchTenantDto {
   name: string;
   phone: string;

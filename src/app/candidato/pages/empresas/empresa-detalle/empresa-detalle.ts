@@ -1,29 +1,40 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { EmpresasService } from '../../../../core/services/empresas.service';
 import { MessageService } from 'primeng/api';
-import { TenantResponseDto } from '../../../../core/interfaces/empresa.interface';
+import { PerfilEmpresaDto } from '../../../../core/interfaces/empresa.interface';
+import { SkeletonModule } from 'primeng/skeleton';
+import { EmpresaProfile } from '../../../../shared/components/empresa-profile/empresa-profile';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-empresa-detalle',
-  imports: [],
+  imports: [SkeletonModule, EmpresaProfile],
   templateUrl: './empresa-detalle.html',
   styleUrl: './empresa-detalle.scss',
 })
 export class EmpresaDetalle {
-  id = input.required<string>();
+  private route = inject(ActivatedRoute);
 
-  empresa = signal<TenantResponseDto | null>(null);
+  id = signal<string | null>(null);
+  perfil = signal<PerfilEmpresaDto | null>(null);
   loading = signal(true);
 
   private empresasService = inject(EmpresasService);
   private messageService = inject(MessageService);
 
-  ngOnInit() {
-    this.load(this.id());
+  constructor() {
+    this.id.set(this.route.snapshot.paramMap.get('id'));
+    this.load();
   }
 
-  load(id: string) {
+  load() {
+    const id = this.id();
+
+    if (!id) {
+      return;
+    }
+
     this.loading.set(true);
 
     this.empresasService
@@ -31,7 +42,7 @@ export class EmpresaDetalle {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (data) => {
-          this.empresa.set(data);
+          this.perfil.set(data);
         },
         error: (err: { error: { message: any }; status: number }) => {
           this.messageService.add({

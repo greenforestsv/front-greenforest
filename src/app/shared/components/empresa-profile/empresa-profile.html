@@ -1,0 +1,73 @@
+<section class="card p-8 space-y-4">
+  <div class="flex flex-col lg:flex-row items-center gap-4 lg:justify-between">
+    <div class="flex items-center gap-6 flex-col md:flex-row">
+      <div class="shrink-0">
+        <app-custom-avatar
+          [src]="'https://static.vecteezy.com/system/resources/thumbnails/046/593/914/small/creative-logo-design-for-real-estate-company-vector.jpg'"
+          size="size-32"
+          [name]="'name'"
+          fontSize="text-5xl"
+        />
+      </div>
+      <div class="space-y-3 text-center md:text-left">
+        <h1 class="text-3xl flex gap-1 items-center justify-center md:justify-start">
+          {{ perfil().name }}
+          @if (perfil().is_verified) {
+            <span>
+              <i class="pi pi-verified" style="font-size: 1.1rem; color: var(--color-sky-500)"></i>
+            </span>
+          }
+        </h1>
+
+        <div
+          class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 md:justify-start"
+        >
+          <p-rating [ngModel]="perfil().avg_valorations" readOnly />
+          <p class="flex items-center gap-1">
+            {{ perfil().favorites }}
+            <i class="pi pi-heart" style="font-size: 1.1rem"></i>
+          </p>
+          <p class="flex items-center gap-1">
+            {{ perfil().employees }}
+            <i class="pi pi-users" style="font-size: 1.1rem"></i>
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+          @for (approach of perfil().approach; track $index) {
+            <span class="green-badge">{{ approach }}</span>
+          }
+        </div>
+        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+          @for (location of perfil().locations; track $index) {
+            <span class="gray-badge">{{ location }}</span>
+          }
+        </div>
+      </div>
+    </div>
+    @if (editable()) {
+      <div class="shrink-0">
+        <app-editar-perfil-dialog />
+      </div>
+    }
+  </div>
+  <p>
+    {{ perfil().description }}
+  </p>
+
+  <div
+    class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 md:justify-start"
+  >
+    <p class="flex items-center gap-1">
+      <i class="pi pi-globe" style="font-size: 1.1rem"></i>
+      www.innovatec.com
+    </p>
+    <p class="flex items-center gap-1">
+      <i class="pi pi-envelope" style="font-size: 1.1rem"></i>
+      {{ perfil().email }}
+    </p>
+    <p class="flex items-center gap-1">
+      <i class="pi pi-phone" style="font-size: 1.1rem"></i>
+      {{ perfil().phone }}
+    </p>
+  </div>
+</section>

@@ -5,6 +5,7 @@ import {
   TenantResponseDto,
   PatchTenantDto,
   FilterTenantListDto,
+  PerfilEmpresaDto,
 } from '../interfaces/empresa.interface';
 import { PaginatedResponse, PaginatedRequest } from '../interfaces/pagination.interface';
 import { HttpParams } from '@angular/common/http';
@@ -39,15 +40,16 @@ export class EmpresasService {
 
   /* GET EMPRESA ME*/
   getEmpresaMe() {
-    return this.http.get<TenantResponseDto>(`${this.apiUrl}/tenant/my-profile`);
+    return this.http.get<PerfilEmpresaDto>(`${this.apiUrl}/tenant/my-profile`);
   }
 
-  /* GET EMPRESA ME*/
+  /* PATCH EMPRESA ME*/
   patchEmpresa(body: PatchTenantDto) {
     return this.http.patch(`${this.apiUrl}/tenant`, body);
   }
 
+  /* GET EMPRESA PUBLIC*/
   getDetalleEmpresa(id: string) {
-    return this.http.get<TenantResponseDto>(`${this.apiUrl}/tenant/detail/${id}`);
+    return this.http.get<PerfilEmpresaDto>(`${this.apiUrl}/tenant/detail/${id}`);
   }
 }

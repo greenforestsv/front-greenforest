@@ -1,0 +1,15 @@
+@if (src()) {
+  <img
+    [src]="src()"
+    loading="lazy"
+    decoding="async"
+    [alt]="name()"
+    [class]="`object-cover rounded-full ${size() || 'size-7'}`"
+  />
+} @else {
+  <div
+    [class]="`flex items-center justify-center bg-mid rounded-full ${size() || 'size-7'} ${fontSize()}`"
+  >
+    {{ name().charAt(0).toUpperCase() }}
+  </div>
+}
