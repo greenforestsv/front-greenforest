@@ -2,8 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { AspirantesService } from '../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
-import { ChartDoughnut } from './components/chart-doughnut/chart-doughnut';
-import { TranslatePipe } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
@@ -12,18 +10,29 @@ import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditarPerfilDialog } from './components/editar-perfil-dialog/editar-perfil-dialog';
 import { CV } from '../../interfaces/cv.interfaces';
+import { PrivateAspirant } from '../../interfaces/aspirant.interfaces';
+import { SkeletonModule } from 'primeng/skeleton';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { CustomAvatar } from '../../../shared/components/custom-avatar/custom-avatar';
+import { FormatDatePipe } from '../../../shared/pipes/format-date.pipe';
+import { GenderPipe } from '../../../shared/pipes/gender.pipe';
+import { FullNamePipe } from '../../../shared/pipes/full-name.pipe';
 
 @Component({
   selector: 'app-perfil-candidato',
   imports: [
     AvatarModule,
-    ChartDoughnut,
-    TranslatePipe,
+    CustomAvatar,
     ButtonModule,
     FormsModule,
     ToggleSwitchModule,
     ReactiveFormsModule,
     EditarPerfilDialog,
+    SkeletonModule,
+    EmptyState,
+    FormatDatePipe,
+    GenderPipe,
+    FullNamePipe,
   ],
   templateUrl: './perfil-candidato.html',
   styleUrl: './perfil-candidato.scss',
@@ -35,7 +44,8 @@ export class PerfilCandidato {
   fb = inject(FormBuilder);
 
   /* ESTADOS SIGNAL */
-  perfil = signal<CV | null>(null);
+  cv = signal<CV | null>(null);
+  aspirant = signal<PrivateAspirant | null>(null);
   profilePercentage = signal(86);
   loading = signal(false);
 
@@ -46,6 +56,11 @@ export class PerfilCandidato {
   });
 
   constructor() {
+    this.loadCV();
+    this.loadAspirant();
+  }
+
+  loadCV() {
     this.loading.set(true);
     /* OBTENCIÓN DE DATOS */
     this.aspirantsService
@@ -53,12 +68,35 @@ export class PerfilCandidato {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (data) => {
-          this.perfil.set(data);
+          console.log({ cv: data });
+          this.cv.set(data);
         },
         error: (err: { error: { message: any }; status: number }) => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error al obtener datos de perfil',
+            summary: 'Error al obtener datos de curriculum',
+            detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
+  }
+
+  loadAspirant() {
+    this.loading.set(true);
+    /* OBTENCIÓN DE DATOS */
+    this.aspirantsService
+      .getAspirantMe()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (data) => {
+          console.log({ aspirant: data });
+          this.aspirant.set(data);
+        },
+        error: (err: { error: { message: any }; status: number }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al obtener datos de candidato',
             detail: err.error?.message ?? 'Ocurrió un error inesperado',
             life: 5000,
           });

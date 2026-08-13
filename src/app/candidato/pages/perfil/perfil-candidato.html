@@ -1,60 +1,100 @@
-<div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
+<div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4 w-full">
   @if (loading()) {
-    <div class="flex-2 flex flex-col gap-4">
-      <section class="card p-8"></section>
-      <section class="card p-8"></section>
-      <div class="w-full flex flex-col lg:flex-row gap-4">
-        <section class="card p-8 flex-1"></section>
-        <section class="card p-8 flex-1"></section>
-      </div>
-    </div>
-    <div class="flex flex-col gap-4 flex-1">
-      <aside class="card p-4"></aside>
-      <aside class="card p-4"></aside>
-    </div>
+    <p-skeleton width="100%" height="16rem" borderRadius="1.5rem" />
   } @else {
-    <div class="flex-2 flex flex-col gap-4">
-      <section class="card p-8 flex flex-col lg:flex-row items-center gap-4 lg:justify-between">
-        @if (perfil()?.profile_photo) {
-          <p-avatar
-            size="xlarge"
-            shape="circle"
-            class="shrink-0"
-            [image]="perfil()?.profile_photo"
-          />
-        } @else {
-          <p-avatar size="xlarge" shape="circle" class="shrink-0" />
-        }
-        <div class="space-y-2">
-          <h1 class="text-3xl">
-            {{ perfil()?.name }}
-          </h1>
-          <p class="text-sm">
-            {{ perfil()?.profession }}
-          </p>
-          <div class="flex flex-wrap gap-2">
-            @for (skill of perfil()?.skills; track $index) {
-              <span class="green-badge">{{ skill }}</span>
-            }
-            @for (language of perfil()?.languages; track $index) {
-              <span class="gray-badge">{{ language.name + ' ' + language.level }}</span>
-            }
+    <section class="card p-8 space-y-4">
+      <div class="flex flex-col lg:flex-row items-center gap-4 lg:justify-between">
+        <div class="flex items-center gap-6 flex-col md:flex-row">
+          <div class="shrink-0">
+            <app-custom-avatar
+              [src]="'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'"
+              size="size-32"
+              [name]="aspirant()?.first_name || 'name'"
+              fontSize="text-5xl"
+            />
+          </div>
+          <div class="text-center md:text-left">
+            <h1 class="text-3xl flex gap-1 items-center justify-center md:justify-start">
+              {{ aspirant() | fullName }}
+              <span>
+                <i
+                  class="pi pi-verified"
+                  style="font-size: 1.1rem; color: var(--color-sky-500)"
+                ></i>
+              </span>
+              <!-- @if (perfil().is_verified) {
+              } -->
+            </h1>
+            <p class="text-gray-600 text-sm">
+              {{ cv()?.profession }}
+            </p>
+            <!-- 
+
+            <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+              @for (approach of perfil().approach; track $index) {
+                <span class="green-badge">{{ approach }}</span>
+              }
+            </div>
+             -->
           </div>
         </div>
         <div class="shrink-0">
-          <app-editar-perfil-dialog />
+          <app-editar-perfil-dialog [perfil]="" />
         </div>
-      </section>
-      <section class="card p-8 space-y-2">
-        <div class="flex flex-wrap-reverse justify-between gap-2">
-          <h2>{{ 'perfil.candidato.resumen_profesional' | translate }}</h2>
-          <!-- <span class="accent-badge">{{ 'perfil.candidato.visible_empresas' | translate }}</span> -->
-        </div>
-        <p class="text-sm">
-          {{ perfil()?.description }}
+        <!--  @if (editable()) {
+        } -->
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+        <!-- SKILLS -->
+        @for (skill of cv()?.skills; track $index) {
+          <span class="green-badge">{{ skill }}</span>
+        }
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+        <!-- LANGUAGES -->
+        @for (language of cv()?.languages; track $index) {
+          <span class="gray-badge">{{ language.name + ' ' + language.level }}</span>
+        }
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <div
+        class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 md:justify-start"
+      >
+        <p class="flex items-center gap-1">
+          <i class="pi pi-map-marker" style="font-size: 1.1rem"></i>{{ cv()?.location }}
         </p>
-      </section>
-      <!-- <div class="w-full flex flex-col lg:flex-row gap-4">
+        <p class="flex items-center gap-1">
+          <i class="pi pi-envelope" style="font-size: 1.1rem"></i>
+          {{ aspirant()?.email }}
+        </p>
+        <p class="flex items-center gap-1">
+          <i class="pi pi-phone" style="font-size: 1.1rem"></i>
+          {{ aspirant()?.phone }}
+        </p>
+      </div>
+      <div
+        class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 md:justify-start"
+      >
+        <p class="flex items-center gap-1">
+          <i class="pi pi-calendar" style="font-size: 1.1rem"></i
+          >{{ aspirant()?.birth_date | formatDate }}
+        </p>
+        <p class="flex items-center gap-1">
+          <i class="pi pi-id-card" style="font-size: 1.1rem"></i>{{ aspirant()?.dni }}
+        </p>
+        <p class="flex items-center gap-1">
+          <i class="pi pi-user" style="font-size: 1.1rem"></i> {{ aspirant()?.gender | gender }}
+        </p>
+      </div>
+    </section>
+
+    <!-- <div class="w-full flex flex-col lg:flex-row gap-4">
         <section class="card p-8 flex-1 space-y-2">
           <div class="flex flex-wrap-reverse justify-between gap-2">
             <h2>{{ 'perfil.candidato.documentos' | translate }}</h2>
@@ -155,7 +195,6 @@
           </form>
         </section>
       </div> -->
-    </div>
 
     <!-- COMPLETITUD DE PERFIL -->
     <!--   <aside class="flex flex-col gap-4 flex-1 card p-8">
