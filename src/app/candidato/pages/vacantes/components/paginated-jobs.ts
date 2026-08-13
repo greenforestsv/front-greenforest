@@ -9,10 +9,19 @@ import { TranslateService } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PostulacionesService } from '../../../../core/services/postulaciones.service';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
+import { CurrencyFormatPipe } from '../../../../shared/pipes/currency-format.pipe';
+import { FormatDatePipe } from '../../../../shared/pipes/format-date.pipe';
 
 @Component({
   standalone: true,
-  imports: [PaginatorModule, ButtonModule, SkeletonModule, EmptyState],
+  imports: [
+    PaginatorModule,
+    ButtonModule,
+    SkeletonModule,
+    EmptyState,
+    CurrencyFormatPipe,
+    FormatDatePipe,
+  ],
   selector: 'app-paginated-jobs',
   templateUrl: './paginated-jobs.html',
 })
@@ -31,7 +40,7 @@ export class PaginatedJobs {
 
   totalRecords = signal(0);
   first: number = 0;
-  rows: number = 3;
+  rows: number = 6;
   rowsPerPageOptions = [3, 6, 9, 12];
 
   constructor() {

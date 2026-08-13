@@ -1,29 +1,43 @@
 <section class="flex flex-col gap-4">
   @if (loading()) {
-    <div class="flex flex-col gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       @for (item of items; track $index) {
-        <p-skeleton width="100%" height="8.7rem" borderRadius="1rem" />
+        <p-skeleton width="100%" height="12rem" borderRadius="1rem" />
       }
     </div>
   } @else {
     @if (jobs().length) {
-      <div class="flex flex-col gap-2">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         @for (job of jobs(); track job.id) {
           <div class="card p-6 space-y-2">
-            <div class="flex gap-2 justify-between flex-wrap">
-              <h2 class="font-bold inter-font">{{ job.title }}</h2>
-              <span class="font-bold">{{ job.min_salary }} - {{ job.max_salary }}</span>
+            <div class="flex gap-2 justify-between flex-wrap items-center">
+              <div>
+                <h2 class="font-bold inter-font">{{ job.title }}</h2>
+                <p class="text-sm text-gray-600">
+                  {{ job.normalized_name }} &bull; {{ job.format }}
+                </p>
+              </div>
+              @if (job.is_new) {
+                <span class="green-badge">Nuevo</span>
+              }
             </div>
-            <p class="text-sm text-gray-600">
-              {{ job.description }}
-            </p>
-            <div class="flex justify-between items-center">
+            <div class="flex flex-col gap-2">
+              <span class="font-bold"
+                ><!-- {{ job.min_salary | currencyFormat: job.currency }} -->
+                {{ job.min_salary | currencyFormat }} - {{ job.max_salary | currencyFormat }}</span
+              >
               <ul class="flex gap-2 items-center flex-wrap">
                 @for (tag of job.tools; track $index) {
-                  <span class="green-badge">{{ tag }}</span>
+                  <span class="gray-badge">{{ tag }}</span>
+                }
+                @for (tag of job.skills; track $index) {
+                  <span class="gray-badge">{{ tag }}</span>
                 }
               </ul>
-              <p-button label="Aplicar" size="small" (onClick)="applyToJob(job.id)" />
+              <div class="flex items-center justify-between">
+                <span class="accent-badge">Termina el {{ job.ends_on | formatDate }}</span>
+                <p-button label="Aplicar" size="small" (onClick)="applyToJob(job.id)" />
+              </div>
             </div>
           </div>
         }
