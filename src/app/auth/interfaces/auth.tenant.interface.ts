@@ -1,3 +1,5 @@
+import { Gender } from '../../shared/pipes/gender.pipe';
+
 export interface Representative {
   dni: string;
   first_name: string;
@@ -5,7 +7,7 @@ export interface Representative {
   first_surname: string;
   second_surname?: string;
   birth_date: Date;
-  gender: 'M' | 'F' | 'U';
+  gender: Gender;
   email: string;
   phone: string;
   country: string;

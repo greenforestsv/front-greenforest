@@ -18,6 +18,7 @@ import { SignupTenantDto } from '../../interfaces/auth.tenant.interface';
 import { TextareaModule } from 'primeng/textarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FileUploadEvent, FileUploadModule } from 'primeng/fileupload';
+import { Gender } from '../../../shared/pipes/gender.pipe';
 
 @Component({
   selector: 'app-registro-empresa',
@@ -189,7 +190,7 @@ export class RegistroEmpresa {
       return;
     }
 
-    const gender = this.representative.getRawValue().gender as 'M' | 'F' | 'U';
+    const gender = this.representative.getRawValue().gender as Gender;
     const is_isolate = this.is_isolate.getRawValue() as 'NO' | 'INSTANCE';
 
     const departmentLabel =

@@ -17,6 +17,7 @@ import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
 import { CountriesSelect } from '../../../shared/components/countries-select/countries-select';
 import { PoliticasPrivacidadCheckbox } from '../../../shared/components/politicas-privacidad-checkbox/politicas-privacidad-checkbox';
 import { StatesSelect } from '../../../shared/components/states-select/states-select';
+import { Gender } from '../../../shared/pipes/gender.pipe';
 
 @Component({
   selector: 'app-registro-candidato',
@@ -120,7 +121,7 @@ export class RegistroCandidato {
       profession,
     } = this.signupForm.getRawValue();
 
-    const gender = this.signupForm.getRawValue().gender as 'M' | 'F' | 'U';
+    const gender = this.signupForm.getRawValue().gender as Gender;
 
     this.authService
       .signupCandidato({

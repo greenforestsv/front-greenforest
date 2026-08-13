@@ -1,3 +1,5 @@
+import { Gender } from '../../shared/pipes/gender.pipe';
+
 export interface SignupCandidatoDto {
   dni: string;
   first_name: string;
@@ -5,7 +7,7 @@ export interface SignupCandidatoDto {
   first_surname: string;
   second_surname?: string;
   birth_date: Date;
-  gender: 'M' | 'F' | 'U';
+  gender: Gender;
   email: string;
   phone: string;
   address?: string;
