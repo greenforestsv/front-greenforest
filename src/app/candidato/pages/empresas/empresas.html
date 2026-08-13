@@ -43,11 +43,10 @@
             <p-skeleton shape="circle" size="3rem" />
             <p-skeleton width="40%" height="1.5rem" borderRadius="16px" />
           </div>
-          <div class="mt-4 flex space-x-2">
-            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
-            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
-            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
-            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
+          <div class="mt-4 flex flex-wrap gap-2">
+            @for (item of tags; track $index) {
+              <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
+            }
           </div>
         </div>
       }

@@ -2,13 +2,13 @@ import { Component, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AspirantesService } from '../../../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { finalize } from 'rxjs';
 import { Language } from '../../../../interfaces/cv.interfaces';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-languages-dialog',
@@ -17,7 +17,7 @@ import { Language } from '../../../../interfaces/cv.interfaces';
   imports: [
     DialogModule,
     ButtonModule,
-    InputTextModule,
+    SelectModule,
     FormsModule,
     ReactiveFormsModule,
     TranslatePipe,
@@ -27,6 +27,22 @@ import { Language } from '../../../../interfaces/cv.interfaces';
 export class LanguagesDialog {
   /* IMPORTS */
   languages = input.required<Language[]>();
+
+  languageOptions = [
+    { label: 'Español', value: 'Español' },
+    { label: 'Inglés', value: 'Inglés' },
+    { label: 'Francés', value: 'Francés' },
+    { label: 'Alemán', value: 'Alemán' },
+    { label: 'Italiano', value: 'Italiano' },
+    { label: 'Portugués', value: 'Portugués' },
+  ];
+
+  languageLevels = [
+    { label: 'Básico', value: 'Básico' },
+    { label: 'Intermedio', value: 'Intermedio' },
+    { label: 'Avanzado', value: 'Avanzado' },
+    { label: 'Nativo', value: 'Nativo' },
+  ];
 
   /* INJECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);

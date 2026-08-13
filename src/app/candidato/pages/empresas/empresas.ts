@@ -29,6 +29,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Empresas {
   items = Array.from({ length: 9 });
+  tags = Array.from({ length: 6 });
   private empresasService = inject(EmpresasService);
   private messageService = inject(MessageService);
   private fb = inject(FormBuilder);

@@ -14,15 +14,17 @@
       <div class="flex flex-col gap-4">
         <!-- NOMBRE -->
         <div class="flex flex-col gap-1">
-          <label pLabel for="name">Nombre <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            type="text"
-            id="name"
+          <label pLabel for="name">Idioma <span class="text-accent-500">*</span></label>
+          <p-select
+            inputId="name"
             formControlName="name"
-            required
+            [options]="languageOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Selecciona un idioma"
             [invalid]="name.invalid && name.touched"
             fluid
+            appendTo="body"
           />
           @if (name.invalid && name.touched) {
             <p-message severity="error" size="small" variant="simple">
@@ -36,14 +38,16 @@
         <!-- NIVEL -->
         <div class="flex flex-col gap-1">
           <label pLabel for="level">Nivel <span class="text-accent-500">*</span></label>
-          <input
-            pInputText
-            type="text"
-            id="level"
+          <p-select
+            inputId="level"
             formControlName="level"
-            required
+            [options]="languageLevels"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Selecciona un nivel"
             [invalid]="level.invalid && level.touched"
             fluid
+            appendTo="body"
           />
           @if (level.invalid && level.touched) {
             <p-message severity="error" size="small" variant="simple">
