@@ -133,6 +133,16 @@ ul li {
   border: 1px solid $border;
 
   font-size: 11px;
+
+  display: flex;
+  align-items: center;
+
+  display: inline-flex;
+  align-items: center;
+
+  white-space: nowrap;
+  width: fit-content;
+  flex-shrink: 0;
 }
 
 .accent-badge {

@@ -34,7 +34,12 @@
           fluid
         />
 
-        <p-button label="Buscar" (onClick)="jobs.loadJobs(true)" [loading]="jobs.loading()" />
+        <p-button
+          icon="pi pi-search"
+          label="Buscar"
+          (onClick)="jobs.loadJobs(true)"
+          [loading]="jobs.loading()"
+        />
       </form>
     </section>
 

@@ -30,7 +30,7 @@
         fluid
       />
 
-      <p-button label="Buscar" (onClick)="load()" [loading]="loading()" />
+      <p-button icon="pi pi-search" label="Buscar" (onClick)="load()" [loading]="loading()" />
     </form>
   </section>
 
@@ -39,22 +39,15 @@
     <div class="grid justify-items-center grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
       @for (item of items; track $index) {
         <div class="w-full max-w-md rounded-3xl bg-white p-4 shadow-sm">
-          <div class="mb-4 flex items-start gap-3">
+          <div class="mb-4 flex items-center gap-3">
             <p-skeleton shape="circle" size="3rem" />
-
-            <div class="flex-1 space-y-2">
-              <p-skeleton width="40%" borderRadius="16px" />
-              <p-skeleton width="50%" borderRadius="16px" />
-            </div>
-          </div>
-          <div class="flex-1 space-y-3">
-            <p-skeleton width="100%" height="1.1rem" borderRadius="16px" />
-            <p-skeleton width="100%" height="1.1rem" borderRadius="16px" />
-            <p-skeleton width="100%" height="1.1rem" borderRadius="16px" />
+            <p-skeleton width="40%" height="1.5rem" borderRadius="16px" />
           </div>
           <div class="mt-4 flex space-x-2">
-            <p-skeleton width="25%" height="1.75rem" borderRadius="16px" />
-            <p-skeleton width="25%" height="1.75rem" borderRadius="16px" />
+            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
+            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
+            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
+            <p-skeleton width="25%" height="1.5rem" borderRadius="16px" />
           </div>
         </div>
       }
@@ -75,10 +68,13 @@
                   }
                 </div>
                 <div>
-                  <h2 class="inter-font font-bold">{{ empresa.name }}</h2>
-                  <div class="text-sm flex gap-2 items-center text-gray-600">
-                    <span>{{ empresa.description }}</span>
-                  </div>
+                  <h2 class="flex items-center gap-1">
+                    {{ empresa.name }}
+                    <i
+                      class="pi pi-verified"
+                      style="font-size: 1.1rem; color: var(--color-sky-500)"
+                    ></i>
+                  </h2>
                 </div>
               </div>
               <div><p-button size="small" label="Ver" [routerLink]="[empresa.id]" /></div>
@@ -89,14 +85,9 @@
                   <span class="accent-badge">{{ location }}</span>
                 }
               </div>
-              <div class="flex gap-2">
+              <div class="flex gap-2 flex-wrap">
                 @for (approach of empresa.approach; track approach) {
                   <span class="gray-badge">{{ approach }}</span>
-                }
-              </div>
-              <div class="flex gap-2">
-                @if (empresa.is_verified) {
-                  <span class="green-badge">Verificada</span>
                 }
               </div>
             </div>
