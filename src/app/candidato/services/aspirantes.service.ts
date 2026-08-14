@@ -21,7 +21,7 @@ export class AspirantesService {
 
   /* GET ASPIRANTE ME */
   getAspirantMe() {
-    return this.http.get<PrivateAspirant>(`${this.apiUrl}/aspirant/me`);
+    return this.http.get<PrivateAspirant>(`${this.apiUrl}/aspirant/profile`);
   }
 
   /* GET ASPIRANTE PÚBLICO*/
@@ -41,7 +41,7 @@ export class AspirantesService {
 
   /* PATCH APIRANTE */
   patchApirant(data: PatchAspirantDto) {
-    return this.http.patch(`${this.apiUrl}/aspirant`, data);
+    return this.http.patch(`${this.apiUrl}/aspirant/profile`, data);
   }
 
   /* GET APIRANTES */

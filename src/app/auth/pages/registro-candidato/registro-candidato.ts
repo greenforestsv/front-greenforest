@@ -68,7 +68,7 @@ export class RegistroCandidato {
       birth_date: [new Date(), [Validators.required]],
       gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
       country: ['', [Validators.required]],
-      department: ['', [Validators.required]],
+      department: this.fb.nonNullable.control<number>(0, Validators.required),
       phone: ['', [Validators.required, phoneValidator()]],
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['', [Validators.required]],

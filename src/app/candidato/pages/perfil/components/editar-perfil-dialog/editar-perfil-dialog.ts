@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -14,6 +14,9 @@ import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { phoneValidator } from '../../../../../shared/validators/form.validators';
 import { SelectModule } from 'primeng/select';
+import { PatchAspirantDto, PrivateAspirant } from '../../../../interfaces/aspirant.interfaces';
+import { CountriesSelect } from '../../../../../shared/components/countries-select/countries-select';
+import { StatesSelect } from '../../../../../shared/components/states-select/states-select';
 
 @Component({
   selector: 'app-editar-perfil-dialog',
@@ -31,12 +34,16 @@ import { SelectModule } from 'primeng/select';
     TextareaModule,
     InputNumberModule,
     SelectModule,
+    CountriesSelect,
+    StatesSelect,
   ],
 })
 export class EditarPerfilDialog {
+  perfil = input.required<PrivateAspirant>();
+
   /* INJECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
-  aspirantesService = inject(AspirantesService);
+  private aspirantesService = inject(AspirantesService);
   private messageService = inject(MessageService);
 
   /* FORM BUILDER */
@@ -53,11 +60,12 @@ export class EditarPerfilDialog {
     { label: 'Hombre', value: 'M' },
     { label: 'Otro', value: 'U' },
   ];
-  countryOptions = [{ label: 'Honduras', value: 'HN' }];
-  departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
 
   // ESTADOS INICIALES Y VALIDACIONES
   readonly perfilForm = this.fb.nonNullable.group({
+    dni: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    profile_photo: ['', [Validators.required]],
     first_name: ['', [Validators.required]],
     second_name: [''],
     first_surname: ['', [Validators.required]],
@@ -66,13 +74,16 @@ export class EditarPerfilDialog {
     birth_date: [new Date(), [Validators.required]],
     gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
     country: ['', [Validators.required]],
-    department: ['', [Validators.required]],
+    department: this.fb.nonNullable.control<number>(0, Validators.required),
     phone: ['', [Validators.required, phoneValidator()]],
     email: ['', [Validators.required, Validators.email]],
     profession: [''],
   });
 
   // PROPIEDADES
+  readonly dni = this.perfilForm.controls.dni;
+  readonly description = this.perfilForm.controls.description;
+  readonly profile_photo = this.perfilForm.controls.profile_photo;
   readonly first_name = this.perfilForm.controls.first_name;
   readonly second_name = this.perfilForm.controls.second_name;
   readonly first_surname = this.perfilForm.controls.first_surname;
@@ -93,6 +104,9 @@ export class EditarPerfilDialog {
 
   resetForm() {
     this.perfilForm.reset({
+      dni: '',
+      description: '',
+      profile_photo: '',
       first_name: '',
       second_name: '',
       first_surname: '',
@@ -101,7 +115,7 @@ export class EditarPerfilDialog {
       birth_date: new Date(),
       gender: '',
       country: '',
-      department: '',
+      department: 0,
       phone: '',
       email: '',
       profession: '',
@@ -109,6 +123,34 @@ export class EditarPerfilDialog {
 
     this.perfilForm.markAsPristine();
     this.perfilForm.markAsUntouched();
+  }
+
+  openDialog() {
+    const perfil = this.perfil();
+
+    this.perfilForm.patchValue({
+      dni: perfil.dni ?? '',
+      description: perfil.description ?? '',
+      profile_photo: perfil.profile_photo ?? '',
+      first_name: perfil.first_name ?? '',
+      second_name: perfil.second_name ?? '',
+      first_surname: perfil.first_surname ?? '',
+      second_surname: perfil.second_surname ?? '',
+      address: perfil.address ?? '',
+      birth_date: perfil.birth_date ? new Date(perfil.birth_date) : new Date(),
+      gender: perfil.gender ?? '',
+      country: perfil.country ?? '',
+      department: perfil.department ?? 0,
+      phone: perfil.phone ?? '',
+      email: perfil.email ?? '',
+      profession: perfil.profession ?? '',
+    });
+
+    this.perfilForm.markAsPristine();
+    this.perfilForm.markAsUntouched();
+
+    this.error.set(null);
+    this.visible.set(true);
   }
 
   /* RECARGA PÁGINA */
@@ -125,31 +167,32 @@ export class EditarPerfilDialog {
     this.loading.set(true);
     this.error.set(null);
 
-    const perfil = this.perfilForm.getRawValue();
+    const formValue = this.perfilForm.getRawValue();
 
-    const perfilEdit = {
-      ...perfil,
-      birth_date: dayjs(perfil.birth_date).toISOString(),
+    const perfilEdit: PatchAspirantDto = {
+      ...formValue,
+      birth_date: dayjs(formValue.birth_date).toISOString(),
     };
 
-    console.log(perfilEdit);
+    console.log('PATCH:', perfilEdit);
+
     this.aspirantesService
       .patchApirant(perfilEdit)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (res: any) => {
+        next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: '',
-            detail: '',
+            summary: 'Perfil actualizado',
+            detail: 'Los datos del perfil se actualizaron correctamente',
             life: 5000,
           });
 
           this.perfilEditado.emit();
-
           this.closeDialog();
         },
-        error: (err: { error: { message: any } }) => {
+
+        error: (err: { error: { message?: string } }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error al editar datos de perfil',

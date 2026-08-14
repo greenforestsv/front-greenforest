@@ -5,18 +5,40 @@
     [rounded]="true"
     size="small"
     [label]="'perfil.candidato.editar_perfil' | translate"
-    (click)="visible.set(true)"
+    (click)="openDialog()"
   />
   <p-dialog
     [(visible)]="visible"
     [modal]="true"
     [header]="'perfil.candidato.editar_perfil' | translate"
-    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
+    [style]="{ width: '48rem', borderRadius: '1.5rem' }"
   >
     <form [formGroup]="perfilForm" (ngSubmit)="save()" class="flex flex-col gap-4 w-full">
       <div class="flex flex-col md:flex-row gap-4">
         <!-- IZQUIERDA -->
         <div class="flex flex-col gap-4 flex-1">
+          <!-- DNI -->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">DNI <span class="text-accent-500">*</span></label>
+            <input
+              pInputText
+              type="text"
+              id="dni"
+              formControlName="dni"
+              placeholder="DNI"
+              required
+              [invalid]="dni.invalid && dni.touched"
+              fluid
+            />
+            @if (dni.invalid && dni.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (dni.hasError('required')) {
+                  El DNI es obligatorio.
+                }
+              </p-message>
+            }
+          </div>
+
           <!-- PRIMER NOMBRE -->
           <div class="flex flex-col gap-1">
             <label pLabel class="text-sm"
@@ -132,10 +154,57 @@
               </p-message>
             }
           </div>
+
+          <!-- DESCRIPCIÓN-->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm">Descripción <span class="text-accent-500">*</span></label>
+            <textarea
+              id="description"
+              formControlName="description"
+              rows="5"
+              cols="30"
+              pTextarea
+              placeholder="descripción"
+              required
+              [invalid]="description.invalid && description.touched"
+              [autoResize]="true"
+            ></textarea>
+            @if (description.invalid && description.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (description.hasError('required')) {
+                  La descripción es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
         </div>
 
         <!-- DERECHA -->
         <div class="flex flex-col gap-4 flex-1">
+          <!-- IMAGEN DE PERFIL-->
+          <div class="flex flex-col gap-1">
+            <label pLabel class="text-sm"
+              >Imagen de perfil <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="profile_photo"
+              formControlName="profile_photo"
+              placeholder="Imagen de perfil"
+              required
+              [invalid]="profile_photo.invalid && profile_photo.touched"
+              fluid
+            />
+            @if (profile_photo.invalid && profile_photo.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (profile_photo.hasError('required')) {
+                  La imagen de perfil es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
+
           <!-- FECHA DE NACIMIENTO -->
           <div class="flex flex-col gap-1.5">
             <label pLabel class="text-sm"
@@ -151,32 +220,6 @@
               <p-message severity="error" size="small" variant="simple">
                 @if (birth_date.hasError('required')) {
                   La fecha de nacimiento es obligatoria.
-                }
-              </p-message>
-            }
-          </div>
-
-          <!-- CORREO -->
-          <div class="flex flex-col gap-1">
-            <label pLabel class="text-sm">Correo <span class="text-accent-500">*</span></label>
-            <input
-              pInputText
-              type="email"
-              id="email"
-              formControlName="email"
-              placeholder="Correo"
-              required
-              email
-              [invalid]="email.invalid && email.touched"
-              fluid
-            />
-            @if (email.invalid && email.touched) {
-              <p-message severity="error" size="small" variant="simple">
-                @if (email.hasError('required')) {
-                  El correo es obligatorio.
-                }
-                @if (email.hasError('email')) {
-                  Ingresá un correo válido.
                 }
               </p-message>
             }
@@ -202,44 +245,10 @@
           </div>
 
           <!-- PAÍS -->
-          <div class="flex flex-col gap-1">
-            <label pLabel class="text-sm">País <span class="text-accent-500">*</span></label>
-            <p-select
-              formControlName="country"
-              [options]="countryOptions"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Páis"
-            />
-            @if (country.invalid && country.touched) {
-              <p-message severity="error" size="small" variant="simple">
-                @if (country.hasError('required')) {
-                  El páis es obligatorio.
-                }
-              </p-message>
-            }
-          </div>
+          <app-countries-select [control]="country" />
 
           <!-- DEPARTAMENTO -->
-          <div class="flex flex-col gap-1">
-            <label pLabel class="text-sm"
-              >Departamento <span class="text-accent-500">*</span></label
-            >
-            <p-select
-              formControlName="department"
-              [options]="departmentOptions"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Departamento"
-            />
-            @if (department.invalid && department.touched) {
-              <p-message severity="error" size="small" variant="simple">
-                @if (department.hasError('required')) {
-                  El departamento es obligatorio.
-                }
-              </p-message>
-            }
-          </div>
+          <app-states-select [control]="department" [countryControl]="country" />
 
           <!-- PROFESIÓN -->
           <div class="flex flex-col gap-1">

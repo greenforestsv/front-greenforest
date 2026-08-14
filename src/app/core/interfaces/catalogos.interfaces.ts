@@ -34,12 +34,11 @@ export interface Region {
 export interface State {
   id: string;
   name: string;
-  iso_state: string;
-  is_active: boolean;
+  iso_state?: string;
+  is_active?: boolean;
 }
 
 export interface GetStateDto {
+  id: number;
   name: string;
-  iso_state: string;
-  is_active: boolean;
 }

@@ -12,7 +12,7 @@ export interface SignupCandidatoDto {
   phone: string;
   address?: string;
   country: string;
-  department: string;
+  department: number;
 }
 
 export interface SignupCandidatoResponse {

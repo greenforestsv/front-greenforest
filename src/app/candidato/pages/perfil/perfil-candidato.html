@@ -2,7 +2,7 @@
   @if (loading()) {
     <p-skeleton width="100%" height="16rem" borderRadius="1.5rem" />
   } @else {
-    <section class="card p-8 space-y-4">
+    <section class="card p-8 space-y-4 w-full">
       <div class="flex flex-col lg:flex-row items-center gap-4 lg:justify-between">
         <div class="flex items-center gap-6 flex-col md:flex-row">
           <div class="shrink-0">
@@ -38,36 +38,36 @@
              -->
           </div>
         </div>
-        <div class="shrink-0">
-          <app-editar-perfil-dialog [perfil]="" />
-        </div>
+        @if (aspirant(); as perfil) {
+          <div class="shrink-0">
+            <app-editar-perfil-dialog [perfil]="perfil" (perfilEditado)="loadAspirant()" />
+          </div>
+        }
+
         <!--  @if (editable()) {
         } -->
       </div>
       <div class="flex flex-wrap gap-2 justify-center md:justify-start">
         <!-- SKILLS -->
-        @for (skill of cv()?.skills; track $index) {
+        @for (skill of aspirant()?.skills; track $index) {
           <span class="green-badge">{{ skill }}</span>
         }
       </div>
       <div class="flex flex-wrap gap-2 justify-center md:justify-start">
         <!-- LANGUAGES -->
-        @for (language of cv()?.languages; track $index) {
+        @for (language of aspirant()?.languages; track $index) {
           <span class="gray-badge">{{ language.name + ' ' + language.level }}</span>
         }
       </div>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        {{ aspirant()?.description }}
       </p>
       <div
         class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 md:justify-start"
       >
         <p class="flex items-center gap-1">
-          <i class="pi pi-map-marker" style="font-size: 1.1rem"></i>{{ cv()?.location }}
+          <i class="pi pi-map-marker" style="font-size: 1.1rem"></i
+          >{{ aspirant()?.address + ', ' + aspirant()?.country }}
         </p>
         <p class="flex items-center gap-1">
           <i class="pi pi-envelope" style="font-size: 1.1rem"></i>

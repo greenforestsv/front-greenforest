@@ -1,3 +1,5 @@
+import { Language } from './cv.interfaces';
+
 export interface PublicAspirant {
   id: string;
   first_name?: string;
@@ -6,7 +8,12 @@ export interface PublicAspirant {
   second_surname?: string;
   profile_photo?: string;
   skills: string[];
+  languages: Language[];
   profession: string;
+  country: string;
+  department?: number;
+  description: string;
+  address?: string;
 }
 
 export interface PrivateAspirant extends PublicAspirant {
@@ -18,18 +25,21 @@ export interface PrivateAspirant extends PublicAspirant {
 }
 
 export interface PatchAspirantDto {
+  dni: string;
   first_name: string;
-  second_name?: string;
+  second_name: string;
   first_surname: string;
-  second_surname?: string;
+  second_surname: string;
   birth_date: string;
   gender: string;
   email: string;
   phone: string;
   country: string;
-  department: string;
-  profession?: string;
-  address?: string;
+  department: number;
+  profession: string;
+  address: string;
+  description: string;
+  profile_photo: string;
 }
 
 export interface FilterAspirantListDto {
