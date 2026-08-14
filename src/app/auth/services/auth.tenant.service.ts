@@ -18,12 +18,12 @@ export class AuthTenantService {
 
   /* LOGIN */
   loginEmployee(data: LoginEmployeeDto) {
-    return this.http.post<LoginEmployeeResponseDto>(`${this.apiUrl}/login/employee`, data);
+    return this.http.post<LoginEmployeeResponseDto>(`${this.apiUrl}/tenant/auth/employee`, data);
   }
 
   /* SIGNUP */
   signupTenant(data: SignupTenantDto) {
-    return this.http.post<SignupTenantResponseDto>(`${this.apiUrl}/registration-tenant`, data);
+    return this.http.post<SignupTenantResponseDto>(`${this.apiUrl}/registration/tenant`, data);
   }
 
   /* IS AUTHENTICATED */

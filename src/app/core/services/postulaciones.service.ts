@@ -16,7 +16,7 @@ export class PostulacionesService {
 
   /* GET POSTULACIONES DE CANDIDATO */
   getPostulacionesCandidato() {
-    return this.http.get<GetPostulacionCandidatoDto[]>(`${this.apiUrl}/applications/aspirant`);
+    return this.http.get<GetPostulacionCandidatoDto[]>(`${this.apiUrl}/central/applications`);
   }
 
   /* CREAR POSTULACIÓN */

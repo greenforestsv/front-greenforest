@@ -21,12 +21,12 @@ export class AuthService {
 
   /* LOGIN */
   loginCandidato(data: LoginCandidatoDto) {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login/aspirant`, data);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/central/auth/aspirant`, data);
   }
 
   /* SIGNUP */
   signupCandidato(data: SignupCandidatoDto) {
-    return this.http.post<SignupCandidatoResponse>(`${this.apiUrl}/register-aspirant`, data);
+    return this.http.post<SignupCandidatoResponse>(`${this.apiUrl}/registration/aspirant`, data);
   }
 
   /* VERIFY */
@@ -38,19 +38,13 @@ export class AuthService {
 
   /* CHANGE PASSWORD */
   changePassword(old_password: string, new_password: string) {
-    return this.http.patch(`${this.apiUrl}/auth/aspirant/password`, { old_password, new_password });
+    return this.http.patch(`${this.apiUrl}/central/auth/aspirant`, { old_password, new_password });
   }
 
   /* LOGOUT */
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/']);
-  }
-
-  /* RESET PASSWORD */
-  resetPassword(): void {
-    /* TODO:  */
-    return;
   }
 
   /* IS AUTHENTICATED */

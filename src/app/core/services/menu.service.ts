@@ -12,6 +12,6 @@ export class MenuService {
 
   /* GET MENÚ DE ASPIRANTES */
   getAspirantsMenu() {
-    return this.http.get<MenuResponse[]>(`${this.apiUrl}/menu/aspirants`);
+    return this.http.get<MenuResponse[]>(`${this.apiUrl}/central/menu`);
   }
 }

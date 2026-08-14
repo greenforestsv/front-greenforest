@@ -33,9 +33,12 @@ export class EmpresasService {
       params = params.set('approach', JSON.stringify(filters.approach));
     }
 
-    return this.http.get<PaginatedResponse<TenantResponseDto>>(`${this.apiUrl}/tenant/list`, {
-      params,
-    });
+    return this.http.get<PaginatedResponse<TenantResponseDto>>(
+      `${this.apiUrl}/central/tenant/list`,
+      {
+        params,
+      },
+    );
   }
 
   /* GET EMPRESA ME*/
@@ -50,6 +53,6 @@ export class EmpresasService {
 
   /* GET EMPRESA PUBLIC*/
   getDetalleEmpresa(id: string) {
-    return this.http.get<PerfilEmpresaDto>(`${this.apiUrl}/tenant/detail/${id}`);
+    return this.http.get<PerfilEmpresaDto>(`${this.apiUrl}/central/tenant/${id}`);
   }
 }
