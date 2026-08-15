@@ -3,8 +3,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { AspirantesService } from '../../services/aspirantes.service';
-import { CV } from '../../interfaces/cv.interfaces';
+import { CvService } from '../../../core/services/cv.service';
+import { CV } from '../../../core/interfaces/cv.interfaces';
 import { TranslatePipe } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -14,6 +14,7 @@ import { EditExperienceDialog } from './dialogs/work-experience/edit/edit-experi
 import { AddEducationDialog } from './dialogs/education/add/add-education-dialog';
 import { LanguagesDialog } from './dialogs/languages/languages-dialog';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { SkillsDialog } from './dialogs/skills/skills-dialog';
 
 @Component({
   selector: 'app-curriculum',
@@ -29,23 +30,24 @@ import { EmptyState } from '../../../shared/components/empty-state/empty-state';
     Skeletons,
     LanguagesDialog,
     EmptyState,
+    SkillsDialog,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',
 })
 export class Curriculum {
-  /* Injección de servicio */
-  aspirantesService = inject(AspirantesService);
+  cvService = inject(CvService);
   messageService = inject(MessageService);
 
   @ViewChild(LanguagesDialog)
   languagesDialog!: LanguagesDialog;
 
-  /* Estados iniciales */
+  @ViewChild(SkillsDialog)
+  skillsDialog!: SkillsDialog;
+
   cv = signal<CV | null>(null);
   loading = signal(false);
 
-  /* Constructor */
   constructor() {
     this.loadCV();
   }
@@ -53,7 +55,7 @@ export class Curriculum {
   loadCV() {
     this.loading.set(true);
 
-    this.aspirantesService
+    this.cvService
       .getCV()
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({

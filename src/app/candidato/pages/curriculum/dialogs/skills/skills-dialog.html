@@ -1,0 +1,60 @@
+<div class="flex justify-center">
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    header="Habilidades"
+    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
+  >
+    <form id="skillsForm" [formGroup]="skillsForm" (ngSubmit)="save()" class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4">
+        <!-- HABILIDADES -->
+        <div class="flex flex-col gap-1">
+          <label pLabel for="skills">Habilidades <span class="text-accent-500">*</span></label>
+          <small class="text-gray-500">
+            Separá las habilidades usando la tecla
+            <kbd class="size-5 inline-flex items-center justify-center rounded border"
+              >&#x21B5;</kbd
+            >
+            Enter.
+          </small>
+          <textarea
+            id="skills"
+            formControlName="skills"
+            rows="5"
+            cols="30"
+            pTextarea
+            placeholder="Ejemplo:&#10;Angular&#10;Frontend&#10;React..."
+            required
+            [invalid]="skills.invalid && skills.touched"
+            [autoResize]="true"
+          ></textarea>
+          @if (skills.invalid && skills.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (skills.hasError('required')) {
+                Las habilidades son obligatorias.
+              }
+            </p-message>
+          }
+        </div>
+      </div>
+
+      <!-- BOTÓN OCULTO PARA EL ENTER -->
+      <button type="submit" hidden></button>
+    </form>
+    <!-- BOTONES -->
+    <ng-template pTemplate="footer">
+      <p-button
+        [label]="'common.cancelar' | translate"
+        (click)="closeDialog()"
+        severity="secondary"
+        variant="outlined"
+      />
+      <p-button
+        type="button"
+        [loading]="loading()"
+        (click)="save()"
+        [label]="'common.guardar' | translate"
+      />
+    </ng-template>
+  </p-dialog>
+</div>

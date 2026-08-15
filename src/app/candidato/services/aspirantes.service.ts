@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { CV, CreateCV } from '../interfaces/cv.interfaces';
 import {
   FilterAspirantListDto,
   GetAspirantListDto,
@@ -29,18 +28,8 @@ export class AspirantesService {
     return this.http.get<PublicAspirant>(`${this.apiUrl}/aspirant/profile/${id}`);
   }
 
-  /* GET CURRICULUM */
-  getCV() {
-    return this.http.get<CV>(`${this.apiUrl}/aspirant/cv`);
-  }
-
-  /* PATCH CURRICULUM */
-  patchCV(body: CreateCV) {
-    return this.http.patch<CV>(`${this.apiUrl}/aspirant/cv`, body);
-  }
-
   /* PATCH APIRANTE */
-  patchApirant(data: PatchAspirantDto) {
+  patchAspirant(data: PatchAspirantDto) {
     return this.http.patch(`${this.apiUrl}/aspirant/profile`, data);
   }
 

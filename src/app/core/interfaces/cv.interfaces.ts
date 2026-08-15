@@ -1,11 +1,11 @@
-export interface CreateCV {
+/* export interface CreateCV {
   description?: string;
   profile_photo?: string;
   skills?: string[];
   languages?: Language[];
   educations?: Education[];
   works_experience?: WorkExperience[];
-}
+} */
 
 export interface CV {
   name: string;

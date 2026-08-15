@@ -4,7 +4,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { AspirantesService } from '../../../../../services/aspirantes.service';
+import { CvService } from '../../../../../../core/services/cv.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -32,7 +32,7 @@ import { endDateAfterStartDateValidator } from '../../../../../../shared/validat
 export class AddExperienceDialog {
   /* INJECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
-  aspirantesService = inject(AspirantesService);
+  cvService = inject(CvService);
   private messageService = inject(MessageService);
 
   /* FORM BUILDER */
@@ -125,10 +125,8 @@ export class AddExperienceDialog {
 
     console.log(nuevaExperiencia);
 
-    this.aspirantesService
-      .patchCV({
-        works_experience: [nuevaExperiencia],
-      })
+    this.cvService
+      .createWorkExperience(nuevaExperiencia)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res: any) => {

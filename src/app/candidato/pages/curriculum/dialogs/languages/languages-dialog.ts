@@ -7,7 +7,7 @@ import { AspirantesService } from '../../../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { finalize } from 'rxjs';
-import { Language } from '../../../../interfaces/cv.interfaces';
+import { Language } from '../../../../../core/interfaces/cv.interfaces';
 import { SelectModule } from 'primeng/select';
 
 @Component({
@@ -109,7 +109,7 @@ export class LanguagesDialog {
 
   /* GUARDAR */
   save() {
-    if (this.languageForm.invalid) {
+    /*  if (this.languageForm.invalid) {
       console.log('invalid form');
       this.languageForm.markAllAsTouched();
       return;
@@ -157,6 +157,6 @@ export class LanguagesDialog {
           life: 5000,
         });
       },
-    });
+    });*/
   }
 }

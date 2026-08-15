@@ -4,7 +4,6 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { AspirantesService } from '../../../../../services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -12,7 +11,9 @@ import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { endDateAfterStartDateValidator } from '../../../../../../shared/validators/form.validators';
-import { Education } from '../../../../../interfaces/cv.interfaces';
+import { Education } from '../../../../../../core/interfaces/cv.interfaces';
+import { CvService } from '../../../../../../core/services/cv.service';
+
 @Component({
   selector: 'app-add-education-dialog',
   templateUrl: './add-education-dialog.html',
@@ -30,20 +31,16 @@ import { Education } from '../../../../../interfaces/cv.interfaces';
   ],
 })
 export class AddEducationDialog {
-  /* INJECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
-  aspirantesService = inject(AspirantesService);
+  cvService = inject(CvService);
   private messageService = inject(MessageService);
 
-  /* FORM BUILDER */
   private fb = inject(FormBuilder);
 
-  //ESTADOS INICIALS
   visible = signal(false);
   loading = signal(false);
   error = signal<string | null>('Internal server error');
 
-  // ESTADOS INICIALES Y VALIDACIONES
   readonly educationForm = this.fb.nonNullable.group(
     {
       title: ['', Validators.required],
@@ -84,7 +81,6 @@ export class AddEducationDialog {
   /* AVISA A LA PÁGINA QUE SE AGREGÓ UNA NUEVA EXPERIENCIA */
   experienceAdded = output<void>();
 
-  /* GUARDAR */
   save() {
     if (this.educationForm.invalid) {
       console.log('invalid form');
@@ -105,10 +101,8 @@ export class AddEducationDialog {
 
     console.log(newEducation);
 
-    this.aspirantesService
-      .patchCV({
-        educations: [newEducation],
-      })
+    this.cvService
+      .createEducation(newEducation)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res: any) => {

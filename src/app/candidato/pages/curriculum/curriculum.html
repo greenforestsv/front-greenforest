@@ -5,12 +5,15 @@
   <!-- LANGUAGE DIALOG -->
   <app-languages-dialog [languages]="cv()?.languages ?? []" (languageAdded)="loadCV()" />
 
+  <!-- SKILLS DIALOG -->
+  <app-skills-dialog [skillsList]="cv()?.skills ?? []" (skillsUpdated)="loadCV()" />
+
   <div class="p-4 pt-0 lg:pl-0 flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4">
     <!-- WORK EXPERIENCE -->
     <section class="card p-8 flex-2">
       <div class="flex items-center justify-between mb-4 gap-4 flex-wrap">
         <div>
-          <h2 class="text-2xl font-bold">{{ 'cv.historial_laboral_verificado' | translate }}</h2>
+          <h1 class="text-2xl font-bold">Curriculum Vitae</h1>
           <p class="text-gray-600">{{ 'cv.experiencias_verificadas' | translate }}</p>
         </div>
         <div class="flex gap-2 flex-wrap">
@@ -20,31 +23,31 @@
           <!-- ADD EDUCATION DIALOG -->
           <app-add-education-dialog (experienceAdded)="loadCV()" />
 
+          <!-- SKILLS BUTTON -->
+          <p-button
+            icon="pi pi-pencil"
+            label="Habilidades"
+            size="small"
+            (click)="skillsDialog.open()"
+          />
+
           <!-- ADD LANGUAGE BUTTON -->
           <p-button
             icon="pi pi-plus"
-            label="Idioma"
+            label="Idiomas"
             size="small"
             (click)="languagesDialog.openAdd()"
           />
-
-          <!-- EDIT LANGUAGE BUTTON -->
-          <!--  <p-button
-            icon="pi pi-pencil"
-            rounded
-            severity="secondary"
-            (click)="languagesDialog.openEdit(language)"
-          /> -->
-
-          <!-- EDIT EXP DIALOG -->
-          <!-- <app-edit-experience-dialog (experienceAdded)="loadCV()" /> -->
         </div>
       </div>
 
-      @if (!cv()?.works_experience?.length) {
-        <app-empty-state />
-      } @else {
+      <h2>Experiencia Laboral</h2>
+      @if (cv()?.works_experience?.length) {
         <div class="relative border-l border-gray-300 space-y-4">
+          <div class="flex items-center justify-between">
+            <!-- EDIT EXP DIALOG -->
+            <app-edit-experience-dialog (experienceAdded)="loadCV()" />
+          </div>
           @for (experience of cv()?.works_experience; track experience.id) {
             <div class="ml-6 relative">
               <!-- TIMELINE -->
@@ -52,12 +55,19 @@
               </span>
 
               <div class="card border border-gray-300 p-4 space-y-4">
-                <h3 class="text-lg font-bold">
-                  {{ experience.title }} &bull; {{ experience.company }}
-                </h3>
+                <div>
+                  <h3 class="text-lg font-bold flex items-center gap-1">
+                    {{ experience.title
+                    }}<i
+                      class="pi pi-verified"
+                      style="font-size: 1.1rem; color: var(--color-sky-500)"
+                    ></i>
+                  </h3>
+                  <span class="text-sm text-gray-600">{{ experience.company }}</span>
+                </div>
                 <ul class="space-y-1 text-gray-600 text-sm">
                   @for (item of experience.activities; track $index) {
-                    <span class="flex gap-2">
+                    <span class="flex gap-2 items-center">
                       &bull;
                       <li>{{ item }}</li></span
                     >
@@ -80,12 +90,13 @@
             </div>
           }
         </div>
+      } @else {
+        <app-empty-state />
       }
 
+      <h2>Educación</h2>
       @if (cv()?.educations?.length) {
         <div>
-          <h2>Educación</h2>
-
           @for (education of cv()?.educations; track $index) {
             <div class="flex items-center gap-2">
               <p>{{ education.level }}</p>
@@ -101,12 +112,13 @@
             </div>
           }
         </div>
+      } @else {
+        <app-empty-state />
       }
 
+      <h2>Idiomas</h2>
       @if (cv()?.languages?.length) {
         <div>
-          <h2>Idiomas</h2>
-
           @for (language of cv()?.languages; track $index) {
             <div class="flex items-center gap-2">
               <span>{{ language.name }} - {{ language.level }}</span>
@@ -120,6 +132,14 @@
             </div>
           }
         </div>
+      } @else {
+        <app-empty-state />
+      }
+
+      <h2>Habilidades</h2>
+      @if (cv()?.skills?.length) {
+      } @else {
+        <app-empty-state />
       }
     </section>
     <!-- DERECHA -->
