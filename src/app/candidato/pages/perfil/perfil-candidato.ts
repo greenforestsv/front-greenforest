@@ -9,7 +9,6 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditarPerfilDialog } from './components/editar-perfil-dialog/editar-perfil-dialog';
-import { CV } from '../../interfaces/cv.interfaces';
 import { PrivateAspirant } from '../../interfaces/aspirant.interfaces';
 import { SkeletonModule } from 'primeng/skeleton';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
@@ -44,7 +43,6 @@ export class PerfilCandidato {
   fb = inject(FormBuilder);
 
   /* ESTADOS SIGNAL */
-  cv = signal<CV | null>(null);
   aspirant = signal<PrivateAspirant | null>(null);
   profilePercentage = signal(86);
   loading = signal(false);
@@ -56,30 +54,7 @@ export class PerfilCandidato {
   });
 
   constructor() {
-    this.loadCV();
     this.loadAspirant();
-  }
-
-  loadCV() {
-    this.loading.set(true);
-    /* OBTENCIÓN DE DATOS */
-    this.aspirantsService
-      .getCV()
-      .pipe(finalize(() => this.loading.set(false)))
-      .subscribe({
-        next: (data) => {
-          console.log({ cv: data });
-          this.cv.set(data);
-        },
-        error: (err: { error: { message: any }; status: number }) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error al obtener datos de curriculum',
-            detail: err.error?.message ?? 'Ocurrió un error inesperado',
-            life: 5000,
-          });
-        },
-      });
   }
 
   loadAspirant() {

@@ -177,7 +177,7 @@ export class EditarPerfilDialog {
     console.log('PATCH:', perfilEdit);
 
     this.aspirantesService
-      .patchApirant(perfilEdit)
+      .patchAspirant(perfilEdit)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: () => {
