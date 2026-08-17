@@ -21,7 +21,7 @@ export class PostulacionesService {
 
   /* CREAR POSTULACIÓN */
   applyToJob(id_vacante: string) {
-    return this.http.post<ApplicationResponseDto>(`${this.apiUrl}/apply-job/${id_vacante}`, null);
+    return this.http.post<ApplicationResponseDto>(`${this.apiUrl}/apply/${id_vacante}`, null);
   }
 
   /* GET CANDIDATOS POSTULACIÓN */

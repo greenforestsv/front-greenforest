@@ -26,8 +26,8 @@ export class Postulaciones {
 
   processes = PROCESSES;
 
-  getByProcess(process: string) {
-    return this.postulaciones().filter((p) => p.process === process);
+  getByProcess(processName: string) {
+    return this.postulaciones().filter((postulacion) => postulacion.process === processName);
   }
 
   constructor() {

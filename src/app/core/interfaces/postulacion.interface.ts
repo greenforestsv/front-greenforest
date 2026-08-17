@@ -1,21 +1,12 @@
-export interface Postulacion {
-  id: string;
-  name: string;
-  job_title: string;
-  original_job_id: string;
-  original_tenant_id: string;
-  applied_at: Date;
-  status: 'A' | 'P' | 'E' | 'O';
-}
-
 export interface GetPostulacionCandidatoDto {
-  application_id: string;
   applied_at: string;
-  central_job: string;
+  id: string;
+  job_department: string;
+  job_id: string;
+  job_title: string;
   process: string;
-  status: string;
-  tenant_normalized_name: string;
-  title: string;
+  status?: string;
+  tenant: string;
 }
 
 export interface ApplicationResponseDto {
