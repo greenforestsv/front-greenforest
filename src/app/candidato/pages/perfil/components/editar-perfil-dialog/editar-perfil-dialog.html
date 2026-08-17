@@ -237,7 +237,7 @@
             />
             @if (gender.invalid && gender.touched) {
               <p-message severity="error" size="small" variant="simple">
-                @if (gender.hasError('required')) {
+                @if (gender.hasError('required') || gender.hasError('pattern')) {
                   El género es obligatorio.
                 }
               </p-message>
