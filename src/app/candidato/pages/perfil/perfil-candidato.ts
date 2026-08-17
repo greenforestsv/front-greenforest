@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EditarPerfilDialog } from './components/editar-perfil-dialog/editar-perfil-dialog';
+import { EditarPerfilDialog } from './dialogs/edit/editar-perfil-dialog';
 import { PrivateAspirant } from '../../interfaces/aspirant.interfaces';
 import { SkeletonModule } from 'primeng/skeleton';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
