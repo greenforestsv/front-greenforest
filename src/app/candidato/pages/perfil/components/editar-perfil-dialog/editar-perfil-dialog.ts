@@ -52,7 +52,6 @@ export class EditarPerfilDialog {
   //ESTADOS INICIALS
   visible = signal(false);
   loading = signal(false);
-  error = signal<string | null>('Internal server error');
 
   /* OPCIONES SELECT */
   genderOptions = [
@@ -74,7 +73,7 @@ export class EditarPerfilDialog {
     birth_date: [new Date(), [Validators.required]],
     gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
     country: ['', [Validators.required]],
-    department: this.fb.nonNullable.control<number>(0, Validators.required),
+    department: this.fb.control<number | null>(null, Validators.required),
     phone: ['', [Validators.required, phoneValidator()]],
     email: ['', [Validators.required, Validators.email]],
     profession: [''],
@@ -115,7 +114,7 @@ export class EditarPerfilDialog {
       birth_date: new Date(),
       gender: '',
       country: '',
-      department: 0,
+      department: null,
       phone: '',
       email: '',
       profession: '',
@@ -128,7 +127,7 @@ export class EditarPerfilDialog {
   openDialog() {
     const perfil = this.perfil();
 
-    this.perfilForm.patchValue({
+    this.perfilForm.reset({
       dni: perfil.dni ?? '',
       description: perfil.description ?? '',
       profile_photo: perfil.profile_photo ?? '',
@@ -139,8 +138,8 @@ export class EditarPerfilDialog {
       address: perfil.address ?? '',
       birth_date: perfil.birth_date ? new Date(perfil.birth_date) : new Date(),
       gender: perfil.gender ?? '',
-      country: perfil.country ?? '',
-      department: perfil.department ?? 0,
+      country: perfil.country?.ISO ?? '',
+      department: perfil.department?.id ?? null,
       phone: perfil.phone ?? '',
       email: perfil.email ?? '',
       profession: perfil.profession ?? '',
@@ -149,7 +148,6 @@ export class EditarPerfilDialog {
     this.perfilForm.markAsPristine();
     this.perfilForm.markAsUntouched();
 
-    this.error.set(null);
     this.visible.set(true);
   }
 
@@ -165,12 +163,12 @@ export class EditarPerfilDialog {
     }
 
     this.loading.set(true);
-    this.error.set(null);
 
     const formValue = this.perfilForm.getRawValue();
 
     const perfilEdit: PatchAspirantDto = {
       ...formValue,
+      department: formValue.department ?? undefined,
       birth_date: dayjs(formValue.birth_date).toISOString(),
     };
 

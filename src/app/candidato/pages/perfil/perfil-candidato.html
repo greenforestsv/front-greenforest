@@ -7,7 +7,7 @@
         <div class="flex items-center gap-6 flex-col md:flex-row">
           <div class="shrink-0">
             <app-custom-avatar
-              [src]="'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'"
+              [src]="aspirant()?.profile_photo"
               size="size-32"
               [name]="aspirant()?.first_name || 'name'"
               fontSize="text-5xl"
@@ -67,7 +67,7 @@
       >
         <p class="flex items-center gap-1">
           <i class="pi pi-map-marker" style="font-size: 1.1rem"></i
-          >{{ aspirant()?.address + ', ' + aspirant()?.country }}
+          >{{ aspirant()?.address + ', ' + aspirant()?.country?.name }}
         </p>
         <p class="flex items-center gap-1">
           <i class="pi pi-envelope" style="font-size: 1.1rem"></i>
@@ -89,7 +89,7 @@
           <i class="pi pi-id-card" style="font-size: 1.1rem"></i>{{ aspirant()?.dni }}
         </p>
         <p class="flex items-center gap-1">
-          <i class="pi pi-user" style="font-size: 1.1rem"></i> {{ aspirant()?.gender | gender }}
+          <i class="pi pi-user" style="font-size: 1.1rem"></i> {{ aspirant()?.gender }}
         </p>
       </div>
     </section>

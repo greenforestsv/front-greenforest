@@ -10,8 +10,8 @@ export interface PublicAspirant {
   skills: string[];
   languages: Language[];
   profession: string;
-  country: string;
-  department?: number;
+  country: { name: string; ISO: string };
+  department?: { name: string; id: number };
   description: string;
   address?: string;
 }

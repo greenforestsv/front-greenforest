@@ -19,7 +19,7 @@ export class StatesSelect {
   loading = signal(false);
   states = signal<GetStateDto[]>([]);
 
-  control = input.required<FormControl<number>>();
+  control = input.required<FormControl<number | null>>();
   countryControl = input.required<FormControl<string>>();
 
   ngOnInit() {
