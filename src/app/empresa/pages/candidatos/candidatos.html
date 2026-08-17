@@ -54,18 +54,28 @@
             <div class="flex gap-4 justify-between items-center">
               <div class="space-y-2">
                 <div class="flex gap-4 items-center">
-                  @if (candidato.profile_photo) {
-                    <p-avatar size="normal" shape="circle" [image]="candidato.profile_photo" />
-                  } @else {
-                    <p-avatar size="normal" shape="circle" [label]="candidato.name.charAt(0)" />
-                  }
+                  <div class="shrink-0">
+                    <app-custom-avatar
+                      [src]="candidato.profile_photo"
+                      size="size-10"
+                      [name]="candidato.name"
+                      fontSize="text-5xl"
+                    />
+                  </div>
                   <div>
-                    <p class="font-bold">{{ candidato.name }}</p>
-                    <!-- <span [class]="candidato.estado.color + '-badge'">{{ candidato.estado.text }}</span> -->
+                    <h2 class="text-lg font-bold flex items-center gap-1">
+                      {{ candidato.name }}
+                      <i
+                        class="pi pi-verified"
+                        style="font-size: 1.1rem; color: var(--color-sky-500)"
+                      ></i>
+                    </h2>
                   </div>
                 </div>
                 <p class="text-sm text-gray-600">{{ candidato.profession }}</p>
-                <p class="text-sm text-gray-600">{{ candidato.country }}</p>
+                <p class="text-sm text-gray-600 flex items-center gap-1">
+                  <i class="pi pi-map-marker" style="font-size: 1.1rem"></i>{{ candidato.country }}
+                </p>
                 <p>
                   @if (candidato.is_verified) {
                     <span class="green-badge">Verificado</span>

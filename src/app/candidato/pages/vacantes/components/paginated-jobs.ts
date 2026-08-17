@@ -1,5 +1,5 @@
 import { Component, inject, input, signal } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { VacantesService } from '../../../../core/services/vacantes.service';
 import { FilterJobListDto, GetVacanteDto } from '../../../../core/interfaces/vacantes.interfaces';
@@ -54,8 +54,7 @@ export class PaginatedJobs {
       this.first = 0;
     }
 
-    const page = this.first / this.rows + 1;
-    const request = { limit: this.rows, offset: page, filters: this.filters() };
+    const request = { limit: this.rows, offset: this.first, filters: this.filters() };
 
     this.vacantesService
       .getJobs(request)
@@ -77,9 +76,9 @@ export class PaginatedJobs {
       });
   }
 
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.rows = event.rows;
+  onPageChange(event: PaginatorState): void {
+    this.first = event.first ?? 0;
+    this.rows = event.rows ?? 10;
 
     this.loadJobs();
   }

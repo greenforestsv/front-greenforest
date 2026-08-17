@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { SkeletonModule } from 'primeng/skeleton';
 import { RouterLink } from '@angular/router';
+import { CustomAvatar } from '../../../shared/components/custom-avatar/custom-avatar';
 
 @Component({
   selector: 'app-candidatos',
@@ -23,6 +24,7 @@ import { RouterLink } from '@angular/router';
     EmptyState,
     SkeletonModule,
     RouterLink,
+    CustomAvatar,
   ],
   templateUrl: './candidatos.html',
   styleUrl: './candidatos.scss',
