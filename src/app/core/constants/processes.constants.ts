@@ -1,23 +1,43 @@
-export interface ProcessColumn {
-  key: string;
-  title: string;
+export interface Process {
+  id: number;
+  name: string;
 }
 
-export const PROCESSES: ProcessColumn[] = [
+export const PROCESSES: Process[] = [
   {
-    key: 'POSTULADO',
-    title: 'Aplicados',
+    id: 1,
+    name: 'POSTULADO',
   },
   {
-    key: 'P',
-    title: 'Preselección',
+    id: 2,
+    name: 'REVISIÓN',
   },
   {
-    key: 'E',
-    title: 'Entrevista',
+    id: 3,
+    name: 'PRESELECCIÓN',
   },
   {
-    key: 'O',
-    title: 'Oferta',
+    id: 4,
+    name: 'ENTREVISTA TELEFÓNICA',
+  },
+  {
+    id: 5,
+    name: 'ENTREVISTA TÉCNICA',
+  },
+  {
+    id: 6,
+    name: 'ENTREVISTA PSICOMÉTRICA',
+  },
+  {
+    id: 7,
+    name: 'OFERTA LABORAL',
+  },
+  {
+    id: 8,
+    name: 'CONTRATADO',
+  },
+  {
+    id: 9,
+    name: 'RECHAZADO',
   },
 ];

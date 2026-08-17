@@ -16,6 +16,7 @@ import { GetCandidatoDto } from '../../../../../core/interfaces/postulacion.inte
 import { EmptyState } from '../../../../../shared/components/empty-state/empty-state';
 import { FormatDatePipe } from '../../../../../shared/pipes/format-date.pipe';
 import { RouterLink } from '@angular/router';
+import { ProcessNamePipe } from '../../../../../shared/pipes/process-name.pipe';
 
 @Component({
   selector: 'app-ver-detalle-vacante-dialog',
@@ -34,6 +35,7 @@ import { RouterLink } from '@angular/router';
     EmptyState,
     FormatDatePipe,
     RouterLink,
+    ProcessNamePipe,
   ],
 })
 export class VerDetalleVacanteDialog {
@@ -185,21 +187,22 @@ export class VerDetalleVacanteDialog {
     },
   ]);
 
-  loadDetails(id: string) {
-    this.loadJob(id);
-    this.loadJobCandidates(id);
+  loadDetails() {
+    this.loadJob();
+    this.loadJobCandidates();
   }
 
-  loadJob(id: string) {
+  loadJob() {
     this.job.set([]);
     this.visible.set(true);
     this.loading.set(true);
 
     this.vacantesService
-      .getJobDetails(id)
+      .getJobDetails(this.id())
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (vacante) => {
+          console.log(vacante);
           this.job.set([vacante]);
         },
         error: (err: { error: { message: any } }) => {
@@ -213,13 +216,13 @@ export class VerDetalleVacanteDialog {
       });
   }
 
-  loadJobCandidates(id: string) {
+  loadJobCandidates() {
     this.candidatos.set([]);
     this.visible.set(true);
     this.loading.set(true);
 
     this.postulacionesService
-      .getCandidatosPostulacion(id)
+      .getCandidatosPostulacion(this.id())
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (candidatos) => {

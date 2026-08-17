@@ -34,6 +34,7 @@ export class ProcesosPostulacionMultiSelect {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (data) => {
+          console.log({ procesos: data });
           this.processes.set(data);
         },
         error: (err: { error: { message: any }; status: number }) => {

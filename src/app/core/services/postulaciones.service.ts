@@ -26,6 +26,6 @@ export class PostulacionesService {
 
   /* GET CANDIDATOS POSTULACIÓN */
   getCandidatosPostulacion(job_id: string) {
-    return this.http.get<GetCandidatoDto[]>(`${this.apiUrl}/applications/tenant/${job_id}`);
+    return this.http.get<GetCandidatoDto[]>(`${this.apiUrl}/tenant/applications/${job_id}`);
   }
 }

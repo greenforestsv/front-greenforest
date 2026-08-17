@@ -48,120 +48,6 @@ export class VacantesEmpresa {
   jobs = signal<GetVacanteDto[]>([]);
   totalRecords = signal(0);
   loading = signal(false);
-  candidatos = signal([
-    {
-      id: 1,
-      name: 'Ana Martínez',
-      subtext: 'BI Analyst · 89 match',
-      status: 'PO',
-      badge: {
-        text: 'Salario compatible',
-        color: 'green',
-      },
-    },
-    {
-      id: 2,
-      name: 'Carlos Mejía',
-      subtext: 'QA Automation · 84 match',
-      status: 'PO',
-      badge: {
-        text: 'Remoto',
-        color: 'blue',
-      },
-    },
-    {
-      id: 3,
-      name: 'María López',
-      subtext: 'Automation Specialist · historial solicitado',
-      status: 'PS',
-      badge: {
-        text: 'Pendiente acceso',
-        color: 'accent',
-      },
-    },
-    {
-      id: 4,
-      name: 'Daniela Pérez',
-      subtext: 'People Ops · 82 match',
-      status: 'PS',
-      badge: {
-        text: 'Apta',
-        color: 'green',
-      },
-    },
-    {
-      id: 5,
-      name: 'José Rivera',
-      subtext: 'Dev Full Stack · entrevista 2:30pm',
-      status: 'EN',
-      badge: {
-        text: 'Programada',
-        color: 'blue',
-      },
-    },
-    {
-      id: 6,
-      name: 'Andrea Castillo',
-      subtext: 'Data Engineer · prueba técnica',
-      status: 'EV',
-      badge: {
-        text: '87%',
-        color: 'green',
-      },
-    },
-    {
-      id: 7,
-      name: 'Roberto Núñez',
-      subtext: 'Growth Analyst · oferta enviada',
-      status: 'O',
-      badge: {
-        text: 'Negociando',
-        color: 'accent',
-      },
-    },
-  ]);
-
-  /*   listadoEjecutivo = signal([
-    {
-      id: 1,
-      nombre: 'AI Automation Specialist',
-      subtext: 'Híbrido · salario visible',
-      area: 'Operaciones',
-      numeroCandidatos: '48',
-      etapa: 'Preselección',
-      dueno: 'María José',
-      estado: {
-        text: 'Activa',
-        color: 'green',
-      },
-    },
-    {
-      id: 2,
-      nombre: 'Business Intelligence Lead',
-      subtext: 'Remoto regional',
-      area: 'Data',
-      numeroCandidatos: '33',
-      etapa: 'Entrevista',
-      dueno: 'Oned Gómez',
-      estado: {
-        text: 'Prioritaria',
-        color: 'accent',
-      },
-    },
-    {
-      id: 3,
-      nombre: 'Payroll Analyst',
-      subtext: 'Presencial · SS',
-      area: 'Finanzas',
-      numeroCandidatos: '21',
-      etapa: 'Evaluación',
-      dueno: 'Marycarmen',
-      estado: {
-        text: 'Interna',
-        color: 'blue',
-      },
-    },
-  ]); */
 
   constructor() {
     this.loadJobs();
@@ -190,6 +76,7 @@ export class VacantesEmpresa {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
+          console.log(response.data);
           this.jobs.set(response.data);
           this.totalRecords.set(response.qty);
         },

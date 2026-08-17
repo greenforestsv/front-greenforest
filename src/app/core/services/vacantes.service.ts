@@ -65,7 +65,7 @@ export class VacantesService {
       params = params.set('max_salary', max_salary);
     }
 
-    return this.http.get<PaginatedResponse<GetVacanteDto>>(`${this.apiUrl}/jobs/tenant`, {
+    return this.http.get<PaginatedResponse<GetVacanteDto>>(`${this.apiUrl}/tenant/jobs`, {
       params,
     });
   }

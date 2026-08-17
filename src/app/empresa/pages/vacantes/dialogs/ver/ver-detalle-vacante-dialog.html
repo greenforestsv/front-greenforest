@@ -1,11 +1,11 @@
 <div class="flex justify-center">
-  <p-button [rounded]="true" size="small" label="Ver detalle" (onClick)="loadDetails(id())" />
+  <p-button [rounded]="true" size="small" label="Ver detalle" (onClick)="loadDetails()" />
 
   <p-dialog
     [(visible)]="visible"
     [modal]="true"
     header="Detalle de vacante"
-    [style]="{ width: '72rem', borderRadius: '1.5rem' }"
+    [style]="{ maxWidth: '72rem', borderRadius: '1.5rem' }"
   >
     <div class="space-y-4">
       @if (loading()) {
@@ -39,10 +39,10 @@
             </ng-template>
             <ng-template #body let-vacante>
               <tr>
-                <td>{{ vacante.descripction }}</td>
+                <td>{{ vacante.description }}</td>
                 <td>{{ vacante.level_experience }}</td>
                 <td>{{ vacante.payment_form }}</td>
-                <td>{{ vacante.processes }}</td>
+                <td>{{ vacante.processes | processName }}</td>
                 <td>{{ vacante.requirements }}</td>
                 <td>{{ vacante.skills }}</td>
                 <td>{{ vacante.tools }}</td>

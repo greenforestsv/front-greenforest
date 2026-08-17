@@ -31,6 +31,7 @@ export interface GetVacanteDto extends Vacante {
 
 export interface GetDetalleVacanteDto {
   id: string;
+  title: string;
   availability: string;
   contract_type: string;
   department: string;

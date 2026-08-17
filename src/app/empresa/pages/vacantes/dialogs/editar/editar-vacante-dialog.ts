@@ -57,7 +57,7 @@ export class EditarVacanteDialog {
     tools: ['', Validators.required],
     requirements: ['', Validators.required],
 
-    processes: this.fb.nonNullable.control<number[]>([], Validators.required),
+    processes: this.fb.nonNullable.control<number[]>([]),
 
     payment_form: ['', Validators.required],
 
@@ -72,10 +72,9 @@ export class EditarVacanteDialog {
     level_experience: [''],
   });
 
-  openDialog(id: string): void {
+  openDialog(): void {
     this.visible.set(true);
-
-    this.loadVacante(id);
+    this.loadVacante();
   }
 
   closeDialog(): void {
@@ -120,16 +119,17 @@ export class EditarVacanteDialog {
     this.vacanteForm.markAsUntouched();
   }
 
-  private loadVacante(id: string): void {
+  private loadVacante(): void {
     this.loadingVacante.set(true);
 
     this.vacantesService
-      .getJobDetails(id)
+      .getJobDetails(this.currentVacanteId())
       .pipe(finalize(() => this.loadingVacante.set(false)))
       .subscribe({
         next: (vacante) => {
+          console.log(vacante);
           this.vacanteForm.patchValue({
-            //title: vacante.title,
+            title: vacante.title,
 
             //ends_on: vacante.ends_on ? new Date(vacante.ends_on) : new Date(),
 
@@ -180,11 +180,13 @@ export class EditarVacanteDialog {
   }
 
   save(): void {
-    if (!this.currentVacanteId) {
+    if (!this.currentVacanteId()) {
+      console.log('no id');
       return;
     }
 
     if (this.vacanteForm.invalid) {
+      console.log('invalid form');
       this.vacanteForm.markAllAsTouched();
       return;
     }

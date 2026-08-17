@@ -45,7 +45,7 @@ export class CrearVacanteDialog {
     tools: ['', Validators.required],
     requirements: ['', Validators.required],
 
-    processes: this.fb.nonNullable.control<number[]>([], Validators.required),
+    processes: this.fb.nonNullable.control<number[]>([]),
 
     payment_form: ['', Validators.required],
 
@@ -104,6 +104,7 @@ export class CrearVacanteDialog {
 
   save(): void {
     if (this.vacanteForm.invalid) {
+      console.log('invalid form');
       this.vacanteForm.markAllAsTouched();
       return;
     }

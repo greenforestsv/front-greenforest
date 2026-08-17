@@ -1,4 +1,7 @@
-<label>Procesos <span class="text-accent-500">*</span></label>
+<label
+  >Procesos
+  <!-- <span class="text-accent-500">*</span> --></label
+>
 <p-multiselect
   [options]="processes()"
   [formControl]="control()"
@@ -31,10 +34,10 @@
     </div>
   </ng-template>
 </p-multiselect>
-@if (control().invalid && control().touched) {
+<!-- @if (control().invalid && control().touched) {
   <p-message severity="error" size="small" variant="simple" class="mt-1">
     @if (control().hasError('required')) {
       Los procesos son obligatorios.
     }
   </p-message>
-}
+} -->
