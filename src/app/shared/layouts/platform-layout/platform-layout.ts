@@ -62,6 +62,7 @@ export class PlatformLayout {
   }
 
   load() {
+    this.loading.set(true);
     const payload = this.authService.getTokenPayload();
 
     if (!payload) {
