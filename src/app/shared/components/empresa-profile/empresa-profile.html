@@ -3,7 +3,7 @@
     <div class="flex items-center gap-6 flex-col md:flex-row">
       <div class="shrink-0">
         <app-custom-avatar
-          [src]="'https://static.vecteezy.com/system/resources/thumbnails/046/593/914/small/creative-logo-design-for-real-estate-company-vector.jpg'"
+          [src]="perfil().url_profile_photo"
           size="size-32"
           [name]="'name'"
           fontSize="text-5xl"
@@ -44,9 +44,9 @@
         </div>
       </div>
     </div>
-    @if (editable()) {
+    @if (editable() && perfil()) {
       <div class="shrink-0">
-        <app-editar-perfil-dialog />
+        <app-editar-perfil-dialog [perfil]="perfil()" (perfilEditado)="perfilEditado.emit()" />
       </div>
     }
   </div>
@@ -60,6 +60,7 @@
     <p class="flex items-center gap-1">
       <i class="pi pi-globe" style="font-size: 1.1rem"></i>
       www.innovatec.com
+      <!-- {{ perfil().webPage }} -->
     </p>
     <p class="flex items-center gap-1">
       <i class="pi pi-envelope" style="font-size: 1.1rem"></i>

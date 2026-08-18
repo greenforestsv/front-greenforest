@@ -120,7 +120,7 @@
     <p-skeleton width="100%" height="16rem" borderRadius="1.5rem" />
   } @else if (perfil(); as empresa) {
     <div class="flex-2 flex flex-col gap-4">
-      <app-empresa-profile [perfil]="empresa" [editable]="true" />
+      <app-empresa-profile [perfil]="empresa" [editable]="true" (perfilEditado)="load()" />
     </div>
   }
 </div>

@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -13,6 +13,8 @@ import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { phoneValidator } from '../../../../shared/validators/form.validators';
 import { SelectModule } from 'primeng/select';
+import { PerfilEmpresaDto } from '../../../../core/interfaces/empresa.interface';
+import { toArray } from '../../../../shared/utils/string.utils';
 
 @Component({
   selector: 'app-editar-perfil-dialog',
@@ -33,20 +35,18 @@ import { SelectModule } from 'primeng/select';
   ],
 })
 export class EditarPerfilDialog {
-  /* INJECCIÓN DE SERVICIOS */
+  perfil = input.required<PerfilEmpresaDto>();
+
   private translate = inject(TranslateService);
   empresasService = inject(EmpresasService);
   private messageService = inject(MessageService);
 
-  /* FORM BUILDER */
   private fb = inject(FormBuilder);
 
-  //ESTADOS INICIALS
   visible = signal(false);
   loading = signal(false);
   error = signal<string | null>('Internal server error');
 
-  /* OPCIONES SELECT */
   countryOptions = [{ label: 'Honduras', value: 'HN' }];
   departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
 
@@ -54,7 +54,7 @@ export class EditarPerfilDialog {
   readonly perfilForm = this.fb.nonNullable.group({
     name: ['', Validators.required],
     phone: ['', [Validators.required, phoneValidator()]],
-    cell_phone: ['', phoneValidator()],
+    cel_phone: ['', phoneValidator()],
     description: ['', Validators.required],
     approach: ['', Validators.required],
     locations: ['', Validators.required],
@@ -64,7 +64,7 @@ export class EditarPerfilDialog {
   // PROPIEDADES
   readonly name = this.perfilForm.controls.name;
   readonly phone = this.perfilForm.controls.phone;
-  readonly cell_phone = this.perfilForm.controls.cell_phone;
+  readonly cel_phone = this.perfilForm.controls.cel_phone;
   readonly description = this.perfilForm.controls.description;
   readonly approach = this.perfilForm.controls.approach;
   readonly locations = this.perfilForm.controls.locations;
@@ -75,11 +75,33 @@ export class EditarPerfilDialog {
     this.visible.set(false);
   }
 
+  openDialog() {
+    const perfil = this.perfil();
+
+    this.perfilForm.reset({
+      name: perfil.name ?? '',
+      phone: perfil.phone ?? '',
+      cel_phone: perfil.cel_phone ?? '',
+      description: perfil.description ?? '',
+
+      approach: perfil.approach?.join('\n') ?? '',
+      locations: perfil.locations?.join('\n') ?? '',
+
+      url_profile_photo: perfil.url_profile_photo ?? '',
+    });
+
+    this.perfilForm.markAsPristine();
+    this.perfilForm.markAsUntouched();
+
+    this.error.set(null);
+    this.visible.set(true);
+  }
+
   resetForm() {
     this.perfilForm.reset({
       name: '',
       phone: '',
-      cell_phone: '',
+      cel_phone: '',
       description: '',
       approach: '',
       locations: '',
@@ -90,10 +112,8 @@ export class EditarPerfilDialog {
     this.perfilForm.markAsUntouched();
   }
 
-  /* RECARGA PÁGINA */
   perfilEditado = output<void>();
 
-  /* GUARDAR */
   save() {
     if (this.perfilForm.invalid) {
       console.log('invalid form');
@@ -104,36 +124,12 @@ export class EditarPerfilDialog {
     this.loading.set(true);
     this.error.set(null);
 
-    const perfil = this.perfilForm.getRawValue();
-
-    const cleanLocations = perfil.locations
-      .split(/\n/)
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
-
-    if (cleanLocations.length === 0) {
-      this.perfilForm.controls.locations.setErrors({ required: true });
-      this.perfilForm.controls.locations.markAsTouched();
-      this.loading.set(false);
-      return;
-    }
-
-    const cleanApproach = perfil.approach
-      .split(/\n/)
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
-
-    if (cleanApproach.length === 0) {
-      this.perfilForm.controls.approach.setErrors({ required: true });
-      this.perfilForm.controls.approach.markAsTouched();
-      this.loading.set(false);
-      return;
-    }
+    const formValue = this.perfilForm.getRawValue();
 
     const perfilEdit = {
-      ...perfil,
-      locations: cleanLocations,
-      approach: cleanApproach,
+      ...formValue,
+      locations: toArray(formValue.locations),
+      approach: toArray(formValue.approach),
     };
 
     console.log(perfilEdit);
@@ -141,11 +137,11 @@ export class EditarPerfilDialog {
       .patchEmpresa(perfilEdit)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (res: any) => {
+        next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: '',
-            detail: '',
+            summary: 'Perfil actualizado',
+            detail: 'Los datos del perfil se actualizaron correctamente',
             life: 5000,
           });
 

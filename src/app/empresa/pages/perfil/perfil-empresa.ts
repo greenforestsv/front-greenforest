@@ -33,6 +33,7 @@ export class PerfilEmpresa {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (data) => {
+          console.log({ perfil: data });
           this.perfil.set(data);
         },
         error: (err) => {

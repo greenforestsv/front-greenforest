@@ -5,7 +5,7 @@
     [rounded]="true"
     size="small"
     [label]="'perfil.candidato.editar_perfil' | translate"
-    (click)="visible.set(true)"
+    (click)="openDialog()"
   />
   <p-dialog
     [(visible)]="visible"
@@ -67,24 +67,24 @@
 
         <!-- CELULAR -->
         <div class="flex flex-col gap-1">
-          <label pLabel class="text-sm" for="cell_phone"
+          <label pLabel class="text-sm" for="cel_phone"
             >Número de celular <span class="text-accent-500">*</span></label
           >
           <input
             pInputText
             type="text"
-            id="cell_phone"
-            formControlName="cell_phone"
+            id="cel_phone"
+            formControlName="cel_phone"
             placeholder="+50399887766"
             required
-            [invalid]="cell_phone.invalid && cell_phone.touched"
+            [invalid]="cel_phone.invalid && cel_phone.touched"
             fluid
           />
-          @if (cell_phone.invalid && cell_phone.touched) {
+          @if (cel_phone.invalid && cel_phone.touched) {
             <p-message severity="error" size="small" variant="simple">
-              @if (cell_phone.hasError('required')) {
+              @if (cel_phone.hasError('required')) {
                 El número de celular es obligatorio.
-              } @else if (cell_phone.hasError('invalidPhone')) {
+              } @else if (cel_phone.hasError('invalidPhone')) {
                 El número de celular no es válido.
               }
             </p-message>

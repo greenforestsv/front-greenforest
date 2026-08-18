@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output, ViewChild } from '@angular/core';
 import { PerfilEmpresaDto } from '../../../core/interfaces/empresa.interface';
 import { SkeletonModule } from 'primeng/skeleton';
 import { EditarPerfilDialog } from '../../../empresa/pages/perfil/editar-perfil-dialog/editar-perfil-dialog';
@@ -23,4 +23,9 @@ import { FormsModule } from '@angular/forms';
 export class EmpresaProfile {
   perfil = input.required<PerfilEmpresaDto>();
   editable = input(false);
+
+  perfilEditado = output<void>();
+
+  @ViewChild(EditarPerfilDialog)
+  editarPerfilDialog!: EditarPerfilDialog;
 }
