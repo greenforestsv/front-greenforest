@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { AspirantesService } from '../../services/aspirantes.service';
+import { AspirantesService } from '../../../core/services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { finalize } from 'rxjs';
@@ -9,7 +9,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditarPerfilDialog } from './dialogs/edit/editar-perfil-dialog';
-import { PrivateAspirant } from '../../interfaces/aspirant.interfaces';
+import { PrivateAspirant } from '../../../core/interfaces/aspirant.interfaces';
 import { SkeletonModule } from 'primeng/skeleton';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { CustomAvatar } from '../../../shared/components/custom-avatar/custom-avatar';

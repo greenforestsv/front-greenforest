@@ -4,7 +4,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { AspirantesService } from '../../../../services/aspirantes.service';
+import { AspirantesService } from '../../../../../core/services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -14,7 +14,10 @@ import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { phoneValidator } from '../../../../../shared/validators/form.validators';
 import { SelectModule } from 'primeng/select';
-import { PatchAspirantDto, PrivateAspirant } from '../../../../interfaces/aspirant.interfaces';
+import {
+  PatchAspirantDto,
+  PrivateAspirant,
+} from '../../../../../core/interfaces/aspirant.interfaces';
 import { CountriesSelect } from '../../../../../shared/components/countries-select/countries-select';
 import { StatesSelect } from '../../../../../shared/components/states-select/states-select';
 

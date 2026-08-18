@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { MessageModule } from 'primeng/message';
 import { TextareaModule } from 'primeng/textarea';
-import { AspirantesService } from '../../../../services/aspirantes.service';
+import { AspirantesService } from '../../../../../core/services/aspirantes.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { toArray } from '../../../../../shared/utils/string.utils';

@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
-import { AspirantesService } from '../../../../candidato/services/aspirantes.service';
-import { PublicAspirant } from '../../../../candidato/interfaces/aspirant.interfaces';
+import { AspirantesService } from '../../../../core/services/aspirantes.service';
+import { PublicAspirant } from '../../../../core/interfaces/aspirant.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 

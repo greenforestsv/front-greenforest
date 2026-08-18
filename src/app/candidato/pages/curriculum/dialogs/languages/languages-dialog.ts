@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angu
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { AspirantesService } from '../../../../services/aspirantes.service';
+import { AspirantesService } from '../../../../../core/services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { finalize } from 'rxjs';
