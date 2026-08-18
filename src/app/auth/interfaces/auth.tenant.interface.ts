@@ -59,3 +59,9 @@ export interface LoginEmployeeResponseDto {
   first_login: boolean;
   token: string;
 }
+
+export interface UpdateCredentials {
+  old_password?: string;
+  new_password?: string;
+  user?: string;
+}

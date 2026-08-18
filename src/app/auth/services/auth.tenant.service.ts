@@ -5,6 +5,7 @@ import {
   LoginEmployeeDto,
   LoginEmployeeResponseDto,
   SignupTenantDto,
+  UpdateCredentials,
 } from '../interfaces/auth.tenant.interface';
 import { SignupTenantResponseDto, JwtPayload } from '../interfaces/auth.tenant.interface';
 import { jwtDecode } from 'jwt-decode';
@@ -24,6 +25,11 @@ export class AuthTenantService {
   /* SIGNUP */
   signupTenant(data: SignupTenantDto) {
     return this.http.post<SignupTenantResponseDto>(`${this.apiUrl}/registration/tenant`, data);
+  }
+
+  /* UPDATE CREDENTIALS */
+  updateCredentials(body: UpdateCredentials) {
+    return this.http.patch(`${this.apiUrl}/tenant/update-login`, body);
   }
 
   /* IS AUTHENTICATED */

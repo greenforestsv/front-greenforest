@@ -7,19 +7,10 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { finalize } from 'rxjs';
-import { AuthService } from '../../../../../auth/services/auth.service';
 import { PasswordModule } from 'primeng/password';
 import { passwordMatchValidator } from '../../../../../shared/validators/form.validators';
-
-/* TODO:
-
-{
-old_password: string;
-new_password: string;
-user: string;
-email: string;
-} 
-*/
+import { AuthTenantService } from '../../../../../auth/services/auth.tenant.service';
+import { AuthService } from '../../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-cambio-contrasena-dialog',
@@ -37,19 +28,16 @@ email: string;
   ],
 })
 export class CambioContrasenaDialog {
-  /* INYECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
   private authService = inject(AuthService);
+  private authTenantService = inject(AuthTenantService);
   private messageService = inject(MessageService);
 
-  /* FORM BUILDER */
   private fb = inject(FormBuilder);
 
-  //ESTADOS INICIALS
   visible = signal(false);
   loading = signal(false);
 
-  // ESTADOS INICIALES Y VALIDACIONES
   readonly changePasswordForm = this.fb.nonNullable.group(
     {
       current_password: ['', Validators.required],
@@ -93,7 +81,6 @@ export class CambioContrasenaDialog {
     this.changePasswordForm.markAsUntouched();
   }
 
-  /* GUARDAR */
   save() {
     if (this.changePasswordForm.invalid) {
       console.log('invalid form');
@@ -104,19 +91,19 @@ export class CambioContrasenaDialog {
     this.loading.set(true);
 
     const { current_password, new_password } = this.changePasswordForm.getRawValue();
-    console.log({ current_password, new_password });
+    console.log({ old_password: current_password, new_password });
 
-    this.authService
-      .changePassword(current_password, new_password)
+    this.authTenantService
+      .updateCredentials({ old_password: current_password, new_password })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (res: any) => {
-          /* this.messageService.add({
+        next: () => {
+          this.messageService.add({
             severity: 'success',
-            summary: 'Idioma actualizado',
-            detail: 'Idioma actualizado correctamente',
+            summary: 'Contraseña actualizado',
+            detail: 'Constraseña actualizada correctamente',
             life: 5000,
-          }); */
+          });
 
           this.closeDialog();
           this.authService.logout();

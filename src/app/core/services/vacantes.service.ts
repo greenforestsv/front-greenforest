@@ -87,6 +87,6 @@ export class VacantesService {
 
   /* PATCH VACANTE */
   patchJob(job_id: string, body: PatchVacanteDto) {
-    return this.http.patch(`${this.apiUrl}/job/${job_id}`, body);
+    return this.http.patch(`${this.apiUrl}/update-job/${job_id}`, body);
   }
 }

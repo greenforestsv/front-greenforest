@@ -100,13 +100,13 @@ export class CambioContrasenaDialog {
       .changePassword(current_password, new_password)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (res: any) => {
-          /* this.messageService.add({
+        next: () => {
+          this.messageService.add({
             severity: 'success',
-            summary: 'Idioma actualizado',
-            detail: 'Idioma actualizado correctamente',
+            summary: 'Contraseña actualizado',
+            detail: 'Constraseña actualizada correctamente',
             life: 5000,
-          }); */
+          });
 
           this.closeDialog();
           this.authService.logout();
