@@ -1,9 +1,10 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { CvService } from '../../../../../../core/services/cv.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -12,11 +13,10 @@ import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { endDateAfterStartDateValidator } from '../../../../../../shared/validators/form.validators';
 import { Education } from '../../../../../../core/interfaces/cv.interfaces';
-import { CvService } from '../../../../../../core/services/cv.service';
 
 @Component({
-  selector: 'app-add-education-dialog',
-  templateUrl: './add-education-dialog.html',
+  selector: 'app-edit-education-dialog',
+  templateUrl: './edit-education-dialog.html',
   standalone: true,
   imports: [
     DialogModule,
@@ -30,7 +30,8 @@ import { CvService } from '../../../../../../core/services/cv.service';
     TextareaModule,
   ],
 })
-export class AddEducationDialog {
+export class EditEducationDialog {
+  education = input.required<Education>();
   private translate = inject(TranslateService);
   cvService = inject(CvService);
   private messageService = inject(MessageService);
@@ -40,13 +41,15 @@ export class AddEducationDialog {
   visible = signal(false);
   loading = signal(false);
 
+  educationUpdated = output<void>();
+
   readonly educationForm = this.fb.nonNullable.group(
     {
       title: ['', Validators.required],
-      start_date: [null, Validators.required],
-      end_date: [null],
-      level: ['', Validators.required],
+      start_date: [null as Date | null, Validators.required],
+      end_date: [null as Date | null],
       educational_center: ['', Validators.required],
+      level: ['', Validators.required],
     },
     {
       validators: endDateAfterStartDateValidator(),
@@ -56,8 +59,25 @@ export class AddEducationDialog {
   readonly title = this.educationForm.controls.title;
   readonly start_date = this.educationForm.controls.start_date;
   readonly end_date = this.educationForm.controls.end_date;
-  readonly level = this.educationForm.controls.level;
   readonly educational_center = this.educationForm.controls.educational_center;
+  readonly level = this.educationForm.controls.level;
+
+  openDialog() {
+    const education = this.education();
+
+    this.educationForm.reset({
+      title: education.title ?? '',
+      educational_center: education.educational_center ?? '',
+      start_date: education.start_date ? new Date(education.start_date) : null,
+      end_date: education.end_date ? new Date(education.end_date) : null,
+      level: education.level ?? '',
+    });
+
+    this.educationForm.markAsPristine();
+    this.educationForm.markAsUntouched();
+
+    this.visible.set(true);
+  }
 
   closeDialog() {
     this.resetForm();
@@ -77,9 +97,6 @@ export class AddEducationDialog {
     this.educationForm.markAsUntouched();
   }
 
-  /* AVISA A LA PÁGINA QUE SE AGREGÓ UNA NUEVA EXPERIENCIA */
-  educationAdded = output<void>();
-
   save() {
     if (this.educationForm.invalid) {
       console.log('invalid form');
@@ -89,34 +106,41 @@ export class AddEducationDialog {
 
     this.loading.set(true);
 
-    const education = this.educationForm.getRawValue();
+    const id = this.education().id;
 
-    const newEducation: Education = {
-      ...education,
-      start_date: dayjs(education.start_date).toISOString(),
-      end_date: education.end_date ? dayjs(education.end_date).toISOString() : undefined,
+    if (id === undefined) {
+      return;
+    }
+
+    const formValue = this.educationForm.getRawValue();
+
+    const newEducation = {
+      ...formValue,
+      start_date: dayjs(formValue.start_date).format('YYYY-MM-DD'),
+      end_date: formValue.end_date ? dayjs(formValue.end_date).format('YYYY-MM-DD') : undefined,
     };
 
+    console.log(newEducation, id);
+
     this.cvService
-      .createEducation([newEducation])
+      .updateEducation(newEducation, id)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Educación agregada',
-            detail: 'Educación agregada correctamente',
+            summary: 'Educación actualizada',
+            detail: 'Educación actualizada correctamente',
             life: 5000,
           });
 
-          this.educationAdded.emit();
-
+          this.educationUpdated.emit();
           this.closeDialog();
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
             severity: 'error',
-            summary: this.translate.instant('cv.error_agregar_experiencia'),
+            summary: 'Error al actualizar educación',
             detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
             life: 5000,
           });

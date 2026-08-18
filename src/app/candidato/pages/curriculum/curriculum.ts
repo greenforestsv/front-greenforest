@@ -15,6 +15,7 @@ import { AddEducationDialog } from './dialogs/education/add/add-education-dialog
 import { LanguagesDialog } from './dialogs/languages/languages-dialog';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { SkillsDialog } from './dialogs/skills/skills-dialog';
+import { EditEducationDialog } from './dialogs/education/edit/edit-education-dialog';
 
 @Component({
   selector: 'app-curriculum',
@@ -31,6 +32,7 @@ import { SkillsDialog } from './dialogs/skills/skills-dialog';
     LanguagesDialog,
     EmptyState,
     SkillsDialog,
+    EditEducationDialog,
   ],
   templateUrl: './curriculum.html',
   styleUrl: './curriculum.scss',

@@ -1,0 +1,158 @@
+<div class="flex justify-center">
+  <p-button
+    icon="pi pi-pencil"
+    [rounded]="true"
+    size="small"
+    label="Educación"
+    (click)="openDialog()"
+  />
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    header="Actualizar educación"
+    [style]="{ width: '36rem', borderRadius: '1.5rem' }"
+  >
+    <form
+      id="educationForm"
+      [formGroup]="educationForm"
+      (ngSubmit)="save()"
+      class="flex flex-col gap-4"
+    >
+      <div class="flex flex-col md:flex-row gap-4">
+        <!-- LEFT -->
+        <div class="space-y-4">
+          <!-- TÍTULO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="title"
+              >{{ 'cv.titulo' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="title"
+              formControlName="title"
+              required
+              [invalid]="title.invalid && title.touched"
+              fluid
+            />
+            @if (title.invalid && title.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (title.hasError('required')) {
+                  {{ 'cv.titulo_obligatorio' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- FECHA INICIO -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="start_date"
+              >{{ 'cv.fecha_inicio' | translate }} <span class="text-accent-500">*</span></label
+            >
+            <p-datepicker
+              id="start_date"
+              formControlName="start_date"
+              [showIcon]="true"
+              inputId="start_date"
+              required
+              dateFormat="dd/M/yy"
+              [invalid]="start_date.invalid && start_date.touched"
+              appendTo="body"
+            />
+            @if (start_date.invalid && start_date.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (start_date.hasError('required')) {
+                  {{ 'cv.fecha_inicio_obligatoria' | translate }}
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- FECHA FIN -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="end_date">{{ 'cv.fecha_fin' | translate }}</label>
+            <p-datepicker
+              id="end_date"
+              formControlName="end_date"
+              [showIcon]="true"
+              inputId="end_date"
+              dateFormat="dd/M/yy"
+              appendTo="body"
+              [invalid]="educationForm.hasError('endDateBeforeStartDate') && end_date.touched"
+            />
+            @if (educationForm.hasError('endDateBeforeStartDate') && end_date.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                {{ 'cv.fecha_fin_mayor_inicio' | translate }}
+              </p-message>
+            }
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="space-y-4">
+          <!-- INSTITUCIÓN -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="educational_center"
+              >Institución <span class="text-accent-500">*</span></label
+            >
+            <input
+              pInputText
+              type="text"
+              id="educational_center"
+              formControlName="educational_center"
+              required
+              [invalid]="educational_center.invalid && educational_center.touched"
+              fluid
+            />
+            @if (educational_center.invalid && educational_center.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (educational_center.hasError('required')) {
+                  La institución es obligatoria.
+                }
+              </p-message>
+            }
+          </div>
+
+          <!-- NIVEL -->
+          <div class="flex flex-col gap-1">
+            <label pLabel for="level">Nivel <span class="text-accent-500">*</span></label>
+            <input
+              pInputText
+              type="text"
+              id="level"
+              formControlName="level"
+              required
+              [invalid]="level.invalid && level.touched"
+              fluid
+            />
+            @if (level.invalid && level.touched) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (level.hasError('required')) {
+                  El nivel es obigatorio.
+                }
+              </p-message>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÓN OCULTO PARA EL ENTER -->
+      <button type="submit" hidden></button>
+    </form>
+    <!-- BOTONES -->
+    <ng-template pTemplate="footer">
+      <p-button
+        [label]="'common.cancelar' | translate"
+        (click)="closeDialog()"
+        severity="secondary"
+        variant="outlined"
+      />
+      <p-button
+        type="button"
+        [loading]="loading()"
+        (click)="save()"
+        [label]="'common.guardar' | translate"
+      />
+    </ng-template>
+  </p-dialog>
+</div>

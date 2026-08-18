@@ -109,8 +109,7 @@
                 <span class="gray-badge">{{ education.end_date }}</span>
               }
 
-              <p-button icon="pi pi-pencil" size="small" [rounded]="true" />
-              <!--   (click)="educationDialog.openEdit(education, $index)"  -->
+              <app-edit-education-dialog [education]="education" (educationUpdated)="loadCV()" />
             </div>
           }
         </div>

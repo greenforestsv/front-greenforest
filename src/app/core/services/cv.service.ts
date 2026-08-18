@@ -26,7 +26,7 @@ export class CvService {
   }
 
   /* PATCH EDUCATION */
-  updateEducation(body: Education, id: string) {
+  updateEducation(body: Education, id: number) {
     return this.http.patch(`${this.apiUrl}/central/educations/${id}`, body);
   }
 
