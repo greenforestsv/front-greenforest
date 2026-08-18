@@ -14,4 +14,9 @@ export class MenuService {
   getAspirantsMenu() {
     return this.http.get<MenuResponse[]>(`${this.apiUrl}/central/menu`);
   }
+
+  /* GET MENÚ DE EMPRESAS */
+  getTenantMenu() {
+    return this.http.get<MenuResponse[]>(`${this.apiUrl}/tenant/menu`);
+  }
 }

@@ -43,13 +43,17 @@ export class AuthService {
 
   /* LOGOUT */
   logout(): void {
+    const payload = this.getTokenPayload();
+
+    const loginRoute = payload?.tenant_id ? '/login-empresarial' : '/login-candidato';
+
     localStorage.removeItem('token');
-    this.router.navigate(['/']);
+
+    this.router.navigate([loginRoute]);
   }
 
   /* IS AUTHENTICATED */
   isAuthenticated(): boolean {
-    /* TODO: debe ser rol aspirante */
     const token = localStorage.getItem('token');
 
     if (!token) return false;
@@ -59,6 +63,21 @@ export class AuthService {
       return decoded.exp * 1000 > Date.now();
     } catch {
       return false;
+    }
+  }
+
+  /* TOKEN DECODE */
+  getTokenPayload(): any | null {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
     }
   }
 }

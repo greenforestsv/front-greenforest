@@ -58,22 +58,34 @@ export class PlatformLayout {
 
   constructor() {
     this.usuario.set({ name: 'Perfil', avatarImage: '/images/profile.jpg' });
-    this.menuService
-      .getAspirantsMenu()
-      .pipe(finalize(() => this.loading.set(false)))
-      .subscribe({
-        next: (res: MenuResponse[]) => {
-          this.links.set(res);
-        },
-        error: (err: { error: { message: any }; status: number }) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error al obtener rutas de menú',
-            detail: err.error?.message ?? 'Ocurrió un error inesperado',
-            life: 5000,
-          });
-        },
-      });
+    this.load();
+  }
+
+  load() {
+    const payload = this.authService.getTokenPayload();
+
+    if (!payload) {
+      this.loading.set(false);
+      return;
+    }
+
+    const request$ = payload.tenant_id
+      ? this.menuService.getTenantMenu()
+      : this.menuService.getAspirantsMenu();
+
+    request$.pipe(finalize(() => this.loading.set(false))).subscribe({
+      next: (res: MenuResponse[]) => {
+        this.links.set(res);
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al obtener rutas de menú',
+          detail: err.error?.message ?? 'Ocurrió un error inesperado',
+          life: 5000,
+        });
+      },
+    });
   }
 
   logout(): void {
