@@ -1,12 +1,3 @@
-/* export interface CreateCV {
-  description?: string;
-  profile_photo?: string;
-  skills?: string[];
-  languages?: Language[];
-  educations?: Education[];
-  works_experience?: WorkExperience[];
-} */
-
 export interface CV {
   name: string;
   profession: string;
@@ -26,7 +17,7 @@ export interface Education {
   title: string;
   level: string;
   start_date: string;
-  end_date: string;
+  end_date?: string;
   educational_center: string;
 }
 

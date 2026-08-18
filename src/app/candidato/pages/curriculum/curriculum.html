@@ -21,7 +21,7 @@
           <app-add-experience-dialog (experienceAdded)="loadCV()" />
 
           <!-- ADD EDUCATION DIALOG -->
-          <app-add-education-dialog (experienceAdded)="loadCV()" />
+          <app-add-education-dialog (educationAdded)="loadCV()" />
 
           <!-- SKILLS BUTTON -->
           <p-button
@@ -44,11 +44,8 @@
       <h2>Experiencia Laboral</h2>
       @if (cv()?.works_experience?.length) {
         <div class="relative border-l border-gray-300 space-y-4">
-          <div class="flex items-center justify-between">
-            <!-- EDIT EXP DIALOG -->
-            <app-edit-experience-dialog (experienceAdded)="loadCV()" />
-          </div>
-          @for (experience of cv()?.works_experience; track experience.id) {
+          <div class="flex items-center justify-between"></div>
+          @for (experience of cv()?.works_experience ?? []; track experience.id) {
             <div class="ml-6 relative">
               <!-- TIMELINE -->
               <span class="absolute -left-[31px] top-0 shadow-sm bg-lite rounded-full size-4">
@@ -86,6 +83,11 @@
                     </span>
                   }
                 </div>
+                <!-- EDIT EXP DIALOG -->
+                <app-edit-experience-dialog
+                  [workExperience]="experience"
+                  (experienceUpdated)="loadCV()"
+                />
               </div>
             </div>
           }

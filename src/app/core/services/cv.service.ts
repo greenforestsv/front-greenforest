@@ -11,17 +11,17 @@ export class CvService {
   private apiUrl = environment.apiUrl;
 
   /* POST WORK EXPERIENCE */
-  createWorkExperience(body: WorkExperience) {
+  createWorkExperience(body: WorkExperience[]) {
     return this.http.post(`${this.apiUrl}/central/work-experiences`, body);
   }
 
   /* POST EDUCATION */
-  createEducation(body: Education) {
+  createEducation(body: Education[]) {
     return this.http.post(`${this.apiUrl}/central/educations`, body);
   }
 
   /* PATCH WORK EXPERIENCE */
-  updateWorkExperience(body: WorkExperience, id: string) {
+  updateWorkExperience(body: WorkExperience, id: number) {
     return this.http.patch(`${this.apiUrl}/central/work-experiences/${id}`, body);
   }
 

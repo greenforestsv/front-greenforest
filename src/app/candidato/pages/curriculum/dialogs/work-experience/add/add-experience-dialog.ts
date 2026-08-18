@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { endDateAfterStartDateValidator } from '../../../../../../shared/validators/form.validators';
+import { toArray } from '../../../../../../shared/utils/string.utils';
 
 @Component({
   selector: 'app-add-experience-dialog',
@@ -97,36 +98,19 @@ export class AddExperienceDialog {
     this.loading.set(true);
     this.error.set(null);
 
-    const { title, start_date, end_date, company, area, activities } =
-      this.experienceForm.getRawValue();
-
-    const cleanActivities = activities
-      .split(/\n/)
-      .map((activity) => activity.trim())
-      .filter((activity) => activity.length > 0);
-
-    if (cleanActivities.length === 0) {
-      this.experienceForm.controls.activities.setErrors({
-        required: true,
-      });
-      this.experienceForm.controls.activities.markAsTouched();
-      this.loading.set(false);
-      return;
-    }
+    const formValue = this.experienceForm.getRawValue();
 
     const nuevaExperiencia = {
-      title,
-      start_date: dayjs(start_date).format('YYYY-MM-DD'),
-      end_date: end_date ? dayjs(end_date).format('YYYY-MM-DD') : null,
-      company,
-      area,
-      activities: cleanActivities,
+      ...formValue,
+      start_date: dayjs(formValue.start_date).format('YYYY-MM-DD'),
+      end_date: formValue.end_date ? dayjs(formValue.end_date).format('YYYY-MM-DD') : null,
+      activities: toArray(formValue.activities),
     };
 
     console.log(nuevaExperiencia);
 
     this.cvService
-      .createWorkExperience(nuevaExperiencia)
+      .createWorkExperience([nuevaExperiencia])
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res: any) => {

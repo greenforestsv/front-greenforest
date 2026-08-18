@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { endDateAfterStartDateValidator } from '../../../../../../shared/validators/form.validators';
+import { toArray } from '../../../../../../shared/utils/string.utils';
+import { WorkExperience } from '../../../../../../core/interfaces/cv.interfaces';
 @Component({
   selector: 'app-edit-experience-dialog',
   templateUrl: './edit-experience-dialog.html',
@@ -29,25 +31,23 @@ import { endDateAfterStartDateValidator } from '../../../../../../shared/validat
   ],
 })
 export class EditExperienceDialog {
-  /* INJECCIÓN DE SERVICIOS */
+  workExperience = input.required<WorkExperience>();
   private translate = inject(TranslateService);
   cvService = inject(CvService);
   private messageService = inject(MessageService);
 
-  /* FORM BUILDER */
   private fb = inject(FormBuilder);
 
-  //ESTADOS INICIALS
   visible = signal(false);
   loading = signal(false);
-  error = signal<string | null>('Internal server error');
 
-  // ESTADOS INICIALES Y VALIDACIONES
+  experienceUpdated = output<void>();
+
   readonly experienceForm = this.fb.nonNullable.group(
     {
       title: ['', Validators.required],
-      start_date: [new Date(), Validators.required],
-      end_date: [null],
+      start_date: [null as Date | null, Validators.required],
+      end_date: [null as Date | null],
       company: ['', Validators.required],
       area: ['', Validators.required],
       activities: ['', Validators.required],
@@ -63,6 +63,24 @@ export class EditExperienceDialog {
   readonly company = this.experienceForm.controls.company;
   readonly area = this.experienceForm.controls.area;
   readonly activities = this.experienceForm.controls.activities;
+
+  openDialog() {
+    const workExperience = this.workExperience();
+
+    this.experienceForm.reset({
+      title: workExperience.title ?? '',
+      company: workExperience.company ?? '',
+      start_date: workExperience.start_date ? new Date(workExperience.start_date) : null,
+      end_date: workExperience.end_date ? new Date(workExperience.end_date) : null,
+      area: workExperience.area ?? '',
+      activities: workExperience.activities?.join('\n') ?? '',
+    });
+
+    this.experienceForm.markAsPristine();
+    this.experienceForm.markAsUntouched();
+
+    this.visible.set(true);
+  }
 
   closeDialog() {
     this.resetForm();
@@ -83,67 +101,51 @@ export class EditExperienceDialog {
     this.experienceForm.markAsUntouched();
   }
 
-  /* AVISA A LA PÁGINA QUE SE AGREGÓ UNA NUEVA EXPERIENCIA */
-  experienceAdded = output<void>();
-
-  /* GUARDAR */
   save() {
     if (this.experienceForm.invalid) {
+      console.log('invalid form');
       this.experienceForm.markAllAsTouched();
       return;
     }
 
     this.loading.set(true);
-    this.error.set(null);
 
-    const { title, start_date, end_date, company, area, activities } =
-      this.experienceForm.getRawValue();
+    const id = this.workExperience().id;
 
-    const cleanActivities = activities
-      .split(/\n/)
-      .map((activity) => activity.trim())
-      .filter((activity) => activity.length > 0);
-
-    if (cleanActivities.length === 0) {
-      this.experienceForm.controls.activities.setErrors({
-        required: true,
-      });
-      this.experienceForm.controls.activities.markAsTouched();
-      this.loading.set(false);
+    if (id === undefined) {
       return;
     }
 
+    const formValue = this.experienceForm.getRawValue();
+
     const nuevaExperiencia = {
-      title,
-      start_date: dayjs(start_date).format('YYYY-MM-DD'),
-      end_date: end_date ? dayjs(end_date).format('YYYY-MM-DD') : null,
-      company,
-      area,
-      activities: cleanActivities,
+      ...formValue,
+      start_date: dayjs(formValue.start_date).format('YYYY-MM-DD'),
+      end_date: formValue.end_date ? dayjs(formValue.end_date).format('YYYY-MM-DD') : null,
+      activities: toArray(formValue.activities),
     };
 
-    console.log(nuevaExperiencia);
+    console.log(nuevaExperiencia, id);
 
     this.cvService
-      .updateWorkExperience(nuevaExperiencia, 'id')
+      .updateWorkExperience(nuevaExperiencia, id)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (res: any) => {
+        next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: this.translate.instant('cv.experiencia_agregada_summary'),
-            detail: this.translate.instant('cv.experiencia_agregada_detail'),
+            summary: 'Experiencia actualizada',
+            detail: 'Experiencia actualizada correctamente',
             life: 5000,
           });
 
-          this.experienceAdded.emit();
-
+          this.experienceUpdated.emit();
           this.closeDialog();
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({
             severity: 'error',
-            summary: this.translate.instant('cv.error_agregar_experiencia'),
+            summary: 'Error al actualizar experiencia',
             detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
             life: 5000,
           });
