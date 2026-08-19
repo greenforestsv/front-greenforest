@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { CV, Education, WorkExperience } from '../interfaces/cv.interfaces';
+import { CV, Education, Language, WorkExperience } from '../interfaces/cv.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +33,15 @@ export class CvService {
   /* GET CURRICULUM */
   getCV() {
     return this.http.get<CV>(`${this.apiUrl}/aspirant/cv`);
+  }
+
+  /* PATCH SKILLS */
+  patchSkills(body: { skills: string[] }) {
+    return this.http.patch(`${this.apiUrl}/aspirant/add/skills`, body);
+  }
+
+  /* PATCH LANGUAGES */
+  patchLanguages(body: Language[]) {
+    return this.http.patch(`${this.apiUrl}/aspirant/add/languages`, body);
   }
 }

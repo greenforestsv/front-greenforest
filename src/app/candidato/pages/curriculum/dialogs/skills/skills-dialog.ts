@@ -5,10 +5,10 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { MessageModule } from 'primeng/message';
 import { TextareaModule } from 'primeng/textarea';
-import { AspirantesService } from '../../../../../core/services/aspirantes.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { toArray } from '../../../../../shared/utils/string.utils';
+import { CvService } from '../../../../../core/services/cv.service';
 
 @Component({
   selector: 'app-skills-dialog',
@@ -27,7 +27,7 @@ export class SkillsDialog {
   skillsList = input<string[]>([]);
 
   private translate = inject(TranslateService);
-  aspirantesService = inject(AspirantesService);
+  cvService = inject(CvService);
   private messageService = inject(MessageService);
   private fb = inject(FormBuilder);
 
@@ -79,10 +79,10 @@ export class SkillsDialog {
     this.loading.set(true);
 
     const skills = toArray(this.skills.value);
-    console.log(skills);
+    console.log({ skills });
 
-    this.aspirantesService
-      .patchAspirant({
+    this.cvService
+      .patchSkills({
         skills,
       })
       .pipe(finalize(() => this.loading.set(false)))

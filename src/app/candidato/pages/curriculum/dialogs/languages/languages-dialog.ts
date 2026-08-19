@@ -1,14 +1,16 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { AspirantesService } from '../../../../../core/services/aspirantes.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { finalize } from 'rxjs';
-import { Language } from '../../../../../core/interfaces/cv.interfaces';
 import { SelectModule } from 'primeng/select';
+
+import { Language } from '../../../../../core/interfaces/cv.interfaces';
+import { CvService } from '../../../../../core/services/cv.service';
 
 @Component({
   selector: 'app-languages-dialog',
@@ -25,8 +27,12 @@ import { SelectModule } from 'primeng/select';
   ],
 })
 export class LanguagesDialog {
-  /* IMPORTS */
   languages = input.required<Language[]>();
+
+  private translate = inject(TranslateService);
+  private cvService = inject(CvService);
+  private messageService = inject(MessageService);
+  private fb = inject(FormBuilder);
 
   languageOptions = [
     { label: 'Español', value: 'Español' },
@@ -44,22 +50,14 @@ export class LanguagesDialog {
     { label: 'Nativo', value: 'Nativo' },
   ];
 
-  /* INJECCIÓN DE SERVICIOS */
-  private translate = inject(TranslateService);
-  aspirantesService = inject(AspirantesService);
-  private messageService = inject(MessageService);
-
-  /* FORM BUILDER */
-  private fb = inject(FormBuilder);
-
-  //ESTADOS INICIALS
   mode = signal<'add' | 'edit'>('add');
-  editingLanguage = signal<Language | null>(null);
   editingIndex = signal<number | null>(null);
+
   visible = signal(false);
   loading = signal(false);
 
-  // ESTADOS INICIALES Y VALIDACIONES
+  languagesUpdated = output<void>();
+
   readonly languageForm = this.fb.nonNullable.group({
     name: ['', Validators.required],
     level: ['', Validators.required],
@@ -70,21 +68,24 @@ export class LanguagesDialog {
 
   openAdd() {
     this.mode.set('add');
-    this.editingLanguage.set(null);
     this.editingIndex.set(null);
+
     this.resetForm();
+
     this.visible.set(true);
   }
 
   openEdit(language: Language, index: number) {
     this.mode.set('edit');
-    this.editingLanguage.set(language);
     this.editingIndex.set(index);
 
-    this.languageForm.patchValue({
+    this.languageForm.reset({
       name: language.name,
       level: language.level,
     });
+
+    this.languageForm.markAsPristine();
+    this.languageForm.markAsUntouched();
 
     this.visible.set(true);
   }
@@ -104,59 +105,58 @@ export class LanguagesDialog {
     this.languageForm.markAsUntouched();
   }
 
-  /* LLAMA A LOADCV */
-  languageAdded = output<void>();
-
-  /* GUARDAR */
   save() {
-    /*  if (this.languageForm.invalid) {
-      console.log('invalid form');
+    if (this.languageForm.invalid) {
       this.languageForm.markAllAsTouched();
       return;
     }
 
     this.loading.set(true);
 
-    const language: Language = this.languageForm.getRawValue();
-    console.log(language);
+    const formLanguage = this.languageForm.getRawValue();
 
-    const request =
-      this.mode() === 'add'
-        ? this.aspirantesService.patchCV({
-            languages: [language],
-          })
-        : (() => {
-            const languages = [...this.languages()];
-            languages[this.editingIndex()!] = language;
+    /*let languages: Language[];
 
-            return this.aspirantesService.patchCV({
-              languages,
-            });
-          })();
+     if (this.mode() === 'add') {
+      languages = [...this.languages(), formLanguage];
+    } else {
+      const index = this.editingIndex();
 
-    request.pipe(finalize(() => this.loading.set(false))).subscribe({
-      next: (res: any) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.mode() === 'add' ? 'Idioma agregado' : 'Idioma actualizado',
-          detail:
-            this.mode() === 'add'
-              ? 'Idioma agregado correctamente'
-              : 'Idioma actualizado correctamente',
-          life: 5000,
-        });
+      if (index === null) {
+        this.loading.set(false);
+        return;
+      }
 
-        this.languageAdded.emit();
-        this.closeDialog();
-      },
-      error: (err: { error: { message: any } }) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
-          life: 5000,
-        });
-      },
-    });*/
+      languages = this.languages().map((language, i) => (i === index ? formLanguage : language));
+    } */
+
+    this.cvService
+      .patchLanguages([formLanguage])
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.mode() === 'add' ? 'Idioma agregado' : 'Idioma actualizado',
+            detail:
+              this.mode() === 'add'
+                ? 'Idioma agregado correctamente'
+                : 'Idioma actualizado correctamente',
+            life: 5000,
+          });
+
+          this.languagesUpdated.emit();
+          this.closeDialog();
+        },
+
+        error: (err: { error?: { message?: string } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
+            life: 5000,
+          });
+        },
+      });
   }
 }

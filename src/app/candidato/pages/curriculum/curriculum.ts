@@ -62,6 +62,7 @@ export class Curriculum {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (cv) => {
+          console.log(cv);
           this.cv.set(cv);
         },
         error: (err: { error: { message: any }; status: number }) => {
