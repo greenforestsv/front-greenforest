@@ -503,48 +503,10 @@
             </div>
 
             <!-- PAÍS -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="country"
-                >País <span class="text-accent-500">*</span></label
-              >
-              <p-select
-                id="country"
-                formControlName="country"
-                [options]="countryOptions"
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Páis"
-              />
-              @if (country.invalid && country.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (country.hasError('required')) {
-                    El páis es obligatorio.
-                  }
-                </p-message>
-              }
-            </div>
+            <app-countries-select [control]="country" />
 
             <!-- DEPARTAMENTO -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="department"
-                >Departamento <span class="text-accent-500">*</span></label
-              >
-              <p-select
-                id="department"
-                formControlName="department"
-                [options]="departmentOptions"
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Departamento"
-              />
-              @if (department.invalid && department.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (department.hasError('required')) {
-                    El departamento es obligatorio.
-                  }
-                </p-message>
-              }
-            </div>
+            <app-states-select [control]="department" [countryControl]="country" />
 
             <!-- PROFESIÓN -->
             <div class="flex flex-col gap-1">

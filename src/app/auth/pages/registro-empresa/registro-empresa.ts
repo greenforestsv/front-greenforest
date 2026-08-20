@@ -18,6 +18,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FileUploadEvent, FileUploadModule } from 'primeng/fileupload';
 import { Gender } from '../../../shared/pipes/gender.pipe';
 import { toArray } from '../../../shared/utils/string.utils';
+import { CountriesSelect } from '../../../shared/components/countries-select/countries-select';
+import { StatesSelect } from '../../../shared/components/states-select/states-select';
 
 @Component({
   selector: 'app-registro-empresa',
@@ -36,6 +38,8 @@ import { toArray } from '../../../shared/utils/string.utils';
     TextareaModule,
     CheckboxModule,
     FileUploadModule,
+    CountriesSelect,
+    StatesSelect,
   ],
   templateUrl: './registro-empresa.html',
   styleUrl: './registro-empresa.scss',
@@ -59,8 +63,6 @@ export class RegistroEmpresa {
     { label: 'Hombre', value: 'M' },
     { label: 'Otro', value: 'U' },
   ];
-  countryOptions = [{ label: 'Honduras', value: 'HN' }];
-  departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
 
   // VALIDACIONES Y ESTADOS INICIALES
   readonly signupForm = this.fb.nonNullable.group(
@@ -88,11 +90,13 @@ export class RegistroEmpresa {
         first_surname: ['', Validators.required],
         second_surname: [''],
         birth_date: [new Date(), Validators.required],
-        gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
+        gender: this.fb.control<Gender | ''>('', {
+          validators: [Validators.required, Validators.pattern(/^(M|F|U)$/)],
+        }),
         email: ['', [Validators.required, Validators.email]],
         phone: ['', [Validators.required, phoneValidator()]],
-        country: ['', Validators.required],
-        department: ['', Validators.required],
+        country: ['', [Validators.required]],
+        department: this.fb.nonNullable.control<number>(0, Validators.required),
         profession: ['', Validators.required],
         address: [''],
         carnet: ['', Validators.required],
@@ -157,11 +161,6 @@ export class RegistroEmpresa {
       ...company
     } = this.signupForm.getRawValue();
 
-    const gender = this.representative.getRawValue().gender as Gender;
-
-    const departmentLabel =
-      this.departmentOptions.find((d) => d.value === representative.department)?.label ?? '';
-
     const data = {
       ...company,
       is_isolate: 'NO' as 'NO' | 'INSTANCE',
@@ -169,10 +168,10 @@ export class RegistroEmpresa {
       locations: toArray(locations),
       ...(cel_phone.trim() && { cel_phone }),
       ...(tenant_alternative_email.trim() && { tenant_alternative_email }),
+
       representative: {
         ...representative,
-        gender,
-        department: departmentLabel,
+        gender: representative.gender as Gender,
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
         ...(address.trim() && { address }),

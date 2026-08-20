@@ -11,7 +11,7 @@ export interface Representative {
   email: string;
   phone: string;
   country: string;
-  department: string;
+  department: number;
   profession: string;
   address?: string;
   carnet: string;
