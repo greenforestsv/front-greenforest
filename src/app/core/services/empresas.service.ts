@@ -48,7 +48,7 @@ export class EmpresasService {
 
   /* PATCH EMPRESA ME*/
   patchEmpresa(body: PatchTenantDto) {
-    return this.http.patch(`${this.apiUrl}/tenant`, body);
+    return this.http.patch(`${this.apiUrl}/update/tenant`, body);
   }
 
   /* GET EMPRESA PUBLIC*/

@@ -1,7 +1,7 @@
 import { Component, input, output, ViewChild } from '@angular/core';
 import { PerfilEmpresaDto } from '../../../core/interfaces/empresa.interface';
 import { SkeletonModule } from 'primeng/skeleton';
-import { EditarPerfilDialog } from '../../../empresa/pages/perfil/editar-perfil-dialog/editar-perfil-dialog';
+import { EditarPerfilDialog } from '../../../empresa/pages/perfil/dialogs/edit/editar-perfil-dialog';
 import { ButtonModule } from 'primeng/button';
 import { CustomAvatar } from '../custom-avatar/custom-avatar';
 import { RatingModule } from 'primeng/rating';

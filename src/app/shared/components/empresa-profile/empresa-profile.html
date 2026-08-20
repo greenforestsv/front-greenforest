@@ -57,11 +57,12 @@
   <div
     class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 md:justify-start"
   >
-    <p class="flex items-center gap-1">
-      <i class="pi pi-globe" style="font-size: 1.1rem"></i>
-      www.innovatec.com
-      <!-- {{ perfil().webPage }} -->
-    </p>
+    @if (perfil().website) {
+      <p class="flex items-center gap-1">
+        <i class="pi pi-globe" style="font-size: 1.1rem"></i>
+        {{ perfil().website }}
+      </p>
+    }
     <p class="flex items-center gap-1">
       <i class="pi pi-envelope" style="font-size: 1.1rem"></i>
       {{ perfil().email }}
@@ -69,6 +70,10 @@
     <p class="flex items-center gap-1">
       <i class="pi pi-phone" style="font-size: 1.1rem"></i>
       {{ perfil().phone }}
+    </p>
+    <p class="flex items-center gap-1">
+      <i class="pi pi-mobile" style="font-size: 1.1rem"></i>
+      {{ perfil().cel_phone }}
     </p>
   </div>
 </section>

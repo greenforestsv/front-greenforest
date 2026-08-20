@@ -4,17 +4,17 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { EmpresasService } from '../../../../core/services/empresas.service';
+import { EmpresasService } from '../../../../../core/services/empresas.service';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
 import { finalize } from 'rxjs';
 import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { phoneValidator } from '../../../../shared/validators/form.validators';
+import { phoneValidator } from '../../../../../shared/validators/form.validators';
 import { SelectModule } from 'primeng/select';
-import { PerfilEmpresaDto } from '../../../../core/interfaces/empresa.interface';
-import { toArray } from '../../../../shared/utils/string.utils';
+import { PerfilEmpresaDto } from '../../../../../core/interfaces/empresa.interface';
+import { toArray } from '../../../../../shared/utils/string.utils';
 
 @Component({
   selector: 'app-editar-perfil-dialog',
@@ -47,9 +47,6 @@ export class EditarPerfilDialog {
   loading = signal(false);
   error = signal<string | null>('Internal server error');
 
-  countryOptions = [{ label: 'Honduras', value: 'HN' }];
-  departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
-
   // ESTADOS INICIALES Y VALIDACIONES
   readonly perfilForm = this.fb.nonNullable.group({
     name: ['', Validators.required],
@@ -59,6 +56,7 @@ export class EditarPerfilDialog {
     approach: ['', Validators.required],
     locations: ['', Validators.required],
     url_profile_photo: [''],
+    website: [''],
   });
 
   // PROPIEDADES
@@ -69,6 +67,7 @@ export class EditarPerfilDialog {
   readonly approach = this.perfilForm.controls.approach;
   readonly locations = this.perfilForm.controls.locations;
   readonly url_profile_photo = this.perfilForm.controls.url_profile_photo;
+  readonly website = this.perfilForm.controls.website;
 
   closeDialog() {
     this.resetForm();
@@ -88,6 +87,7 @@ export class EditarPerfilDialog {
       locations: perfil.locations?.join('\n') ?? '',
 
       url_profile_photo: perfil.url_profile_photo ?? '',
+      website: perfil.website ?? '',
     });
 
     this.perfilForm.markAsPristine();
@@ -106,6 +106,7 @@ export class EditarPerfilDialog {
       approach: '',
       locations: '',
       url_profile_photo: '',
+      website: '',
     });
 
     this.perfilForm.markAsPristine();
