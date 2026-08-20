@@ -5,10 +5,14 @@ import { AspirantesService } from '../../../../core/services/aspirantes.service'
 import { PublicAspirant } from '../../../../core/interfaces/aspirant.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
+import { FullNamePipe } from '../../../../shared/pipes/full-name.pipe';
+import { CustomAvatar } from '../../../../shared/components/custom-avatar/custom-avatar';
+import { FormatDatePipe } from '../../../../shared/pipes/format-date.pipe';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-candidato-detalle',
-  imports: [EmptyState],
+  imports: [EmptyState, FullNamePipe, CustomAvatar, FormatDatePipe, SkeletonModule],
   templateUrl: './candidato-detalle.html',
   styleUrl: './candidato-detalle.scss',
 })

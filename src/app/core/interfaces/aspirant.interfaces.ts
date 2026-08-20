@@ -14,6 +14,11 @@ export interface PublicAspirant {
   department?: { name: string; id: number };
   description: string;
   address?: string;
+  dni?: string;
+  birth_date?: Date;
+  gender?: string;
+  email?: string;
+  phone?: string;
 }
 
 export interface PrivateAspirant extends PublicAspirant {
