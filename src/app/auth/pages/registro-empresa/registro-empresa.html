@@ -283,71 +283,6 @@
               <p-checkbox inputId="is_multinational" name="group" [value]="is_multinational" />
               <label pLabel for="is_multinational" class="text-sm">Es multinacional</label>
             </div>
-
-            <!-- URL IMAGEN -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="url_profile_photo">Imagen de perfil</label>
-              <input
-                pInputText
-                type="text"
-                id="url_profile_photo"
-                formControlName="url_profile_photo"
-                placeholder="Url de imagen"
-                fluid
-              />
-              <!-- <div class="flex flex-wrap items-center gap-3">
-                <p-fileupload
-                  id="url_profile_photo"
-                  #fu
-                  mode="basic"
-                  chooseLabel="Escoger"
-                  name="demo[]"
-                  url="https://www.primefaces.org/cdn/api/upload.php"
-                  accept="image/*"
-                  [multiple]="false"
-                  maxFileSize="1000000"
-                  (onUpload)="onUpload($event)"
-                />
-              </div>
-              <button type="button" pButton severity="secondary" (click)="fu.upload()">
-                Upload
-              </button> -->
-            </div>
-
-            <!-- HOST BASE DE DATOS -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="database_host">Host de base de datos</label>
-              <input
-                pInputText
-                type="text"
-                id="database_host"
-                formControlName="database_host"
-                placeholder="Host de base de datos"
-                fluid
-              />
-            </div>
-
-            <!-- ES AISLADO -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="is_isolate"
-                >Es Aislado <span class="text-accent-500">*</span></label
-              >
-              <p-select
-                id="is_isolate"
-                formControlName="is_isolate"
-                [options]="is_isolate_options"
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Es Aislado"
-              />
-              @if (is_isolate.invalid && is_isolate.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (is_isolate.hasError('required')) {
-                    El es aislado es obligatorio.
-                  }
-                </p-message>
-              }
-            </div>
           </div>
         </div>
 
@@ -568,48 +503,10 @@
             </div>
 
             <!-- PAÍS -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="country"
-                >País <span class="text-accent-500">*</span></label
-              >
-              <p-select
-                id="country"
-                formControlName="country"
-                [options]="countryOptions"
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Páis"
-              />
-              @if (country.invalid && country.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (country.hasError('required')) {
-                    El páis es obligatorio.
-                  }
-                </p-message>
-              }
-            </div>
+            <app-countries-select [control]="country" />
 
             <!-- DEPARTAMENTO -->
-            <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="department"
-                >Departamento <span class="text-accent-500">*</span></label
-              >
-              <p-select
-                id="department"
-                formControlName="department"
-                [options]="departmentOptions"
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Departamento"
-              />
-              @if (department.invalid && department.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (department.hasError('required')) {
-                    El departamento es obligatorio.
-                  }
-                </p-message>
-              }
-            </div>
+            <app-states-select [control]="department" [countryControl]="country" />
 
             <!-- PROFESIÓN -->
             <div class="flex flex-col gap-1">

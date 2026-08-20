@@ -13,12 +13,13 @@ import { MessageService } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { finalize } from 'rxjs';
-//import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
-import { SignupTenantDto } from '../../interfaces/auth.tenant.interface';
 import { TextareaModule } from 'primeng/textarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FileUploadEvent, FileUploadModule } from 'primeng/fileupload';
 import { Gender } from '../../../shared/pipes/gender.pipe';
+import { toArray } from '../../../shared/utils/string.utils';
+import { CountriesSelect } from '../../../shared/components/countries-select/countries-select';
+import { StatesSelect } from '../../../shared/components/states-select/states-select';
 
 @Component({
   selector: 'app-registro-empresa',
@@ -37,6 +38,8 @@ import { Gender } from '../../../shared/pipes/gender.pipe';
     TextareaModule,
     CheckboxModule,
     FileUploadModule,
+    CountriesSelect,
+    StatesSelect,
   ],
   templateUrl: './registro-empresa.html',
   styleUrl: './registro-empresa.scss',
@@ -60,8 +63,6 @@ export class RegistroEmpresa {
     { label: 'Hombre', value: 'M' },
     { label: 'Otro', value: 'U' },
   ];
-  countryOptions = [{ label: 'Honduras', value: 'HN' }];
-  departmentOptions = [{ label: 'Francisco Morazán', value: 'FM' }];
 
   // VALIDACIONES Y ESTADOS INICIALES
   readonly signupForm = this.fb.nonNullable.group(
@@ -80,9 +81,6 @@ export class RegistroEmpresa {
       locations: ['', Validators.required],
 
       is_multinational: [false],
-      url_profile_photo: [''],
-      database_host: [''],
-      is_isolate: ['', Validators.required],
       have_carnets: [false],
 
       representative: this.fb.nonNullable.group({
@@ -92,11 +90,13 @@ export class RegistroEmpresa {
         first_surname: ['', Validators.required],
         second_surname: [''],
         birth_date: [new Date(), Validators.required],
-        gender: ['', [Validators.required, Validators.pattern(/^(M|F|U)$/)]],
+        gender: this.fb.control<Gender | ''>('', {
+          validators: [Validators.required, Validators.pattern(/^(M|F|U)$/)],
+        }),
         email: ['', [Validators.required, Validators.email]],
         phone: ['', [Validators.required, phoneValidator()]],
-        country: ['', Validators.required],
-        department: ['', Validators.required],
+        country: ['', [Validators.required]],
+        department: this.fb.nonNullable.control<number>(0, Validators.required),
         profession: ['', Validators.required],
         address: [''],
         carnet: ['', Validators.required],
@@ -121,9 +121,6 @@ export class RegistroEmpresa {
   readonly locations = this.signupForm.controls.locations;
 
   readonly is_multinational = this.signupForm.controls.is_multinational;
-  readonly url_profile_photo = this.signupForm.controls.url_profile_photo;
-  readonly database_host = this.signupForm.controls.database_host;
-  readonly is_isolate = this.signupForm.controls.is_isolate;
   readonly have_carnets = this.signupForm.controls.have_carnets;
 
   readonly representative = this.signupForm.controls.representative;
@@ -157,58 +154,24 @@ export class RegistroEmpresa {
     const {
       approach,
       locations,
-      database_host,
       cel_phone,
       tenant_alternative_email,
-      url_profile_photo,
       confirm_email,
       representative: { second_name, second_surname, address, ...representative },
       ...company
     } = this.signupForm.getRawValue();
 
-    const cleanApproach = approach
-      .split(/\n/)
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
-
-    if (cleanApproach.length === 0) {
-      this.signupForm.controls.approach.setErrors({ required: true });
-      this.signupForm.controls.approach.markAsTouched();
-      this.loading.set(false);
-      return;
-    }
-
-    const cleanLocations = locations
-      .split(/\n/)
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
-
-    if (cleanLocations.length === 0) {
-      this.signupForm.controls.locations.setErrors({ required: true });
-      this.signupForm.controls.locations.markAsTouched();
-      this.loading.set(false);
-      return;
-    }
-
-    const gender = this.representative.getRawValue().gender as Gender;
-    const is_isolate = this.is_isolate.getRawValue() as 'NO' | 'INSTANCE';
-
-    const departmentLabel =
-      this.departmentOptions.find((d) => d.value === representative.department)?.label ?? '';
-
     const data = {
       ...company,
-      is_isolate,
-      approach: cleanApproach,
-      locations: cleanLocations,
-      ...(database_host.trim() && { database_host }),
+      is_isolate: 'NO' as 'NO' | 'INSTANCE',
+      approach: toArray(approach),
+      locations: toArray(locations),
       ...(cel_phone.trim() && { cel_phone }),
       ...(tenant_alternative_email.trim() && { tenant_alternative_email }),
-      ...(url_profile_photo.trim() && { url_profile_photo }),
+
       representative: {
         ...representative,
-        gender,
-        department: departmentLabel,
+        gender: representative.gender as Gender,
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
         ...(address.trim() && { address }),
