@@ -8,6 +8,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ProcesosPostulacionMultiSelect } from '../../../../../shared/components/procesos-postulacion-multiselect/procesos-postulacion-multiselect';
+import {
+  departmentOptions,
+  contractTypeOptions,
+  formatOptions,
+} from '../../../../../core/constants/vacantes.constants';
 
 @Component({
   selector: 'app-vacante-form',
@@ -27,6 +32,10 @@ import { ProcesosPostulacionMultiSelect } from '../../../../../shared/components
 })
 export class VacanteForm {
   form = input.required<FormGroup>();
+
+  contractTypeOptions = contractTypeOptions;
+  departmentOptions = departmentOptions;
+  formatOptions = formatOptions;
 
   // Controles del formulario
   get title() {
@@ -104,29 +113,4 @@ export class VacanteForm {
   get processes(): FormControl<number[]> {
     return this.form().get('processes') as FormControl<number[]>;
   }
-
-  contractTypeOptions = [
-    { label: 'Indefinido', value: 1 },
-    { label: 'Temporal', value: 2 },
-    { label: 'Por proyecto', value: 3 },
-    { label: 'Servicios profesionales', value: 4 },
-    { label: 'Práctica profesional', value: 5 },
-  ];
-
-  departmentOptions = [
-    { label: 'Tecnología', value: 1 },
-    { label: 'Recursos Humanos', value: 2 },
-    { label: 'Marketing', value: 3 },
-    { label: 'Ventas', value: 4 },
-    { label: 'Finanzas', value: 5 },
-    { label: 'Operaciones', value: 6 },
-    { label: 'Administración', value: 7 },
-    { label: 'Atención al Cliente', value: 8 },
-  ];
-
-  formatOptions = [
-    { label: 'Presencial', value: 1 },
-    { label: 'Híbrido', value: 2 },
-    { label: 'Remoto', value: 3 },
-  ];
 }

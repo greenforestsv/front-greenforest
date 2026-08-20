@@ -11,6 +11,11 @@ import { PatchVacanteDto } from '../../../../../core/interfaces/vacantes.interfa
 import { toArray } from '../../../../../shared/utils/string.utils';
 import { VacanteForm } from '../../forms/vacante-form/vacante-form';
 import { SkeletonModule } from 'primeng/skeleton';
+import {
+  departmentOptions,
+  formatOptions,
+  contractTypeOptions,
+} from '../../../../../core/constants/vacantes.constants';
 
 @Component({
   selector: 'app-editar-vacante-dialog',
@@ -37,11 +42,12 @@ export class EditarVacanteDialog {
   loadingVacante = signal(false);
 
   currentVacanteId = input.required<string>();
+  jobUpdated = output<void>();
 
   readonly vacanteForm = this.fb.nonNullable.group({
     title: ['', Validators.required],
 
-    ends_on: [new Date()],
+    ends_on: [null as Date | null],
 
     min_salary: [0, [Validators.required, Validators.min(1)]],
     max_salary: [0, [Validators.required, Validators.min(1)]],
@@ -61,9 +67,9 @@ export class EditarVacanteDialog {
 
     payment_form: ['', Validators.required],
 
-    contract_type: [0, [Validators.required, Validators.min(1)]],
-    department: [0, [Validators.required, Validators.min(1)]],
-    format: [0, [Validators.required, Validators.min(1)]],
+    contract_type: [0, Validators.required],
+    department: [0, Validators.required],
+    format: [0, Validators.required],
 
     number_of_vacancies: [1],
 
@@ -96,9 +102,9 @@ export class EditarVacanteDialog {
 
       availability: '',
 
-      contract_type: 1,
-      department: 1,
-      format: 1,
+      contract_type: 0,
+      department: 0,
+      format: 0,
 
       payment_form: '',
 
@@ -127,11 +133,22 @@ export class EditarVacanteDialog {
       .pipe(finalize(() => this.loadingVacante.set(false)))
       .subscribe({
         next: (vacante) => {
+          const contractType = contractTypeOptions.find(
+            (option) => option.label === vacante.contract_type,
+          )?.value;
+
+          const department = departmentOptions.find(
+            (option) => option.label === vacante.department,
+          )?.value;
+
+          const format = formatOptions.find((option) => option.label === vacante.format)?.value;
+
           console.log(vacante);
+
           this.vacanteForm.patchValue({
             title: vacante.title,
 
-            //ends_on: vacante.ends_on ? new Date(vacante.ends_on) : new Date(),
+            ends_on: vacante.ends_on ? new Date(vacante.ends_on) : new Date(),
 
             min_salary: Number(vacante.min_salary),
             max_salary: Number(vacante.max_salary),
@@ -147,13 +164,13 @@ export class EditarVacanteDialog {
             tools: vacante.tools?.join('\n') ?? '',
             requirements: vacante.requirements?.join('\n') ?? '',
 
-            //processes: vacante.processes ?? [],
+            processes: vacante.processes ?? [],
 
             payment_form: vacante.payment_form,
 
-            contract_type: Number(vacante.contract_type),
-            department: Number(vacante.department),
-            format: Number(vacante.format),
+            contract_type: contractType,
+            department: department,
+            format: format,
 
             number_of_vacancies: Number(vacante.number_of_vacancies),
 
@@ -197,17 +214,15 @@ export class EditarVacanteDialog {
 
     const payload: PatchVacanteDto = {
       ...vacante,
-
       workday: toArray(vacante.workday),
       skills: toArray(vacante.skills),
       tools: toArray(vacante.tools),
       requirements: toArray(vacante.requirements),
-
-      // Ya son IDs
       processes: vacante.processes,
-
       ends_on: dayjs(vacante.ends_on).toISOString(),
     };
+
+    console.log({ update: payload });
 
     this.vacantesService
       .patchJob(this.currentVacanteId(), payload)
@@ -216,11 +231,12 @@ export class EditarVacanteDialog {
         next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Vacante creada',
-            detail: 'La vacante fue creada correctamente',
+            summary: 'Vacante actualizada',
+            detail: 'La vacante fue actualizada correctamente',
             life: 5000,
           });
 
+          this.jobUpdated.emit();
           this.closeDialog();
         },
 
@@ -234,6 +250,4 @@ export class EditarVacanteDialog {
         },
       });
   }
-
-  loadVacantes = output<void>();
 }

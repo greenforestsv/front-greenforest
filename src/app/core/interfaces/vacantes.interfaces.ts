@@ -1,7 +1,7 @@
 export interface Vacante {
   title: string;
   description: string;
-  ends_on: string;
+  ends_on?: string;
   min_salary: number;
   max_salary: number;
   workday_type: string;
@@ -14,13 +14,22 @@ export interface Vacante {
   vehicle?: boolean;
 }
 
+export interface VacanteFormDto extends Vacante {
+  availability: string;
+  level_experience: string;
+  contract_type: number;
+  department: number;
+  format: number;
+  processes: number[];
+}
+
 export interface GetVacanteDto extends Vacante {
   id: string;
   created_at: string;
   is_new: boolean;
-  contract_type: string;
+  contract_type: number;
   area: string;
-  format: string;
+  format: number;
   payment_dates: string;
   status: string;
   department: string;
@@ -29,52 +38,23 @@ export interface GetVacanteDto extends Vacante {
   original_job_id?: string;
 }
 
-export interface GetDetalleVacanteDto {
+export type CreateVacanteDto = VacanteFormDto;
+export type PatchVacanteDto = Partial<VacanteFormDto>;
+
+export interface GetDetalleVacanteDto extends Vacante {
   id: string;
-  title: string;
   availability: string;
   contract_type: string;
   department: string;
-  description: string;
   format: string;
   level_experience: string;
-  max_salary: string;
-  min_salary: string;
-  number_of_vacancies: string;
-  payment_form: string;
-  processes: string[];
-  requirements: string[];
-  skills: string[];
-  tools: string[];
-  vehicle: boolean;
-  workday: string[];
-  workday_type: string;
-}
-
-export interface CreateVacanteDto extends Vacante {
-  availability: string;
-  level_experience: string;
-
-  contract_type: number;
-  department: number;
-  format: number;
-  processes: number[];
-}
-
-export interface PatchVacanteDto extends Vacante {
-  availability: string;
-  level_experience: string;
-
-  contract_type: number;
-  department: number;
-  format: number;
   processes: number[];
 }
 
 export interface FilterJobListDto {
   name?: string;
-  department?: string;
-  format?: string;
+  department?: number;
+  format?: number;
   min_salary?: string;
   max_salary?: string;
 }

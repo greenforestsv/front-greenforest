@@ -75,7 +75,7 @@
                   <!-- VER DETALLE DE VACANTE DIALOG -->
                   <app-ver-detalle-vacante-dialog [id]="vacante.id" />
                   <app-editar-vacante-dialog
-                    (loadVacantes)="loadJobs()"
+                    (jobUpdated)="loadJobs()"
                     [currentVacanteId]="vacante.id"
                   />
                 </div>
