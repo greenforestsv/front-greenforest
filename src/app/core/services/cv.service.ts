@@ -46,9 +46,11 @@ export class CvService {
     return this.http.post(`${this.apiUrl}/aspirant/languages`, body);
   }
   patchLanguage({ name, level }: Language) {
-    const params = new HttpParams().set('name', name).set('level', level);
+    const params = new HttpParams().set('level', level);
 
-    return this.http.patch(`${this.apiUrl}/aspirant/languages`, null, { params });
+    return this.http.patch(`${this.apiUrl}/aspirant/language/${encodeURIComponent(name)}`, null, {
+      params,
+    });
   }
   deleteLanguages(body: Language[]) {
     return this.http.delete(`${this.apiUrl}/aspirant/languages`, { body });

@@ -8,7 +8,7 @@ export interface CV {
   profile_photo?: string;
   educations?: Education[];
   works_experience?: WorkExperience[];
-  languages?: { languages: Language[] };
+  languages?: Language[];
   skills?: string[];
 }
 

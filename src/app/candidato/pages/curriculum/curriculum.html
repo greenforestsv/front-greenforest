@@ -4,8 +4,8 @@
 } @else {
   <!-- LANGUAGE DIALOG -->
   <app-languages-dialog
-    [languages]="cv()?.languages?.languages ?? []"
-    (languageAdded)="loadCV()"
+    [languages]="cv()?.languages ?? []"
+    (languagesUpdated)="loadCV()"
     #languagesDialog
   />
 
@@ -127,9 +127,9 @@
         />
       </div>
 
-      @if ((cv()?.languages?.languages?.length ?? 0) > 0) {
+      @if ((cv()?.languages?.length ?? 0) > 0) {
         <div>
-          @for (language of cv()?.languages?.languages ?? []; track $index) {
+          @for (language of cv()?.languages ?? []; track $index) {
             <div class="flex items-center gap-2">
               <span>{{ language.name }} - {{ language.level }}</span>
 
