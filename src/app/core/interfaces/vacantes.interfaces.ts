@@ -53,8 +53,8 @@ export interface GetDetalleVacanteDto extends Vacante {
 
 export interface FilterJobListDto {
   name?: string;
-  department?: number;
-  format?: number;
+  department?: string;
+  format?: string;
   min_salary?: string;
   max_salary?: string;
 }
