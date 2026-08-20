@@ -4,7 +4,7 @@ import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CvService } from '../../../core/services/cv.service';
-import { CV } from '../../../core/interfaces/cv.interfaces';
+import { CV, Language } from '../../../core/interfaces/cv.interfaces';
 import { TranslatePipe } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -49,6 +49,7 @@ export class Curriculum {
 
   cv = signal<CV | null>(null);
   loading = signal(false);
+  translate: any;
 
   constructor() {
     this.loadCV();
@@ -70,6 +71,64 @@ export class Curriculum {
             severity: 'error',
             summary: 'Error al obtener datos de curriculum',
             detail: err.error?.message ?? 'Ocurrió un error inesperado',
+            life: 5000,
+          });
+        },
+      });
+  }
+
+  deleteLanguages(language: Language) {
+    this.loading.set(true);
+
+    this.cvService
+      .deleteLanguages([language])
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Idioma eliminado',
+            detail: 'Idioma eliminado correctamente',
+            life: 5000,
+          });
+
+          this.loadCV();
+        },
+
+        error: (err: { error?: { message?: string } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al eliminar idioma',
+            detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
+            life: 5000,
+          });
+        },
+      });
+  }
+
+  deleteSkill(skill: string) {
+    this.loading.set(true);
+
+    this.cvService
+      .deleteSkills(skill)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Habilidad eliminada',
+            detail: 'Habilidad eliminada correctamente',
+            life: 5000,
+          });
+
+          this.loadCV();
+        },
+
+        error: (err: { error?: { message?: string } }) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al eliminar habilidad',
+            detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
             life: 5000,
           });
         },

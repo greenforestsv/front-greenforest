@@ -24,7 +24,7 @@ import { CvService } from '../../../../../core/services/cv.service';
   templateUrl: './skills-dialog.html',
 })
 export class SkillsDialog {
-  skillsList = input<string[]>([]);
+  /*   skillsList = input<string[]>([]); */
 
   private translate = inject(TranslateService);
   cvService = inject(CvService);
@@ -43,11 +43,6 @@ export class SkillsDialog {
   readonly skills = this.skillsForm.controls.skills;
 
   open() {
-    // string[] -> string
-    this.skillsForm.patchValue({
-      skills: this.skillsList().join('\n'),
-    });
-
     this.visible.set(true);
   }
 
@@ -82,16 +77,14 @@ export class SkillsDialog {
     console.log({ skills });
 
     this.cvService
-      .patchSkills({
-        skills,
-      })
+      .postSkills(skills)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (res: any) => {
+        next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Habilidades actualizadas',
-            detail: 'Habilidades actualizadas correctamente',
+            summary: 'Habilidades agregadas',
+            detail: 'Habilidades agregadas correctamente',
             life: 5000,
           });
 

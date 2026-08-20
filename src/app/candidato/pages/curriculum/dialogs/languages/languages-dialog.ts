@@ -115,48 +115,35 @@ export class LanguagesDialog {
 
     const formLanguage = this.languageForm.getRawValue();
 
-    /*let languages: Language[];
+    const request$ =
+      this.mode() === 'add'
+        ? this.cvService.postLanguages([formLanguage])
+        : this.cvService.patchLanguage(formLanguage);
 
-     if (this.mode() === 'add') {
-      languages = [...this.languages(), formLanguage];
-    } else {
-      const index = this.editingIndex();
+    request$.pipe(finalize(() => this.loading.set(false))).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.mode() === 'add' ? 'Idioma agregado' : 'Idioma actualizado',
+          detail:
+            this.mode() === 'add'
+              ? 'Idioma agregado correctamente'
+              : 'Idioma actualizado correctamente',
+          life: 5000,
+        });
 
-      if (index === null) {
-        this.loading.set(false);
-        return;
-      }
+        this.languagesUpdated.emit();
+        this.closeDialog();
+      },
 
-      languages = this.languages().map((language, i) => (i === index ? formLanguage : language));
-    } */
-
-    this.cvService
-      .patchLanguages([formLanguage])
-      .pipe(finalize(() => this.loading.set(false)))
-      .subscribe({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: this.mode() === 'add' ? 'Idioma agregado' : 'Idioma actualizado',
-            detail:
-              this.mode() === 'add'
-                ? 'Idioma agregado correctamente'
-                : 'Idioma actualizado correctamente',
-            life: 5000,
-          });
-
-          this.languagesUpdated.emit();
-          this.closeDialog();
-        },
-
-        error: (err: { error?: { message?: string } }) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
-            life: 5000,
-          });
-        },
-      });
+      error: (err: { error?: { message?: string } }) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error?.message ?? this.translate.instant('common.error_inesperado'),
+          life: 5000,
+        });
+      },
+    });
   }
 }

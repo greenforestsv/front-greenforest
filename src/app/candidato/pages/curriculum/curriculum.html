@@ -10,7 +10,7 @@
   />
 
   <!-- SKILLS DIALOG -->
-  <app-skills-dialog [skillsList]="cv()?.skills ?? []" (skillsUpdated)="loadCV()" />
+  <app-skills-dialog (skillsUpdated)="loadCV()" />
 
   <div class="p-4 pt-0 lg:pl-0 flex flex-col gap-4">
     <!-- HERO -->
@@ -133,12 +133,23 @@
             <div class="flex items-center gap-2">
               <span>{{ language.name }} - {{ language.level }}</span>
 
-              <p-button
-                icon="pi pi-pencil"
-                size="small"
-                [rounded]="true"
-                (click)="languagesDialog.openEdit(language, $index)"
-              />
+              <div class="flex gap-2">
+                <!-- EDIT -->
+                <p-button
+                  icon="pi pi-pencil"
+                  size="small"
+                  [rounded]="true"
+                  (click)="languagesDialog.openEdit(language, $index)"
+                />
+                <!-- DELETE -->
+                <p-button
+                  severity="danger"
+                  icon="pi pi-trash"
+                  [rounded]="true"
+                  size="small"
+                  (click)="deleteLanguages(language)"
+                />
+              </div>
             </div>
           }
         </div>
@@ -152,7 +163,7 @@
       <div class="flex items-center justify-between mb-4">
         <h2>Habilidades</h2>
         <p-button
-          icon="pi pi-pencil"
+          icon="pi pi-plus"
           label="Habilidades"
           size="small"
           (click)="skillsDialog.open()"
@@ -160,11 +171,16 @@
       </div>
 
       @if (cv()?.skills?.length) {
-        <p class="flex items-center gap-2">
+        <div class="flex items-center gap-2">
           @for (skill of cv()?.skills; track $index) {
-            <span class="green-badge">{{ skill }}</span>
+            <p class="green-badge">
+              <span>{{ skill }}</span>
+              <span (click)="deleteSkill(skill)">
+                <i class="pi pi-times" style="font-size: 1.1rem"></i>
+              </span>
+            </p>
           }
-        </p>
+        </div>
       } @else {
         <app-empty-state />
       }
