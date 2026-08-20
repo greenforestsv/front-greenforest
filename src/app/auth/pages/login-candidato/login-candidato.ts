@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthAspirantService } from '../../services/auth.aspirant.service';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -28,7 +28,7 @@ import { finalize } from 'rxjs';
 export class LoginCandidato {
   private messageService = inject(MessageService);
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private authAspirantService = inject(AuthAspirantService);
   private router = inject(Router);
 
   constructor() {
@@ -62,7 +62,7 @@ export class LoginCandidato {
     this.loading.set(true);
     this.error.set(null);
 
-    this.authService
+    this.authAspirantService
       .loginCandidato(this.loginForm.getRawValue())
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({

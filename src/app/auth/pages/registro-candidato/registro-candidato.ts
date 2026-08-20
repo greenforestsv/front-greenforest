@@ -6,14 +6,14 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthAspirantService } from '../../services/auth.aspirant.service';
 import { emailMatchValidator, phoneValidator } from '../../../shared/validators/form.validators';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { finalize } from 'rxjs';
-import { SignupCandidatoResponse } from '../../interfaces/auth.interface';
+import { SignupCandidatoResponse } from '../../interfaces/auth.aspirant.interface';
 import { CountriesSelect } from '../../../shared/components/countries-select/countries-select';
 import { PoliticasPrivacidadCheckbox } from '../../../shared/components/politicas-privacidad-checkbox/politicas-privacidad-checkbox';
 import { StatesSelect } from '../../../shared/components/states-select/states-select';
@@ -43,7 +43,7 @@ import { Gender } from '../../../shared/pipes/gender.pipe';
 export class RegistroCandidato {
   private messageService = inject(MessageService);
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private authAspirantService = inject(AuthAspirantService);
   private router = inject(Router);
 
   // SIGNALS (estado UI)
@@ -123,7 +123,7 @@ export class RegistroCandidato {
 
     const gender = this.signupForm.getRawValue().gender as Gender;
 
-    this.authService
+    this.authAspirantService
       .signupCandidato({
         first_name,
         first_surname,

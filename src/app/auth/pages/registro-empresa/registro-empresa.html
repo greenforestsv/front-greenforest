@@ -24,22 +24,22 @@
           <div class="flex flex-col gap-4 flex-1">
             <!-- NOMBRE -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="tenant_name"
+              <label pLabel class="text-sm" for="name"
                 >Nombre <span class="text-accent-500">*</span></label
               >
               <input
                 pInputText
                 type="text"
-                id="tenant_name"
-                formControlName="tenant_name"
+                id="name"
+                formControlName="name"
                 placeholder="Nombre"
                 required
-                [invalid]="tenant_name.invalid && tenant_name.touched"
+                [invalid]="name.invalid && name.touched"
                 fluid
               />
-              @if (tenant_name.invalid && tenant_name.touched) {
+              @if (name.invalid && name.touched) {
                 <p-message severity="error" size="small" variant="simple">
-                  @if (tenant_name.hasError('required')) {
+                  @if (name.hasError('required')) {
                     El nombre es obligatorio.
                   }
                 </p-message>
@@ -48,26 +48,26 @@
 
             <!-- CORREO -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="tenant_email"
+              <label pLabel class="text-sm" for="email"
                 >Correo <span class="text-accent-500">*</span></label
               >
               <input
                 pInputText
                 type="email"
-                id="tenant_email"
-                formControlName="tenant_email"
+                id="email"
+                formControlName="email"
                 placeholder="Correo"
                 required
                 email
-                [invalid]="tenant_email.invalid && tenant_email.touched"
+                [invalid]="email.invalid && email.touched"
                 fluid
               />
-              @if (tenant_email.invalid && tenant_email.touched) {
+              @if (email.invalid && email.touched) {
                 <p-message severity="error" size="small" variant="simple">
-                  @if (tenant_email.hasError('required')) {
+                  @if (email.hasError('required')) {
                     El correo es obligatorio.
                   }
-                  @if (tenant_email.hasError('email')) {
+                  @if (email.hasError('email')) {
                     Ingresá un correo válido.
                   }
                 </p-message>
@@ -211,10 +211,10 @@
             <!-- APPROACH -->
             <div class="flex flex-col gap-1">
               <label pLabel for="approach" class="text-sm"
-                >Approach <span class="text-accent-500">*</span></label
+                >Rubros <span class="text-accent-500">*</span></label
               >
               <small class="text-gray-500">
-                Separa approach con
+                Separa rubros con
                 <kbd class="size-5 inline-flex items-center justify-center rounded border"
                   >&#x21B5;</kbd
                 >
@@ -226,7 +226,7 @@
                 rows="5"
                 cols="30"
                 pTextarea
-                placeholder="Approach"
+                placeholder="Rubros"
                 required
                 [invalid]="approach.invalid && approach.touched"
                 [autoResize]="true"
@@ -234,7 +234,7 @@
               @if (approach.invalid && approach.touched) {
                 <p-message severity="error" size="small" variant="simple">
                   @if (approach.hasError('required')) {
-                    Approach es obligatorio
+                    Rubros son obligatorios
                   }
                 </p-message>
               }

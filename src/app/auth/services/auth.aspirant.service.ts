@@ -7,14 +7,14 @@ import {
   SignupCandidatoResponse,
   LoginCandidatoDto,
   LoginResponse,
-  JwtPayload,
-} from '../interfaces/auth.interface';
+  AspirantJwtPayload,
+} from '../interfaces/auth.aspirant.interface';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthAspirantService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private apiUrl = environment.apiUrl;
@@ -52,20 +52,6 @@ export class AuthService {
     this.router.navigate([loginRoute]);
   }
 
-  /* IS AUTHENTICATED */
-  isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-
-    if (!token) return false;
-
-    try {
-      const decoded = jwtDecode<JwtPayload>(token);
-      return decoded.exp * 1000 > Date.now();
-    } catch {
-      return false;
-    }
-  }
-
   /* TOKEN DECODE */
   getTokenPayload(): any | null {
     const token = localStorage.getItem('token');
@@ -79,5 +65,36 @@ export class AuthService {
     } catch {
       return null;
     }
+  }
+
+  /* VALIDATE TOKEN */
+  private isValidToken(token: string | null): AspirantJwtPayload | null {
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decoded = jwtDecode<AspirantJwtPayload>(token);
+
+      if (!decoded.exp || decoded.exp * 1000 <= Date.now()) {
+        return null;
+      }
+
+      return decoded;
+    } catch {
+      return null;
+    }
+  }
+
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+
+    const payload = this.isValidToken(token);
+
+    if (!payload) {
+      return false;
+    }
+
+    return !('tenant_id' in payload) && !('role' in payload);
   }
 }

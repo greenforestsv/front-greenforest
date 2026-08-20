@@ -35,7 +35,7 @@ export interface LoginResponse {
   token: string;
 }
 
-export interface JwtPayload {
+export interface AspirantJwtPayload {
   id: string;
   iat: number;
   exp: number;

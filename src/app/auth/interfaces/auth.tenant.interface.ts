@@ -18,8 +18,8 @@ export interface Representative {
 }
 
 export interface SignupTenantDto {
-  tenant_name: string;
-  tenant_email: string;
+  name: string;
+  email: string;
   phone: string;
   cel_phone?: string;
   tenant_alternative_email?: string;
@@ -41,10 +41,14 @@ export interface SignupTenantResponseDto {
   token: string;
 }
 
-export interface JwtPayload {
+export interface TenantJwtPayload {
   id: string;
-  iat: number;
   exp: number;
+  iat: number;
+  role: string;
+  tenant_id: string;
+  tenant_name: string;
+  normalized_name: string;
 }
 
 export interface LoginEmployeeDto {

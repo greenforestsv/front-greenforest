@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '../../auth/guards/auth.guard';
+import { authAspirantGuard } from '../../auth/guards/auth.aspirant.guard';
 
 export const CANDIDATO_ROUTES: Routes = [
   {
     path: 'candidato',
-    canMatch: [authGuard],
+    canMatch: [authAspirantGuard],
     loadComponent: () =>
       import('../../shared/layouts/platform-layout/platform-layout').then((m) => m.PlatformLayout),
     children: [

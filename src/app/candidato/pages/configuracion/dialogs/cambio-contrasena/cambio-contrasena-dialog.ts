@@ -7,7 +7,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { finalize } from 'rxjs';
-import { AuthService } from '../../../../../auth/services/auth.service';
+import { AuthAspirantService } from '../../../../../auth/services/auth.aspirant.service';
 import { PasswordModule } from 'primeng/password';
 import { passwordMatchValidator } from '../../../../../shared/validators/form.validators';
 
@@ -29,7 +29,7 @@ import { passwordMatchValidator } from '../../../../../shared/validators/form.va
 export class CambioContrasenaDialog {
   /* INYECCIÓN DE SERVICIOS */
   private translate = inject(TranslateService);
-  private authService = inject(AuthService);
+  private authAspirantService = inject(AuthAspirantService);
   private messageService = inject(MessageService);
 
   /* FORM BUILDER */
@@ -96,7 +96,7 @@ export class CambioContrasenaDialog {
     const { current_password, new_password } = this.changePasswordForm.getRawValue();
     console.log({ current_password, new_password });
 
-    this.authService
+    this.authAspirantService
       .changePassword(current_password, new_password)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
@@ -109,7 +109,7 @@ export class CambioContrasenaDialog {
           });
 
           this.closeDialog();
-          this.authService.logout();
+          this.authAspirantService.logout();
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({

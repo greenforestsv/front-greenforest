@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthAspirantService } from '../../services/auth.aspirant.service';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -25,7 +25,7 @@ import { MessageService } from 'primeng/api';
 export class OlvidoContrasena {
   private messageService = inject(MessageService);
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private asuthAspirantService = inject(AuthAspirantService);
   private router = inject(Router);
 
   // SIGNALS (estado UI)

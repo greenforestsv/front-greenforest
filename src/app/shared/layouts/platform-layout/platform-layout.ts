@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { AvatarModule } from 'primeng/avatar';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthAspirantService } from '../../../auth/services/auth.aspirant.service';
 import { GreenForestLogo } from '../../components/green-forest-logo/green-forest-logo';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -48,7 +48,7 @@ export class PlatformLayout {
   busqueda: string | undefined;
   items = Array.from({ length: 8 });
 
-  private authService = inject(AuthService);
+  private authAspirantService = inject(AuthAspirantService);
   private menuService = inject(MenuService);
   private messageService = inject(MessageService);
 
@@ -63,7 +63,7 @@ export class PlatformLayout {
 
   load() {
     this.loading.set(true);
-    const payload = this.authService.getTokenPayload();
+    const payload = this.authAspirantService.getTokenPayload();
 
     if (!payload) {
       this.loading.set(false);
@@ -92,7 +92,7 @@ export class PlatformLayout {
   logout(): void {
     this.drawerVisible.set(false);
     setTimeout(() => {
-      this.authService.logout();
+      this.authAspirantService.logout();
     }, 1_000);
   }
 }

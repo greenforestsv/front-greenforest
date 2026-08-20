@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthAspirantService } from '../../services/auth.aspirant.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -18,7 +18,7 @@ import { finalize } from 'rxjs';
 export class Verify {
   private messageService = inject(MessageService);
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private authAspirantService = inject(AuthAspirantService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -60,7 +60,7 @@ export class Verify {
 
     const { code } = this.verifyForm.getRawValue();
 
-    this.authService
+    this.authAspirantService
       .verifyCandidato(this.id!, code)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({

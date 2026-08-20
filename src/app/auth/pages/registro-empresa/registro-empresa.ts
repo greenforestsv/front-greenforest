@@ -67,8 +67,8 @@ export class RegistroEmpresa {
   // VALIDACIONES Y ESTADOS INICIALES
   readonly signupForm = this.fb.nonNullable.group(
     {
-      tenant_name: ['', Validators.required],
-      tenant_email: ['', [Validators.required, Validators.email]],
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       confirm_email: ['', Validators.required],
       tenant_alternative_email: ['', Validators.email],
 
@@ -108,8 +108,8 @@ export class RegistroEmpresa {
   );
 
   // PROPIEDADES
-  readonly tenant_name = this.signupForm.controls.tenant_name;
-  readonly tenant_email = this.signupForm.controls.tenant_email;
+  readonly name = this.signupForm.controls.name;
+  readonly email = this.signupForm.controls.email;
   readonly confirm_email = this.signupForm.controls.confirm_email;
   readonly tenant_alternative_email = this.signupForm.controls.tenant_alternative_email;
 
@@ -132,7 +132,7 @@ export class RegistroEmpresa {
   readonly second_surname = this.representative.controls.second_surname;
   readonly birth_date = this.representative.controls.birth_date;
   readonly gender = this.representative.controls.gender;
-  readonly email = this.representative.controls.email;
+  readonly representativeEmail = this.representative.controls.email;
   readonly representativePhone = this.representative.controls.phone;
   readonly country = this.representative.controls.country;
   readonly department = this.representative.controls.department;

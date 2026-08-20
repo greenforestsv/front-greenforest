@@ -5,9 +5,10 @@ import {
   LoginEmployeeDto,
   LoginEmployeeResponseDto,
   SignupTenantDto,
+  TenantJwtPayload,
   UpdateCredentials,
 } from '../interfaces/auth.tenant.interface';
-import { SignupTenantResponseDto, JwtPayload } from '../interfaces/auth.tenant.interface';
+import { SignupTenantResponseDto } from '../interfaces/auth.tenant.interface';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -34,16 +35,39 @@ export class AuthTenantService {
 
   /* IS AUTHENTICATED */
   isAuthenticated(): boolean {
-    /* TODO: debe ser rol correcto */
     const token = localStorage.getItem('token');
 
-    if (!token) return false;
+    if (!token) {
+      return false;
+    }
 
     try {
-      const decoded = jwtDecode<JwtPayload>(token);
-      return decoded.exp * 1000 > Date.now();
+      const decoded = jwtDecode<TenantJwtPayload>(token);
+
+      if (!decoded.exp || decoded.exp * 1000 <= Date.now()) {
+        return false;
+      }
+
+      return (
+        !!decoded.tenant_id && !!decoded.role && !!decoded.tenant_name && !!decoded.normalized_name
+      );
     } catch {
       return false;
+    }
+  }
+
+  /* TOKEN DECODE */
+  getTokenPayload(): TenantJwtPayload | null {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      return jwtDecode<TenantJwtPayload>(token);
+    } catch {
+      return null;
     }
   }
 }

@@ -10,7 +10,7 @@ import { finalize } from 'rxjs';
 import { PasswordModule } from 'primeng/password';
 import { passwordMatchValidator } from '../../../../../shared/validators/form.validators';
 import { AuthTenantService } from '../../../../../auth/services/auth.tenant.service';
-import { AuthService } from '../../../../../auth/services/auth.service';
+import { AuthAspirantService } from '../../../../../auth/services/auth.aspirant.service';
 
 @Component({
   selector: 'app-cambio-contrasena-dialog',
@@ -29,7 +29,7 @@ import { AuthService } from '../../../../../auth/services/auth.service';
 })
 export class CambioContrasenaDialog {
   private translate = inject(TranslateService);
-  private authService = inject(AuthService);
+  private authAspirantService = inject(AuthAspirantService);
   private authTenantService = inject(AuthTenantService);
   private messageService = inject(MessageService);
 
@@ -106,7 +106,7 @@ export class CambioContrasenaDialog {
           });
 
           this.closeDialog();
-          this.authService.logout();
+          this.authAspirantService.logout();
         },
         error: (err: { error: { message: any } }) => {
           this.messageService.add({

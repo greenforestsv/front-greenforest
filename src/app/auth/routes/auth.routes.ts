@@ -26,10 +26,11 @@ export const AUTH_ROUTES: Routes = [
   },
   {
     path: 'registro-empresa',
+    canMatch: [guestGuard],
     loadComponent: () =>
       import('../../auth/pages/registro-empresa/registro-empresa').then((m) => m.RegistroEmpresa),
   },
-  {
+  /*  {
     path: 'olvido-contrasena',
     canMatch: [guestGuard],
     loadComponent: () =>
@@ -41,5 +42,5 @@ export const AUTH_ROUTES: Routes = [
     path: 'verify/:id',
     canMatch: [guestGuard],
     loadComponent: () => import('../../auth/pages/verify/verify').then((m) => m.Verify),
-  },
+  }, */
 ];
