@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3003/api/v1',
+  apiUrl: 'https://greenforestbackend.interactivecore.app/api/v1',
 };
