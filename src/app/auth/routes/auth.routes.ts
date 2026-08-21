@@ -20,15 +20,13 @@ export const AUTH_ROUTES: Routes = [
     path: 'registro-candidato',
     canMatch: [guestGuard],
     loadComponent: () =>
-      import('../../auth/pages/registro-candidato/registro-candidato').then(
-        (m) => m.RegistroCandidato,
-      ),
+      import('../../candidato/pages/registro/registro-candidato').then((m) => m.RegistroCandidato),
   },
   {
     path: 'registro-empresa',
     canMatch: [guestGuard],
     loadComponent: () =>
-      import('../../auth/pages/registro-empresa/registro-empresa').then((m) => m.RegistroEmpresa),
+      import('../../empresa/pages/registro/registro-empresa').then((m) => m.RegistroEmpresa),
   },
   /*  {
     path: 'olvido-contrasena',

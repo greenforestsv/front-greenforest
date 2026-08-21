@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { AuthTenantService } from '../../services/auth.tenant.service';
+import { AuthTenantService } from '../../../auth/services/auth.tenant.service';
 import { emailMatchValidator } from '../../../shared/validators/form.validators';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
