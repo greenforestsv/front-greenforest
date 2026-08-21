@@ -18,6 +18,7 @@ export class CountriesMultiselect {
   private messageService = inject(MessageService);
 
   control = input.required<FormControl<string[]>>();
+  selectionLimit = input<number | null>(null);
 
   loading = signal(false);
   countries = signal<GetCountryDto[]>([]);

@@ -9,6 +9,7 @@
   class="w-full"
   fluid
   [loading]="loading()"
+  [selectionLimit]="selectionLimit() ?? undefined"
 >
   <ng-template #item let-country>
     <div class="flex items-center gap-2">

@@ -22,6 +22,7 @@ import { CountriesMultiselect } from '../../../../../shared/components/countries
 })
 export class TenantForm {
   form = input.required<FormGroup>();
+  isMultinational = input.required<FormControl<boolean>>();
 
   get name() {
     return this.form().get('name')!;

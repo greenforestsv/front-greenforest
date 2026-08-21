@@ -14,7 +14,6 @@ import { TenantForm } from './forms/tenant-form/tenant-form';
 import { RepresentativeForm } from './forms/representative-form/representative-form';
 import { ProgressBarModule } from 'primeng/progressbar';
 
-/* TODO: IS MULTINATIONAL */
 @Component({
   selector: 'app-registro-empresa',
   standalone: true,
@@ -116,8 +115,12 @@ export class RegistroEmpresa {
   readonly have_carnets = this.tenantForm.controls.have_carnets;
   readonly carnet = this.representativeForm.controls.carnet;
 
+  readonly is_multinational = this.tenantForm.controls.is_multinational;
+  readonly locations = this.tenantForm.controls.locations;
+
   constructor() {
     this.validarCarnets();
+    this.validarUbicaciones();
   }
 
   private validarCarnets(): void {
@@ -135,6 +138,14 @@ export class RegistroEmpresa {
     actualizarValidacion(this.have_carnets.value);
 
     this.have_carnets.valueChanges.subscribe(actualizarValidacion);
+  }
+
+  private validarUbicaciones(): void {
+    this.is_multinational.valueChanges.subscribe((isMultinational) => {
+      if (!isMultinational && this.locations.value.length > 1) {
+        this.locations.setValue([this.locations.value[0]]);
+      }
+    });
   }
 
   signup(): void {

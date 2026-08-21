@@ -225,7 +225,10 @@
       </div>
 
       <!-- UBICACIONES -->
-      <app-countries-multiselect [control]="locations" />
+      <app-countries-multiselect
+        [control]="locations"
+        [selectionLimit]="isMultinational().value ? null : 1"
+      />
 
       <!-- TIENE CARNETS -->
       <div class="flex items-center gap-2">

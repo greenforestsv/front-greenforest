@@ -28,7 +28,7 @@
 
       <form [formGroup]="signupForm" (ngSubmit)="signup()" class="w-full">
         @if (currentStep() === 1) {
-          <app-tenant-form [form]="tenantForm" />
+          <app-tenant-form [form]="tenantForm" [isMultinational]="is_multinational" />
 
           <div class="flex justify-end mt-4">
             <button type="button" pButton label="Siguiente" (click)="nextStep()"></button>
