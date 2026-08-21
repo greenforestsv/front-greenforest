@@ -128,26 +128,29 @@
               }
             </div>
 
-            <!-- TELÉFONO -->
+            <!-- TELÉFONO TENANT -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="phone"
+              <label pLabel class="text-sm" for="tenant_phone"
                 >Número de teléfono <span class="text-accent-500">*</span></label
               >
-              <input
-                pInputText
-                type="text"
-                id="phone"
-                formControlName="phone"
-                placeholder="+50322334455"
-                required
-                [invalid]="phone.invalid && phone.touched"
-                fluid
-              />
-              @if (phone.invalid && phone.touched) {
+              <div class="flex items-center gap-1">
+                <app-phone-code-select [control]="tenant_phone_code" />
+                <input
+                  pInputText
+                  type="text"
+                  id="tenant_phone"
+                  formControlName="tenant_phone"
+                  placeholder="22334455"
+                  required
+                  [invalid]="tenant_phone.invalid && tenant_phone.touched"
+                  fluid
+                />
+              </div>
+              @if (tenant_phone.invalid && tenant_phone.touched) {
                 <p-message severity="error" size="small" variant="simple">
-                  @if (phone.hasError('required')) {
+                  @if (tenant_phone.hasError('required')) {
                     El número de teléfono es obligatorio.
-                  } @else if (phone.hasError('invalidPhone')) {
+                  } @else if (tenant_phone.hasError('invalidPhone')) {
                     El número de teléfono no es válido.
                   }
                 </p-message>
@@ -156,30 +159,31 @@
 
             <!-- CELULAR -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="cel_phone"
-                >Número de celular <span class="text-accent-500">*</span></label
-              >
-              <input
-                pInputText
-                type="text"
-                id="cel_phone"
-                formControlName="cel_phone"
-                placeholder="+50399887766"
-                required
-                [invalid]="cel_phone.invalid && cel_phone.touched"
-                fluid
-              />
+              <label pLabel class="text-sm" for="cel_phone">Número de celular</label>
+              <div class="flex items-center gap-1">
+                <app-phone-code-select [control]="cel_phone_code" />
+                <input
+                  pInputText
+                  type="text"
+                  id="cel_phone"
+                  formControlName="cel_phone"
+                  placeholder="99887766"
+                  [invalid]="cel_phone.invalid && cel_phone.touched"
+                  fluid
+                />
+              </div>
               @if (cel_phone.invalid && cel_phone.touched) {
                 <p-message severity="error" size="small" variant="simple">
-                  @if (cel_phone.hasError('required')) {
-                    El número de celular es obligatorio.
-                  } @else if (cel_phone.hasError('invalidPhone')) {
+                  @if (cel_phone.hasError('invalidPhone')) {
                     El número de celular no es válido.
                   }
                 </p-message>
               }
             </div>
+          </div>
 
+          <!-- DERECHA -->
+          <div class="flex flex-col gap-4 flex-1">
             <!-- DESCRIPCIÓN -->
             <div class="flex flex-col gap-1">
               <label pLabel class="text-sm" for="description"
@@ -191,7 +195,7 @@
                 rows="5"
                 cols="30"
                 pTextarea
-                placeholder="descripción"
+                placeholder="Descripción"
                 required
                 [invalid]="description.invalid && description.touched"
                 [autoResize]="true"
@@ -204,11 +208,8 @@
                 </p-message>
               }
             </div>
-          </div>
 
-          <!-- DERECHA -->
-          <div class="flex flex-col gap-4 flex-1">
-            <!-- APPROACH -->
+            <!-- RUBROS -->
             <div class="flex flex-col gap-1">
               <label pLabel for="approach" class="text-sm"
                 >Rubros <span class="text-accent-500">*</span></label
@@ -240,48 +241,19 @@
               }
             </div>
 
-            <!-- UBICACIONES -->
-            <div class="flex flex-col gap-1">
-              <label pLabel for="locations" class="text-sm"
-                >Ubicaciones <span class="text-accent-500">*</span></label
-              >
-              <small class="text-gray-500">
-                Separa las ubicaciones con
-                <kbd class="size-5 inline-flex items-center justify-center rounded border"
-                  >&#x21B5;</kbd
-                >
-                Enter.
-              </small>
-              <textarea
-                id="locations"
-                formControlName="locations"
-                rows="5"
-                cols="30"
-                pTextarea
-                placeholder="ubicaciones"
-                required
-                [invalid]="locations.invalid && locations.touched"
-                [autoResize]="true"
-              ></textarea>
-              @if (locations.invalid && locations.touched) {
-                <p-message severity="error" size="small" variant="simple">
-                  @if (locations.hasError('required')) {
-                    Las ubicaciones con obligatorias.
-                  }
-                </p-message>
-              }
+            <!-- ES MULTINACIONAL -->
+            <div class="flex items-center gap-2">
+              <p-checkbox inputId="is_multinational" name="group" [value]="is_multinational" />
+              <label pLabel for="is_multinational" class="text-sm">Es multinacional</label>
             </div>
+
+            <!-- UBICACIONES -->
+            <app-countries-multiselect [control]="locations" />
 
             <!-- TIENE CARNETS -->
             <div class="flex items-center gap-2">
               <p-checkbox inputId="have_carnets" name="group" [value]="have_carnets" />
               <label pLabel for="have_carnets" class="text-sm">Tiene carnets</label>
-            </div>
-
-            <!-- ES MULTINACIONAL -->
-            <div class="flex items-center gap-2">
-              <p-checkbox inputId="is_multinational" name="group" [value]="is_multinational" />
-              <label pLabel for="is_multinational" class="text-sm">Es multinacional</label>
             </div>
           </div>
         </div>
@@ -477,25 +449,28 @@
               }
             </div>
 
-            <!-- TELÉFONO -->
+            <!-- TELÉFONO REPRESENTANTE -->
             <div class="flex flex-col gap-1">
-              <label pLabel class="text-sm" for="phone"
+              <label pLabel class="text-sm" for="rep_phone"
                 >Número de teléfono <span class="text-accent-500">*</span></label
               >
-              <input
-                pInputText
-                type="text"
-                id="phone"
-                formControlName="phone"
-                placeholder="+50322334455"
-                [invalid]="phone.invalid && phone.touched"
-                fluid
-              />
-              @if (phone.invalid && phone.touched) {
+              <div class="flex items-center gap-1">
+                <app-phone-code-select [control]="rep_phone_code" />
+                <input
+                  pInputText
+                  type="text"
+                  id="rep_phone"
+                  formControlName="rep_phone"
+                  placeholder="22334455"
+                  [invalid]="rep_phone.invalid && rep_phone.touched"
+                  fluid
+                />
+              </div>
+              @if (rep_phone.invalid && rep_phone.touched) {
                 <p-message severity="error" size="small" variant="simple">
-                  @if (phone.hasError('required')) {
+                  @if (rep_phone.hasError('required')) {
                     El número de teléfono es obligatorio.
-                  } @else if (phone.hasError('invalidPhone')) {
+                  } @else if (rep_phone.hasError('invalidPhone')) {
                     El número de teléfono no es válido.
                   }
                 </p-message>

@@ -1,0 +1,41 @@
+<label>Ubicaciones <span class="text-accent-500">*</span></label>
+<p-multiselect
+  [options]="countries()"
+  [formControl]="control()"
+  optionLabel="name"
+  optionValue="iso_code"
+  [showClear]="true"
+  placeholder="Seleccionar países"
+  class="w-full"
+  fluid
+  [loading]="loading()"
+>
+  <ng-template #item let-country>
+    <div class="flex items-center gap-2">
+      <span>{{ country.name }}</span>
+    </div>
+  </ng-template>
+
+  <ng-template #selecteditems>
+    <div class="flex flex-wrap gap-1">
+      @for (iso of selected; track iso) {
+        <p-chip
+          [label]="getCountryName(iso)"
+          [removable]="true"
+          (onRemove)="removeItem($event, iso)"
+          [pt]="{
+            root: { class: 'py-0!' },
+            label: { class: 'text-xs!' },
+          }"
+        />
+      }
+    </div>
+  </ng-template>
+</p-multiselect>
+@if (control().invalid && control().touched) {
+  <p-message severity="error" size="small" variant="simple" class="mt-1">
+    @if (control().hasError('required')) {
+      Las ubicaciones son obligatorias.
+    }
+  </p-message>
+}
