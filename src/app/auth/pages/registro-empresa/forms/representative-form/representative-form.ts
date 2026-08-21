@@ -24,6 +24,7 @@ import { StatesSelect } from '../../../../../shared/components/states-select/sta
 })
 export class RepresentativeForm {
   form = input.required<FormGroup>();
+  haveCarnets = input.required<FormControl<boolean>>();
 
   genderOptions = [
     { label: 'Mujer', value: 'F' },

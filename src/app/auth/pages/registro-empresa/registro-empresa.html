@@ -36,7 +36,7 @@
         }
 
         @if (currentStep() === 2) {
-          <app-representative-form [form]="representativeForm" />
+          <app-representative-form [form]="representativeForm" [haveCarnets]="have_carnets" />
 
           <div class="flex justify-between mt-4">
             <button

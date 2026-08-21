@@ -14,6 +14,7 @@ import { TenantForm } from './forms/tenant-form/tenant-form';
 import { RepresentativeForm } from './forms/representative-form/representative-form';
 import { ProgressBarModule } from 'primeng/progressbar';
 
+/* TODO: IS MULTINATIONAL */
 @Component({
   selector: 'app-registro-empresa',
   standalone: true,
@@ -104,51 +105,41 @@ export class RegistroEmpresa {
       department: this.fb.nonNullable.control<number>(0, Validators.required),
       profession: ['', Validators.required],
       address: [''],
-      carnet: ['', Validators.required],
+      carnet: [''],
     }),
   });
 
+  // PROPIEDADES
   readonly tenantForm = this.signupForm.controls.tenant;
   readonly representativeForm = this.signupForm.controls.representative;
 
-  // PROPIEDADES
-  readonly name = this.tenantForm.controls.name;
-  readonly email = this.tenantForm.controls.email;
-  readonly confirm_email = this.tenantForm.controls.confirm_email;
-  readonly tenant_alternative_email = this.tenantForm.controls.tenant_alternative_email;
-
-  readonly tenant_phone_code = this.tenantForm.controls.tenant_phone_code;
-  readonly tenant_phone = this.tenantForm.controls.tenant_phone;
-  readonly cel_phone_code = this.tenantForm.controls.cel_phone_code;
-  readonly cel_phone = this.tenantForm.controls.cel_phone;
-
-  readonly description = this.tenantForm.controls.description;
-  readonly approach = this.tenantForm.controls.approach;
-  readonly locations = this.tenantForm.controls.locations;
-
-  readonly is_multinational = this.tenantForm.controls.is_multinational;
   readonly have_carnets = this.tenantForm.controls.have_carnets;
-
-  readonly dni = this.representativeForm.controls.dni;
-  readonly first_name = this.representativeForm.controls.first_name;
-  readonly second_name = this.representativeForm.controls.second_name;
-  readonly first_surname = this.representativeForm.controls.first_surname;
-  readonly second_surname = this.representativeForm.controls.second_surname;
-  readonly birth_date = this.representativeForm.controls.birth_date;
-  readonly gender = this.representativeForm.controls.gender;
-  readonly representativeEmail = this.representativeForm.controls.email;
-  readonly rep_phone_code = this.representativeForm.controls.rep_phone_code;
-  readonly rep_phone = this.representativeForm.controls.rep_phone;
-  readonly country = this.representativeForm.controls.country;
-  readonly department = this.representativeForm.controls.department;
-  readonly profession = this.representativeForm.controls.profession;
-  readonly address = this.representativeForm.controls.address;
   readonly carnet = this.representativeForm.controls.carnet;
+
+  constructor() {
+    this.validarCarnets();
+  }
+
+  private validarCarnets(): void {
+    const actualizarValidacion = (haveCarnets: boolean) => {
+      if (haveCarnets) {
+        this.carnet.setValidators([Validators.required]);
+      } else {
+        this.carnet.clearValidators();
+        this.carnet.setValue('');
+      }
+
+      this.carnet.updateValueAndValidity();
+    };
+
+    actualizarValidacion(this.have_carnets.value);
+
+    this.have_carnets.valueChanges.subscribe(actualizarValidacion);
+  }
 
   signup(): void {
     if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
-      console.log('invalid form');
       return;
     }
 
@@ -176,8 +167,10 @@ export class RegistroEmpresa {
     const fullTenantPhone = buildPhoneNumber(tenant_phone_code, tenant_phone);
 
     if (!fullTenantPhone) {
-      this.tenant_phone.setErrors({ invalidPhone: true });
-      this.tenant_phone.markAsTouched();
+      this.tenantForm.controls.tenant_phone.setErrors({
+        invalidPhone: true,
+      });
+      this.tenantForm.controls.tenant_phone.markAsTouched();
       return;
     }
 
@@ -185,8 +178,13 @@ export class RegistroEmpresa {
 
     if (cel_phone || cel_phone_code) {
       if (!fullCelPhone) {
-        this.cel_phone.setErrors({ invalidPhone: true });
-        this.cel_phone.markAsTouched();
+        this.tenantForm.controls.cel_phone.setErrors({
+          invalidPhone: true,
+        });
+
+        this.tenantForm.controls.cel_phone.markAsTouched();
+        this.tenantForm.controls.cel_phone_code.markAsTouched();
+
         return;
       }
     }
@@ -194,8 +192,10 @@ export class RegistroEmpresa {
     const fullRepPhone = buildPhoneNumber(rep_phone_code, rep_phone);
 
     if (!fullRepPhone) {
-      this.rep_phone.setErrors({ invalidPhone: true });
-      this.rep_phone.markAsTouched();
+      this.representativeForm.controls.rep_phone.setErrors({
+        invalidPhone: true,
+      });
+      this.representativeForm.controls.rep_phone.markAsTouched();
       return;
     }
 
@@ -204,7 +204,7 @@ export class RegistroEmpresa {
     const data = {
       ...tenant,
       phone: fullTenantPhone,
-      is_isolate: 'NO' as 'NO' | 'INSTANCE',
+      is_isolate: 'NO' as const,
       approach: toArray(approach),
 
       ...(fullCelPhone && {
@@ -219,6 +219,7 @@ export class RegistroEmpresa {
         ...representative,
         phone: fullRepPhone,
         gender: representative.gender as Gender,
+
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
         ...(address.trim() && { address }),

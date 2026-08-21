@@ -245,28 +245,30 @@
       </div>
 
       <!-- CARNET -->
-      <div class="flex flex-col gap-1">
-        <label pLabel class="text-sm" for="carnet"
-          >Carnet <span class="text-accent-500">*</span></label
-        >
-        <input
-          pInputText
-          type="text"
-          id="carnet"
-          formControlName="carnet"
-          placeholder="carnet"
-          required
-          [invalid]="carnet.invalid && carnet.touched"
-          fluid
-        />
-        @if (carnet.invalid && carnet.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            @if (carnet.hasError('required')) {
-              El carnet es obligatorio.
-            }
-          </p-message>
-        }
-      </div>
+      @if (haveCarnets().value) {
+        <div class="flex flex-col gap-1">
+          <label pLabel class="text-sm" for="carnet"
+            >Carnet <span class="text-accent-500">*</span></label
+          >
+          <input
+            pInputText
+            type="text"
+            id="carnet"
+            formControlName="carnet"
+            placeholder="carnet"
+            required
+            [invalid]="carnet.invalid && carnet.touched"
+            fluid
+          />
+          @if (carnet.invalid && carnet.touched) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (carnet.hasError('required')) {
+                El carnet es obligatorio.
+              }
+            </p-message>
+          }
+        </div>
+      }
     </div>
   </div>
 </div>
