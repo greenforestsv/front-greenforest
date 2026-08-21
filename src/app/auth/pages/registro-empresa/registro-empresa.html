@@ -12,8 +12,18 @@
     <div class="w-full max-w-3xl rounded-3xl bg-white px-6 py-7 shadow-xl sm:px-8 pt-0">
       <div class="logo mx-auto cursor-pointer" routerLink="/"></div>
 
-      <div class="mb-8 text-center">
-        <h1 class="text-3xl font-light text-primary">Creación de Cuenta</h1>
+      <div class="mb-2 text-center">
+        <h1 class="text-3xl font-light text-primary mb-4">Creación de Cuenta</h1>
+        <div>
+          <p-progressbar
+            [value]="stepValue"
+            [showValue]="false"
+            [pt]="{
+              value: { class: 'bg-accent-500!' },
+            }"
+          />
+          <div class="font-medium text-sm text-gray-600 mt-1">Paso {{ currentStep() }}/2</div>
+        </div>
       </div>
 
       <form [formGroup]="signupForm" (ngSubmit)="signup()" class="w-full">

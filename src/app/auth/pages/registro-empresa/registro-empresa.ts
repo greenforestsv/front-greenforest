@@ -12,6 +12,7 @@ import { toArray } from '../../../shared/utils/string.utils';
 import { buildPhoneNumber } from '../../../shared/utils/phone.utils';
 import { TenantForm } from './forms/tenant-form/tenant-form';
 import { RepresentativeForm } from './forms/representative-form/representative-form';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-registro-empresa',
@@ -23,6 +24,7 @@ import { RepresentativeForm } from './forms/representative-form/representative-f
     FormsModule,
     TenantForm,
     RepresentativeForm,
+    ProgressBarModule,
   ],
   templateUrl: './registro-empresa.html',
   styleUrl: './registro-empresa.scss',
@@ -33,9 +35,25 @@ export class RegistroEmpresa {
   private authTenantService = inject(AuthTenantService);
   private router = inject(Router);
 
-  // SIGNALS (estado UI)
+  // LOADING
   loading = signal(false);
+
+  /* STEPS */
   currentStep = signal<1 | 2>(1);
+
+  get stepValue(): number {
+    return this.currentStep() === 1 ? 50 : 100;
+  }
+  nextStep(): void {
+    if (this.tenantForm.invalid) {
+      this.tenantForm.markAllAsTouched();
+      return;
+    }
+    this.currentStep.set(2);
+  }
+  previousStep(): void {
+    this.currentStep.set(1);
+  }
 
   is_isolate_options = [
     { label: 'No', value: 'NO' },
@@ -126,19 +144,6 @@ export class RegistroEmpresa {
   readonly profession = this.representativeForm.controls.profession;
   readonly address = this.representativeForm.controls.address;
   readonly carnet = this.representativeForm.controls.carnet;
-
-  nextStep(): void {
-    if (this.tenantForm.invalid) {
-      this.tenantForm.markAllAsTouched();
-      return;
-    }
-
-    this.currentStep.set(2);
-  }
-
-  previousStep(): void {
-    this.currentStep.set(1);
-  }
 
   signup(): void {
     if (this.signupForm.invalid) {
