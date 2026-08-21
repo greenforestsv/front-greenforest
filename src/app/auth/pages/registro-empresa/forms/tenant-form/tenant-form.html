@@ -1,0 +1,237 @@
+<div [formGroup]="form()" class="flex flex-col gap-4">
+  <h2 class="text-xl">Empresa</h2>
+  <div class="flex flex-col md:flex-row gap-4">
+    <!-- IZQUIERDA -->
+    <div class="flex flex-col gap-4 flex-1">
+      <!-- NOMBRE -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm" for="name"
+          >Nombre <span class="text-accent-500">*</span></label
+        >
+        <input
+          pInputText
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Nombre"
+          required
+          [invalid]="name.invalid && name.touched"
+          fluid
+        />
+        @if (name.invalid && name.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (name.hasError('required')) {
+              El nombre es obligatorio.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- CORREO -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm" for="email"
+          >Correo <span class="text-accent-500">*</span></label
+        >
+        <input
+          pInputText
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Correo"
+          required
+          email
+          [invalid]="email.invalid && email.touched"
+          fluid
+        />
+        @if (email.invalid && email.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (email.hasError('required')) {
+              El correo es obligatorio.
+            }
+            @if (email.hasError('email')) {
+              Ingresá un correo válido.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- CONFIRMAR CORREO -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm" for="confirm_email"
+          >Confirmá correo <span class="text-accent-500">*</span></label
+        >
+        <input
+          pInputText
+          type="email"
+          id="confirm_email"
+          placeholder="Confirma correo"
+          formControlName="confirm_email"
+          email
+          [invalid]="confirm_email.invalid && confirm_email.touched"
+          required
+        />
+        @if (form().touched && form().hasError('emailMismatch')) {
+          <p-message severity="error" size="small" variant="simple"
+            >Los correos no coinciden.</p-message
+          >
+        }
+        @if (confirm_email.touched && confirm_email.hasError('required')) {
+          <p-message severity="error" size="small" variant="simple"
+            >Debés confirmar el correo.</p-message
+          >
+        }
+      </div>
+
+      <!-- CORREO ALTERNATIVO -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm" for="tenant_alternative_email">Correo alternativo</label>
+        <input
+          pInputText
+          type="email"
+          id="tenant_alternative_email"
+          formControlName="tenant_alternative_email"
+          placeholder="Correo alternativo"
+          email
+          [invalid]="tenant_alternative_email.invalid && tenant_alternative_email.touched"
+          fluid
+        />
+        @if (tenant_alternative_email.invalid && tenant_alternative_email.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (tenant_alternative_email.hasError('required')) {
+              El correo es obligatorio.
+            }
+            @if (tenant_alternative_email.hasError('email')) {
+              Ingresá un correo válido.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- TELÉFONO TENANT -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm" for="tenant_phone"
+          >Número de teléfono <span class="text-accent-500">*</span></label
+        >
+        <div class="flex items-center gap-1">
+          <app-phone-code-select [control]="tenant_phone_code" />
+          <input
+            pInputText
+            type="text"
+            id="tenant_phone"
+            formControlName="tenant_phone"
+            placeholder="22334455"
+            required
+            [invalid]="tenant_phone.invalid && tenant_phone.touched"
+            fluid
+          />
+        </div>
+        @if (tenant_phone.invalid && tenant_phone.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (tenant_phone.hasError('required')) {
+              El número de teléfono es obligatorio.
+            } @else if (tenant_phone.hasError('invalidPhone')) {
+              El número de teléfono no es válido.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- CELULAR -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm" for="cel_phone">Número de celular</label>
+        <div class="flex items-center gap-1">
+          <app-phone-code-select [control]="cel_phone_code" />
+          <input
+            pInputText
+            type="text"
+            id="cel_phone"
+            formControlName="cel_phone"
+            placeholder="99887766"
+            [invalid]="cel_phone.invalid && cel_phone.touched"
+            fluid
+          />
+        </div>
+        @if (cel_phone.invalid && cel_phone.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (cel_phone.hasError('invalidPhone')) {
+              El número de celular no es válido.
+            }
+          </p-message>
+        }
+      </div>
+    </div>
+
+    <!-- DERECHA -->
+    <div class="flex flex-col gap-4 flex-1">
+      <!-- DESCRIPCIÓN -->
+      <div class="flex flex-col gap-1">
+        <label pLabel class="text-sm" for="description"
+          >Descripción <span class="text-accent-500">*</span></label
+        >
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="5"
+          cols="30"
+          pTextarea
+          placeholder="Descripción"
+          required
+          [invalid]="description.invalid && description.touched"
+          [autoResize]="true"
+        ></textarea>
+        @if (description.invalid && description.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (description.hasError('required')) {
+              La descripción es obligatoria.
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- RUBROS -->
+      <div class="flex flex-col gap-1">
+        <label pLabel for="approach" class="text-sm"
+          >Rubros <span class="text-accent-500">*</span></label
+        >
+        <small class="text-gray-500">
+          Separa rubros con
+          <kbd class="size-5 inline-flex items-center justify-center rounded border">&#x21B5;</kbd>
+          Enter.
+        </small>
+        <textarea
+          id="approach"
+          formControlName="approach"
+          rows="5"
+          cols="30"
+          pTextarea
+          placeholder="Rubros"
+          required
+          [invalid]="approach.invalid && approach.touched"
+          [autoResize]="true"
+        ></textarea>
+        @if (approach.invalid && approach.touched) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (approach.hasError('required')) {
+              Rubros son obligatorios
+            }
+          </p-message>
+        }
+      </div>
+
+      <!-- ES MULTINACIONAL -->
+      <div class="flex items-center gap-2">
+        <p-checkbox inputId="is_multinational" formControlName="is_multinational" binary />
+        <label pLabel for="is_multinational" class="text-sm"> Es multinacional </label>
+      </div>
+
+      <!-- UBICACIONES -->
+      <app-countries-multiselect [control]="locations" />
+
+      <!-- TIENE CARNETS -->
+      <div class="flex items-center gap-2">
+        <p-checkbox inputId="have_carnets" formControlName="have_carnets" binary />
+        <label pLabel for="have_carnets" class="text-sm"> ¿Utiliza carnets? </label>
+      </div>
+    </div>
+  </div>
+</div>
