@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-1">
+  <label pLabel class="text-sm" for="department">Área <span class="text-accent-500">*</span></label>
+  <p-select
+    id="department"
+    [formControl]="control()"
+    [options]="areas"
+    optionLabel="description"
+    optionValue="id"
+    placeholder="Área"
+    appendTo="body"
+  />
+
+  @if (control().invalid && control().touched) {
+    <p-message severity="error" size="small" variant="simple">
+      @if (control().hasError('required')) {
+        El área es obligatoria.
+      }
+    </p-message>
+  }
+</div>

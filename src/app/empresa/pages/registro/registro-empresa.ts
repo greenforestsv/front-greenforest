@@ -101,7 +101,7 @@ export class RegistroEmpresa {
       rep_phone_code: ['', Validators.required],
       rep_phone: ['', Validators.required],
       country: ['', [Validators.required]],
-      department: this.fb.nonNullable.control<number>(0, Validators.required),
+      department: this.fb.control<number | null>(null, Validators.required),
       profession: ['', Validators.required],
       address: [''],
       carnet: [''],
@@ -171,6 +171,7 @@ export class RegistroEmpresa {
         address,
         rep_phone_code,
         rep_phone,
+        department,
         ...representative
       },
     } = this.signupForm.getRawValue();
@@ -210,6 +211,15 @@ export class RegistroEmpresa {
       return;
     }
 
+    if (department === null) {
+      this.representativeForm.controls.department.setErrors({
+        required: true,
+      });
+
+      this.representativeForm.controls.department.markAsTouched();
+      return;
+    }
+
     this.loading.set(true);
 
     const data = {
@@ -230,7 +240,7 @@ export class RegistroEmpresa {
         ...representative,
         phone: fullRepPhone,
         gender: representative.gender as Gender,
-
+        department,
         ...(second_name.trim() && { second_name }),
         ...(second_surname.trim() && { second_surname }),
         ...(address.trim() && { address }),

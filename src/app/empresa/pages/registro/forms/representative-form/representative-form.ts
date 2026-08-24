@@ -3,20 +3,20 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { DatePicker } from 'primeng/datepicker';
-import { Select } from 'primeng/select';
 import { PhoneCodeSelect } from '../../../../../shared/components/phone-code-select/phone-code-select';
 import { CountriesSelect } from '../../../../../shared/components/countries-select/countries-select';
-import { StatesSelect } from '../../../../../shared/components/states-select/states-select';
+import { AreaSelect } from '../../../../../shared/components/area-select/area-select';
+import { GenderSelect } from '../../../../../shared/components/gender-select/gender-select';
 
 @Component({
   selector: 'app-representative-form',
   imports: [
     MessageModule,
     DatePicker,
-    Select,
     PhoneCodeSelect,
     CountriesSelect,
-    StatesSelect,
+    AreaSelect,
+    GenderSelect,
     InputTextModule,
     ReactiveFormsModule,
   ],
@@ -25,12 +25,6 @@ import { StatesSelect } from '../../../../../shared/components/states-select/sta
 export class RepresentativeForm {
   form = input.required<FormGroup>();
   haveCarnets = input.required<FormControl<boolean>>();
-
-  genderOptions = [
-    { label: 'Mujer', value: 'F' },
-    { label: 'Hombre', value: 'M' },
-    { label: 'Otro', value: 'U' },
-  ];
 
   get first_name() {
     return this.form().get('first_name')!;
@@ -53,8 +47,8 @@ export class RepresentativeForm {
   get address() {
     return this.form().get('address')!;
   }
-  get gender() {
-    return this.form().get('gender')!;
+  get gender(): FormControl<string> {
+    return this.form().controls['gender'] as FormControl<string>;
   }
   get email() {
     return this.form().get('email')!;

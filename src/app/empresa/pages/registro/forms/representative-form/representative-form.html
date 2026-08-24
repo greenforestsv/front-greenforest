@@ -138,26 +138,7 @@
     <!-- DERECHA -->
     <div class="flex flex-col gap-4 flex-1">
       <!-- GÉNERO -->
-      <div class="flex flex-col gap-1">
-        <label pLabel class="text-sm" for="gender"
-          >Género <span class="text-accent-500">*</span></label
-        >
-        <p-select
-          id="gender"
-          formControlName="gender"
-          [options]="genderOptions"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Género"
-        />
-        @if (gender.invalid && gender.touched) {
-          <p-message severity="error" size="small" variant="simple">
-            @if (gender.hasError('required')) {
-              El género es obligatorio.
-            }
-          </p-message>
-        }
-      </div>
+      <app-gender-select [control]="gender" />
 
       <!-- CORREO -->
       <div class="flex flex-col gap-1">
@@ -218,8 +199,8 @@
       <!-- PAÍS -->
       <app-countries-select [control]="country" />
 
-      <!-- DEPARTAMENTO -->
-      <app-states-select [control]="department" [countryControl]="country" />
+      <!-- ÁREA -->
+      <app-area-select [control]="department" />
 
       <!-- PROFESIÓN -->
       <div class="flex flex-col gap-1">
