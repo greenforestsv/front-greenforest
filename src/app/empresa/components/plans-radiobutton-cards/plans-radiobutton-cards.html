@@ -1,0 +1,269 @@
+<!-- <div class="max-w-xs mx-auto">
+  <span class="font-medium">Choose a plan:</span>
+  <div class="mt-2 flex flex-col gap-3">
+    @for (plan of plans; track plan.id) {
+      <label
+        [for]="'plan-' + plan.id"
+        [class]="
+          'flex-1 flex items-start gap-2 p-3 rounded-lg border hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors cursor-pointer ' +
+          (selectedPlan === plan.id ? 'border-green-500' : 'border-surface')
+        "
+      >
+        <div class="flex-1 flex flex-col gap-1">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="font-medium leading-none">{{ plan.name }}</span>
+              @if (plan.tag) {
+                <p-tag [value]="plan.tag" />
+              }
+            </div>
+            <div class="text-sm text-color">
+              <span class="font-semibold">${{ plan.monthly_price }}</span>
+              <span class="text-surface-500">/mes</span>
+            </div>
+          </div>
+          <span class="text-sm text-surface-500">{{ plan.description }}</span>
+          @if (plan.discount > 0) {
+            <span class="text-xs text-green-500">
+              Ahorrás {{ plan.discount }}% con el pago anual
+            </span>
+          }
+        </div>
+        <p-radiobutton
+          [inputId]="'plan-' + plan.id"
+          name="plan"
+          [value]="plan.id"
+          [(ngModel)]="selectedPlan"
+        />
+      </label>
+    }
+  </div>
+</div> -->
+
+<div class="w-full max-w-7xl mx-auto">
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold">Elegí tu plan</h2>
+    <p class="text-sm text-surface-500 mt-1">
+      Seleccioná el plan que mejor se adapte a las necesidades de tu empresa.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+    @for (plan of plans; track plan.id) {
+      <label
+        [for]="'plan-' + plan.id"
+        [class]="
+          'relative flex flex-col min-h-[620px] p-6 rounded-2xl border-2 cursor-pointer transition-all hover:shadow-lg ' +
+          (selectedPlan === plan.id
+            ? 'border-primary bg-primary-50 dark:bg-primary-950'
+            : 'border-surface hover:border-primary-300 bg-surface-0 dark:bg-surface-900')
+        "
+      >
+        <!-- RADIO -->
+        <div class="absolute top-5 right-5">
+          <p-radiobutton
+            [inputId]="'plan-' + plan.id"
+            name="plan"
+            [value]="plan.id"
+            [(ngModel)]="selectedPlan"
+          />
+        </div>
+
+        <!-- HEADER -->
+        <div class="pr-8">
+          <div class="flex items-center gap-2 mb-2">
+            <h3 class="text-xl font-bold">{{ plan.name }}</h3>
+
+            @if (plan.tag) {
+              <p-tag [value]="plan.tag" />
+            }
+          </div>
+
+          <p class="text-sm text-surface-500 min-h-10">
+            {{ plan.description }}
+          </p>
+        </div>
+
+        <!-- PRECIO -->
+        <div class="my-6">
+          @if (plan.monthly_price === 0) {
+            <span class="text-3xl font-bold">Gratis</span>
+          } @else {
+            <div class="flex items-end gap-1">
+              <span class="text-4xl font-bold"> ${{ plan.monthly_price }} </span>
+
+              <span class="text-sm text-surface-500 mb-1"> /mes </span>
+            </div>
+          }
+
+          @if (plan.annual_price > 0) {
+            <p class="text-xs text-surface-500 mt-1">
+              ${{ plan.annual_price }} facturado anualmente
+            </p>
+          } @else {
+            <p class="text-xs text-surface-500 mt-1">por 7 días</p>
+          }
+
+          @if (plan.discount > 0) {
+            <div class="mt-2">
+              <p-tag [value]="'Ahorrás ' + plan.discount + '%'" severity="success" />
+            </div>
+          }
+        </div>
+
+        <div class="border-t border-surface my-2"></div>
+
+        <!-- CARACTERÍSTICAS -->
+        <div class="flex-1 flex flex-col gap-4 mt-4">
+          <h4 class="font-semibold text-sm">Incluye:</h4>
+
+          <!-- EMPLEADOS -->
+          <div class="flex justify-between gap-4 text-sm">
+            <span class="text-surface-500"> Empleados </span>
+
+            <span class="font-medium text-right">
+              {{
+                plan.features.limit_employees === 'No limit'
+                  ? 'Ilimitados'
+                  : 'Hasta ' + plan.features.limit_employees
+              }}
+            </span>
+          </div>
+
+          <!-- USUARIOS ADMINISTRATIVOS -->
+          <div class="flex justify-between gap-4 text-sm">
+            <span class="text-surface-500"> Usuarios administrativos </span>
+
+            <span class="font-medium text-right">
+              {{ plan.features.limit_administrative_user }}
+            </span>
+          </div>
+
+          <!-- VACANTES -->
+          <div class="flex justify-between gap-4 text-sm">
+            <span class="text-surface-500"> Vacantes abiertas </span>
+
+            <span class="font-medium text-right">
+              {{ plan.features.limit_openning_jobs }}
+            </span>
+          </div>
+
+          <!-- SUCURSALES -->
+          <div class="flex justify-between gap-4 text-sm">
+            <span class="text-surface-500"> Sucursales </span>
+
+            <span class="font-medium text-right">
+              {{
+                plan.features.limit_sucursals === 'No limit'
+                  ? 'Ilimitadas'
+                  : plan.features.limit_sucursals
+              }}
+            </span>
+          </div>
+
+          <div class="border-t border-surface"></div>
+
+          <!-- TALENT INTELLIGENCE -->
+          <div class="flex items-center justify-between gap-3 text-sm">
+            <span>Talent Intelligence</span>
+
+            @if (plan.features.talent_intelligence) {
+              <i class="pi pi-check text-green-500"></i>
+            } @else {
+              <i class="pi pi-times text-surface-400"></i>
+            }
+          </div>
+
+          <!-- ENTREVISTAS -->
+          <div class="flex items-center justify-between gap-3 text-sm">
+            <span>Entrevistas asistidas</span>
+
+            @if (plan.features.assisted_interviews.active) {
+              <span class="font-medium text-xs">
+                {{ plan.features.assisted_interviews.limit_interviews }}
+              </span>
+            } @else {
+              <i class="pi pi-times text-surface-400"></i>
+            }
+          </div>
+
+          <!-- SOPORTE -->
+          <div class="flex items-center justify-between gap-3 text-sm">
+            <span>Soporte dedicado</span>
+
+            @if (plan.features.dedicated_support) {
+              <i class="pi pi-check text-green-500"></i>
+            } @else {
+              <i class="pi pi-times text-surface-400"></i>
+            }
+          </div>
+
+          <!-- PRUEBAS -->
+          <div class="flex items-center justify-between gap-3 text-sm">
+            <span>Pruebas psicométricas</span>
+
+            @if (plan.features.psychometric_tests) {
+              <i class="pi pi-check text-green-500"></i>
+            } @else {
+              <i class="pi pi-times text-surface-400"></i>
+            }
+          </div>
+
+          <!-- DASHBOARDS -->
+          <div class="flex items-center justify-between gap-3 text-sm">
+            <span>Dashboards ejecutivos</span>
+
+            @if (plan.features.executive_dashboards) {
+              <i class="pi pi-check text-green-500"></i>
+            } @else {
+              <i class="pi pi-times text-surface-400"></i>
+            }
+          </div>
+
+          <!-- INSTANCIA AISLADA -->
+          <div class="flex items-center justify-between gap-3 text-sm">
+            <span>Instancia aislada</span>
+
+            @if (plan.features.is_isolated) {
+              <i class="pi pi-check text-green-500"></i>
+            } @else {
+              <i class="pi pi-times text-surface-400"></i>
+            }
+          </div>
+
+          <!-- REPORTES -->
+          <div class="mt-2">
+            <span class="text-sm font-medium"> Reportes </span>
+
+            @if (plan.features.reports.length > 0) {
+              <ul class="mt-2 flex flex-col gap-1">
+                @for (report of plan.features.reports; track report) {
+                  <li class="flex items-start gap-2 text-xs text-surface-500">
+                    <i class="pi pi-check mt-0.5 text-green-500"></i>
+                    <span>{{ report }}</span>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <span class="block mt-2 text-xs text-surface-400"> No incluido </span>
+            }
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="mt-6 pt-4 border-t border-surface">
+          <span
+            [class]="
+              'block text-center text-sm font-medium py-2 rounded-lg transition-colors ' +
+              (selectedPlan === plan.id
+                ? 'bg-primary text-primary-contrast'
+                : 'bg-surface-100 dark:bg-surface-800')
+            "
+          >
+            {{ selectedPlan === plan.id ? 'Plan seleccionado' : 'Seleccionar plan' }}
+          </span>
+        </div>
+      </label>
+    }
+  </div>
+</div>

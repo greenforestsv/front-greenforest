@@ -28,6 +28,11 @@ export const AUTH_ROUTES: Routes = [
     loadComponent: () =>
       import('../../empresa/pages/registro/registro-empresa').then((m) => m.RegistroEmpresa),
   },
+  /*   {
+    path: 'planes',
+    canMatch: [guestGuard],
+    loadComponent: () => import('../../empresa/pages/planes/planes').then((m) => m.Planes),
+  }, */
   /*  {
     path: 'olvido-contrasena',
     canMatch: [guestGuard],
