@@ -52,11 +52,11 @@ export interface GetDetalleVacanteDto extends Vacante {
 }
 
 export interface FilterJobListDto {
-  name?: string;
-  department?: string;
-  format?: string;
-  min_salary?: string;
-  max_salary?: string;
+  name?: string | null;
+  department?: string | null;
+  format?: string | null;
+  min_salary?: number | null;
+  max_salary?: number | null;
 }
 
 export interface GetProcesoDto {

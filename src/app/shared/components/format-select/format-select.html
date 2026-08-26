@@ -1,0 +1,11 @@
+<p-select
+  id="format"
+  [formControl]="control()"
+  [options]="formatOptions"
+  optionLabel="label"
+  [optionValue]="useLabelAsValue() ? 'label' : 'value'"
+  fluid
+  placeholder="Modalidad"
+  appendTo="body"
+  [showClear]="true"
+/>

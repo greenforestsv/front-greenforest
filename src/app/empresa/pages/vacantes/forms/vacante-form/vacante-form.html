@@ -163,13 +163,7 @@
     <!-- Modalidad -->
     <div class="flex flex-col gap-1">
       <label>Modalidad <span class="text-accent-500">*</span></label>
-      <p-select
-        formControlName="format"
-        [options]="formatOptions"
-        optionLabel="label"
-        optionValue="value"
-        fluid
-      />
+      <app-format-select [control]="format" />
       @if (format.invalid && format.touched) {
         <p-message severity="error" size="small" variant="simple" class="mt-1">
           @if (format.hasError('required')) {

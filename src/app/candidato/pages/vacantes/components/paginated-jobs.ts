@@ -11,6 +11,7 @@ import { PostulacionesService } from '../../../../core/services/postulaciones.se
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 import { CurrencyFormatPipe } from '../../../../shared/pipes/currency-format.pipe';
 import { FormatDatePipe } from '../../../../shared/pipes/format-date.pipe';
+import { AreaSelect } from './area-select/area-select';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ import { FormatDatePipe } from '../../../../shared/pipes/format-date.pipe';
     EmptyState,
     CurrencyFormatPipe,
     FormatDatePipe,
+    AreaSelect,
   ],
   selector: 'app-paginated-jobs',
   templateUrl: './paginated-jobs.html',
@@ -47,14 +49,14 @@ export class PaginatedJobs {
     this.loadJobs();
   }
 
-  loadJobs(resetPage = false) {
+  loadJobs(resetPage = false, filters?: FilterJobListDto) {
     this.loading.set(true);
 
     if (resetPage) {
       this.first = 0;
     }
 
-    const request = { limit: this.rows, offset: this.first, filters: this.filters() };
+    const request = { limit: this.rows, offset: this.first, filters: filters ?? this.filters() };
 
     this.vacantesService
       .getJobs(request)

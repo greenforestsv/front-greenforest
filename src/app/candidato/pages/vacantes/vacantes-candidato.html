@@ -3,43 +3,63 @@
     <section class="card p-8 flex flex-col gap-2">
       <h1 class="text-2xl inter-font font-bold mb-2">Buscar Vacantes</h1>
       <form
+        (ngSubmit)="jobs.loadJobs(true)"
         [formGroup]="search_form"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1fr_1fr_1fr_auto] gap-3 items-end"
       >
-        <input pInputText id="name" placeholder="Buscar por nombre" formControlName="name" fluid />
-
         <input
           pInputText
-          id="department"
-          placeholder="Departamento"
-          formControlName="department"
+          id="name"
+          placeholder="Ej. desarrollador, analista, gerente"
+          formControlName="name"
           fluid
         />
 
-        <input pInputText id="format" placeholder="Modalidad" formControlName="format" fluid />
+        <!-- Área -->
+        <app-area-select [control]="department" />
 
-        <input
-          pInputText
-          id="min_salary"
-          placeholder="Salario mínimo"
-          formControlName="min_salary"
-          fluid
-        />
+        <!-- Modalidad -->
+        <app-format-select [control]="format" [useLabelAsValue]="true" />
 
-        <input
-          pInputText
-          id="max_salary"
-          placeholder="Salario máximo"
-          formControlName="max_salary"
-          fluid
-        />
+        <!-- Salario mínimo -->
+        <p-iconfield class="flex-1">
+          <p-inputicon class="pi pi-dollar" />
+          <p-inputnumber
+            inputId="min_salary"
+            formControlName="min_salary"
+            placeholder="Salario mínimo"
+            [min]="0"
+            [useGrouping]="true"
+            [maxFractionDigits]="2"
+            fluid
+          />
+        </p-iconfield>
 
-        <p-button
-          icon="pi pi-search"
-          label="Buscar"
-          (onClick)="jobs.loadJobs(true)"
-          [loading]="jobs.loading()"
-        />
+        <!-- Salario máximo -->
+        <p-iconfield class="flex-1">
+          <p-inputicon class="pi pi-dollar" />
+          <p-inputnumber
+            inputId="max_salary"
+            formControlName="max_salary"
+            placeholder="Salario mínimo"
+            [min]="0"
+            [useGrouping]="true"
+            [maxFractionDigits]="2"
+            fluid
+          />
+        </p-iconfield>
+
+        <div class="flex gap-2 items-center">
+          <p-button type="submit" icon="pi pi-search" label="Buscar" [loading]="jobs.loading()" />
+          <p-button
+            type="button"
+            severity="secondary"
+            label="Limpiar filtros"
+            [loading]="jobs.loading()"
+            (onClick)="resetForm()"
+            styleClass="whitespace-nowrap"
+          />
+        </div>
       </form>
     </section>
 

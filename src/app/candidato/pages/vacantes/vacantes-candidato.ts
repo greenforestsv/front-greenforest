@@ -1,10 +1,15 @@
-import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, viewChild } from '@angular/core';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatedJobs } from './components/paginated-jobs';
+import { FormatSelect } from '../../../shared/components/format-select/format-select';
+import { AreaSelect } from './components/area-select/area-select';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
 
 @Component({
   selector: 'app-vacantes-candidato',
@@ -16,25 +21,28 @@ import { PaginatedJobs } from './components/paginated-jobs';
     ReactiveFormsModule,
     InputTextModule,
     PaginatedJobs,
+    FormatSelect,
+    AreaSelect,
+    InputNumberModule,
+    InputIconModule,
+    IconFieldModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './vacantes-candidato.html',
   styleUrl: './vacantes-candidato.scss',
 })
 export class VacantesCandidato {
-  area_options = [{ label: 'Operaciones', value: 'OPE' }];
-  modalidad_options = [{ label: 'Híbrido', value: 'HIB' }];
-  salario_options = [{ label: '$1000 - $1,500', value: '1' }];
+  readonly paginatedJobs = viewChild(PaginatedJobs);
 
   private fb = inject(FormBuilder);
 
   // ESTADOS INICIALES DE FORMULARIO
   readonly search_form = this.fb.nonNullable.group({
     name: [''],
-    department: [''],
-    format: [''],
-    min_salary: [''],
-    max_salary: [''],
+    department: this.fb.control<string | null>(null),
+    format: this.fb.control<string | null>(null),
+    min_salary: this.fb.control<number | null>(null),
+    max_salary: this.fb.control<number | null>(null),
   });
 
   // PROPIEDADES
@@ -44,16 +52,21 @@ export class VacantesCandidato {
   readonly min_salary = this.search_form.controls.min_salary;
   readonly max_salary = this.search_form.controls.max_salary;
 
-  matching_inteligente = signal([
-    {
-      id: 1,
-      name: 'NovaTech',
-      percentage: 94,
-    },
-    {
-      id: 2,
-      name: 'AgroPlus',
-      percentage: 91,
-    },
-  ]);
+  buscar(): void {
+    const filters = this.search_form.getRawValue();
+
+    this.paginatedJobs()?.loadJobs(true, filters);
+  }
+
+  resetForm(): void {
+    this.search_form.reset({
+      name: '',
+      department: null,
+      format: null,
+      min_salary: null,
+      max_salary: null,
+    });
+
+    this.paginatedJobs()?.loadJobs(true, {});
+  }
 }

@@ -1,0 +1,11 @@
+<p-select
+  id="contract_type"
+  [formControl]="control()"
+  [options]="contractTypeOptions"
+  optionLabel="label"
+  [optionValue]="useLabelAsValue() ? 'label' : 'value'"
+  fluid
+  placeholder="Tipo de contrato"
+  appendTo="body"
+  [showClear]="true"
+/>
