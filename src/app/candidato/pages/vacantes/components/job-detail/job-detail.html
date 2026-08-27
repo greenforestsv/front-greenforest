@@ -1,0 +1,236 @@
+<div class="bg-white grow rounded-3xl p-8 overflow-y-auto shadow-sm max-h-[950px]">
+  <div class="flex flex-col gap-6">
+    <!-- HEADER -->
+    <div class="flex justify-between">
+      <div class="flex flex-col gap-2">
+        <h1 class="text-3xl">{{ job().title }}</h1>
+
+        <p class="text-mid">
+          {{ job().normalized_name }}
+          <i class="pi pi-verified"></i>
+        </p>
+      </div>
+
+      <p-avatar
+        [label]="job().normalized_name.charAt(0).toUpperCase()"
+        class="mr-2"
+        size="xlarge"
+      />
+    </div>
+
+    <!-- INFO PRINCIPAL -->
+    <div class="flex flex-row justify-between gap-4">
+      <div class="text-sm text-gray-500">
+        <!-- Ubicación / fecha -->
+        <p>{{ job().department }}</p>
+
+        <p class="my-2">Publicado el {{ job().created_at | formatDate }}</p>
+
+        <!-- Skills -->
+        <div class="flex flex-wrap gap-2">
+          @for (skill of job().skills; track skill) {
+            <span class="accent-badge">
+              {{ skill }}
+            </span>
+          }
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="flex gap-2 my-4">
+          <p-button label="Aplicar ahora" [loading]="applying()" (onClick)="applyToJob()" />
+
+          <p-button
+            icon="pi pi-heart"
+            aria-label="Favorito"
+            [text]="true"
+            [rounded]="true"
+            [outlined]="true"
+          />
+
+          <p-button
+            icon="pi pi-share-alt"
+            aria-label="Compartir"
+            [text]="true"
+            [rounded]="true"
+            [outlined]="true"
+          />
+
+          <p-button
+            icon="pi pi-building"
+            aria-label="Perfil de empresa"
+            [text]="true"
+            [rounded]="true"
+            [outlined]="true"
+          />
+        </div>
+
+        <!-- CARACTERÍSTICAS -->
+        <div class="w-full flex gap-2">
+          <!-- SALARIO -->
+          <div
+            class="flex gap-2 rounded-2xl border p-2 border-gray-300 bg-white w-full items-start"
+          >
+            <div class="my-1 mx-1">
+              <i class="pi pi-dollar" style="color: var(--color-mid); font-size: 0.8rem"></i>
+            </div>
+
+            <div class="flex flex-col text-xs">
+              <span class="font-bold text-black">
+                {{ job().min_salary | currencyFormat }}
+                -
+                {{ job().max_salary | currencyFormat }}
+              </span>
+              <span>{{ job().payment_form }}</span>
+            </div>
+          </div>
+
+          <!-- CONTRATO -->
+          <div
+            class="flex gap-2 rounded-2xl border p-2 border-gray-300 bg-white w-full items-start"
+          >
+            <div class="my-1 mx-1">
+              <i class="pi pi-briefcase" style="color: var(--color-mid); font-size: 0.8rem"></i>
+            </div>
+
+            <div class="flex flex-col text-xs">
+              <span class="font-bold text-black">
+                {{ job().contract_type }}
+              </span>
+              <span>Contrato</span>
+            </div>
+          </div>
+
+          <!-- JORNADA -->
+          <div
+            class="flex gap-2 rounded-2xl border p-2 border-gray-300 bg-white w-full items-start"
+          >
+            <div class="my-1 mx-1">
+              <i class="pi pi-clock" style="color: var(--color-mid); font-size: 0.8rem"></i>
+            </div>
+
+            <div class="flex flex-col text-xs">
+              <span class="font-bold text-black">
+                {{ job().workday_type }}
+              </span>
+
+              @for (day of job().workday; track day) {
+                <span>{{ day }}</span>
+              }
+            </div>
+          </div>
+
+          <!-- MODALIDAD -->
+          <div
+            class="flex gap-2 rounded-2xl border p-2 border-gray-300 bg-white w-full items-start"
+          >
+            <div class="my-1 mx-1">
+              <i class="pi pi-map-marker" style="color: var(--color-mid); font-size: 0.8rem"></i>
+            </div>
+
+            <div class="flex flex-col text-xs">
+              <span class="font-bold text-black">
+                {{ job().format }}
+              </span>
+
+              <span>Modalidad</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPCIÓN -->
+    <div>
+      <h2 class="text-lg font-medium mb-2">Descripción del puesto</h2>
+
+      <p class="text-gray-600 leading-relaxed text-[14px]">
+        {{ job().description }}
+      </p>
+    </div>
+
+    <!-- RESPONSABILIDADES -->
+    <div>
+      <h2 class="text-lg font-medium mb-2">Responsabilidades</h2>
+
+      <ul class="list-disc pl-5 text-gray-600 flex flex-col gap-2 text-[14px]">
+        @for (requirement of job().requirements; track requirement) {
+          <li>{{ requirement }}</li>
+        }
+      </ul>
+    </div>
+
+    <!-- REQUISITOS -->
+    <div>
+      <h2 class="text-lg font-medium mb-2">Requisitos</h2>
+
+      <ul class="list-disc pl-5 text-gray-600 flex flex-col gap-2 text-[14px]">
+        @for (requirement of job().requirements; track requirement) {
+          <li>{{ requirement }}</li>
+        }
+      </ul>
+    </div>
+
+    <!-- HABILIDADES -->
+    <div>
+      <h2 class="text-lg font-medium mb-2">Habilidades</h2>
+
+      <div class="flex flex-wrap gap-2">
+        @for (skill of job().skills; track skill) {
+          <span class="accent-badge">
+            {{ skill }}
+          </span>
+        }
+      </div>
+    </div>
+
+    <!-- HERRAMIENTAS -->
+    <div>
+      <h2 class="text-lg font-medium mb-2">Herramientas</h2>
+
+      <div class="flex flex-wrap gap-2">
+        @for (tool of job().tools; track tool) {
+          <span class="accent-badge">
+            {{ tool }}
+          </span>
+        }
+      </div>
+    </div>
+
+    <!-- OTROS DATOS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="rounded-2xl border border-gray-300 p-3">
+        <span class="text-xs text-gray-500">Experiencia</span>
+        <p class="font-medium">{{ job().level_experience }}</p>
+      </div>
+
+      <div class="rounded-2xl border border-gray-300 p-3">
+        <span class="text-xs text-gray-500">Vacantes</span>
+        <p class="font-medium">{{ job().number_of_vacancies }}</p>
+      </div>
+
+      <div class="rounded-2xl border border-gray-300 p-3">
+        <span class="text-xs text-gray-500">Pago</span>
+        <p class="font-medium">{{ job().payment_form }}</p>
+      </div>
+
+      <div class="rounded-2xl border border-gray-300 p-3">
+        <span class="text-xs text-gray-500">Vehículo</span>
+        <p class="font-medium">
+          {{ job().vehicle ? 'Requerido' : 'No requerido' }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  <div class="login-callout p-4 rounded-3xl flex items-center gap-4">
+      <div>
+        <p class="text-sm text-accent-500 font-bold">
+          Iniciá sesión o creá tu cuenta para postularte
+        </p>
+        <p class="text-xs text-gray-500">Unite a Green Forest y accedé a nuevas oportunidades</p>
+      </div>
+      <div class="flex gap-2 justify-end shrink-0">
+        <p-button label="Iniciar sesión" variant="outlined" class="bg-white" />
+        <p-button label="Crear cuenta" class="btn-accent" />
+      </div>
+    </div> -->

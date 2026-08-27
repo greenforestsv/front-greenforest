@@ -2,73 +2,26 @@
   <div class="flex flex-col gap-4">
     <section class="card p-8 flex flex-col gap-2">
       <h1 class="text-2xl inter-font font-bold mb-2">Buscar Vacantes</h1>
-      <form
-        (ngSubmit)="jobs.loadJobs(true)"
-        [formGroup]="search_form"
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1fr_1fr_1fr_auto] gap-3 items-end"
-      >
-        <input
-          pInputText
-          id="name"
-          placeholder="Ej. desarrollador, analista, gerente"
-          formControlName="name"
-          fluid
-        />
-
-        <!-- Área -->
-        <app-area-select [control]="department" />
-
-        <!-- Modalidad -->
-        <app-format-select [control]="format" [useLabelAsValue]="true" />
-
-        <!-- Salario mínimo -->
-        <p-iconfield class="flex-1">
-          <p-inputicon class="pi pi-dollar" />
-          <p-inputnumber
-            inputId="min_salary"
-            formControlName="min_salary"
-            placeholder="Salario mínimo"
-            [min]="0"
-            [useGrouping]="true"
-            [maxFractionDigits]="2"
-            fluid
-          />
-        </p-iconfield>
-
-        <!-- Salario máximo -->
-        <p-iconfield class="flex-1">
-          <p-inputicon class="pi pi-dollar" />
-          <p-inputnumber
-            inputId="max_salary"
-            formControlName="max_salary"
-            placeholder="Salario mínimo"
-            [min]="0"
-            [useGrouping]="true"
-            [maxFractionDigits]="2"
-            fluid
-          />
-        </p-iconfield>
-
-        <div class="flex gap-2 items-center">
-          <p-button type="submit" icon="pi pi-search" label="Buscar" [loading]="jobs.loading()" />
-          <p-button
-            type="button"
-            severity="secondary"
-            label="Limpiar filtros"
-            [loading]="jobs.loading()"
-            (onClick)="resetForm()"
-            styleClass="whitespace-nowrap"
-          />
-        </div>
-      </form>
+      <app-job-filters
+        [loading]="jobList()?.loading() ?? false"
+        (filtersChange)="onFiltersChange($event)"
+      />
     </section>
 
-    <!-- JOB CARDS -->
-    <app-paginated-jobs #jobs [filters]="search_form.getRawValue()" />
+    <div class="flex gap-4">
+      <app-job-list class="shrink-0" [filters]="filters()" (jobSelected)="onJobSelected($event)" />
+      @if (selectedJob(); as job) {
+        <app-job-detail [job]="job" />
+      } @else {
+        <div class="card p-8 flex-1">
+          <p>Seleccioná una vacante para ver sus detalles.</p>
+        </div>
+      }
+    </div>
   </div>
-
-  <!-- ASIDE -->
-  <!--     <div class="flex-1 flex flex-col gap-4">
+</div>
+<!-- ASIDE -->
+<!--     <div class="flex-1 flex flex-col gap-4">
   
       <aside class="card p-6 space-y-2">
         <h2>Matching inteligente</h2>
@@ -138,4 +91,3 @@
         </div>
       </aside>
     </div> -->
-</div>

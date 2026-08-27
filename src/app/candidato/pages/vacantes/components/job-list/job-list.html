@@ -1,0 +1,153 @@
+<!-- <div class="pr-1 overflow-y-auto max-h-[950px]">
+  <div class="flex justify-between items-center p-4 rounded-3xl bg-white shadow-sm">
+    <h2 class="inter-font text-sm"><strong>12 vacantes disponibles </strong></h2>
+    <p-button
+      label="Crear alerta"
+      icon="pi pi-bell"
+      size="small"
+      variant="outlined"
+      [style]="{ borderColor: 'var(--color-mid)' }"
+    />
+  </div>
+  <div class="bg-white shadow-sm flex flex-col gap-3 my-2 overflow-y-auto p-4 rounded-3xl">
+    @for (empleo of empleos(); track empleo.id; let i = $index) {
+      <div
+        class="card border rounded-3xl p-4 pr-13 relative hover:shadow-md transition-all duration-200 hover:border-lite cursor-pointer"
+        [class.border-lite]="i === 0"
+        [class.shadow-sm]="i === 0"
+        [class.border-1]="i === 0"
+        [class.border-gray-300]="i !== 0"
+      >
+        <p-button
+          icon="pi pi-ellipsis-v"
+          aria-label="Opciones"
+          [text]="true"
+          class="absolute top-4 right-2"
+          size="small"
+        />
+        <div class="flex gap-4 items-center">
+          <p-avatar label="G" class="mr-2" size="xlarge" />
+          <div>
+            <h3 class="text-lg">Desarrollador Angular Senior</h3>
+            <h4 class="inter-font text-sm mb-2 text-mid">Green Forest</h4>
+            <div class="flex flex-col gap-1 text-sm font-light">
+              <span>
+                <i class="pi pi-map-marker" style="font-size: 0.8rem"></i> San Salvador, El Salvador
+              </span>
+              <div class="flex gap-6">
+                <span>$1,500 - $2,000</span>
+                <span><i class="pi pi-desktop" style="font-size: 0.8rem"></i> Remoto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div> -->
+<div class="pr-1 flex flex-col gap-2 max-h-[950px]">
+  <!-- HEADER -->
+  <div class="flex justify-between items-center p-4 rounded-3xl bg-white shadow-sm shrink-0">
+    <h2 class="inter-font text-sm">
+      <strong>{{ totalRecords() }} vacantes disponibles</strong>
+    </h2>
+
+    <p-button
+      label="Crear alerta"
+      icon="pi pi-bell"
+      size="small"
+      variant="outlined"
+      [style]="{ borderColor: 'var(--color-mid)' }"
+    />
+  </div>
+
+  <!-- LISTA -->
+  <div class="bg-white shadow-sm flex flex-col gap-3 p-4 rounded-3xl overflow-y-auto">
+    @if (loading()) {
+      @for (item of items; track $index) {
+        <div class="border border-gray-200 rounded-3xl p-4 animate-pulse">
+          <div class="flex gap-4 items-center">
+            <div class="w-16 h-16 rounded-full bg-gray-200"></div>
+
+            <div class="flex-1 flex flex-col gap-2">
+              <div class="h-5 w-3/4 bg-gray-200 rounded"></div>
+              <div class="h-4 w-1/2 bg-gray-200 rounded"></div>
+              <div class="h-4 w-full bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+      }
+    } @else if (jobs().length === 0) {
+      <div class="p-8 text-center text-gray-500">No se encontraron vacantes.</div>
+    } @else {
+      @for (job of jobs(); track job.id) {
+        <div
+          class="card border rounded-3xl p-4 pr-13 relative cursor-pointer transition-all duration-200 hover:shadow-md hover:border-lite"
+          [class.border-lite]="selectedJobId() === job.id"
+          [class.shadow-sm]="selectedJobId() === job.id"
+          [class.border-2]="selectedJobId() === job.id"
+          [class.border-gray-300]="selectedJobId() !== job.id"
+          (click)="selectJob(job)"
+        >
+          <!-- OPCIONES -->
+          <p-button
+            icon="pi pi-ellipsis-v"
+            aria-label="Opciones"
+            [text]="true"
+            class="absolute top-4 right-2"
+            size="small"
+            (onClick)="$event.stopPropagation()"
+          />
+
+          <div class="flex gap-4 items-center">
+            <!-- AVATAR -->
+            <p-avatar [label]="job.normalized_name.charAt(0).toUpperCase()" size="xlarge" />
+
+            <div class="min-w-0 flex-1">
+              <!-- TÍTULO -->
+              <h3 class="text-lg truncate">
+                {{ job.title }}
+              </h3>
+
+              <!-- EMPRESA -->
+              <h4 class="inter-font text-sm mb-2 text-mid truncate">
+                {{ job.normalized_name }}
+              </h4>
+
+              <div class="flex flex-col gap-1 text-sm font-light">
+                <!-- DEPARTAMENTO -->
+                <span class="truncate">
+                  <i class="pi pi-map-marker" style="font-size: 0.8rem"></i>
+
+                  {{ job.department }}
+                </span>
+
+                <div class="flex flex-wrap gap-x-6 gap-y-1">
+                  <!-- SALARIO -->
+                  <span>
+                    <i class="pi pi-dollar" style="font-size: 0.8rem"></i>
+
+                    {{ job.min_salary }} - {{ job.max_salary }} USD
+                  </span>
+
+                  <!-- MODALIDAD -->
+                  <span>
+                    <i class="pi pi-desktop" style="font-size: 0.8rem"></i>
+
+                    {{ job.format }}
+                  </span>
+                </div>
+
+                <!-- FECHA -->
+                <span class="text-xs text-gray-400">
+                  Publicado:
+                  {{ job.created_at | formatDate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

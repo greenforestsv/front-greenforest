@@ -36,6 +36,7 @@ export interface GetVacanteDto extends Vacante {
   original_tenant_id: string;
   normalized_name: string;
   original_job_id?: string;
+  level_experience: string;
 }
 
 export type CreateVacanteDto = VacanteFormDto;
